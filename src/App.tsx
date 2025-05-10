@@ -1,39 +1,143 @@
-import { Button } from "@/components/ui/button";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+
+import MarqueeText from "./components/ui/marquee-text";
+import Header from "./components/ui/navigation-header";
+import CategoryList from "./components/ui/category-list";
+import BannerCarousel from "./components/ui/banner-carousel";
+
+const categories = [
+  {
+    categoryId: "1",
+    categoryImage:
+      "https://instamart-media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_249/NI_CATALOG/IMAGES/CIW/2025/3/19/f7d9376b-bd76-4d32-b764-c571cc77a2e9_1caf9829-007f-4b8d-a38e-fa6d092320c2",
+    categoryText: "Cold Drinks and Juices",
+  },
+  {
+    categoryId: "2",
+    categoryImage:
+      "https://instamart-media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_249/NI_CATALOG/IMAGES/CIW/2025/3/19/f7d9376b-bd76-4d32-b764-c571cc77a2e9_1caf9829-007f-4b8d-a38e-fa6d092320c2",
+    categoryText: "Ice Creams and Frozen Desserts",
+  },
+  {
+    categoryId: "1",
+    categoryImage:
+      "https://instamart-media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_249/NI_CATALOG/IMAGES/CIW/2025/3/19/f7d9376b-bd76-4d32-b764-c571cc77a2e9_1caf9829-007f-4b8d-a38e-fa6d092320c2",
+    categoryText: "Cold Drinks and Juices",
+  },
+  {
+    categoryId: "2",
+    categoryImage:
+      "https://instamart-media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_249/NI_CATALOG/IMAGES/CIW/2025/3/19/f7d9376b-bd76-4d32-b764-c571cc77a2e9_1caf9829-007f-4b8d-a38e-fa6d092320c2",
+    categoryText: "Ice Creams and Frozen Desserts",
+  },
+  {
+    categoryId: "1",
+    categoryImage:
+      "https://instamart-media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_249/NI_CATALOG/IMAGES/CIW/2025/3/19/f7d9376b-bd76-4d32-b764-c571cc77a2e9_1caf9829-007f-4b8d-a38e-fa6d092320c2",
+    categoryText: "Cold Drinks and Juices",
+  },
+  {
+    categoryId: "2",
+    categoryImage:
+      "https://instamart-media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_249/NI_CATALOG/IMAGES/CIW/2025/3/19/f7d9376b-bd76-4d32-b764-c571cc77a2e9_1caf9829-007f-4b8d-a38e-fa6d092320c2",
+    categoryText: "Ice Creams and Frozen Desserts",
+  },
+  {
+    categoryId: "1",
+    categoryImage:
+      "https://instamart-media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_249/NI_CATALOG/IMAGES/CIW/2025/3/19/f7d9376b-bd76-4d32-b764-c571cc77a2e9_1caf9829-007f-4b8d-a38e-fa6d092320c2",
+    categoryText: "Cold Drinks and Juices",
+  },
+  {
+    categoryId: "2",
+    categoryImage:
+      "https://instamart-media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_249/NI_CATALOG/IMAGES/CIW/2025/3/19/f7d9376b-bd76-4d32-b764-c571cc77a2e9_1caf9829-007f-4b8d-a38e-fa6d092320c2",
+    categoryText: "Ice Creams and Frozen Desserts",
+  },
+  {
+    categoryId: "1",
+    categoryImage:
+      "https://instamart-media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_249/NI_CATALOG/IMAGES/CIW/2025/3/19/f7d9376b-bd76-4d32-b764-c571cc77a2e9_1caf9829-007f-4b8d-a38e-fa6d092320c2",
+    categoryText: "Cold Drinks and Juices",
+  },
+  {
+    categoryId: "2",
+    categoryImage:
+      "https://instamart-media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_249/NI_CATALOG/IMAGES/CIW/2025/3/19/f7d9376b-bd76-4d32-b764-c571cc77a2e9_1caf9829-007f-4b8d-a38e-fa6d092320c2",
+    categoryText: "Ice Creams and Frozen Desserts",
+  },
+  {
+    categoryId: "1",
+    categoryImage:
+      "https://instamart-media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_249/NI_CATALOG/IMAGES/CIW/2025/3/19/f7d9376b-bd76-4d32-b764-c571cc77a2e9_1caf9829-007f-4b8d-a38e-fa6d092320c2",
+    categoryText: "Cold Drinks and Juices",
+  },
+  {
+    categoryId: "2",
+    categoryImage:
+      "https://instamart-media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_249/NI_CATALOG/IMAGES/CIW/2025/3/19/f7d9376b-bd76-4d32-b764-c571cc77a2e9_1caf9829-007f-4b8d-a38e-fa6d092320c2",
+    categoryText: "Ice Creams and Frozen Desserts",
+  },
+  {
+    categoryId: "1",
+    categoryImage:
+      "https://instamart-media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_249/NI_CATALOG/IMAGES/CIW/2025/3/19/f7d9376b-bd76-4d32-b764-c571cc77a2e9_1caf9829-007f-4b8d-a38e-fa6d092320c2",
+    categoryText: "Cold Drinks and Juices",
+  },
+  {
+    categoryId: "2",
+    categoryImage:
+      "https://instamart-media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_249/NI_CATALOG/IMAGES/CIW/2025/3/19/f7d9376b-bd76-4d32-b764-c571cc77a2e9_1caf9829-007f-4b8d-a38e-fa6d092320c2",
+    categoryText: "Ice Creams and Frozen Desserts",
+  },
+  {
+    categoryId: "1",
+    categoryImage:
+      "https://instamart-media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_249/NI_CATALOG/IMAGES/CIW/2025/3/19/f7d9376b-bd76-4d32-b764-c571cc77a2e9_1caf9829-007f-4b8d-a38e-fa6d092320c2",
+    categoryText: "Cold Drinks and Juices",
+  },
+  {
+    categoryId: "2",
+    categoryImage:
+      "https://instamart-media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_249/NI_CATALOG/IMAGES/CIW/2025/3/19/f7d9376b-bd76-4d32-b764-c571cc77a2e9_1caf9829-007f-4b8d-a38e-fa6d092320c2",
+    categoryText: "Ice Creams and Frozen Desserts",
+  },
+
+  // Add more...
+];
+
+const handleCategoryClick = (categoryId: string) => {
+  console.log("Clicked:", categoryId);
+};
 
 function App() {
   return (
     <>
-      <p className="text-3xl font-bold underline">Hello World!</p>
-      <Button>Click me</Button>
-      <AlertDialog>
-        <AlertDialogTrigger asChild>
-          <Button variant="outline">Show Dialog</Button>
-        </AlertDialogTrigger>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-            <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete your
-              account and remove your data from our servers.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction>Continue</AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      <div>
+        <MarqueeText
+          text="🚀 Welcome to the React TS Marquee Component Demo!"
+          speed={15}
+        />
+      </div>
+      <Header />
+      <CategoryList
+        categories={categories}
+        onCategoryClick={handleCategoryClick}
+      />
+      <BannerCarousel/>
+      {/* <BannerCarousel
+        items={[
+          {
+            id: "1",
+            image: "https://rukminim2.flixcart.com/fk-p-flap/480/80/image/41f7d7fb8967dab4.jpg?q=20",
+            clickAction: () => console.log("Clicked 1"),
+          },
+          {
+            id: "2",
+            image: "https://rukminim2.flixcart.com/fk-p-flap/480/80/image/41f7d7fb8967dab4.jpg?q=20",
+            clickAction: () => alert("Clicked 2"),
+          },
+        ]}
+      /> */}
     </>
   );
 }

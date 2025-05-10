@@ -40,3 +40,15 @@
 .read-the-docs {
   color: #888;
 }
+
+.custom-swiper .swiper-button-next,
+.custom-swiper .swiper-button-prev {
+  color: #ec4899 !important; /* Tailwind's pink-500 */
+  width: 48px;
+  height: 48px;
+}
+
+.custom-swiper .swiper-button-next::after,
+.custom-swiper .swiper-button-prev::after {
+  font-size: 32px !important;
+}
