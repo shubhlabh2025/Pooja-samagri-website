@@ -123,7 +123,12 @@ function App() {
         categories={categories}
         onCategoryClick={handleCategoryClick}
       />
-      <BannerCarousel/>
+      <div >
+    <BannerCarousel>
+
+      </BannerCarousel>
+      </div>
+  
       {/* <BannerCarousel
         items={[
           {
