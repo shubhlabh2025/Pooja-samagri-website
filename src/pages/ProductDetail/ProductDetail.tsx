@@ -1,6 +1,6 @@
 import CategoryList from "@/components/custom/CategoryList";
 import MarqueeText from "@/components/custom/MarqueeTree";
-import Header from "@/components/ui/navigation-header";
+import HomeNavBar from "@/components/navigation/HomeNavBar";
 
 const categories = [
   {
@@ -104,7 +104,7 @@ const categories = [
 ];
 
 const ProductDetailsScreen = () => {
-  function handleCategoryClick(categoryId: string): void {
+  function handleCategoryClick(): void {
     throw new Error("Function not implemented.");
   }
 
@@ -116,7 +116,7 @@ const ProductDetailsScreen = () => {
           speed={15}
         />
       </div>
-      <Header />
+      <HomeNavBar />
       <CategoryList
         categories={categories}
         onCategoryClick={handleCategoryClick}

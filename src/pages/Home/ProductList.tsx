@@ -2,7 +2,7 @@ import type { Product } from "@/interfaces/product";
 import { useEffect, useState } from "react";
 import ProductItems from "./ProductItem";
 
-const demoProducts = [
+const demoProducts: Product[] = [
   {
     id: 1,
     name: "tests2",
@@ -12,8 +12,6 @@ const demoProducts = [
     out_of_stock: false,
     category_id: null,
     sub_category_id: null,
-    createdAt: "2025-05-11T08:42:21.000Z",
-    updatedAt: "2025-05-11T08:42:21.000Z",
     SubCategory: null,
     ProductsVariants: [
       {
@@ -22,8 +20,6 @@ const demoProducts = [
         price: "100",
         mrp: "100",
         product_id: 1,
-        createdAt: "2025-05-11T08:42:21.000Z",
-        updatedAt: "2025-05-11T08:42:21.000Z",
       },
     ],
     ProductCategories: [
@@ -31,8 +27,6 @@ const demoProducts = [
         id: 1,
         category_id: 1,
         product_id: 1,
-        createdAt: "2025-05-11T08:42:21.000Z",
-        updatedAt: "2025-05-11T08:42:21.000Z",
       },
     ],
   },
@@ -45,8 +39,6 @@ const demoProducts = [
     out_of_stock: false,
     category_id: null,
     sub_category_id: null,
-    createdAt: "2025-05-11T08:42:21.000Z",
-    updatedAt: "2025-05-11T08:42:21.000Z",
     SubCategory: null,
     ProductsVariants: [
       {
@@ -55,8 +47,6 @@ const demoProducts = [
         price: "100",
         mrp: "100",
         product_id: 1,
-        createdAt: "2025-05-11T08:42:21.000Z",
-        updatedAt: "2025-05-11T08:42:21.000Z",
       },
     ],
     ProductCategories: [
@@ -64,8 +54,6 @@ const demoProducts = [
         id: 1,
         category_id: 1,
         product_id: 1,
-        createdAt: "2025-05-11T08:42:21.000Z",
-        updatedAt: "2025-05-11T08:42:21.000Z",
       },
     ],
   },
@@ -78,8 +66,6 @@ const demoProducts = [
     out_of_stock: false,
     category_id: null,
     sub_category_id: null,
-    createdAt: "2025-05-11T08:42:21.000Z",
-    updatedAt: "2025-05-11T08:42:21.000Z",
     SubCategory: null,
     ProductsVariants: [
       {
@@ -88,8 +74,6 @@ const demoProducts = [
         price: "100",
         mrp: "100",
         product_id: 1,
-        createdAt: "2025-05-11T08:42:21.000Z",
-        updatedAt: "2025-05-11T08:42:21.000Z",
       },
     ],
     ProductCategories: [
@@ -97,8 +81,6 @@ const demoProducts = [
         id: 1,
         category_id: 1,
         product_id: 1,
-        createdAt: "2025-05-11T08:42:21.000Z",
-        updatedAt: "2025-05-11T08:42:21.000Z",
       },
     ],
   },
@@ -111,8 +93,6 @@ const demoProducts = [
     out_of_stock: false,
     category_id: null,
     sub_category_id: null,
-    createdAt: "2025-05-11T08:42:21.000Z",
-    updatedAt: "2025-05-11T08:42:21.000Z",
     SubCategory: null,
     ProductsVariants: [
       {
@@ -121,8 +101,6 @@ const demoProducts = [
         price: "100",
         mrp: "100",
         product_id: 1,
-        createdAt: "2025-05-11T08:42:21.000Z",
-        updatedAt: "2025-05-11T08:42:21.000Z",
       },
     ],
     ProductCategories: [
@@ -130,8 +108,6 @@ const demoProducts = [
         id: 1,
         category_id: 1,
         product_id: 1,
-        createdAt: "2025-05-11T08:42:21.000Z",
-        updatedAt: "2025-05-11T08:42:21.000Z",
       },
     ],
   },
@@ -144,8 +120,6 @@ const demoProducts = [
     out_of_stock: false,
     category_id: null,
     sub_category_id: null,
-    createdAt: "2025-05-11T08:42:21.000Z",
-    updatedAt: "2025-05-11T08:42:21.000Z",
     SubCategory: null,
     ProductsVariants: [
       {
@@ -154,8 +128,6 @@ const demoProducts = [
         price: "100",
         mrp: "100",
         product_id: 1,
-        createdAt: "2025-05-11T08:42:21.000Z",
-        updatedAt: "2025-05-11T08:42:21.000Z",
       },
     ],
     ProductCategories: [
@@ -163,8 +135,6 @@ const demoProducts = [
         id: 1,
         category_id: 1,
         product_id: 1,
-        createdAt: "2025-05-11T08:42:21.000Z",
-        updatedAt: "2025-05-11T08:42:21.000Z",
       },
     ],
   },
@@ -177,8 +147,6 @@ const demoProducts = [
     out_of_stock: false,
     category_id: null,
     sub_category_id: null,
-    createdAt: "2025-05-11T08:42:21.000Z",
-    updatedAt: "2025-05-11T08:42:21.000Z",
     SubCategory: null,
     ProductsVariants: [
       {
@@ -187,8 +155,6 @@ const demoProducts = [
         price: "100",
         mrp: "100",
         product_id: 1,
-        createdAt: "2025-05-11T08:42:21.000Z",
-        updatedAt: "2025-05-11T08:42:21.000Z",
       },
     ],
     ProductCategories: [
@@ -196,8 +162,6 @@ const demoProducts = [
         id: 1,
         category_id: 1,
         product_id: 1,
-        createdAt: "2025-05-11T08:42:21.000Z",
-        updatedAt: "2025-05-11T08:42:21.000Z",
       },
     ],
   },
@@ -210,8 +174,6 @@ const demoProducts = [
     out_of_stock: false,
     category_id: null,
     sub_category_id: null,
-    createdAt: "2025-05-11T08:42:21.000Z",
-    updatedAt: "2025-05-11T08:42:21.000Z",
     SubCategory: null,
     ProductsVariants: [
       {
@@ -220,8 +182,6 @@ const demoProducts = [
         price: "100",
         mrp: "100",
         product_id: 1,
-        createdAt: "2025-05-11T08:42:21.000Z",
-        updatedAt: "2025-05-11T08:42:21.000Z",
       },
     ],
     ProductCategories: [
@@ -229,8 +189,6 @@ const demoProducts = [
         id: 1,
         category_id: 1,
         product_id: 1,
-        createdAt: "2025-05-11T08:42:21.000Z",
-        updatedAt: "2025-05-11T08:42:21.000Z",
       },
     ],
   },
@@ -243,8 +201,7 @@ const demoProducts = [
     out_of_stock: false,
     category_id: null,
     sub_category_id: null,
-    createdAt: "2025-05-11T08:42:21.000Z",
-    updatedAt: "2025-05-11T08:42:21.000Z",
+
     SubCategory: null,
     ProductsVariants: [
       {
@@ -253,8 +210,6 @@ const demoProducts = [
         price: "100",
         mrp: "100",
         product_id: 1,
-        createdAt: "2025-05-11T08:42:21.000Z",
-        updatedAt: "2025-05-11T08:42:21.000Z",
       },
     ],
     ProductCategories: [
@@ -262,8 +217,6 @@ const demoProducts = [
         id: 1,
         category_id: 1,
         product_id: 1,
-        createdAt: "2025-05-11T08:42:21.000Z",
-        updatedAt: "2025-05-11T08:42:21.000Z",
       },
     ],
   },
@@ -276,8 +229,7 @@ const demoProducts = [
     out_of_stock: false,
     category_id: null,
     sub_category_id: null,
-    createdAt: "2025-05-11T08:42:21.000Z",
-    updatedAt: "2025-05-11T08:42:21.000Z",
+
     SubCategory: null,
     ProductsVariants: [
       {
@@ -286,8 +238,6 @@ const demoProducts = [
         price: "100",
         mrp: "100",
         product_id: 1,
-        createdAt: "2025-05-11T08:42:21.000Z",
-        updatedAt: "2025-05-11T08:42:21.000Z",
       },
     ],
     ProductCategories: [
@@ -295,16 +245,14 @@ const demoProducts = [
         id: 1,
         category_id: 1,
         product_id: 1,
-        createdAt: "2025-05-11T08:42:21.000Z",
-        updatedAt: "2025-05-11T08:42:21.000Z",
       },
     ],
   },
 ];
 
 const ProductList = () => {
-  const [products, setProducts] = useState<Product[]>(demoProducts);
-  const [visibleCount, setVisibleCount] = useState(20);
+  const [products] = useState<Product[]>(demoProducts);
+  const [visibleCount] = useState(20);
 
   function getProductsData() {
     //   get(`api/products?page=1&pageSize=10`)

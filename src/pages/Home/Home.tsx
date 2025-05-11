@@ -5,7 +5,7 @@ import MarqueeText from "@/components/custom/MarqueeTree";
 import type { Product } from "@/interfaces/product";
 import { useEffect, useState } from "react";
 import ProductList from "./ProductList";
-import HomeNavBar from "@/components/navigation/homeNavBar";
+import HomeNavBar from "@/components/navigation/HomeNavBar";
 
 const Home = () => {
   const categories = [

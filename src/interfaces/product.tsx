@@ -1,4 +1,3 @@
-import type { Category } from "./category";
 import type { ProductCategory } from "./product-categories";
 import type { ProductVariant } from "./product-variant";
 import type { SubCategory } from "./sub-category";
@@ -10,8 +9,9 @@ export interface Product {
   description: string;
   price: string;
   out_of_stock: boolean;
-  category_id: number;
-  SubCategory: SubCategory;
-  ProductCategories: ProductCategory[];
+  category_id?: number | null;
+  sub_category_id?: number | null;
+  SubCategory?: SubCategory | null;
   ProductsVariants: ProductVariant[];
+  ProductCategories: ProductCategory[];
 }
