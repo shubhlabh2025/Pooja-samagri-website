@@ -1,5 +1,5 @@
-import CategoryList from "@/components/ui/category-list";
-import MarqueeText from "@/components/ui/marquee-text";
+import CategoryList from "@/components/custom/CategoryList";
+import MarqueeText from "@/components/custom/MarqueeTree";
 import Header from "@/components/ui/navigation-header";
 
 const categories = [
@@ -103,15 +103,13 @@ const categories = [
   // Add more...
 ];
 
-const ProductDetailsScreen = ()=> {
+const ProductDetailsScreen = () => {
+  function handleCategoryClick(categoryId: string): void {
+    throw new Error("Function not implemented.");
+  }
 
-
-    function handleCategoryClick(categoryId: string): void {
-        throw new Error("Function not implemented.");
-    }
-
-    return(
-  <>
+  return (
+    <>
       <div>
         <MarqueeText
           text="🚀 Welcome to the React TS Marquee Component Demo!"
@@ -123,9 +121,8 @@ const ProductDetailsScreen = ()=> {
         categories={categories}
         onCategoryClick={handleCategoryClick}
       />
-
-      </>
-    );
-}
+    </>
+  );
+};
 
 export default ProductDetailsScreen;

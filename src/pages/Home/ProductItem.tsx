@@ -1,4 +1,3 @@
-import { Card } from "@/components/ui/card";
 import type { Product } from "@/interfaces/product";
 import React from "react";
 
