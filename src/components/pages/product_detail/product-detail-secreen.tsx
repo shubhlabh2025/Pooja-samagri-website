@@ -1,12 +1,6 @@
-import MarqueeText from "./components/ui/marquee-text";
-import Header from "./components/ui/navigation-header";
-import CategoryList from "./components/ui/category-list";
-import BannerCarousel from "./components/ui/banner-carousel";
-import { get } from "./api/apiFunction";
-import { useEffect, useState } from "react";
-import type { Product } from "./interfaces/product";
-import ProductItems from "./components/pages/homescreen/productItem";
-import ProductList from "./components/pages/homescreen/product-list";
+import CategoryList from "@/components/ui/category-list";
+import MarqueeText from "@/components/ui/marquee-text";
+import Header from "@/components/ui/navigation-header";
 
 const categories = [
   {
@@ -109,62 +103,15 @@ const categories = [
   // Add more...
 ];
 
-const handleCategoryClick = (categoryId: string) => {
-  console.log("Clicked:", categoryId);
-};
+const ProductDetailsScreen = ()=> {
 
-function App() {
-  const [products, setProducts] = useState<Product[]>([]);
 
-  const getAllProductdata = () => {
-    get(`api/products?page=1&pageSize=10`)
-      .then((res) => {
-        if (res.status == 200) {
-          console.log(res.data.data.products);
-          setProducts(res.data.data.products);
-        } else {
-          alert("Error Occured");
-        }
-      })
-      .catch(() => {});
-  };
+    function handleCategoryClick(categoryId: string): void {
+        throw new Error("Function not implemented.");
+    }
 
-  const getAllCategoriesData = () => {
-    get(`api/categories?page=1&pageSize=10`)
-      .then((res) => {
-        if (res.status == 200) {
-          console.log(res);
-        } else {
-          alert("Error Occured");
-        }
-      })
-      .catch(() => {});
-  };
-
-  const getAdBannersData = () => {
-    get(`api/banners?page=1&pageSize=10`)
-      .then((res) => {
-        if (res.status == 200) {
-          console.log(res);
-        } else {
-          alert("Error Occured");
-        }
-      })
-      .catch(() => {});
-  };
-
-  useEffect(() => {
-    getAllProductdata();
-    getAllCategoriesData();
-    getAdBannersData();
-  }, []);
-
-  useEffect(() => {
-    console.log("Products updated in state:", products);
-  }, [products]);
-
-  return (
-    <>
+    return(
+  <>
       <div>
         <MarqueeText
           text="🚀 Welcome to the React TS Marquee Component Demo!"
@@ -177,34 +124,8 @@ function App() {
         onCategoryClick={handleCategoryClick}
       />
 
-      <BannerCarousel></BannerCarousel>
-      <span className="flex text-base font-semibold ms-3 mt-8">Explore the Products</span>
-      <ProductList></ProductList>
-
-      {/* {products.length > 0 && (
-        <ProductItems
-          id={products[0].id}
-          text={products[0].name}
-          image={products[0].image}
-          price={products[0].price}
-        />
-      )} */}
-      {/* <BannerCarousel
-        items={[
-          {
-            id: "1",
-            image: "https://rukminim2.flixcart.com/fk-p-flap/480/80/image/41f7d7fb8967dab4.jpg?q=20",
-            clickAction: () => console.log("Clicked 1"),
-          },
-          {
-            id: "2",
-            image: "https://rukminim2.flixcart.com/fk-p-flap/480/80/image/41f7d7fb8967dab4.jpg?q=20",
-            clickAction: () => alert("Clicked 2"),
-          },
-        ]}
-      /> */}
-    </>
-  );
+      </>
+    );
 }
 
-export default App;
+export default ProductDetailsScreen;
