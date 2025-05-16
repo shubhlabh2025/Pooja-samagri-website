@@ -4,6 +4,10 @@ import { BrowserRouter, Routes, Route } from "react-router";
 import "./index.css";
 import App from "./App.tsx";
 import Cart from "./pages/Cart/Cart.tsx";
+import ProductDetailsScreen from "./pages/ProductDetail/ProductDetail.tsx";
+import { Search } from "lucide-react";
+import SearchScreen from "./pages/Search/Search.tsx";
+import SubCategoriesWithProductScreen from "./pages/SubCategoryWithProducts/SubCategoriesWithProduct.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -11,6 +15,10 @@ createRoot(document.getElementById("root")!).render(
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/category/:categoryId" element={<SubCategoriesWithProductScreen />} />
+        <Route path="/product/:productId" element={<ProductDetailsScreen />} />
+        <Route path="/search" element={<SearchScreen />} />
+
       </Routes>
     </BrowserRouter>
   </StrictMode>

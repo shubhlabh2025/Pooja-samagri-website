@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link, NavLink } from 'react-router';
 
 interface CategoryItem {
   categoryId: string;
@@ -8,12 +9,11 @@ interface CategoryItem {
 
 interface CategoryListProps {
   categories: CategoryItem[];
-  onCategoryClick: (categoryId: string) => void;
 }
 
 const PAGE_SIZE = 20;
 
-const CategoryList: React.FC<CategoryListProps> = ({ categories, onCategoryClick }) => {
+const CategoryList: React.FC<CategoryListProps> = ({ categories }) => {
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
   const handleLoadMore = () => {
@@ -26,10 +26,11 @@ const CategoryList: React.FC<CategoryListProps> = ({ categories, onCategoryClick
     <div className="p-4">
    <div className="flex overflow-x-auto gap-4 items-center hide-scrollbar snap-x snap-mandatory scroll-smooth">
   {visibleItems.map((item) => (
+              <Link to="/category/23">
+
 <div
   key={item.categoryId}
   className="flex flex-col items-center min-w-[100px] cursor-pointer snap-start"
-  onClick={() => onCategoryClick(item.categoryId)}
 >
   <div className="h-36 flex flex-col items-center justify-between">
     <div className="bg-[#fff5f8] rounded-xl p-3 w-24 h-24 flex items-center justify-center shadow-sm">
@@ -44,7 +45,7 @@ const CategoryList: React.FC<CategoryListProps> = ({ categories, onCategoryClick
     </span>
   </div>
 </div>
-
+</Link>
   ))}
 
   {/* Load More button also snaps */}

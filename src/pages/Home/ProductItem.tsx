@@ -36,7 +36,7 @@ const ProductItems: React.FC<ProductItemProps> = ({ item }) => {
 
           {/* Product image */}
           <img
-            src="https://instamart-media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto/NI_CATALOG/IMAGES/CIW/2025/1/10/1a5b7415-983a-4104-8c26-d54ff1836848_873603_2.png"
+            src="https://assets.customerglu.com/35deace8-c04f-43c3-a00b-9c06eaae7acb/WhatsApp Image 2025-05-12 at 01.36.19.jpeg"
             alt={item.name}
             className="object-contain w-full h-full"
           />

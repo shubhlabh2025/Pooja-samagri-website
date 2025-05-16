@@ -119,7 +119,6 @@ const ProductDetailsScreen = () => {
       <HomeNavBar />
       <CategoryList
         categories={categories}
-        onCategoryClick={handleCategoryClick}
       />
     </>
   );

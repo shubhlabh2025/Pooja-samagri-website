@@ -171,7 +171,6 @@ const Home = () => {
       <HomeNavBar />
       <CategoryList
         categories={categories}
-        onCategoryClick={handleCategoryClick}
       />
 
       <BannerCarousel></BannerCarousel>

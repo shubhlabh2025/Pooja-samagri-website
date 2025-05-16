@@ -1,6 +1,7 @@
 import type { Product } from "@/interfaces/product";
 import { useEffect, useState } from "react";
 import ProductItems from "./ProductItem";
+import { Link } from "react-router";
 
 const demoProducts: Product[] = [
   {
@@ -276,7 +277,10 @@ const ProductList = () => {
     <div className="p-4">
       <div className="flex overflow-x-auto gap-4 items-center hide-scrollbar snap-x snap-mandatory scroll-smooth">
         {products.map((item, i) => (
+                        <Link to="/product/123">
+          
           <ProductItems key={i} item={item}></ProductItems>
+          </Link>
         ))}
 
         {/* Load More button also snaps */}
