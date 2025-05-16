@@ -6,6 +6,7 @@ import { useState } from "react";
 import { MapPin, Menu, ShoppingCart, User } from "lucide-react";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import LoginDialog from "../dialog/LoginDialog";
+import { NavLink } from "react-router";
 
 const HomeNavBar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -46,11 +47,13 @@ const HomeNavBar = () => {
             </DialogTrigger>
             <LoginDialog />
           </Dialog>
-          <TextWithIcons
-            icon={<ShoppingCart size={18} />}
-            text="Cart"
-            onClick={() => {}}
-          />
+          <NavLink to="/cart" end>
+            <TextWithIcons
+              icon={<ShoppingCart size={18} />}
+              text="Cart"
+              onClick={() => {}}
+            />
+          </NavLink>
           <TextWithIcons
             icon={<MapPin size={18} />}
             text="Update Location"

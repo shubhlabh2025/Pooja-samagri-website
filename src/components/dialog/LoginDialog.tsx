@@ -25,7 +25,7 @@ import { z } from "zod";
 
 const LoginDialog = () => {
   const [isOtpScreen, setIsOtpScreen] = useState(false);
-  const [showResend, setShowResend] = useState(true);
+  const [showResend, setShowResend] = useState(false);
   const [mobileValue, setMobileValue] = useState("");
   const [resendCooldown, setResendCooldown] = useState(30);
 
