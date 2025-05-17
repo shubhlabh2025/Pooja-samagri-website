@@ -6,6 +6,7 @@ import type { Product } from "@/interfaces/product";
 import { useEffect, useState } from "react";
 import ProductList from "./ProductList";
 import HomeNavBar from "@/components/navigation/HomeNavBar";
+import Footer from "@/components/custom/Fotter";
 
 const Home = () => {
   const categories = [
@@ -171,10 +172,15 @@ const Home = () => {
       />
 
       <BannerCarousel></BannerCarousel>
-      <span className="flex text-base font-semibold ms-3 mt-8">
-        Explore the Products
+      <span className="flex text-base font-semibold ms-3 mt-4">
+        Trending Products
       </span>
       <ProductList></ProductList>
+       <span className="flex text-base font-semibold ms-3 mt-4">
+        Best Sellers
+      </span>
+      <ProductList></ProductList>
+      <Footer></Footer>
     </>
   );
 };

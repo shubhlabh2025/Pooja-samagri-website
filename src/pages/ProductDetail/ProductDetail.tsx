@@ -1,4 +1,5 @@
 import MarqueeText from "@/components/custom/MarqueeTree";
+import ThumbnailCarousel from "@/components/custom/ThumbnailCarousel";
 import HomeNavBar from "@/components/navigation/HomeNavBar";
 import { useState } from "react";
 
@@ -19,6 +20,16 @@ const ProductDetailsScreen = () => {
       img: "https://assets.customerglu.com/35deace8-c04f-43c3-a00b-9c06eaae7acb/WhatsApp Image 2025-05-12 at 01.36.19.jpeg",
     },
     {
+      brand: "Nike",
+      price: 250,
+      img: "https://assets.customerglu.com/35deace8-c04f-43c3-a00b-9c06eaae7acb/WhatsApp Image 2025-05-12 at 01.36.19.jpeg",
+    },
+        {
+      brand: "Nike",
+      price: 250,
+      img: "https://assets.customerglu.com/35deace8-c04f-43c3-a00b-9c06eaae7acb/WhatsApp Image 2025-05-12 at 01.36.19.jpeg",
+    },
+        {
       brand: "Nike",
       price: 250,
       img: "https://assets.customerglu.com/35deace8-c04f-43c3-a00b-9c06eaae7acb/WhatsApp Image 2025-05-12 at 01.36.19.jpeg",
@@ -44,24 +55,8 @@ const ProductDetailsScreen = () => {
             className="w-full max-w-md"
           />
 
-          <div className="mt-4 hidden w-full lg:block">
-            <h2 className="text-l mb-4 font-normal">Related Products</h2>
-            <div className="flex gap-6 overflow-x-auto">
-              {relatedProducts.map((product, idx) => (
-                <div key={idx} className="w-48 rounded border p-4">
-                  <img
-                    src={product.img}
-                    alt={`${product.brand} shoe`}
-                    className="mb-2 h-32 w-full object-contain"
-                  />
-                  <div className="flex items-center justify-between">
-                    <p className="font-medium">{product.brand}</p>
-                    <p className="text-gray-700">${product.price}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          {/* Small Thumbnails */}
+          <ThumbnailCarousel></ThumbnailCarousel>
         </div>
 
         {/* Product Details */}
@@ -69,8 +64,27 @@ const ProductDetailsScreen = () => {
           <div className="mb-2">
             <h1 className="text-3xl font-bold">Nike</h1>
             <p className="text-gray-600">Men's Shoe</p>
+            {/* ⭐️ Star Review Section */}
+            <div className="mt-2 flex flex-row items-center space-x-1">
+              {Array.from({ length: 5 }).map((_, idx) => (
+                <svg
+                  key={idx}
+                  className="h-5 w-5 text-yellow-400"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.214 3.736a1 1 0 00.95.69h3.924c.969 0 1.371 1.24.588 1.81l-3.18 2.31a1 1 0 00-.364 1.118l1.214 3.736c.3.921-.755 1.688-1.54 1.118l-3.18-2.31a1 1 0 00-1.175 0l-3.18 2.31c-.784.57-1.838-.197-1.539-1.118l1.213-3.736a1 1 0 00-.364-1.118L2.273 9.163c-.783-.57-.38-1.81.588-1.81h3.925a1 1 0 00.95-.69l1.214-3.736z" />
+                </svg>
+              ))}
+              <p className="pt-1 text-gray-600">Based on 3 Reviews</p>
+            </div>
           </div>
-          <p className="text-2xl font-semibold">₹{250}</p>
+          <div className="flex flex-row space-x-2">
+            <p className="text-2xl font-semibold">₹{250}</p>
+            <p className="text-l justify-center font-normal line-through">
+              ₹{350}
+            </p>
+          </div>
 
           <p className="text-gray-600">
             Bringing a new look to the Waffle sneaker family, the Nike Waffle
@@ -121,25 +135,34 @@ const ProductDetailsScreen = () => {
           </p>
         </div>
 
-        {/* Related Products */}
-        <div className="col-span-2 mt-1 block md:order-3 lg:hidden">
-          <h2 className="mb-4 text-xl font-semibold">Related Products</h2>
-          <div className="flex gap-6 overflow-x-auto">
+        <div className="col-span-2 mt-2 md:order-3">
+          <h2 className="mb-6 text-xl font-semibold text-gray-800">
+            Related Products
+          </h2>
+          <div className="scrollbar-hide flex gap-6 overflow-x-auto">
             {relatedProducts.map((product, idx) => (
-              <div key={idx} className="w-48 rounded border p-4">
+              <div
+                key={idx}
+                className="min-w-[180px] rounded-xl border border-gray-200 bg-white p-4 shadow-sm transition hover:shadow-md"
+              >
                 <img
                   src={product.img}
-                  alt={`${product.brand} shoe`}
-                  className="mb-2 h-32 w-full object-contain"
+                  alt={`Related product ${idx + 1}`}
+                  className="mb-4 h-32 w-full rounded-lg object-cover"
                 />
-                <div className="flex items-center justify-between">
-                  <p className="font-medium">{product.brand}</p>
-                  <p className="text-gray-700">${product.price}</p>
+                <div className="flex items-center justify-between text-sm">
+                  <p className="truncate font-medium text-gray-900">
+                    {product.brand}
+                  </p>
+                  <p className="font-semibold text-gray-700">
+                    ${product.price}
+                  </p>
                 </div>
               </div>
             ))}
           </div>
         </div>
+     
       </div>
     </>
   );
