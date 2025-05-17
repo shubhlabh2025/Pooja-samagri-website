@@ -1,4 +1,4 @@
-import logo from "../../assets/logo.jpg"
+import logo from "../../assets/logo.png"
 const Logo: React.FC = () => {
   return (
     <div className="h-[50px] w-[120px] overflow-hidden">
