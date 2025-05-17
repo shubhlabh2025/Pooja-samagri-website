@@ -5,7 +5,7 @@ import { useState } from "react";
 
 const ProductDetailsScreen = () => {
   const [quantity, setQuantity] = useState(1);
-  const [selectedSize, setSelectedSize] = useState(null);
+  const [selectedSize, setSelectedSize] = useState("100g");
 
   const sizes = ["100g", "250g", "500g", "1kg"];
   const relatedProducts = [
