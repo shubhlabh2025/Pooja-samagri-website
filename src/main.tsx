@@ -5,7 +5,6 @@ import "./index.css";
 import App from "./App.tsx";
 import Cart from "./pages/Cart/Cart.tsx";
 import ProductDetailsScreen from "./pages/ProductDetail/ProductDetail.tsx";
-import { Search } from "lucide-react";
 import SearchScreen from "./pages/Search/Search.tsx";
 import SubCategoriesWithProductScreen from "./pages/SubCategoryWithProducts/SubCategoriesWithProduct.tsx";
 

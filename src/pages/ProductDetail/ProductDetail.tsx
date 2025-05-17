@@ -1,4 +1,3 @@
-import CategoryList from "@/components/custom/CategoryList";
 import MarqueeText from "@/components/custom/MarqueeTree";
 import HomeNavBar from "@/components/navigation/HomeNavBar";
 import { useState } from "react";

@@ -109,9 +109,6 @@ const Home = () => {
     // Add more...
   ];
 
-  const handleCategoryClick = (categoryId: string) => {
-    console.log("Clicked:", categoryId);
-  };
   const [products, setProducts] = useState<Product[]>([]);
 
   const getAllProductdata = () => {
