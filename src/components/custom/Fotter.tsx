@@ -2,7 +2,7 @@ import logo from "../../assets/logo.png"
 
 const Footer = () => {
   return (
-    <footer className="bg-[#c4a705] text-white py-12">
+    <footer className="bg-[#1d1d1d] text-white py-12">
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
         {/* Logo & Copy */}
         <div className="text-center md:text-left space-y-4">

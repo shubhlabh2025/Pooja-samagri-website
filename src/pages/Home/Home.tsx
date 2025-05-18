@@ -161,15 +161,15 @@ const Home = () => {
       <CategoryList categories={categories} />
 
       <BannerCarousel></BannerCarousel>
-      <span className="flex text-base font-semibold ms-3 mt-4">
+      <span className="ms-3 mt-4 flex text-base font-semibold">
         Trending Products
       </span>
       <ProductList></ProductList>
-       <span className="flex text-base font-semibold ms-3 mt-4">
+      <span className="ms-3 mt-4 flex text-base font-semibold">
         Best Sellers
       </span>
       <ProductList></ProductList>
-      <Footer></Footer>
+      <Footer />
     </>
   );
 };
