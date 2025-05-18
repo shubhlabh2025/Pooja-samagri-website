@@ -118,7 +118,7 @@ const BillDetails = ({ cartData }: BillDetailProps) => {
             }).format(totalAmount)}
           </p>
         </div>
-        <div className="-mx-4 -mb-4 flex justify-center gap-2 rounded-b-sm bg-[#1ba672bf] px-2 py-1.5">
+        <div className="-mx-4 -mb-4 flex justify-center gap-2 rounded-b-lg bg-[#1ba672bf] px-2 py-1.5">
           <div className="flex aspect-square w-[20px] items-center justify-center p-[1px]">
             <img src={guartIcon} alt="Guard Icon" className="" />
           </div>
