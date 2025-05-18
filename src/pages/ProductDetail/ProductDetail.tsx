@@ -1,6 +1,4 @@
-import MarqueeText from "@/components/custom/MarqueeTree";
 import ThumbnailCarousel from "@/components/custom/ThumbnailCarousel";
-import HomeNavBar from "@/components/navigation/HomeNavBar";
 import { useState } from "react";
 
 const ProductDetailsScreen = () => {
@@ -24,12 +22,12 @@ const ProductDetailsScreen = () => {
       price: 250,
       img: "https://assets.customerglu.com/35deace8-c04f-43c3-a00b-9c06eaae7acb/WhatsApp Image 2025-05-12 at 01.36.19.jpeg",
     },
-        {
+    {
       brand: "Nike",
       price: 250,
       img: "https://assets.customerglu.com/35deace8-c04f-43c3-a00b-9c06eaae7acb/WhatsApp Image 2025-05-12 at 01.36.19.jpeg",
     },
-        {
+    {
       brand: "Nike",
       price: 250,
       img: "https://assets.customerglu.com/35deace8-c04f-43c3-a00b-9c06eaae7acb/WhatsApp Image 2025-05-12 at 01.36.19.jpeg",
@@ -38,14 +36,6 @@ const ProductDetailsScreen = () => {
 
   return (
     <>
-      <div>
-        <MarqueeText
-          text="🚀 Welcome to the React TS Marquee Component Demo!"
-          speed={15}
-        />
-      </div>
-      <HomeNavBar />
-
       <div className="flex flex-col gap-10 p-10 md:grid md:grid-cols-2">
         {/* Product Image on top for small devices */}
         <div className="flex flex-col items-center justify-center md:order-1">
@@ -162,7 +152,6 @@ const ProductDetailsScreen = () => {
             ))}
           </div>
         </div>
-     
       </div>
     </>
   );

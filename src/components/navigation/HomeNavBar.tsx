@@ -1,4 +1,4 @@
-import Logo from "@/components/custom/LogoText";
+import Logo from "@/components/custom/Logo";
 import TextWithIcons from "../custom/TextIcon";
 import OverflowMenu from "../custom/OverflowMenu";
 import SearchBar from "../custom/SearchBar";
@@ -17,8 +17,8 @@ const HomeNavBar = () => {
   };
 
   return (
-    <header className="bg-white shadow px-4 py-3">
-      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+    <header className="bg-white px-4 py-3 shadow">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center justify-between">
           <Logo />
           <button
@@ -36,7 +36,7 @@ const HomeNavBar = () => {
         </div>
 
         {/* Desktop Menu */}
-        <div className="hidden sm:flex items-center text-sm space-x-6 pr-2">
+        <div className="hidden items-center space-x-6 pr-2 text-sm sm:flex">
           <Dialog>
             <DialogTrigger>
               <TextWithIcons
@@ -64,7 +64,7 @@ const HomeNavBar = () => {
 
         {/* Mobile Menu (below search bar) */}
         {menuOpen && (
-          <div className="flex flex-col gap-3 sm:hidden pt-2 border-t">
+          <div className="flex flex-col gap-3 border-t pt-2 sm:hidden">
             <TextWithIcons
               icon={<User size={18} />}
               text="Login"

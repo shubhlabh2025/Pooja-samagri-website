@@ -1,11 +1,9 @@
 import { get } from "@/api/apiFunction";
 import BannerCarousel from "@/components/ui/banner-carousel";
 import CategoryList from "@/components/custom/CategoryList";
-import MarqueeText from "@/components/custom/MarqueeTree";
 import type { Product } from "@/interfaces/product";
 import { useEffect, useState } from "react";
 import ProductList from "./ProductList";
-import HomeNavBar from "@/components/navigation/HomeNavBar";
 import Footer from "@/components/custom/Fotter";
 
 const Home = () => {
@@ -160,16 +158,7 @@ const Home = () => {
   }, [products]);
   return (
     <>
-      <div>
-        <MarqueeText
-          text="🚀 Welcome to the React TS Marquee Component Demo!"
-          speed={15}
-        />
-      </div>
-      <HomeNavBar />
-      <CategoryList
-        categories={categories}
-      />
+      <CategoryList categories={categories} />
 
       <BannerCarousel></BannerCarousel>
       <span className="flex text-base font-semibold ms-3 mt-4">

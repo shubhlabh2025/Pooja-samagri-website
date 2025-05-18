@@ -1,16 +1,18 @@
+import tailwindScrollbarHide from "tailwind-scrollbar-hide";
+import tailwindLineClamp from "@tailwindcss/line-clamp";
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  content: [
+    "./src/**/*.{js,ts,jsx,tsx}", // <-- adjust paths based on your project structure
+  ],
   theme: {
     extend: {
-      keyframes: {
-        "caret-blink": {
-          "0%,70%,100%": { opacity: "1" },
-          "20%,50%": { opacity: "0" },
-        },
-      },
-      animation: {
-        "caret-blink": "caret-blink 1.25s ease-out infinite",
+      boxShadow: {
+        "cart-card":
+          "0 8px 16px rgba(27, 30, 36, 0.06), 0 0 8px rgba(27, 30, 36, 0.04)",
       },
     },
   },
+  plugins: [tailwindScrollbarHide, tailwindLineClamp],
 };
