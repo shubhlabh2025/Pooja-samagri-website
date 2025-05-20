@@ -9,6 +9,7 @@ import SearchScreen from "./pages/Search/Search.tsx";
 import SubCategoriesWithProductScreen from "./pages/SubCategoryWithProducts/SubCategoriesWithProduct.tsx";
 import NotFound from "./components/error/NotFound.tsx";
 import MainLayout from "./components/layout/MainLayout.tsx";
+import CategoriesScreen from "./pages/Categories/Categories.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -38,6 +39,17 @@ createRoot(document.getElementById("root")!).render(
             </MainLayout>
           }
         />
+
+
+          <Route
+          path="/category"
+          element={
+            <MainLayout>
+              <CategoriesScreen />
+            </MainLayout>
+          }
+        />
+
         <Route
           path="/product/:productId"
           element={

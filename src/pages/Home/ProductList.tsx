@@ -275,19 +275,16 @@ const ProductList = () => {
 
   return (
     <div className="p-4">
-      <div className="flex overflow-x-auto gap-4 items-center hide-scrollbar snap-x snap-mandatory scroll-smooth">
+      <div className="hide-scrollbar flex snap-x snap-mandatory items-center gap-4 overflow-x-auto scroll-smooth">
         {products.map((item, i) => (
-                        <Link to="/product/123">
-          
-          <ProductItems key={i} item={item}></ProductItems>
-          </Link>
+            <ProductItems key={i} item={item}></ProductItems>
         ))}
 
         {/* Load More button also snaps */}
         {visibleCount < products.length && (
           <button
             onClick={() => {}}
-            className="min-w-[100px] h-24 flex flex-col items-center justify-center bg-pink-50 text-pink-800 rounded-xl shadow-sm px-3 py-2 text-sm font-medium hover:bg-pink-100 snap-start"
+            className="flex h-24 min-w-[100px] snap-start flex-col items-center justify-center rounded-xl bg-pink-50 px-3 py-2 text-sm font-medium text-pink-800 shadow-sm hover:bg-pink-100"
           >
             Load More
           </button>

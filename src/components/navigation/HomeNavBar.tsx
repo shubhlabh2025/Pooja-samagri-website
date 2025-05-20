@@ -1,6 +1,5 @@
 import Logo from "@/components/custom/Logo";
 import TextWithIcons from "../custom/TextIcon";
-import OverflowMenu from "../custom/OverflowMenu";
 import SearchBar from "../custom/SearchBar";
 import { useState } from "react";
 import { MapPin, Menu, ShoppingCart, User } from "lucide-react";
@@ -17,23 +16,29 @@ const HomeNavBar = () => {
   };
 
   return (
-    <header className="bg-white px-4 py-3 shadow">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex items-center justify-between">
-          <Logo />
-          <button
-            className="sm:hidden"
-            onClick={() => setMenuOpen((prev) => !prev)}
-            aria-label="Toggle Menu"
-          >
-            <Menu size={24} />
-          </button>
-        </div>
+   <header className="bg-white px-4 py-3 shadow">
+  <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+    {/* Top Row: Menu + Logo */}
+    <div className="relative flex items-center justify-between w-full sm:w-auto">
+      {/* Menu Icon - Left on small screens */}
+      <button
+        className="sm:hidden"
+        onClick={() => setMenuOpen((prev) => !prev)}
+        aria-label="Toggle Menu"
+      >
+        <Menu size={24} />
+      </button>
 
-        {/* Search Bar - Always Visible */}
-        <div className="w-full sm:flex-grow">
-          <SearchBar />
-        </div>
+      {/* Logo - Centered absolutely on small screens */}
+      <div className="absolute left-1/2 -translate-x-1/2 sm:static sm:translate-x-0">
+        <Logo />
+      </div>
+    </div>
+
+    {/* Search Bar */}
+    <div className="w-full sm:flex-grow">
+      <SearchBar />
+    </div>
 
         {/* Desktop Menu */}
         <div className="hidden items-center space-x-6 pr-2 text-sm sm:flex">
@@ -59,7 +64,6 @@ const HomeNavBar = () => {
             text="Update Location"
             onClick={() => {}}
           />
-          <OverflowMenu />
         </div>
 
         {/* Mobile Menu (below search bar) */}

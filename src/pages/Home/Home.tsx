@@ -5,6 +5,7 @@ import type { Product } from "@/interfaces/product";
 import { useEffect, useState } from "react";
 import ProductList from "./ProductList";
 import Footer from "@/components/custom/Fotter";
+import { Link } from "react-router";
 
 const Home = () => {
   const categories = [
@@ -158,6 +159,12 @@ const Home = () => {
   }, [products]);
   return (
     <>
+      <div className="mt-2 mr-4 ml-2 flex items-center justify-between">
+        <span className="text-lg font-semibold">Categories</span>
+        <Link to="/category">
+          <span className="text-sm font-semibold text-red-600">View All</span>
+        </Link>
+      </div>
       <CategoryList categories={categories} />
 
       <BannerCarousel></BannerCarousel>

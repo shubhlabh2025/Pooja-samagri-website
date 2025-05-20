@@ -1,5 +1,7 @@
 import ThumbnailCarousel from "@/components/custom/ThumbnailCarousel";
+import { ChevronLeft } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router";
 
 const ProductDetailsScreen = () => {
   const [quantity, setQuantity] = useState(1);
@@ -33,12 +35,20 @@ const ProductDetailsScreen = () => {
       img: "https://assets.customerglu.com/35deace8-c04f-43c3-a00b-9c06eaae7acb/WhatsApp Image 2025-05-12 at 01.36.19.jpeg",
     },
   ];
+  const navigate = useNavigate();
 
   return (
     <>
-      <div className="flex flex-col gap-10 p-10 md:grid md:grid-cols-2">
+      <div className="relative flex flex-col gap-10 p-10 md:grid md:grid-cols-2">
+        <button
+          onClick={() => navigate(-1)}
+          className="absolute top-4 left-4 z-10 mr-2 flex items-center gap-1 rounded-full bg-gray-200 p-1 hover:bg-gray-300"
+        >
+          <ChevronLeft size={20} />
+        </button>
+
         {/* Product Image on top for small devices */}
-        <div className="flex flex-col items-center justify-center md:order-1">
+        <div className="mt-4 flex flex-col items-center justify-center md:order-1">
           <img
             src="https://assets.customerglu.com/35deace8-c04f-43c3-a00b-9c06eaae7acb/banner.jpg"
             alt="Nike Shoe"
@@ -121,7 +131,7 @@ const ProductDetailsScreen = () => {
           </div>
 
           <p className="text-gray-500">
-            Delivery <span className="font-medium">(3 days)</span>
+            Delivery in <span className="font-medium">(3 days)</span>
           </p>
         </div>
 
