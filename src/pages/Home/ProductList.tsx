@@ -1,7 +1,6 @@
 import type { Product } from "@/interfaces/product";
 import { useEffect, useState } from "react";
 import ProductItems from "./ProductItem";
-import { Link } from "react-router";
 
 const demoProducts: Product[] = [
   {
