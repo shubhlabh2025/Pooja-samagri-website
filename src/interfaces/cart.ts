@@ -8,6 +8,7 @@ export interface CartItem {
   is_out_of_stock: boolean;
   display_label: string;
   product_id: string;
+  variant_id: string;
 }
 
 export interface ReviewOrderProps {

@@ -123,7 +123,7 @@ const BillDetails = ({ cartData }: BillDetailProps) => {
             <img src={guartIcon} alt="Guard Icon" className="" />
           </div>
           <p className="line-clamp-1 text-sm leading-4.5 font-normal -tracking-[0.35px] text-[#ffffffeb]">
-            Safe and Secure Payments.Easy returns.100% Authentic products.
+            Trusted, authentic, safe, easy returns
           </p>
         </div>
       </div>

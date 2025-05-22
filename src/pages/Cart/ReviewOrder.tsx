@@ -13,8 +13,11 @@ const ReviewOrder = ({
       </p>
       <div className="shadow-cart-card mb-1 flex w-full flex-col gap-4 rounded-lg bg-white p-4">
         {cartData.map((item: CartItem) => (
-          <div className="flex items-center justify-between gap-3">
-            <div key={item.product_id} className="flex gap-3">
+          <div
+            key={item.variant_id}
+            className="flex items-center justify-between gap-3"
+          >
+            <div className="flex gap-3">
               <img
                 src={item.image}
                 alt="Product"

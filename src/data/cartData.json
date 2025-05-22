@@ -8,7 +8,8 @@
     "quantity": 2,
     "is_out_of_stock": false,
     "display_label": "1 Piece",
-    "product_id": "1234"
+    "product_id": "1234",
+    "variant_id": "0235243"
   },
   {
     "name": "Apple",
@@ -19,6 +20,7 @@
     "quantity": 3,
     "is_out_of_stock": false,
     "display_label": "200gm",
-    "product_id": "12345"
+    "product_id": "12345",
+    "variant_id": "0235243adfsa"
   }
 ]
