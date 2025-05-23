@@ -30,8 +30,8 @@ const fruits = [
     origin: "",
     description: "Sweet and juicy, great for hydration.",
     quantity: "",
-    price: null,
-    originalPrice: null,
+   price: 99,
+    originalPrice: 128,
     discount: "20% OFF",
     image:
       "https://assets.customerglu.com/35deace8-c04f-43c3-a00b-9c06eaae7acb/WhatsApp Image 2025-05-12 at 01.36.19.jpeg",
@@ -41,8 +41,8 @@ const fruits = [
     origin: "",
     description: "Soft, sweet, perfect for snacking or smoothies.",
     quantity: "",
-    price: null,
-    originalPrice: null,
+    price: 99,
+    originalPrice: 128,
     discount: "21% OFF",
     image:
       "https://assets.customerglu.com/35deace8-c04f-43c3-a00b-9c06eaae7acb/WhatsApp Image 2025-05-12 at 01.36.19.jpeg",
@@ -114,7 +114,7 @@ const SubCategoriesWithProductScreen = () => {
         </div>
 
         {/* Fruits Grid */}
-        <div className="grid grid-cols-2 gap-4 sm:gap-6">
+        <div className="grid grid-cols-2 gap-4 sm:gap-6 sm:grid-cols-2 md:grid-cols-4">
           {fruits.map((fruit, idx) => (
             <div key={idx} className="rounded-md border bg-white p-3 shadow-sm sm:p-4">
               <div className="relative">
