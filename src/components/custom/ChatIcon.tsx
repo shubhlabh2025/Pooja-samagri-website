@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { MessageSquare, Phone, X, Plus } from "lucide-react"; // Optional: lucide-react icons
+import { MessageSquare, X } from "lucide-react"; // Optional: lucide-react icons
 import WhatsAppIcon from "../../assets/whatsapp.svg";
 import Gamil from "../../assets/gmail.svg";
 
