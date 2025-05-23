@@ -18,6 +18,7 @@ import BillDetails from "./BillDetails";
 import Coupons from "./Coupons";
 import { Button } from "@/components/ui/button";
 import ConfirmationDialog from "@/components/dialog/ConfirmationDialog";
+import AddMoreItems from "./AddMoreItems";
 
 const Cart = () => {
   const [cartData, setCartData] = useState<FetchState<CartItem[]>>({
@@ -119,11 +120,17 @@ const Cart = () => {
           {isSuccess && (
             <div className="flex flex-col justify-between gap-4 sm:flex-row">
               <div className="flex flex-6 flex-col gap-3">
-                <ReviewOrder
-                  cartData={cartData.data}
-                  handleIncreaseProductQantity={handleIncreaseProductQantity}
-                  handleDecreaseProductQantity={handleDecreaseProductQantity}
-                />
+                <div className="flex flex-col gap-3">
+                  <p className="ml-1 text-[16px] font-semibold -tracking-[0.4px]">
+                    Rewiew Your Order
+                  </p>
+                  <ReviewOrder
+                    cartData={cartData.data}
+                    handleIncreaseProductQantity={handleIncreaseProductQantity}
+                    handleDecreaseProductQantity={handleDecreaseProductQantity}
+                  />
+                  <AddMoreItems />
+                </div>
                 <Coupons />
               </div>
               <div className="flex flex-4 flex-col gap-3">

@@ -7,6 +7,7 @@ import ProductList from "./ProductList";
 import Footer from "@/components/custom/Fotter";
 import { Link } from "react-router";
 import ChatIcon from "@/components/custom/ChatIcon";
+import CartSummaryBanner from "@/components/common/CartSummaryBanner";
 
 const Home = () => {
   const categories = [
@@ -188,6 +189,7 @@ const Home = () => {
       </div>
 
       <Footer />
+      <CartSummaryBanner />
     </div>
   );
 };
