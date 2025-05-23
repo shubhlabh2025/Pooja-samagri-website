@@ -26,18 +26,19 @@ const ChatIcon: React.FC = () => {
   };
 
   return (
-    <div className="fixed right-6 bottom-10 z-50 flex flex-col items-end space-y-2">
+    <div className="fixed right-6 bottom-20 z-50 flex flex-col items-end space-y-2">
       {isOpen && (
         <div className="flex flex-col items-end space-y-4 transition-opacity duration-300">
+          
           <button
-            className="bg-white-600 rounded-full p-2 text-white shadow-md hover:animate-bounce hover:duration-300"
+            className="bg-white-600 rounded-full p-2 text-white shadow-md  hover:duration-300"
             onClick={openGmail}
           >
             <img src={Gamil} className="h-8 w-8" />
           </button>
 
           <button
-            className="hover:bg-[#3cea5c]-700 rounded-full bg-[#1DD042] p-2 text-white shadow-md hover:animate-bounce hover:duration-300"
+            className="hover:bg-[#3cea5c]-700 rounded-full bg-[#1DD042] p-2 text-white shadow-md hover:duration-300"
             onClick={openWhatsApp}
           >
             <img src={WhatsAppIcon} className="h-8 w-8" />

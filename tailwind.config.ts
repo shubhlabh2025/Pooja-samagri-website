@@ -13,6 +13,9 @@ module.exports = {
           "0 8px 16px rgba(27, 30, 36, 0.06), 0 0 8px rgba(27, 30, 36, 0.04)",
         "top-lg": "0 -8px 12px rgba(0, 0, 0, 0.15)",
       },
+      screens: {
+        xs3col: { min: "520px", max: "629px" }, // Custom range
+      },
     },
   },
   plugins: [tailwindScrollbarHide, tailwindLineClamp],

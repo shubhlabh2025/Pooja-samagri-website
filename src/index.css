@@ -40,7 +40,8 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
-html, body {
+html,
+body {
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE and Edge */
   overflow-y: scroll; /* Ensures scrolling is still possible */
@@ -51,7 +52,13 @@ html::-webkit-scrollbar,
 body::-webkit-scrollbar {
   display: none;
 }
-
+@layer utilities {
+  @media (min-width: 510px) and (max-width: 680px) {
+    .xs3col\:grid-cols-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+}
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);
