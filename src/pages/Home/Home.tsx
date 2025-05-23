@@ -179,6 +179,14 @@ const Home = () => {
       </span>
       <ProductList></ProductList>
 
+
+      <div className="w-1/2 h-[200px] bg-red-500" >
+        <div>
+           <span>About us</span>
+        </div>
+        
+      </div>
+
       <Footer />
     </div>
   );
