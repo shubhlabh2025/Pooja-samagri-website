@@ -45,7 +45,7 @@ const CategoriesScreen = () => {
       </button>
 
       {/* Responsive Grid */}
-      <div className="grid grid-cols-2 mt-12 gap-4 sm:grid-cols-2 md:grid-cols-3">
+      <div className="grid grid-cols-2 mt-12 gap-4 sm:grid-cols-2 md:grid-cols-4">
         {categories.map((cat, index) => (
           <div
             key={index}

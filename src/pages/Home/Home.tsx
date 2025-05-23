@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import ProductList from "./ProductList";
 import Footer from "@/components/custom/Fotter";
 import { Link } from "react-router";
+import ChatIcon from "@/components/custom/ChatIcon";
 
 const Home = () => {
   const categories = [
@@ -158,13 +159,14 @@ const Home = () => {
     console.log("Products updated in state:", products);
   }, [products]);
   return (
-    <>
+    <div className="relative">
       <div className="mt-2 mr-4 ml-2 flex items-center justify-between">
         <span className="text-lg font-semibold">Categories</span>
         <Link to="/category">
           <span className="text-sm font-semibold text-red-600">View All</span>
         </Link>
       </div>
+
       <CategoryList categories={categories} />
 
       <BannerCarousel></BannerCarousel>
@@ -176,8 +178,9 @@ const Home = () => {
         Best Sellers
       </span>
       <ProductList></ProductList>
+
       <Footer />
-    </>
+    </div>
   );
 };
 

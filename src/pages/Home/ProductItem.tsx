@@ -42,7 +42,7 @@ const ProductItems: React.FC<ProductItemProps> = ({ item }) => {
             <img
               src="https://assets.customerglu.com/35deace8-c04f-43c3-a00b-9c06eaae7acb/WhatsApp Image 2025-05-12 at 01.36.19.jpeg"
               alt={item.name}
-              className="h-full w-full object-cover  rounded-xl"
+              className="h-full w-full rounded-xl object-cover"
             />
           </div>
         </Link>
@@ -96,7 +96,7 @@ const ProductItems: React.FC<ProductItemProps> = ({ item }) => {
             </div>
           ) : (
             <button
-              className="ml-auto rounded-lg border border-gray-300 px-3 py-1 text-sm font-semibold text-green-600 hover:shadow-sm"
+              className="leading-[1.125rem] rounded-lg border border-gray-300 px-3 py-1.5 text-sm font-semibold text-green-600 hover:shadow-sm"
               onClick={(e) => {
                 e.stopPropagation();
                 setProducts(1);

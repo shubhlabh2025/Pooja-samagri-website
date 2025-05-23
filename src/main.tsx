@@ -10,6 +10,7 @@ import SubCategoriesWithProductScreen from "./pages/SubCategoryWithProducts/SubC
 import NotFound from "./components/error/NotFound.tsx";
 import MainLayout from "./components/layout/MainLayout.tsx";
 import CategoriesScreen from "./pages/Categories/Categories.tsx";
+import ChatIcon from "./components/custom/ChatIcon.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -20,6 +21,7 @@ createRoot(document.getElementById("root")!).render(
           element={
             <MainLayout>
               <App />
+              <ChatIcon ></ChatIcon>
             </MainLayout>
           }
         />
@@ -40,8 +42,7 @@ createRoot(document.getElementById("root")!).render(
           }
         />
 
-
-          <Route
+        <Route
           path="/category"
           element={
             <MainLayout>
@@ -62,5 +63,5 @@ createRoot(document.getElementById("root")!).render(
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
-  </StrictMode>
+  </StrictMode>,
 );

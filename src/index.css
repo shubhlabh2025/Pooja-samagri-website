@@ -40,6 +40,18 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
+html, body {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  overflow-y: scroll; /* Ensures scrolling is still possible */
+}
+
+/* Chrome, Safari, Opera */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+}
+
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);
