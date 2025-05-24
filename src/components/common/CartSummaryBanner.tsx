@@ -14,7 +14,7 @@ const CartSummaryBanner = () => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
-    const fetchCart = async () => {
+    const fetchCart = () => {
       try {
         const data = rawData;
         if (data.length === 0) {
@@ -31,7 +31,7 @@ const CartSummaryBanner = () => {
       }
     };
 
-    setTimeout(fetchCart, 500);
+    fetchCart();
   }, []);
 
   const handleDecreaseProductQantity = async (productId: string) => {

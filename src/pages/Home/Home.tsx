@@ -202,7 +202,7 @@ const Home = () => {
       </div>
 
       <div className="flex flex-col sm:flex-row">
-        <div className="flex-1 mb-20">
+        <div className="mb-20 flex-1">
           <img
             className="h-full w-full"
             src="https://assets.customerglu.com/35deace8-c04f-43c3-a00b-9c06eaae7acb/WhatsApp Image 2025-05-12 at 01.36.19.jpeg"
@@ -210,7 +210,7 @@ const Home = () => {
         </div>
         <div className="flex w-full flex-1 flex-col">
           <div className="flex h-full w-full justify-end">
-            <div className="flex h-full w-full flex-col items-center justify-center p-2 p-10 sm:rounded-tl-2xl sm:rounded-bl-2xl">
+            <div className="flex h-full w-full flex-col items-center justify-center p-10 sm:rounded-tl-2xl sm:rounded-bl-2xl">
               <span className="text-[24px] font-bold text-black">
                 Our Vision
               </span>

@@ -1,17 +1,8 @@
-import type { ProductCategory } from "./product-categories";
 import type { ProductVariant } from "./product-variant";
-import type { SubCategory } from "./sub-category";
 
 export interface Product {
-  id: number;
-  name: string;
-  image: string;
-  description: string;
-  price: string;
+  id: string;
   out_of_stock: boolean;
-  category_id?: number | null;
-  sub_category_id?: number | null;
-  SubCategory?: SubCategory | null;
-  ProductsVariants: ProductVariant[];
-  ProductCategories: ProductCategory[];
+  default_variant_id: string;
+  product_variants: ProductVariant[];
 }
