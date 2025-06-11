@@ -8,6 +8,7 @@ import {
 import type { ProductVaraintBottomSheetProps } from "@/interfaces/bottom-sheet";
 import { Separator } from "@/components/ui/separator";
 import AddToCartCounter from "../custom/button/AddToCartCounter";
+import { DialogDescription } from "@radix-ui/react-dialog";
 
 const ProductVariantBottomSheet = ({
   productVariants,
@@ -18,10 +19,11 @@ const ProductVariantBottomSheet = ({
         <DrawerTitle className="text-lg leading-5.5 font-semibold -tracking-[0.45px] text-[#02060cbf]">
           {productVariants[0].name}
         </DrawerTitle>
+        <DialogDescription className="none"></DialogDescription>
         <div className="flex flex-col gap-3">
           {productVariants.map((variant) => (
             <div
-              key={variant.variant_id}
+              key={variant.id}
               className="shadow-variant-card flex justify-between gap-3 rounded-[12px] p-2"
             >
               <div className="flex basis-[40%] items-center gap-1">

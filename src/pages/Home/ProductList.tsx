@@ -1,8 +1,9 @@
-import type { Product } from "@/interfaces/product";
+// import type { Product } from "@/interfaces/product";
 import { useEffect, useState } from "react";
 import ProductItems from "./ProductItem";
 import rawData from "@/data/productData.json";
 import type { FetchState } from "@/types/fetchState";
+import type { Product } from "@/features/product/productAPI.type";
 
 const ProductList = () => {
   const [products, setProducts] = useState<FetchState<Product[]>>({
@@ -14,11 +15,11 @@ const ProductList = () => {
     const fetchProducts = () => {
       try {
         // Simulate an API call
-        const data = rawData;
+        const data = [rawData];
         if (data.length === 0) {
           setProducts({ status: "empty" });
         } else {
-          setProducts({ status: "success", data });
+          // setProducts({ status: "success", data });
         }
       } catch (err) {
         if (err instanceof Error) {

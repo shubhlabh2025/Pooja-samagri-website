@@ -11,57 +11,62 @@ import NotFound from "./components/error/NotFound.tsx";
 import MainLayout from "./components/layout/MainLayout.tsx";
 import CategoriesScreen from "./pages/Categories/Categories.tsx";
 import ChatIcon from "./components/custom/ChatIcon.tsx";
+import { store } from "@/app/store";
+import { Provider } from "react-redux";
+import MainLayoutWithCart from "./components/layout/MainLayoutWithCart.tsx";
 
 createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <MainLayout>
-              <App />
-              <ChatIcon ></ChatIcon>
-            </MainLayout>
-          }
-        />
-        <Route
-          path="/cart"
-          element={
-            // <MainLayout>
-            <Cart />
-            // </MainLayout>
-          }
-        />
-        <Route
-          path="/category/:categoryId"
-          element={
-            <MainLayout>
-              <SubCategoriesWithProductScreen />
-            </MainLayout>
-          }
-        />
+  <Provider store={store}>
+    <StrictMode>
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <MainLayout>
+                <App />
+                <ChatIcon />
+              </MainLayout>
+            }
+          />
+          <Route
+            path="/cart"
+            element={
+              // <MainLayout>
+              <Cart />
+              // </MainLayout>
+            }
+          />
+          <Route
+            path="/categories/:categoryId"
+            element={
+              <MainLayoutWithCart>
+                <SubCategoriesWithProductScreen />
+              </MainLayoutWithCart>
+            }
+          />
 
-        <Route
-          path="/category"
-          element={
-            <MainLayout>
-              <CategoriesScreen />
-            </MainLayout>
-          }
-        />
+          <Route
+            path="/category"
+            element={
+              <MainLayout>
+                <CategoriesScreen />
+              </MainLayout>
+            }
+          />
 
-        <Route
-          path="/product/:productId"
-          element={
-            <MainLayout>
-              <ProductDetailsScreen />
-            </MainLayout>
-          }
-        />
-        <Route path="/search" element={<SearchScreen />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </BrowserRouter>
-  </StrictMode>,
+          <Route
+            path="/product/:productId"
+            element={
+              <MainLayout>
+                <ProductDetailsScreen />
+              </MainLayout>
+            }
+          />
+          <Route path="/search" element={<SearchScreen />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </StrictMode>
+  </Provider>,
 );

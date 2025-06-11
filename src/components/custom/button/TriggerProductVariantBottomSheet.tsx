@@ -43,7 +43,7 @@ const TriggerProductVariantBottomSheet = ({
 
     totalProductsInCart = product.product_variants.reduce((acc, variant) => {
       const variantInCart = cartData.data.find(
-        (item) => item.variant_id === variant.variant_id,
+        (item) => item.variant_id === variant.id,
       );
       if (variantInCart) {
         variantsInCartCount++;
@@ -69,7 +69,7 @@ const TriggerProductVariantBottomSheet = ({
     <div className="flex h-fit w-full items-center justify-between rounded-lg border border-[#02060c26] p-0">
       {moreThanOneVariantInCart ? (
         <Drawer>
-          <DrawerTrigger className="h-fit cursor-pointer rounded-l-[8px] rounded-r-none border-none px-2 py-1.5 leading-[1.125rem] font-semibold tracking-[0.35px] text-[#1ba672] shadow-none transition-colors duration-150 group-hover:bg-inherit hover:bg-[#02060c26] hover:text-[#1ba672]">
+          <DrawerTrigger className="h-fit cursor-pointer rounded-l-[8px] rounded-r-none border-none px-2 py-1.5 leading-[1.125rem] font-semibold tracking-[-0.35px] text-[#1ba672] shadow-none transition-colors duration-150 group-hover:bg-inherit hover:bg-[#02060c26] hover:text-[#1ba672]">
             -
           </DrawerTrigger>
 
@@ -80,7 +80,7 @@ const TriggerProductVariantBottomSheet = ({
       ) : (
         <Button
           variant="outline"
-          className="h-fit cursor-pointer rounded-l-[8px] rounded-r-none border-none px-2 py-1.5 leading-[1.125rem] font-semibold tracking-[0.35px] text-[#1ba672] shadow-none transition-colors duration-150 group-hover:bg-inherit hover:bg-[#02060c26] hover:text-[#1ba672]"
+          className="h-fit cursor-pointer rounded-l-[8px] rounded-r-none border-none px-2 py-1.5 leading-[1.125rem] font-semibold tracking-[-0.35px] text-[#1ba672] shadow-none transition-colors duration-150 group-hover:bg-inherit hover:bg-[#02060c26] hover:text-[#1ba672]"
           onClick={() => {
             console.log("Decrease quantity of product with ID:", product.id);
           }}
@@ -91,14 +91,14 @@ const TriggerProductVariantBottomSheet = ({
 
       <Drawer>
         <DrawerTrigger className="group flex flex-1 cursor-pointer justify-center hover:bg-[#02060c26]">
-          <p className="px-2 py-1.5 text-sm leading-[1.125rem] font-semibold tracking-[0.35px] text-[#1ba672] shadow-none">
+          <p className="px-2 py-1.5 text-sm leading-[1.125rem] font-semibold tracking-[-0.35px] text-[#1ba672] shadow-none">
             {totalProductsInCart}
           </p>
         </DrawerTrigger>
         <ProductVariantBottomSheet productVariants={product.product_variants} />
       </Drawer>
       <Drawer>
-        <DrawerTrigger className="flex h-fit cursor-pointer items-center justify-center rounded-l-none rounded-r-[8px] border-none px-2 py-1.5 leading-[1.125rem] font-semibold tracking-[0.35px] text-[#1ba672] transition-colors duration-150 group-hover:bg-inherit hover:bg-[#02060c26] hover:text-[#1ba672]">
+        <DrawerTrigger className="flex h-fit cursor-pointer items-center justify-center rounded-l-none rounded-r-[8px] border-none px-2 py-1.5 leading-[1.125rem] font-semibold tracking-[-0.35px] text-[#1ba672] transition-colors duration-150 group-hover:bg-inherit hover:bg-[#02060c26] hover:text-[#1ba672]">
           +
         </DrawerTrigger>
 

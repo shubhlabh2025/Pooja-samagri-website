@@ -1,8 +1,11 @@
-import { env } from "@/config/var";
 import axios from "axios";
+import { env } from "@/env/env";
 
-const baseURL = env.API_HOST;
-
-export const api = axios.create({
-  baseURL: baseURL
+const axiosInstance = axios.create({
+  baseURL: env.API_BASE_URL,
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
+
+export default axiosInstance;

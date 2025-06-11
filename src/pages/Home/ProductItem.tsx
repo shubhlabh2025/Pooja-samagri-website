@@ -1,8 +1,8 @@
-import type { Product } from "@/interfaces/product";
 import React from "react";
 import { Link } from "react-router";
 import TriggerProductVariantBottomSheet from "@/components/custom/button/TriggerProductVariantBottomSheet";
 import AddToCartCounter from "@/components/custom/button/AddToCartCounter";
+import type { Product } from "@/features/product/productAPI.type";
 
 interface ProductItemProps {
   item: Product;

@@ -35,7 +35,7 @@ const AddToCartCounter = ({ productVariant }: AddToCartCounterProps) => {
 
   if (cartData.status === "success" && cartData.data.length > 0) {
     const cartItem = cartData.data.find(
-      (item) => item.variant_id === productVariant.variant_id,
+      (item) => item.variant_id === productVariant.id,
     );
     quantity = cartItem ? cartItem.quantity : 0;
   }
@@ -51,7 +51,7 @@ const AddToCartCounter = ({ productVariant }: AddToCartCounterProps) => {
     <div className="flex h-fit w-full items-center justify-between rounded-[8px] border border-[#02060c26] p-0">
       <Button
         variant="outline"
-        className="h-fit cursor-pointer rounded-l-[8px] rounded-r-none border-none px-2 py-1.5 leading-[1.125rem] font-semibold tracking-[0.35px] text-[#1ba672] shadow-none transition-colors duration-150 group-hover:bg-inherit hover:bg-[#02060c26] hover:text-[#1ba672]"
+        className="h-fit cursor-pointer rounded-l-[8px] rounded-r-none border-none px-2 py-1.5 leading-[1.125rem] font-semibold tracking-[-0.35px] text-[#1ba672] shadow-none transition-colors duration-150 group-hover:bg-inherit hover:bg-[#02060c26] hover:text-[#1ba672]"
         onClick={() => {
           console.log(
             "Decrease quantity of product with ID:",
@@ -70,7 +70,7 @@ const AddToCartCounter = ({ productVariant }: AddToCartCounterProps) => {
 
       <Button
         variant="outline"
-        className="h-fit cursor-pointer rounded-l-none rounded-r-[8px] border-none px-2 py-1.5 leading-[1.125rem] font-semibold tracking-[0.35px] text-[#1ba672] transition-colors duration-150 group-hover:bg-inherit hover:bg-[#02060c26] hover:text-[#1ba672]"
+        className="h-fit cursor-pointer rounded-l-none rounded-r-[8px] border-none px-2 py-1.5 leading-[1.125rem] font-semibold tracking-[-0.35px] text-[#1ba672] transition-colors duration-150 group-hover:bg-inherit hover:bg-[#02060c26] hover:text-[#1ba672]"
         onClick={() => {
           console.log(
             "Increase quantity of product with ID:",

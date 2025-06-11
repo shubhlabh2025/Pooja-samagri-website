@@ -1,5 +1,4 @@
-import type { Product } from "./product";
-import type { ProductVariant } from "./product-variant";
+import type { Product, ProductVariant } from "@/features/product/productAPI.type";
 
 export interface TriggerProductVariantBottomSheetProps {
   product: Product;

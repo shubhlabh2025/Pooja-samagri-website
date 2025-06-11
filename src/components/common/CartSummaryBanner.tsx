@@ -43,13 +43,13 @@ const CartSummaryBanner = () => {
 
   return (
     <>
-      <div className="h-[70px]" />
       <div className="sticky bottom-0 z-50">
         {cartData.status === "loading" && null}
         {cartData.status === "error" && null}
         {cartData.status === "empty" && null}
         {cartData.status === "success" && (
           <>
+            <div className="h-[70px]" />
             <div
               className={`fixed inset-0 z-20 h-[100vh] w-full bg-[#282c3f]/60 transition-opacity duration-300 ease-out ${
                 isExpanded ? "opacity-100" : "pointer-events-none opacity-0"
@@ -134,18 +134,16 @@ const CartSummaryBanner = () => {
                         className={`transition-transform duration-300 ease-in-out ${isExpanded ? "rotate-180" : "rotate-0"}`}
                       />
                     </div>
-                    <p>
-                      <p className="line-clamp-1 overflow-hidden text-[12px] leading-4 font-semibold -tracking-[0.3px] text-ellipsis text-[#1ba672]">
-                        ₹
-                        {cartData.data
-                          .reduce((acc, item) => {
-                            const moneySaved =
-                              (item.mrp - item.price) * item.quantity;
-                            return acc + moneySaved;
-                          }, 0)
-                          .toLocaleString("en-IN")}{" "}
-                        saved, more coming up!
-                      </p>
+                    <p className="line-clamp-1 overflow-hidden text-[12px] leading-4 font-semibold -tracking-[0.3px] text-ellipsis text-[#1ba672]">
+                      ₹
+                      {cartData.data
+                        .reduce((acc, item) => {
+                          const moneySaved =
+                            (item.mrp - item.price) * item.quantity;
+                          return acc + moneySaved;
+                        }, 0)
+                        .toLocaleString("en-IN")}{" "}
+                      saved, more coming up!
                     </p>
                   </div>
                 </div>

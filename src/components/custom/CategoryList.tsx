@@ -1,63 +1,39 @@
-import React, { useState } from "react";
-import { Link } from "react-router";
+import { useGetCategoriesQuery } from "@/features/category/categoryAPI";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { useNavigate } from "react-router";
 
-interface CategoryItem {
-  categoryId: string;
-  categoryImage: string;
-  categoryText: string;
-}
+const CategoryList = () => {
+  const navigate = useNavigate();
+  const { data, isLoading, isError } = useGetCategoriesQuery({});
 
-interface CategoryListProps {
-  categories: CategoryItem[];
-}
-
-const PAGE_SIZE = 20;
-
-const CategoryList: React.FC<CategoryListProps> = ({ categories }) => {
-  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
-
-  const handleLoadMore = () => {
-    setVisibleCount((prev) => Math.min(prev + PAGE_SIZE, categories.length));
-  };
-
-  const visibleItems = categories.slice(0, visibleCount);
+  if (isLoading) return <div>Loading categories...</div>;
+  if (isError) return <div>Error loading categories.</div>;
+  if (!data || data.data.length === 0) return <div>No categories found.</div>;
 
   return (
-    <div className="p-4">
-      <div className="flex overflow-x-auto gap-4 items-center hide-scrollbar snap-x snap-mandatory scroll-smooth">
-        {visibleItems.map((item) => (
-          <Link to="/category/23">
-            <div
-              key={item.categoryId}
-              className="flex flex-col items-center min-w-[100px] cursor-pointer snap-start"
-            >
-              <div className="h-36 flex flex-col items-center justify-between">
-                <div className="bg-[#fff5f8] rounded-xl p-3 w-24 h-24 flex items-center justify-center shadow-sm">
-                  <img
-                    src={item.categoryImage}
-                    alt={item.categoryText}
-                    className="h-16 object-contain"
-                  />
-                </div>
-                <span className="text-sm text-center w-24 font-medium leading-tight mt-1 line-clamp-2">
-                  {item.categoryText}
-                </span>
-              </div>
-            </div>
-          </Link>
-        ))}
-
-        {/* Load More button also snaps */}
-        {visibleCount < categories.length && (
-          <button
-            onClick={handleLoadMore}
-            className="min-w-[100px] h-24 flex flex-col items-center justify-center bg-pink-50 text-pink-800 rounded-xl shadow-sm px-3 py-2 text-sm font-medium hover:bg-pink-100 snap-start"
+    <ScrollArea className="scrollbar-none w-full overflow-x-auto">
+      <div className="flex w-max items-start gap-3 px-4">
+        {data.data.map((category) => (
+          <div
+            key={category.id}
+            className="flex w-[100px] shrink-0 flex-col items-center gap-2"
+            onClick={() => navigate(`/categories/${category.id}`)}
           >
-            Load More
-          </button>
-        )}
+            <div className="rounded-lg bg-[#fef3f9]">
+              <img
+                src={category.image}
+                alt={category.name}
+                className="aspect-[1/1.1] w-full rounded object-cover"
+              />
+            </div>
+            <p className="line-clamp-2 min-h-8.5 w-full text-center text-[13px] leading-[17px] font-semibold tracking-[-0.33px] break-words text-[#02060cbf]">
+              {category.name}
+            </p>
+          </div>
+        ))}
       </div>
-    </div>
+      <ScrollBar orientation="horizontal" className="h-0" />
+    </ScrollArea>
   );
 };
 

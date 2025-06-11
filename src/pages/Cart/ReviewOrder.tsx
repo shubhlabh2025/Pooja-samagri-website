@@ -32,7 +32,7 @@ const ReviewOrder = ({
             <div className="flex h-fit items-center rounded-lg border border-[#02060c26] p-0">
               <Button
                 variant="outline"
-                className="h-fit cursor-pointer rounded-l-lg rounded-r-none border-none px-2 py-1.5 leading-[1.125rem] font-semibold tracking-[0.35px] text-[#1ba672] shadow-none transition-colors duration-150 group-hover:bg-inherit hover:bg-[#02060c26] hover:text-[#1ba672]"
+                className="h-fit cursor-pointer rounded-l-lg rounded-r-none border-none px-2 py-1.5 leading-[1.125rem] font-semibold tracking-[-0.35px] text-[#1ba672] shadow-none transition-colors duration-150 group-hover:bg-inherit hover:bg-[#02060c26] hover:text-[#1ba672]"
                 onClick={() => {
                   handleDecreaseProductQantity(item.product_id);
                 }}
@@ -41,14 +41,14 @@ const ReviewOrder = ({
               </Button>
 
               <div className="group flex">
-                <p className="cursor-default px-2 py-1.5 text-sm leading-[1.125rem] font-semibold tracking-[0.35px] text-[#1ba672] shadow-none group-hover:bg-[#02060c26]">
+                <p className="cursor-default px-2 py-1.5 text-sm leading-[1.125rem] font-semibold tracking-[-0.35px] text-[#1ba672] shadow-none group-hover:bg-[#02060c26]">
                   {item.quantity}
                 </p>
               </div>
 
               <Button
                 variant="outline"
-                className="h-fit cursor-pointer rounded-l-none rounded-r-lg border-none px-2 py-1.5 leading-[1.125rem] font-semibold tracking-[0.35px] text-[#1ba672] transition-colors duration-150 group-hover:bg-inherit hover:bg-[#02060c26] hover:text-[#1ba672]"
+                className="h-fit cursor-pointer rounded-l-none rounded-r-lg border-none px-2 py-1.5 leading-[1.125rem] font-semibold tracking-[-0.35px] text-[#1ba672] transition-colors duration-150 group-hover:bg-inherit hover:bg-[#02060c26] hover:text-[#1ba672]"
                 onClick={() => {
                   handleIncreaseProductQantity(item.product_id);
                 }}

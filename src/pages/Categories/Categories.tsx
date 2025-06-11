@@ -5,12 +5,12 @@ const categories = [
   {
     title: "TEMPLE COLLECTION",
     image:
-      "https://assets.customerglu.com/35deace8-c04f-43c3-a00b-9c06eaae7acb/WhatsApp Image 2025-05-12 at 01.36.19.jpeg",
+      "https://phool.co/cdn/shop/products/IMG_5524_1024x1024.jpg?v=1660634500",
   },
   {
     title: "MOSQUITO REPELLENTS",
     image:
-      "https://assets.customerglu.com/35deace8-c04f-43c3-a00b-9c06eaae7acb/WhatsApp Image 2025-05-12 at 01.36.19.jpeg",
+      "https://phool.co/cdn/shop/products/IMG_5524_1024x1024.jpg?v=1660634500",
   },
   {
     title: "BAMBOOLESS INCENSE STICKS",
@@ -20,12 +20,12 @@ const categories = [
   {
     title: "GIFT BOXES",
     image:
-      "https://assets.customerglu.com/35deace8-c04f-43c3-a00b-9c06eaae7acb/WhatsApp Image 2025-05-12 at 01.36.19.jpeg",
+      "https://instamart-media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,h_600/z89a4dpw9tupoz16dsuc",
   },
   {
     title: "PREMIUM INCENSE",
     image:
-      "https://assets.customerglu.com/35deace8-c04f-43c3-a00b-9c06eaae7acb/WhatsApp Image 2025-05-12 at 01.36.19.jpeg",
+      "https://phool.co/cdn/shop/products/IMG_5524_1024x1024.jpg?v=1660634500",
   },
 ];
 
@@ -45,7 +45,7 @@ const CategoriesScreen = () => {
       </button>
 
       {/* Responsive Grid */}
-      <div className="grid grid-cols-2 mt-12 gap-4 sm:grid-cols-2 md:grid-cols-4">
+      <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-2 md:grid-cols-4">
         {categories.map((cat, index) => (
           <div
             key={index}
