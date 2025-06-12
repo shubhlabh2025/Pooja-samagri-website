@@ -5,5 +5,5 @@ export interface SubCategorySidebarProps {
   selectedCategoryId: string;
   categoryData: Category;
   subCategoryData: SubCategory[];
-  handleUpdateCategory: (newCategoryId: string, newCategoryName: string) => void;
+  handleUpdateCategory: (newCategoryId: string) => void;
 }

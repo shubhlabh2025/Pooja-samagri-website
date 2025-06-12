@@ -45,3 +45,10 @@ export interface GetProductsParams {
   price_max?: number;
   category_id?: string;
 }
+
+export type ProductPageParam = number;
+
+export interface InfiniteProductResponse {
+  pages: ProductResponse[];
+  pageParams: ProductPageParam[];
+}

@@ -21,7 +21,7 @@ const SubCategorySideBar = ({
       <li
         key={categoryData.id}
         className="relative flex w-full cursor-pointer flex-col items-center gap-2 pr-1 pl-3 sm:flex-row sm:justify-center"
-        onClick={() => handleUpdateCategory(categoryData.id, categoryData.name)}
+        onClick={() => handleUpdateCategory(categoryData.id)}
       >
         <div
           className={`flex aspect-[100/109] w-11 min-w-11 items-center justify-center rounded-[8px] border border-[#02060c26] ${
@@ -57,9 +57,7 @@ const SubCategorySideBar = ({
           <li
             key={subCategory.id}
             className="relative flex w-full cursor-pointer flex-col items-center gap-2 pr-1 pl-3 sm:flex-row sm:justify-center"
-            onClick={() =>
-              handleUpdateCategory(subCategory.id, subCategory.name)
-            }
+            onClick={() => handleUpdateCategory(subCategory.id)}
           >
             <div
               className={`flex aspect-[100/109] w-11 min-w-11 items-center justify-center rounded-[8px] border border-[#02060c26] ${

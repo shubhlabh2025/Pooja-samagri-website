@@ -1,4 +1,4 @@
-import { useGetProductsQuery } from "@/features/product/productAPI";
+import { useGetProductsInfiniteQuery } from "@/features/product/productAPI";
 import { useGetSubCategoriesQuery } from "@/features/sub-category/subCategoryAPI";
 import { useParams } from "react-router";
 import SubCategorySideBar from "./SubCategorySideBar";
@@ -34,36 +34,26 @@ const SubCategoriesWithProductScreen = () => {
 
   const [selectedCategoryId, setSelectedCategoryId] =
     useState<string>(categoryId);
-  const [selectedCategoryName, setSelectedCategoryName] = useState<string>(
-    categoryData.data.name || "",
-  );
 
   const {
-    data: productData = {
-      data: [],
-      meta: {
-        totalItems: 0,
-        totalPages: 0,
-        currentPage: 1,
-        pageSize: 30,
-      },
-    },
+    data: infiniteProductData,
     isLoading: productLoading,
     isError: productError,
-  } = useGetProductsQuery({
-    category_id: categoryId,
-    page: 1,
+    fetchNextPage,
+    isFetchingNextPage,
+  } = useGetProductsInfiniteQuery({
+    category_id: selectedCategoryId,
     limit: 30,
   });
 
-  console.log("productData", productData);
+  const allProducts =
+    infiniteProductData?.pages.flatMap((page) => page.data) || [];
+  const totalProducts = infiniteProductData?.pages[0]?.meta.totalItems || 0;
 
   const handleUpdateCategory = (
     newCategoryId: string,
-    newCategoryName: string,
   ) => {
     setSelectedCategoryId(newCategoryId);
-    setSelectedCategoryName(newCategoryName);
   };
 
   const isLoading = catLoading || subCatLoading || productLoading;
@@ -91,15 +81,14 @@ const SubCategoriesWithProductScreen = () => {
           handleUpdateCategory={handleUpdateCategory}
         />
       </ul>
-      <ProductSection
-        productData={productData.data}
-        totalProuducts={productData.meta.totalItems}
-        selectedCategoryName={
-          selectedCategoryName == ""
-            ? categoryData.data.name
-            : selectedCategoryName
-        }
-      />
+      <div className="flex flex-30 flex-col rounded-tl-lg bg-white">
+        <ProductSection
+          productData={allProducts}
+          totalProuducts={totalProducts}
+          onLoadMore={fetchNextPage}
+          isLoadingMore={isFetchingNextPage}
+        />
+      </div>
     </div>
   );
 };
