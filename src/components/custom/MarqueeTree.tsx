@@ -17,7 +17,7 @@ const MarqueeText: React.FC<MarqueeTextProps> = ({
   } as React.CSSProperties;
 
   return (
-    <div className="marquee-container" style={rootStyles}>
+    <div className="marquee-container bg-orange-50" style={rootStyles}>
       <div className="marquee-content">{text}</div>
 
       {/* Embedded CSS */}

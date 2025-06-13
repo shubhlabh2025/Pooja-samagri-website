@@ -49,7 +49,7 @@ createRoot(document.getElementById("root")!).render(
           />
 
           <Route
-            path="/category"
+            path="/categories"
             element={
               <MainLayout>
                 <CategoriesScreen />
@@ -58,7 +58,7 @@ createRoot(document.getElementById("root")!).render(
           />
 
           <Route
-            path="/product/:productId"
+            path="/products/:productId"
             element={
               <MainLayout>
                 <ProductDetailsScreen />

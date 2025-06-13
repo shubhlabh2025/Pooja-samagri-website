@@ -55,9 +55,6 @@ const TriggerProductVariantBottomSheet = ({
     moreThanOneVariantInCart = variantsInCartCount > 1;
   }
 
-  console.log("Total products in cart:", totalProductsInCart);
-  console.log("More than one variant in cart:", moreThanOneVariantInCart);
-
   return totalProductsInCart === 0 ? (
     <Drawer>
       <DrawerTrigger className="shadow-button-shadow w-full rounded-[8px] border border-[#02060c26] py-1.5 text-sm leading-[18px] font-semibold -tracking-[0.35px] text-[#1ba672] transition-all duration-150 ease-in-out hover:border-transparent hover:bg-[#02060c26]">

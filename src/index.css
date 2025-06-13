@@ -18,12 +18,15 @@
 
 @theme {
   --font-roboto: "Edu NSW ACT Hand Pre", sans-serif;
-
   --shadow-variant-card: 0 4px 8px 0 rgba(2, 6, 12, 0.08);
   --shadow-cart-card:
     0 8px 16px rgba(27, 30, 36, 0.06), 0 0 8px rgba(27, 30, 36, 0.04);
   --shadow-top-lg: 0 -8px 12px rgba(0, 0, 0, 0.15);
   --shadow-button-shadow: 0 4px 8px 0 rgba(27, 30, 36, 0.08);
+  --shadow-product-card:
+    rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px,
+    rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px,
+    rgba(0, 0, 0, 0.09) 0px -3px 5px;
   --bg-selected-subcategory: linear-gradient(
     rgb(222, 53, 143) 0%,
     rgb(158, 30, 98) 100%
@@ -31,6 +34,11 @@
   --bg-product-image-bottom: linear-gradient(
     rgba(130, 130, 130, 0) 0%,
     rgba(0, 0, 0, 0.7) 100%
+  );
+  --bg-categroy-line: linear-gradient(
+    to right,
+    rgba(2, 6, 12, 0.15),
+    rgba(2, 6, 12, 0)
   );
   --animate-spinner-leaf-fade: spinner-leaf-fade 1500ms linear infinite;
 }

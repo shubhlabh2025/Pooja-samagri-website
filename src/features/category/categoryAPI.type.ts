@@ -2,6 +2,7 @@ export interface Category {
   id: string;
   name: string;
   image: string;
+  priority: number;
   parent_id: string | null;
   createdAt: string;
   updatedAt: string;
@@ -25,6 +26,8 @@ export interface GetCategoriesParams {
   page?: number;
   limit?: number;
   q?: string;
+  sort_by?: "priority" | "name" | "createdAt" | "updated_at";
+  sort_order?: "ASC" | "DESC";
 }
 
 export interface GetCategoryByIdResponse {

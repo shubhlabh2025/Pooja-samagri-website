@@ -57,7 +57,7 @@ const ProductList = () => {
         <div className="p-4">
           <div className="hide-scrollbar flex snap-x snap-mandatory items-center gap-4 overflow-x-auto scroll-smooth">
             {products.data.map((item, i) => (
-              <ProductItems key={i} item={item}></ProductItems>
+              <ProductItems key={i} product={item}></ProductItems>
             ))}
 
             {/* Load More button also snaps */}

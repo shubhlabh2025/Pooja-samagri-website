@@ -11,8 +11,8 @@ const BannerCarousel: React.FC = () => {
   };
 
   const images = [
-    "https://assets.customerglu.com/35deace8-c04f-43c3-a00b-9c06eaae7acb/banner.jpg",
-    "https://rukminim2.flixcart.com/fk-p-flap/480/80/image/41f7d7fb8967dab4.jpg?q=20",
+    "https://phool.co/cdn/shop/files/kedarnath_Home_page_banner_Mob.webp?v=1724320539&width=1000",
+    "https://phool.co/cdn/shop/files/Banner_Mobile_edbb9fc3-266a-4a39-a9f3-d2a289917a12.jpg?v=1719235460&width=1000",
   ];
   useEffect(() => {
     resetTimeout();
@@ -24,9 +24,9 @@ const BannerCarousel: React.FC = () => {
   }, [currentIndex]);
 
   return (
-    <div className="relative h-[200px] w-full overflow-hidden rounded-lg shadow-lg">
+    <div className="relative w-full max-h-[400px] overflow-hidden rounded-lg shadow-lg">
       <div
-        className="flex transition-transform duration-700 ease-in-out"
+        className="flex h-full transition-transform duration-700 ease-in-out"
         style={{ transform: `translateX(-${currentIndex * 100}%)` }}
       >
         {images.map((src, idx) => (
@@ -34,7 +34,7 @@ const BannerCarousel: React.FC = () => {
             key={idx}
             src={src}
             alt={`Slide ${idx}`}
-            className="w-full flex-shrink-0 h-[200px]"
+            className="min-w-full max-h-[400px]"
           />
         ))}
       </div>

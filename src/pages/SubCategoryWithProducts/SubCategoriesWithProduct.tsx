@@ -20,6 +20,7 @@ const SubCategoriesWithProductScreen = () => {
         parent_id: "",
         createdAt: "",
         updatedAt: "",
+        priority: 0,
       },
     },
     isLoading: catLoading,

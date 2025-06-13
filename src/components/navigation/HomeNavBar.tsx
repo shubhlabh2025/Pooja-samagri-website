@@ -16,29 +16,29 @@ const HomeNavBar = () => {
   };
 
   return (
-   <header className="bg-white px-4 py-3 shadow">
-  <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-    {/* Top Row: Menu + Logo */}
-    <div className="relative flex items-center justify-between w-full sm:w-auto">
-      {/* Menu Icon - Left on small screens */}
-      <button
-        className="sm:hidden"
-        onClick={() => setMenuOpen((prev) => !prev)}
-        aria-label="Toggle Menu"
-      >
-        <Menu size={24} />
-      </button>
+    <header className="bg-orange-50 px-4 py-3 shadow">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        {/* Top Row: Menu + Logo */}
+        <div className="relative flex w-full items-center justify-between sm:w-auto">
+          {/* Menu Icon - Left on small screens */}
+          <button
+            className="sm:hidden"
+            onClick={() => setMenuOpen((prev) => !prev)}
+            aria-label="Toggle Menu"
+          >
+            <Menu size={24} />
+          </button>
 
-      {/* Logo - Centered absolutely on small screens */}
-      <div className="absolute left-1/2 -translate-x-1/2 sm:static sm:translate-x-0">
-        <Logo />
-      </div>
-    </div>
+          {/* Logo - Centered absolutely on small screens */}
+          <div className="absolute left-1/2 -translate-x-1/2 sm:static sm:translate-x-0">
+            <Logo />
+          </div>
+        </div>
 
-    {/* Search Bar */}
-    <div className="w-full sm:flex-grow">
-      <SearchBar />
-    </div>
+        {/* Search Bar */}
+        <div className="w-full sm:flex-grow">
+          <SearchBar />
+        </div>
 
         {/* Desktop Menu */}
         <div className="hidden items-center space-x-6 pr-2 text-sm sm:flex">

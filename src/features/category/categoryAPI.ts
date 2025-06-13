@@ -11,13 +11,15 @@ export const categoryAPI = createApi({
   baseQuery: axiosBaseQuery(),
   endpoints: (builder) => ({
     getCategories: builder.query<CategoryResponse, GetCategoriesParams>({
-      query: ({ page = 1, limit = 30, q }: GetCategoriesParams) => ({
+      query: ({ page = 1, limit = 30, q, sort_by, sort_order }: GetCategoriesParams) => ({
         url: "/api/categories",
         method: "GET",
         params: {
           page,
           limit,
           ...(q ? { q } : {}),
+          ...(sort_by ? { sort_by } : {}),
+          ...(sort_order ? { sort_order } : {}),
         },
       }),
     }),

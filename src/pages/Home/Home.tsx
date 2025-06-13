@@ -1,42 +1,64 @@
 import BannerCarousel from "@/components/ui/banner-carousel";
 import CategoryList from "@/components/custom/CategoryList";
-import ProductList from "./ProductList";
 import Footer from "@/components/custom/Fotter";
-import { Link } from "react-router";
 import CartSummaryBanner from "@/components/common/CartSummaryBanner";
 import { useGetAppConfigurationsQuery } from "@/features/configuration/configurationAPI";
 import { HomeSkeleteon } from "@/components/custom/skeletons/HomeSkeleton";
 import ErrorScreen from "@/components/error/ErrorScreen";
+import { useGetCategoriesQuery } from "@/features/category/categoryAPI";
+import TopCategoryProducts from "./TopCategoryProducts";
+import { ChevronRight } from "lucide-react";
+import { useNavigate } from "react-router";
+import thali from "@/assets/thali.webp";
 
 const Home = () => {
-  const { data, isLoading, isError } = useGetAppConfigurationsQuery();
+  const navigate = useNavigate();
+  const {
+    data,
+    isLoading: configLoading,
+    isError: configError,
+  } = useGetAppConfigurationsQuery();
+  const {
+    data: topFiveCategory = {
+      data: [],
+    },
+    isError: topFiveCategoryError,
+    isLoading: topFiveCategoryLoading,
+  } = useGetCategoriesQuery({
+    limit: 5,
+    sort_by: "priority",
+    sort_order: "DESC",
+  });
 
-  if (isLoading) return <HomeSkeleteon />;
-  if (isError) return <ErrorScreen />;
-  if (!data) return <div>No categories found.</div>;
+  if (configLoading || topFiveCategoryLoading) return <HomeSkeleteon />;
+  if (!data || configError || topFiveCategoryError) return <ErrorScreen />;
 
   return (
     <div className="relative bg-orange-50">
-      <div className="mt-2 mr-4 ml-2 flex items-center justify-between">
-        <span className="font-normal font-roboto text-lg">
-          Categories
-        </span>
-        <Link to="/category">
-          <span className="text-sm text-red-600">View All</span>
-        </Link>
+      <div className="flex items-center gap-3 px-4 py-5">
+        <p className="text-lg leading-4 font-medium break-words whitespace-nowrap text-[#02060cbf]">
+          Top Collections
+        </p>
+        <div className="h-[1px] flex-1 [background:var(--bg-categroy-line)]"></div>
+        <div
+          className="flex cursor-pointer items-center gap-0.5"
+          onClick={() => navigate(`/categories}`)}
+        >
+          <p className="text-[13px] leading-[17px] font-semibold tracking-[-0.33px] whitespace-nowrap text-[#ff5200]">
+            See All
+          </p>
+          <ChevronRight color="#ff5200" size={18} />
+        </div>
       </div>
-
       <CategoryList />
-
-      <BannerCarousel></BannerCarousel>
-      <span className="ms-3 mt-4 flex text-base ">
-        Trending Products
-      </span>
-      <ProductList></ProductList>
-      <span className="ms-3 mt-4 flex text-base">
-        Best Sellers
-      </span>
-      <ProductList></ProductList>
+      <BannerCarousel />
+      {topFiveCategory.data.length > 0 && (
+        <div className="flex flex-col gap-8 py-8">
+          {topFiveCategory.data.map((category) => (
+            <TopCategoryProducts key={category.id} category={category} />
+          ))}
+        </div>
+      )}
 
       <div className="flex w-full flex-col bg-[#FF9B17] p-10 sm:flex-row sm:p-24">
         <div>
@@ -59,13 +81,9 @@ const Home = () => {
           </span>
         </div>
       </div>
-
       <div className="flex flex-col sm:flex-row">
         <div className="mb-20 flex-1">
-          <img
-            className="h-full w-full"
-            src="https://assets.customerglu.com/35deace8-c04f-43c3-a00b-9c06eaae7acb/WhatsApp Image 2025-05-12 at 01.36.19.jpeg"
-          ></img>
+          <img className="h-full w-full" src={thali}></img>
         </div>
         <div className="flex w-full flex-1 flex-col">
           <div className="flex h-full w-full justify-end">
