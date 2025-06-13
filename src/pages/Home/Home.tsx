@@ -4,26 +4,36 @@ import ProductList from "./ProductList";
 import Footer from "@/components/custom/Fotter";
 import { Link } from "react-router";
 import CartSummaryBanner from "@/components/common/CartSummaryBanner";
+import { useGetAppConfigurationsQuery } from "@/features/configuration/configurationAPI";
+import { HomeSkeleteon } from "@/components/custom/skeletons/HomeSkeleton";
+import ErrorScreen from "@/components/error/ErrorScreen";
 
 const Home = () => {
+  const { data, isLoading, isError } = useGetAppConfigurationsQuery();
+
+  if (isLoading) return <HomeSkeleteon />;
+  if (isError) return <ErrorScreen />;
+  if (!data) return <div>No categories found.</div>;
 
   return (
-    <div className="relative">
+    <div className="relative bg-orange-50">
       <div className="mt-2 mr-4 ml-2 flex items-center justify-between">
-        <span className="text-lg font-semibold">Categories</span>
+        <span className="font-normal font-roboto text-lg">
+          Categories
+        </span>
         <Link to="/category">
-          <span className="text-sm font-semibold text-red-600">View All</span>
+          <span className="text-sm text-red-600">View All</span>
         </Link>
       </div>
 
       <CategoryList />
 
       <BannerCarousel></BannerCarousel>
-      <span className="ms-3 mt-4 flex text-base font-semibold">
+      <span className="ms-3 mt-4 flex text-base ">
         Trending Products
       </span>
       <ProductList></ProductList>
-      <span className="ms-3 mt-4 flex text-base font-semibold">
+      <span className="ms-3 mt-4 flex text-base">
         Best Sellers
       </span>
       <ProductList></ProductList>

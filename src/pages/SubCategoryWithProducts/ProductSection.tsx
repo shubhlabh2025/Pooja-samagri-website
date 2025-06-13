@@ -2,14 +2,22 @@ import type { ProductSectionProps } from "@/interfaces/product-section";
 import ProductItem2 from "../Home/ProductItem2";
 import { useRef, useCallback } from "react";
 import { Loader } from "lucide-react";
+import { SubCategoriesWithProductSkeleton } from "@/components/custom/skeletons/SubCategoriesWithProductSkeleton";
+import EmptyScreen from "@/components/custom/EmptyScreen";
+import NoProductFoundIcon from "../../assets/no_products.png"
+
+import { useNavigate } from "react-router";
 
 const ProductSection = ({
   productData,
   totalProuducts,
   onLoadMore,
+  isFetching,
   isLoadingMore = false,
 }: ProductSectionProps) => {
   const observerRef = useRef<IntersectionObserver | null>(null);
+
+  const navigate = useNavigate();
   const loadingRef = useCallback(
     (node: HTMLDivElement | null) => {
       if (isLoadingMore) return;
@@ -33,6 +41,23 @@ const ProductSection = ({
     },
     [isLoadingMore, onLoadMore],
   );
+  if (isFetching && !isLoadingMore) {
+    return <SubCategoriesWithProductSkeleton isSideBarVisible={false} />;
+  }
+
+  if (productData.length === 0) {
+    return (
+      <EmptyScreen
+        imageSrc={NoProductFoundIcon}
+        title={"No Products Found"}
+        subtitle={""}
+        buttonText={"Browse other Products"}
+        onButtonClick={function (): void {
+          navigate("/");
+        }}
+      />
+    );
+  }
 
   return (
     <>

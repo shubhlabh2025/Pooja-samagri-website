@@ -70,53 +70,5 @@
     "display_label": "200gm",
     "product_id": "123423145",
     "variant_id": "023dsafdasf5243a42314dfsa"
-  },
-  {
-    "name": "Apple",
-    "mrp": 111,
-    "price": 99,
-    "image": "https://instamart-media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,h_272,w_252/e4c44e5bd4599c7b2ce68c5217ffc86f",
-    "brand_name": "Shubh Labh",
-    "quantity": 3,
-    "is_out_of_stock": false,
-    "display_label": "200gm",
-    "product_id": "123423145",
-    "variant_id": "023524dfasdfd3a42314dfsa"
-  },
-  {
-    "name": "Apple",
-    "mrp": 111,
-    "price": 99,
-    "image": "https://instamart-media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,h_272,w_252/e4c44e5bd4599c7b2ce68c5217ffc86f",
-    "brand_name": "Shubh Labh",
-    "quantity": 3,
-    "is_out_of_stock": false,
-    "display_label": "200gm",
-    "product_id": "123423145",
-    "variant_id": "dsafdasfd0235243a42314dfsa"
-  },
-  {
-    "name": "Apple",
-    "mrp": 111,
-    "price": 99,
-    "image": "https://instamart-media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,h_272,w_252/e4c44e5bd4599c7b2ce68c5217ffc86f",
-    "brand_name": "Shubh Labh",
-    "quantity": 3,
-    "is_out_of_stock": false,
-    "display_label": "200gm",
-    "product_id": "123423145",
-    "variant_id": "0235243dasfdasfa42314dfsa"
-  },
-  {
-    "name": "Apple",
-    "mrp": 111,
-    "price": 99,
-    "image": "https://instamart-media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,h_272,w_252/e4c44e5bd4599c7b2ce68c5217ffc86f",
-    "brand_name": "Shubh Labh",
-    "quantity": 3,
-    "is_out_of_stock": false,
-    "display_label": "200gm",
-    "product_id": "123423145",
-    "variant_id": "023524dsafdasf3a42314dfsa"
   }
 ]

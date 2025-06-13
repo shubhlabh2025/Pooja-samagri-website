@@ -69,7 +69,7 @@ const SubCategorySideBar = ({
               <img
                 src={subCategory.image}
                 alt={subCategory.name}
-                className={`h-full w-full origin-bottom rounded-[8px] transition-transform duration-300 ease-out ${
+                className={`h-fit w-full origin-bottom rounded-[8px] transition-transform duration-300 ease-out ${
                   isSelected ? "scale-[1.3]" : "scale-100"
                 }`}
               />

@@ -1,3 +1,4 @@
+import { ProductDetailsSkeleton } from "@/components/custom/skeletons/ProductDetailSkelton";
 import ThumbnailCarousel from "@/components/custom/ThumbnailCarousel";
 import { ChevronLeft } from "lucide-react";
 import { useState } from "react";
@@ -36,7 +37,7 @@ const ProductDetailsScreen = () => {
     },
   ];
   const navigate = useNavigate();
-
+  //  return <ProductDetailsSkeleton/>
   return (
     <>
       <div className="relative flex flex-col gap-10 p-10 md:grid md:grid-cols-2">

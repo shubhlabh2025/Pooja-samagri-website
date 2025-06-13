@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Hand+Pre:wght@400..700&display=swap");
 @import "tailwindcss";
 
 @keyframes spinner-leaf-fade {
@@ -16,6 +17,8 @@
 }
 
 @theme {
+  --font-roboto: "Edu NSW ACT Hand Pre", sans-serif;
+
   --shadow-variant-card: 0 4px 8px 0 rgba(2, 6, 12, 0.08);
   --shadow-cart-card:
     0 8px 16px rgba(27, 30, 36, 0.06), 0 0 8px rgba(27, 30, 36, 0.04);
@@ -36,6 +39,7 @@ html,
 body,
 #root {
   height: 100%;
+  font-family: "Edu NSW ACT Hand Pre", cursive;
 }
 
 @custom-variant dark (&:is(.dark *));

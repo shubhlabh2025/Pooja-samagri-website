@@ -12,13 +12,14 @@ import { useEffect, useState } from "react";
 import type { FetchState } from "@/types/fetchState";
 import CommonLoader from "@/components/loader/CommonLoader";
 import SomethingWentWrong from "@/components/error/SomethingWentWrong";
-import EmptyCart from "./EmptyCart";
 import ReviewOrder from "./ReviewOrder";
 import BillDetails from "./BillDetails";
 import Coupons from "./Coupons";
 import { Button } from "@/components/ui/button";
 import ConfirmationDialog from "@/components/dialog/ConfirmationDialog";
 import AddMoreItems from "./AddMoreItems";
+import EmptyScreen from "@/components/custom/EmptyScreen";
+import EmptyCartIcon from "../../assets/emptyCart.svg";
 
 const Cart = () => {
   const [cartData, setCartData] = useState<FetchState<CartItem[]>>({
@@ -57,6 +58,8 @@ const Cart = () => {
     setTimeout(fetchCart, 500);
   }, []);
   const navigate = useNavigate();
+
+  //  return <CartPageSkeleton/>
 
   return (
     <>
@@ -116,7 +119,17 @@ const Cart = () => {
         <div className="hide-scrollbar flex-1 overflow-y-auto bg-[#f0f0f5] p-4">
           {cartData.status === "loading" && <CommonLoader />}
           {cartData.status === "error" && <SomethingWentWrong />}
-          {cartData.status === "empty" && <EmptyCart />}
+          {cartData.status === "empty" && (
+            <EmptyScreen
+              imageSrc={EmptyCartIcon}
+              title={"Your cart is getting lonely"}
+              subtitle={"Fill it up with all things good!"}
+              buttonText={"Browse Products"}
+              onButtonClick={function (): void {
+                navigate("/")
+              }}
+            />
+          )}
           {isSuccess && (
             <div className="flex flex-col justify-between gap-4 sm:flex-row">
               <div className="flex flex-6 flex-col gap-3">

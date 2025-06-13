@@ -8,7 +8,7 @@ const CategoryList = () => {
 
   if (isLoading) return <div>Loading categories...</div>;
   if (isError) return <div>Error loading categories.</div>;
-  if (!data || data.data.length === 0) return <div>No categories found.</div>;
+  if (!data  || data.data.length === 0) return <div>No categories found.</div>;
 
   return (
     <ScrollArea className="scrollbar-none w-full overflow-x-auto">

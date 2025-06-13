@@ -5,6 +5,8 @@ import SubCategorySideBar from "./SubCategorySideBar";
 import { useGetCategoryByIdQuery } from "@/features/category/categoryAPI";
 import { useState } from "react";
 import ProductSection from "./ProductSection";
+import { SubCategoriesWithProductSkeleton } from "@/components/custom/skeletons/SubCategoriesWithProductSkeleton";
+import ErrorScreen from "@/components/error/ErrorScreen";
 
 const SubCategoriesWithProductScreen = () => {
   const { categoryId = "" } = useParams<{ categoryId: string }>();
@@ -41,6 +43,7 @@ const SubCategoriesWithProductScreen = () => {
     isError: productError,
     fetchNextPage,
     isFetchingNextPage,
+    isFetching,
   } = useGetProductsInfiniteQuery({
     category_id: selectedCategoryId,
     limit: 30,
@@ -50,9 +53,7 @@ const SubCategoriesWithProductScreen = () => {
     infiniteProductData?.pages.flatMap((page) => page.data) || [];
   const totalProducts = infiniteProductData?.pages[0]?.meta.totalItems || 0;
 
-  const handleUpdateCategory = (
-    newCategoryId: string,
-  ) => {
+  const handleUpdateCategory = (newCategoryId: string) => {
     setSelectedCategoryId(newCategoryId);
   };
 
@@ -60,15 +61,11 @@ const SubCategoriesWithProductScreen = () => {
   const isError = catError || subCatError || productError;
 
   if (isLoading) {
-    return <div className="p-4">Loading data...</div>;
+    return <SubCategoriesWithProductSkeleton />;
   }
 
   if (isError) {
-    return (
-      <div className="p-4 text-red-500">
-        Error loading data. Please try again later.
-      </div>
-    );
+    return <ErrorScreen />;
   }
 
   return (
@@ -86,6 +83,7 @@ const SubCategoriesWithProductScreen = () => {
           productData={allProducts}
           totalProuducts={totalProducts}
           onLoadMore={fetchNextPage}
+          isFetching={isFetching}
           isLoadingMore={isFetchingNextPage}
         />
       </div>

@@ -14,11 +14,13 @@ import ChatIcon from "./components/custom/ChatIcon.tsx";
 import { store } from "@/app/store";
 import { Provider } from "react-redux";
 import MainLayoutWithCart from "./components/layout/MainLayoutWithCart.tsx";
+import ConfigLoader from "./app/configLoader.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <Provider store={store}>
     <StrictMode>
       <BrowserRouter>
+      <ConfigLoader/>
         <Routes>
           <Route
             path="/"
