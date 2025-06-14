@@ -191,3 +191,17 @@ body::-webkit-scrollbar {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
+
+/* Marquee animation */
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@utility animate-marquee-scroll {
+  animation: marquee-scroll var(--marquee-duration) linear var(--marquee-repeat);
+}

@@ -17,34 +17,13 @@ const MarqueeText: React.FC<MarqueeTextProps> = ({
   } as React.CSSProperties;
 
   return (
-    <div className="marquee-container bg-orange-50" style={rootStyles}>
-      <div className="marquee-content">{text}</div>
-
-      {/* Embedded CSS */}
-      <style>{`
-        .marquee-container {
-          overflow: hidden;
-          white-space: nowrap;
-          position: relative;
-          width: 100%;
-        }
-
-        .marquee-content {
-          display: inline-block;
-          padding-left: 100%;
-          animation: marquee-scroll var(--marquee-duration) linear var(--marquee-repeat);
-          will-change: transform;
-        }
-
-        @keyframes marquee-scroll {
-          0% {
-            transform: translateX(0%);
-          }
-          100% {
-            transform: translateX(-100%);
-          }
-        }
-      `}</style>
+    <div
+      className="relative w-full overflow-hidden bg-orange-50 whitespace-nowrap"
+      style={rootStyles}
+    >
+      <div className="pl-[100%] animate-marquee-scroll inline-block will-change-transform">
+        {text}
+      </div>
     </div>
   );
 };
