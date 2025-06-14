@@ -36,8 +36,6 @@ const TopCategoryProducts = ({ category }: TopCategoryProductsProps) => {
     );
   }
 
-  console.log("ProductData", ProductData);
-
   if (!ProductData || ProductData.pages[0].data.length === 0) {
     return null;
   }

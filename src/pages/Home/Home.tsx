@@ -53,7 +53,7 @@ const Home = () => {
       <CategoryList />
       <BannerCarousel />
       {topFiveCategory.data.length > 0 && (
-        <div className="flex flex-col gap-8 py-8">
+        <div className="flex flex-col gap-8 pt-8">
           {topFiveCategory.data.map((category) => (
             <TopCategoryProducts key={category.id} category={category} />
           ))}

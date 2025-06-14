@@ -24,7 +24,7 @@ const SubCategorySideBar = ({
         onClick={() => handleUpdateCategory(categoryData.id)}
       >
         <div
-          className={`flex aspect-[100/109] w-11 min-w-11 items-center justify-center rounded-[8px] border border-[#02060c26] ${
+          className={`flex items-center justify-center rounded-[8px] border border-[#02060c26] ${
             isCategorySelected
               ? "bg-[image:var(--bg-selected-subcategory)]"
               : "bg-[#f0f0f5]"
@@ -33,7 +33,7 @@ const SubCategorySideBar = ({
           <img
             src={categoryData.image}
             alt={categoryData.name}
-            className={`h-fit w-full origin-bottom rounded-[8px] transition-transform duration-300 ease-out ${
+            className={`aspect-[100/109] h-fit w-11 min-w-11 origin-bottom rounded-[8px] transition-transform duration-300 ease-out ${
               isCategorySelected ? "scale-[1.3]" : "scale-100"
             }`}
           />
@@ -60,7 +60,7 @@ const SubCategorySideBar = ({
             onClick={() => handleUpdateCategory(subCategory.id)}
           >
             <div
-              className={`flex aspect-[100/109] w-11 min-w-11 items-center justify-center rounded-[8px] border border-[#02060c26] ${
+              className={`flex items-center justify-center rounded-[8px] border border-[#02060c26] ${
                 isSelected
                   ? "bg-[image:var(--bg-selected-subcategory)]"
                   : "bg-[#f0f0f5]"
@@ -69,7 +69,7 @@ const SubCategorySideBar = ({
               <img
                 src={subCategory.image}
                 alt={subCategory.name}
-                className={`h-fit w-full origin-bottom rounded-[8px] transition-transform duration-300 ease-out ${
+                className={`aspect-[100/109] h-fit w-11 min-w-11 origin-bottom rounded-[8px] transition-transform duration-300 ease-out ${
                   isSelected ? "scale-[1.3]" : "scale-100"
                 }`}
               />
