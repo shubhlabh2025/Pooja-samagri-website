@@ -2,7 +2,6 @@ import BannerCarousel from "@/components/ui/banner-carousel";
 import CategoryList from "@/components/custom/CategoryList";
 import Footer from "@/components/custom/Fotter";
 import CartSummaryBanner from "@/components/common/CartSummaryBanner";
-import { useGetAppConfigurationsQuery } from "@/features/configuration/configurationAPI";
 import { HomeSkeleteon } from "@/components/custom/skeletons/HomeSkeleton";
 import ErrorScreen from "@/components/error/ErrorScreen";
 import { useGetCategoriesQuery } from "@/features/category/categoryAPI";
@@ -10,14 +9,18 @@ import TopCategoryProducts from "./TopCategoryProducts";
 import { ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router";
 import AboutSection from "@/components/custom/AboutSection";
+import { useAppSelector } from "@/app/hooks";
+import { selectConfiguration } from "@/features/configuration/configurationSlice";
+import { getUserLocation } from "@/utils/LocationDetector";
+import { useEffect, useState } from "react";
 
 const Home = () => {
   const navigate = useNavigate();
-  const {
-    data,
-    isLoading: configLoading,
-    isError: configError,
-  } = useGetAppConfigurationsQuery();
+  const [userLocation, setUserLocation] = useState<{
+    latitude: number;
+    longitude: number;
+  } | null>(null);
+
   const {
     data: topFiveCategory = {
       data: [],
@@ -30,11 +33,30 @@ const Home = () => {
     sort_order: "DESC",
   });
 
-  if (configLoading || topFiveCategoryLoading) return <HomeSkeleteon />;
-  if (!data || configError || topFiveCategoryError) return <ErrorScreen />;
+  const config = useAppSelector(selectConfiguration);
+  console.log(config.data);
+
+  useEffect(() => {
+    const getLocation = async () => {
+      try {
+        const location = await getUserLocation();
+        setUserLocation(location);
+        console.log("User location:", userLocation);
+        // You can also store it in Redux or use it for API calls here
+      } catch (error) {
+        console.error("Failed to get location:", error);
+        // Handle location error (maybe set a default location)
+      }
+    };
+
+    getLocation();
+  }, []);
+
+  if (topFiveCategoryLoading) return <HomeSkeleteon />;
+  if (topFiveCategoryError) return <ErrorScreen />;
 
   return (
-    <div className="relative bg-orange-50 overflow-auto">
+    <div className="relative overflow-auto bg-orange-50">
       <div className="flex items-center gap-3 px-4 py-5">
         <p className="text-lg leading-4 font-medium break-words whitespace-nowrap text-[#02060cbf]">
           Top Collections
