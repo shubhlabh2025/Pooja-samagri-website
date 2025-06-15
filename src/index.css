@@ -16,6 +16,15 @@
   }
 }
 
+@keyframes indicator-progress {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
 @theme {
   --font-roboto: "Edu NSW ACT Hand Pre", sans-serif;
   --shadow-variant-card: 0 4px 8px 0 rgba(2, 6, 12, 0.08);
@@ -38,6 +47,7 @@
     rgba(2, 6, 12, 0)
   );
   --animate-spinner-leaf-fade: spinner-leaf-fade 1500ms linear infinite;
+  --animate-indicator-progress: indicator-progress 3s linear;
 }
 
 html,
