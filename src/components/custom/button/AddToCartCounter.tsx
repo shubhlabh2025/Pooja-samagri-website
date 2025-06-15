@@ -43,7 +43,7 @@ const AddToCartCounter = ({ productVariant }: AddToCartCounterProps) => {
   return quantity == 0 ? (
     <Button
       variant={"outline"}
-      className="shadow-button-shadow h-fit w-full rounded-[8px] border border-[#02060c26] p-0 py-1.5 text-sm leading-[18px] font-semibold -tracking-[0.35px] text-[#1ba672] transition-all duration-150 ease-in-out hover:border-transparent hover:bg-[#02060c26] hover:text-[#1ba672]"
+      className="shadow-button-shadow h-fit w-full rounded-[8px] border border-[#02060c26] p-0 py-1.5 text-sm leading-[18px] font-semibold -tracking-[0.35px] text-[#ff5200] transition-all duration-150 ease-in-out hover:border-transparent hover:bg-[#02060c26] hover:text-[#ff5200]"
     >
       Add
     </Button>

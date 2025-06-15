@@ -15,7 +15,7 @@ const ChatIcon: React.FC = () => {
 
   const openWhatsApp = () => {
     const isMobile = /iPhone|Android/i.test(navigator.userAgent);
-    const phoneNumber = "919914454147"; // Add country code for WhatsApp
+    const phoneNumber = "919000057702"; // Add country code for WhatsApp
     const message = encodeURIComponent("Hello");
 
     const url = isMobile

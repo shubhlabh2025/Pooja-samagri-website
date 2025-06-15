@@ -4,6 +4,7 @@ import type {
   GetProductsParams,
   ProductResponse,
   ProductPageParam,
+  SingleProductResponse,
 } from "./productAPI.type";
 
 export const productAPI = createApi({
@@ -36,8 +37,14 @@ export const productAPI = createApi({
         },
       }),
     }),
+    getProductById:builder.query<SingleProductResponse, string>({
+          query: (id: string) => ({
+            url: `/api/products/${id}`,
+            method: "GET",
+          }),
+        })
   }),
 });
 
-export const { useGetProductsInfiniteQuery } =
+export const { useGetProductsInfiniteQuery, useGetProductByIdQuery } =
   productAPI;

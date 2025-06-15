@@ -10,82 +10,94 @@ import CategoriesScreen from "./pages/Categories/Categories.tsx";
 import ChatIcon from "./components/custom/ChatIcon.tsx";
 import MainLayoutWithCart from "./components/layout/MainLayoutWithCart.tsx";
 import Home from "./pages/Home/Home.tsx";
-import { useGetAppConfigurationsQuery } from "./features/configuration/configurationAPI.ts";
 import { HomeSkeleteon } from "./components/custom/skeletons/HomeSkeleton.tsx";
 import ErrorScreen from "./components/error/ErrorScreen.tsx";
-import { setData } from "./features/configuration/configurationSlice.ts";
-import { useAppDispatch } from "./app/hooks.ts";
+import { selectConfiguration, setData } from "./features/configuration/configurationSlice.ts";
+import { useAppDispatch, useAppSelector } from "./app/hooks.ts";
 import { useEffect } from "react";
+import { useGetAppConfigurationsQuery } from "./features/configuration/configurationAPI.ts";
 
 function App() {
-  const { isLoading, data, isError } = useGetAppConfigurationsQuery();
-  const dispatch = useAppDispatch(); // ✅ called unconditionally
+  const dispatch = useAppDispatch();
+  const configState = useAppSelector(selectConfiguration);
 
+  const {
+    isLoading: isQueryLoading,
+    data: queryData,
+    isError: isQueryError,
+  } = useGetAppConfigurationsQuery();
+
+  // Load configuration into store only once
   useEffect(() => {
-    if (data) {
-      dispatch(setData(data));
+    if (!configState.data && queryData) {
+      dispatch(setData(queryData));
     }
-  }, [data, dispatch]);
+  }, [configState.data, queryData, dispatch]);
 
-  if (isLoading) {
+  // Show loading until data is in store
+  if (isQueryLoading && !configState.data) {
     return <HomeSkeleteon />;
   }
 
-  if (!data || isError) {
+  // Show error only if both store and query are empty/failing
+  if ((!configState.data && isQueryError) || (!configState.data && !queryData)) {
     return <ErrorScreen />;
   }
 
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <MainLayout>
-              <Home />
-              <ChatIcon />
-            </MainLayout>
-          }
-        />
-        <Route
-          path="/cart"
-          element={
-            // <MainLayout>
-            <Cart />
-            // </MainLayout>
-          }
-        />
-        <Route
-          path="/categories/:categoryId"
-          element={
-            <MainLayoutWithCart>
-              <SubCategoriesWithProductScreen />
-            </MainLayoutWithCart>
-          }
-        />
+  // If config is available in store, render app
+  if (configState.data) {
+    return (
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <MainLayout>
+                <Home />
+                <ChatIcon />
+              </MainLayout>
+            }
+          />
+          <Route
+            path="/cart"
+            element={
+              // <MainLayout>
+              <Cart />
+              // </MainLayout>
+            }
+          />
+          <Route
+            path="/categories/:categoryId"
+            element={
+              <MainLayoutWithCart>
+                <SubCategoriesWithProductScreen />
+              </MainLayoutWithCart>
+            }
+          />
 
-        <Route
-          path="/categories"
-          element={
-            <MainLayout>
-              <CategoriesScreen />
-            </MainLayout>
-          }
-        />
+          <Route
+            path="/categories"
+            element={
+              <MainLayout>
+                <CategoriesScreen />
+              </MainLayout>
+            }
+          />
 
-        <Route
-          path="/products/:productId"
-          element={
-            <MainLayout>
-              <ProductDetailsScreen />
-            </MainLayout>
-          }
-        />
-        <Route path="/search" element={<SearchScreen />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </BrowserRouter>
-  );
+          <Route
+            path="/products/:productId"
+            element={
+              <MainLayout>
+                <ProductDetailsScreen />
+              </MainLayout>
+            }
+          />
+          <Route path="/search" element={<SearchScreen />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
+    );
+  }
 }
 
 export default App;

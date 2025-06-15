@@ -1,23 +1,24 @@
 import { useEffect, useRef, useState } from "react";
-import { Card, CardContent } from "./card";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   type CarouselApi,
-} from "./carousel";
+} from "../ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { cn } from "@/lib/utils";
+import type { AdBanner } from "@/interfaces/ad-banner";
 
-const BannerCarousel: React.FC = () => {
+interface AdBannerCarouselProps {
+  adBanner: AdBanner[];
+}
+
+const BannerCarousel: React.FC<AdBannerCarouselProps> = ({
+  adBanner,
+}: AdBannerCarouselProps) => {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
-
-  const images = [
-    "https://phool.co/cdn/shop/files/kedarnath_Home_page_banner_Mob.webp?v=1724320539&width=1000",
-    "https://phool.co/cdn/shop/files/Banner_Mobile_edbb9fc3-266a-4a39-a9f3-d2a289917a12.jpg?v=1719235460&width=1000",
-  ];
 
   useEffect(() => {
     if (!api) {
@@ -40,15 +41,19 @@ const BannerCarousel: React.FC = () => {
         className="w-full"
         setApi={setApi}
       >
-        <CarouselContent>
-          {Array.from({ length: 5 }).map((_, index) => (
-            <CarouselItem key={index}>
-              <div className="p-1">
-                <Card>
+        <CarouselContent className="rounded-none">
+          {adBanner.map((banner, index) => (
+            <CarouselItem key={index} className="rounded-none">
+              <div className="">
+                <img
+                  src={banner.image}
+                  className="flex max-h-[300px] w-full items-center justify-center"
+                ></img>
+                {/* <Card>
                   <CardContent className="flex aspect-square max-h-[300px] items-center justify-center p-6">
                     <span className="text-4xl font-semibold">{index + 1}</span>
                   </CardContent>
-                </Card>
+                </Card> */}
               </div>
             </CarouselItem>
           ))}
@@ -69,7 +74,7 @@ const BannerCarousel: React.FC = () => {
               aria-label={`Go to slide ${index + 1}`}
             >
               {index === current - 1 && (
-                <span className="animate-indicator-progress absolute top-0 w-full left-0 h-full rounded-full bg-black" />
+                <span className="animate-indicator-progress absolute top-0 left-0 h-full w-full rounded-full bg-black" />
               )}
             </button>
           ))}

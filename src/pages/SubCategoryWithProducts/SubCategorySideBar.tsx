@@ -40,13 +40,13 @@ const SubCategorySideBar = ({
         </div>
         <div
           className={`line-clamp-2 w-full text-center text-[13px] leading-[17px] font-normal tracking-[-0.33px] break-words sm:text-start ${
-            isCategorySelected ? "text-[#9e1e62]" : "text-[#02060c99]"
+            isCategorySelected ? "text-[#ff5200]" : "text-[#02060c99]"
           } sm:w-30`}
         >
           {categoryData.name}
         </div>
         <div
-          className={`absolute top-1/2 left-[0] h-[80%] w-1 translate-y-[-50%] rounded-tr-full rounded-br-full bg-[#9e1e62] ${isCategorySelected ? "visible transition-transform duration-300 ease-in" : "invisible transition-none"}`}
+          className={`absolute top-1/2 left-[0] h-[80%] w-1 translate-y-[-50%] rounded-tr-full rounded-br-full bg-[#ff5200] ${isCategorySelected ? "visible transition-transform duration-300 ease-in" : "invisible transition-none"}`}
         ></div>
       </li>
 

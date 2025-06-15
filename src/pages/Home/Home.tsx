@@ -1,4 +1,4 @@
-import BannerCarousel from "@/components/ui/banner-carousel";
+import BannerCarousel from "@/components/custom/BannerCarousel";
 import CategoryList from "@/components/custom/CategoryList";
 import Footer from "@/components/custom/Fotter";
 import CartSummaryBanner from "@/components/common/CartSummaryBanner";
@@ -35,7 +35,7 @@ const Home = () => {
 
   const config = useAppSelector(selectConfiguration);
   console.log(config.data);
-
+  console.log(config.data?.data.ad_banners);
   useEffect(() => {
     const getLocation = async () => {
       try {
@@ -56,7 +56,7 @@ const Home = () => {
   if (topFiveCategoryError) return <ErrorScreen />;
 
   return (
-    <div className="relative overflow-auto bg-orange-50">
+    <div className="relative overflow-auto bg-[#fefbf5]">
       <div className="flex items-center gap-3 px-4 py-5">
         <p className="text-lg leading-4 font-medium break-words whitespace-nowrap text-[#02060cbf]">
           Top Collections
@@ -64,7 +64,7 @@ const Home = () => {
         <div className="h-[1px] flex-1 [background:var(--bg-categroy-line)]"></div>
         <div
           className="flex cursor-pointer items-center gap-0.5"
-          onClick={() => navigate(`/categories}`)}
+          onClick={() => navigate("/categories")}
         >
           <p className="text-[13px] leading-[17px] font-semibold tracking-[-0.33px] whitespace-nowrap text-[#ff5200]">
             See All
@@ -73,7 +73,9 @@ const Home = () => {
         </div>
       </div>
       <CategoryList />
-      <BannerCarousel />
+      <div className="h-2 w-2"></div>
+
+      <BannerCarousel adBanner={config.data?.data.ad_banners || []} />
       {topFiveCategory.data.length > 0 && (
         <div className="flex flex-col gap-8 pt-8">
           {topFiveCategory.data.map((category) => (

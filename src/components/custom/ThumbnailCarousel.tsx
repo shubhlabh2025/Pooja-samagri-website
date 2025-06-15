@@ -1,18 +1,18 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import  { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
-const thumbnails = [
-  "https://assets.customerglu.com/35deace8-c04f-43c3-a00b-9c06eaae7acb/banner.jpg",
-  "https://assets.customerglu.com/35deace8-c04f-43c3-a00b-9c06eaae7acb/WhatsApp Image 2025-05-12 at 01.36.19.jpeg",
-  "https://assets.customerglu.com/35deace8-c04f-43c3-a00b-9c06eaae7acb/banner.jpg",
-  "https://assets.customerglu.com/35deace8-c04f-43c3-a00b-9c06eaae7acb/WhatsApp Image 2025-05-12 at 01.36.19.jpeg",
-  "https://assets.customerglu.com/35deace8-c04f-43c3-a00b-9c06eaae7acb/banner.jpg",
-  "https://assets.customerglu.com/35deace8-c04f-43c3-a00b-9c06eaae7acb/WhatsApp Image 2025-05-12 at 01.36.19.jpeg",
-];
+interface ThumbnailCarouselProps {
+  images: string[];
+  selectedImageIndex?: number;
+  onImageSelect?: (index: number) => void;
+}
 
-const ThumbnailCarousel = () => {
+const ThumbnailCarousel: React.FC<ThumbnailCarouselProps> = ({
+  images,
+  selectedImageIndex = 0,
+  onImageSelect,
+}) => {
   const [startIndex, setStartIndex] = useState(0);
-  const [selectedIndex, setSelectedIndex] = useState(0);
   const [visibleCount, setVisibleCount] = useState(3);
 
   useEffect(() => {
@@ -24,8 +24,21 @@ const ThumbnailCarousel = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // Reset start index when images change
+  useEffect(() => {
+    setStartIndex(0);
+  }, [images]);
+
+  // Auto-scroll to show selected image if it's not visible
+  useEffect(() => {
+    if (selectedImageIndex < startIndex || selectedImageIndex >= startIndex + visibleCount) {
+      const newStartIndex = Math.max(0, Math.min(selectedImageIndex - Math.floor(visibleCount / 2), images.length - visibleCount));
+      setStartIndex(newStartIndex);
+    }
+  }, [selectedImageIndex, startIndex, visibleCount, images.length]);
+
   const showNext = () => {
-    if (startIndex + visibleCount < thumbnails.length) {
+    if (startIndex + visibleCount < images.length) {
       setStartIndex(startIndex + 1);
     }
   };
@@ -36,10 +49,25 @@ const ThumbnailCarousel = () => {
     }
   };
 
-  const visibleThumbnails = thumbnails.slice(
+  const handleImageClick = (index: number) => {
+    const actualIndex = startIndex + index;
+    onImageSelect?.(actualIndex);
+  };
+
+  // Don't render if no images
+  if (!images || images.length === 0) {
+    return null;
+  }
+
+  const visibleThumbnails = images.slice(
     startIndex,
     startIndex + visibleCount,
   );
+
+  // Don't show carousel if only one image
+  if (images.length === 1) {
+    return null;
+  }
 
   return (
     <div className="relative mt-6 flex items-center">
@@ -47,9 +75,10 @@ const ThumbnailCarousel = () => {
       {startIndex > 0 && (
         <button
           onClick={showPrev}
-          className="mr-2 rounded-full bg-gray-200 p-1 hover:bg-gray-300"
+          className="mr-2 rounded-full bg-gray-200 p-1 hover:bg-gray-300 transition-colors"
+          aria-label="Previous images"
         >
-          <ChevronLeft />
+          <ChevronLeft size={20} />
         </button>
       )}
 
@@ -57,28 +86,30 @@ const ThumbnailCarousel = () => {
       <div className="flex gap-4 overflow-hidden">
         {visibleThumbnails.map((src, index) => {
           const actualIndex = startIndex + index;
-          const isSelected = actualIndex === selectedIndex;
+          const isSelected = actualIndex === selectedImageIndex;
           return (
             <img
-              key={index}
+              key={actualIndex}
               src={src}
-              alt={`Thumbnail ${actualIndex}`}
-              onClick={() => setSelectedIndex(actualIndex)}
-              className={`h-20 w-20 cursor-pointer rounded-md border-2 object-cover ${
-                isSelected ? "border-black" : "border-gray-300"
+              alt={`Product thumbnail ${actualIndex + 1}`}
+              onClick={() => handleImageClick(index)}
+              className={`h-20 w-20 cursor-pointer rounded-md border-2 object-cover transition-all duration-200 hover:opacity-80 ${
+                isSelected ? "border-black shadow-md" : "border-gray-300 hover:border-gray-400"
               }`}
+              loading="lazy"
             />
           );
         })}
       </div>
 
       {/* Next Arrow */}
-      {startIndex + visibleCount < thumbnails.length && (
+      {startIndex + visibleCount < images.length && (
         <button
           onClick={showNext}
-          className="ml-2 rounded-full bg-gray-200 p-1 hover:bg-gray-300"
+          className="ml-2 rounded-full bg-gray-200 p-1 hover:bg-gray-300 transition-colors"
+          aria-label="Next images"
         >
-          <ChevronRight />
+          <ChevronRight size={20} />
         </button>
       )}
     </div>

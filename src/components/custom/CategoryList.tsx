@@ -10,6 +10,8 @@ const CategoryList = () => {
   if (isError) return <div>Error loading categories.</div>;
   if (!data  || data.data.length === 0) return <div>No categories found.</div>;
 
+
+
   return (
     <ScrollArea className="scrollbar-none w-full overflow-x-auto">
       <div className="flex w-max items-start gap-3 px-4">
