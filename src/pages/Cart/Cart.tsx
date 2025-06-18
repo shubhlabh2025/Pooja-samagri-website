@@ -6,10 +6,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useNavigate } from "react-router";
-import rawData from "@/data/cartData.json";
-import type { CartItem } from "@/interfaces/cart";
-import { useEffect, useState } from "react";
-import type { FetchState } from "@/types/fetchState";
+import { useState } from "react";
 import CommonLoader from "@/components/loader/CommonLoader";
 import SomethingWentWrong from "@/components/error/SomethingWentWrong";
 import ReviewOrder from "./ReviewOrder";
@@ -23,43 +20,17 @@ import EmptyCartIcon from "../../assets/emptyCart.svg";
 import AddressBottomSheet from "@/components/bottomsheet/AddressBottomSheet";
 import { Drawer, DrawerTrigger } from "@/components/ui/drawer";
 import type { UserAddressPayload } from "@/features/address/addressAPI.type";
+import { useGetCartItemsQuery } from "@/features/cart/cartAPI";
 
 const Cart = () => {
-  const [cartData, setCartData] = useState<FetchState<CartItem[]>>({
-    status: "loading",
-  });
+  const {
+    data: cartData = { data: [] },
+    isLoading,
+    isError,
+  } = useGetCartItemsQuery();
 
   const [showClearCartDialog, setShowClearCartDialog] = useState(false);
 
-  const isSuccess = cartData.status === "success";
-
-  const handleIncreaseProductQantity = (productId: string) => {
-    console.log("Increase quantity of product with ID:", productId);
-  };
-  const handleDecreaseProductQantity = (productId: string) => {
-    console.log("Decrease quantity of product with ID:", productId);
-  };
-
-  useEffect(() => {
-    const fetchCart = async () => {
-      try {
-        const data = rawData;
-        if (data.length === 0) {
-          setCartData({ status: "empty" });
-        } else {
-          setCartData({ status: "success", data });
-        }
-      } catch (err) {
-        if (err instanceof Error) {
-          setCartData({ status: "error", error: err.message });
-        } else {
-          setCartData({ status: "error", error: "Unknown error occurred" });
-        }
-      }
-    };
-
-    setTimeout(fetchCart, 500);
-  }, []);
   const navigate = useNavigate();
 
   const staticAddresses: UserAddressPayload[] = [
@@ -89,6 +60,22 @@ const Cart = () => {
   ];
   //  return <CartPageSkeleton/>
 
+  if (isLoading) {
+    return <CommonLoader />;
+  }
+  if (isError) {
+    return <SomethingWentWrong />;
+  }
+  if (cartData.data.length === 0) {
+    <EmptyScreen
+      imageSrc={EmptyCartIcon}
+      title="Your cart is empty"
+      subtitle="Add items to your cart to view them here."
+      buttonText="Start Shopping"
+      onButtonClick={() => navigate(-1)}
+    />;
+  }
+
   return (
     <>
       <ConfirmationDialog
@@ -99,7 +86,7 @@ const Cart = () => {
         confirmationButtonText="Clear cart"
         cancelButtonText="Cancel"
         onConfirm={() => {
-          setCartData({ status: "empty" });
+          // setCartData({ status: "empty" });
           console.log("Cart cleared");
         }}
       />
@@ -145,55 +132,35 @@ const Cart = () => {
 
         {/* Scrollable main content */}
         <div className="hide-scrollbar flex-1 overflow-y-auto bg-[#f0f0f5] p-4">
-          {cartData.status === "loading" && <CommonLoader />}
-          {cartData.status === "error" && <SomethingWentWrong />}
-          {cartData.status === "empty" && (
-            <EmptyScreen
-              imageSrc={EmptyCartIcon}
-              title={"Your cart is getting lonely"}
-              subtitle={"Fill it up with all things good!"}
-              buttonText={"Browse Products"}
-              onButtonClick={function (): void {
-                navigate("/");
-              }}
-            />
-          )}
-          {isSuccess && (
-            <div className="flex flex-col justify-between gap-4 sm:flex-row">
-              <div className="flex flex-6 flex-col gap-3">
-                <div className="flex flex-col gap-3">
-                  <p className="ml-1 text-[16px] font-semibold -tracking-[0.4px]">
-                    Rewiew Your Order
-                  </p>
-                  <ReviewOrder
-                    cartData={cartData.data}
-                    handleIncreaseProductQantity={handleIncreaseProductQantity}
-                    handleDecreaseProductQantity={handleDecreaseProductQantity}
-                  />
-                  <AddMoreItems />
-                </div>
-                <Coupons />
+          <div className="flex flex-col justify-between gap-4 sm:flex-row">
+            <div className="flex flex-6 flex-col gap-3">
+              <div className="flex flex-col gap-3">
+                <p className="ml-1 text-[16px] font-semibold -tracking-[0.4px]">
+                  Rewiew Your Order
+                </p>
+                <ReviewOrder cartData={cartData.data} />
+                <AddMoreItems />
               </div>
-              <div className="flex flex-4 flex-col gap-3">
-                <BillDetails cartData={cartData.data} />
-              </div>
+              <Coupons />
             </div>
-          )}
+            <div className="flex flex-4 flex-col gap-3">
+              <BillDetails cartData={cartData.data} />
+            </div>
+          </div>
         </div>
 
         {/* Sticky bottom "Place Order" button only if success */}
-        {isSuccess && (
-          <div className="shadow-cart-card sticky bottom-0 z-10 rounded-tl-lg rounded-tr-lg bg-white px-4 py-4">
-            <Drawer>
-              <DrawerTrigger asChild>
-                <Button className="w-full cursor-pointer bg-[#ff5200] py-5.5 text-lg leading-5.5 font-normal -tracking-[0.45px] text-[#ffffffeb] transition duration-100 ease-in hover:scale-[0.95] hover:bg-[#ff5200] hover:shadow-none">
-                  Select Address
-                </Button>
-              </DrawerTrigger>
-              <AddressBottomSheet addresses={staticAddresses} />
-            </Drawer>
-          </div>
-        )}
+
+        <div className="shadow-cart-card sticky bottom-0 z-10 rounded-tl-lg rounded-tr-lg bg-white px-4 py-4">
+          <Drawer>
+            <DrawerTrigger asChild>
+              <Button className="w-full cursor-pointer bg-[#ff5200] py-5.5 text-lg leading-5.5 font-normal -tracking-[0.45px] text-[#ffffffeb] transition duration-100 ease-in hover:scale-[0.95] hover:bg-[#ff5200] hover:shadow-none">
+                Select Address
+              </Button>
+            </DrawerTrigger>
+            <AddressBottomSheet addresses={staticAddresses} />
+          </Drawer>
+        </div>
       </div>
     </>
   );

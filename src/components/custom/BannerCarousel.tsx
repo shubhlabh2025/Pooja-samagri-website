@@ -47,7 +47,7 @@ const BannerCarousel: React.FC<AdBannerCarouselProps> = ({
               <div className="">
                 <img
                   src={banner.image}
-                  className="flex max-h-[300px] w-full items-center justify-center"
+                  className="flex max-h-[300px] min-h-[175px] w-full items-center justify-center"
                 ></img>
                 {/* <Card>
                   <CardContent className="flex aspect-square max-h-[300px] items-center justify-center p-6">

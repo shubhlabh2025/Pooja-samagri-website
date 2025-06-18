@@ -6,17 +6,15 @@ import { HomeSkeleteon } from "@/components/custom/skeletons/HomeSkeleton";
 import ErrorScreen from "@/components/error/ErrorScreen";
 import { useGetCategoriesQuery } from "@/features/category/categoryAPI";
 import TopCategoryProducts from "./TopCategoryProducts";
-import { ChevronRight } from "lucide-react";
-import { useNavigate } from "react-router";
 import AboutSection from "@/components/custom/AboutSection";
-import { useAppSelector } from "@/app/hooks";
+import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { selectConfiguration } from "@/features/configuration/configurationSlice";
-
-// import { getUserLocation } from "@/utils/LocationDetector";
-// import { useEffect } from "react";
+import { useEffect } from "react";
+import { useRefreshTokenMutation } from "@/features/auth/authAPI";
+import { setCredentials } from "@/features/auth/authSlice";
 
 const Home = () => {
-  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const {
     data: topFiveCategory = {
@@ -29,49 +27,43 @@ const Home = () => {
     sort_by: "priority",
     sort_order: "DESC",
   });
+  const { isAuthenticated } = useAppSelector((state) => state.auth);
+  console.log("Is Authenticated:", isAuthenticated);
+
+  const [
+    requestAccessToken,
+    { isLoading: isLoadingRefreshToken, isError: isErrorRefreshToken },
+  ] = useRefreshTokenMutation();
+
+  useEffect(() => {
+    const handleRefreshToken = async () => {
+      if (isAuthenticated) return;
+
+      try {
+        const res = await requestAccessToken().unwrap();
+        dispatch(setCredentials({ access_token: res.data.access_token }));
+      } catch (error) {
+        console.error("Error refreshing token:", error);
+      }
+    };
+
+    handleRefreshToken();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const config = useAppSelector(selectConfiguration);
   console.log(config.data);
   console.log(config.data?.data.ad_banners);
 
-  // useEffect(() => {
-  //   const getLocation = async () => {
-  //     try {
-  //       const location = await getUserLocation();
-  //       console.log("User location:", location);
-  //       // You can also store it in Redux or use it for API calls here
-  //     } catch (error) {
-  //       console.error("Failed to get location:", error);
-  //       // Handle location error (maybe set a default location)
-  //     }
-  //   };
-
-  //   getLocation();
-  // }, []);
-
   if (topFiveCategoryLoading) return <HomeSkeleteon />;
   if (topFiveCategoryError) return <ErrorScreen />;
 
-  return (
-    <div className="relative overflow-auto bg-[#fefbf5]">
-      <div className="flex items-center gap-3 px-4 py-5">
-        <p className="text-lg leading-4 font-medium break-words whitespace-nowrap text-[#02060cbf]">
-          Top Collections
-        </p>
-        <div className="h-[1px] flex-1 [background:var(--bg-categroy-line)]"></div>
-        <div
-          className="flex cursor-pointer items-center gap-0.5"
-          onClick={() => navigate("/categories")}
-        >
-          <p className="text-[13px] leading-[17px] font-semibold tracking-[-0.33px] whitespace-nowrap text-[#ff5200]">
-            See All
-          </p>
-          <ChevronRight color="#ff5200" size={18} />
-        </div>
-      </div>
-      <CategoryList />
-      <div className="h-2 w-2"></div>
+  if (isLoadingRefreshToken) return <HomeSkeleteon />;
+  if (isErrorRefreshToken) return <ErrorScreen />;
 
+  return (
+    <div className="relative overflow-auto">
+      <CategoryList />
       <BannerCarousel adBanner={config.data?.data.ad_banners || []} />
       {topFiveCategory.data.length > 0 && (
         <div className="flex flex-col gap-8 pt-8">
@@ -80,7 +72,6 @@ const Home = () => {
           ))}
         </div>
       )}
-
       <AboutSection />
       <Footer />
       <CartSummaryBanner />

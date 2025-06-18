@@ -56,7 +56,7 @@ const CategoriesScreen = () => {
   }
 
   return (
-    <div className="relative flex flex-col space-y-4 bg-[#fefbf5] p-2">
+    <div className="relative flex flex-col space-y-4  p-2">
       {/* Header with icon and title */}
 
       {/* Back button on the left */}

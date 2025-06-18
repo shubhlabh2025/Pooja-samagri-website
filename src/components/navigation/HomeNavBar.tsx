@@ -17,7 +17,7 @@ const HomeNavBar = () => {
   };
 
   return (
-    <header className="bg-orange-50 px-4 py-3 shadow">
+    <header className=" px-4 py-3 shadow">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         {/* Top Row: Menu + Logo */}
         <div className="relative flex w-full items-center justify-between sm:w-auto">

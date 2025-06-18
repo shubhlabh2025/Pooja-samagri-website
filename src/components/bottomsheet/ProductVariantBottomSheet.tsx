@@ -9,10 +9,21 @@ import type { ProductVaraintBottomSheetProps } from "@/interfaces/bottom-sheet";
 import { Separator } from "@/components/ui/separator";
 import AddToCartCounter from "../custom/button/AddToCartCounter";
 import { DialogDescription } from "@radix-ui/react-dialog";
+import { useGetCartItemsQuery } from "@/features/cart/cartAPI";
 
 const ProductVariantBottomSheet = ({
   productVariants,
 }: ProductVaraintBottomSheetProps) => {
+  const { data: cartData = { data: [] } } = useGetCartItemsQuery();
+
+  const productId = productVariants[0].product_id;
+  const valueOfProductInCart = cartData.data.reduce((acc, item) => {
+    if (item.variant.product_id === productId) {
+      return acc + item.quantity * item.variant.price;
+    }
+    return acc;
+  }, 0);
+
   return (
     <DrawerContent className="flex flex-col gap-6 px-3 pt-6 pb-4">
       <DrawerHeader className="p-0">
@@ -66,7 +77,7 @@ const ProductVariantBottomSheet = ({
                 item total :
               </p>
               <p className="ml-2 text-[16px] leading-5 font-semibold -tracking-[0.4px] text-white">
-                ₹{0}
+                ₹{valueOfProductInCart}
               </p>
             </div>
             <p className="text-[16px] leading-5 font-semibold -tracking-[0.4px] text-white">

@@ -14,21 +14,36 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
-import { ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from "@/components/ui/resizable";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Separator } from "@radix-ui/react-separator";
 import { REGEXP_ONLY_DIGITS_AND_CHARS } from "input-otp";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import loginModalImage from "@/assets/loginModalBackground.png";
+import {
+  useRequestOtpMutation,
+  useVerifyOtpMutation,
+} from "@/features/auth/authAPI";
+import { DialogClose } from "@radix-ui/react-dialog";
 
 const LoginDialog = () => {
   const [isOtpScreen, setIsOtpScreen] = useState(false);
   const [showResend, setShowResend] = useState(false);
   const [mobileValue, setMobileValue] = useState("");
   const [resendCooldown, setResendCooldown] = useState(30);
+  const [requestError, setRequestError] = useState<string | null>(null);
+  const [verifyError, setVerifyError] = useState<string | null>(null);
+  const dialogCloseRef = useRef<HTMLButtonElement>(null);
+
+  const [requestOtp, { isLoading: isRequestingOtp }] = useRequestOtpMutation();
+  const [verifyOtp, { isLoading: isVerifyingOtp }] = useVerifyOtpMutation();
 
   const FormSchema = z.object({
     mobileNumber: z
@@ -39,6 +54,14 @@ const LoginDialog = () => {
       }),
   });
 
+  const otpSchema = z.object({
+    otpCode: z
+      .string()
+      .trim()
+      .length(6, { message: "OTP must be exactly 6 digits" })
+      .regex(/^\d{6}$/, { message: "OTP must contain only digits" }),
+  });
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -46,11 +69,31 @@ const LoginDialog = () => {
     },
   });
 
-  const handleResend = () => {
-    console.log("Resend code triggered");
-    setShowResend(true);
-    setResendCooldown(30);
-    // Add resend OTP API logic here
+  const otpForm = useForm({
+    resolver: zodResolver(otpSchema),
+    defaultValues: {
+      otpCode: "",
+    },
+  });
+
+  const handleResend = async () => {
+    setRequestError(null);
+    try {
+      const result = await requestOtp({
+        phone_number: `+91${mobileValue}`,
+      }).unwrap();
+      if (result.success) {
+        setShowResend(true);
+        setResendCooldown(30);
+      } else {
+        setRequestError(
+          result.message || "Failed to send OTP. Please try again.",
+        );
+      }
+    } catch (error) {
+      console.error("Failed to resend OTP:", error);
+      setRequestError("Failed to send OTP. Please try again after sometime.");
+    }
   };
 
   useEffect(() => {
@@ -73,7 +116,10 @@ const LoginDialog = () => {
   }, [showResend]);
 
   return (
-    <DialogContent className="m-0 border-0 p-0 sm:max-w-[700px]">
+    <DialogContent
+      className="m-0 border-0 p-0 sm:max-w-[700px]"
+      aria-describedby={undefined}
+    >
       <DialogTitle asChild>
         <VisuallyHidden>Login Modal</VisuallyHidden>
       </DialogTitle>
@@ -94,6 +140,7 @@ const LoginDialog = () => {
             </div>
           </div>
         </ResizablePanel>
+        <ResizableHandle />
         <ResizablePanel defaultSize={55}>
           <>
             <div className="relative h-full overflow-hidden pb-5">
@@ -105,11 +152,22 @@ const LoginDialog = () => {
                 {/* Mobile Number Form */}
                 <Form {...form}>
                   <form
-                    onSubmit={form.handleSubmit((data) => {
+                    onSubmit={form.handleSubmit(async (data) => {
                       setMobileValue(data.mobileNumber);
-                      setIsOtpScreen(true);
-                      setShowResend(false);
-                      setTimeout(() => setShowResend(true), 30000);
+                      setRequestError(null);
+                      try {
+                        await requestOtp({
+                          phone_number: `+91${data.mobileNumber}`,
+                        }).unwrap();
+
+                        setIsOtpScreen(true);
+                        setShowResend(true);
+                        setResendCooldown(30);
+                      } catch {
+                        setRequestError(
+                          "Failed to send OTP. Please try again after sometime.",
+                        );
+                      }
                     })}
                     className="flex h-full flex-col px-5 pt-12"
                   >
@@ -135,6 +193,9 @@ const LoginDialog = () => {
                                   onChange={(e) => {
                                     field.onChange(e);
                                     setMobileValue(e.target.value);
+                                    if (requestError) {
+                                      setRequestError(null);
+                                    }
                                   }}
                                   className="flex-1 rounded-none border-none p-0 shadow-none selection:bg-blue-200 selection:text-blue-900 focus:ring-0 focus:outline-none focus-visible:ring-0 focus-visible:outline-none"
                                 />
@@ -146,13 +207,18 @@ const LoginDialog = () => {
                         </FormItem>
                       )}
                     />
+                    {requestError && (
+                      <p className="mt-2 text-sm text-red-600">
+                        {requestError}
+                      </p>
+                    )}
                     <div className="flex h-full flex-col justify-between pb-5">
                       <Button
                         type="submit"
                         className="mt-4 w-full rounded-md bg-[#fb641b] py-2 font-semibold text-white transition-colors duration-200 hover:bg-[#e65a12]"
-                        disabled={isOtpScreen}
+                        disabled={isRequestingOtp}
                       >
-                        Request OTP
+                        {isRequestingOtp ? "Requesting..." : "Request OTP"}
                       </Button>
                       <span className="text-[12px] text-[#878787]">
                         By continuing, you agree to{" "}
@@ -176,70 +242,113 @@ const LoginDialog = () => {
                   isOtpScreen ? "translate-x-0" : "translate-x-full"
                 }`}
               >
-                <div className="flex h-full flex-col items-center px-5 pt-12">
-                  <div className="flex items-center justify-center px-10 text-center">
-                    <p className="text-sm font-medium text-[#212121]">
-                      Please enter the OTP sent to <span>{mobileValue} </span>
-                      <span
-                        onClick={() => {
-                          setIsOtpScreen(false);
-                        }}
-                        className="cursor-pointer text-sm text-blue-600 underline"
+                <Form {...otpForm}>
+                  <form
+                    onSubmit={otpForm.handleSubmit(async (data) => {
+                      setVerifyError(null);
+                      try {
+                        await verifyOtp({
+                          phone_number: `+91${mobileValue}`,
+                          otp_code: data.otpCode,
+                        }).unwrap();
+                        dialogCloseRef.current?.click();
+                      } catch {
+                        setVerifyError("Invalid OTP. Please try again.");
+                      }
+                    })}
+                    className="flex h-full flex-col items-center px-5 pt-12"
+                  >
+                    <div className="flex items-center justify-center px-10 text-center">
+                      <p className="text-sm font-medium text-[#212121]">
+                        Please enter the OTP sent to{" "}
+                        <span>+91{mobileValue}</span>{" "}
+                        <span
+                          onClick={() => {
+                            setIsOtpScreen(false);
+                            setVerifyError(null);
+                          }}
+                          className="cursor-pointer text-sm text-blue-600 underline"
+                        >
+                          Change
+                        </span>
+                      </p>
+                    </div>
+
+                    <div className="mt-6 w-full px-8">
+                      <FormField
+                        control={otpForm.control}
+                        name="otpCode"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormControl>
+                              <InputOTP
+                                maxLength={6}
+                                pattern={REGEXP_ONLY_DIGITS_AND_CHARS}
+                                className="w-full gap-0"
+                                value={field.value}
+                                onChange={(value) => {
+                                  field.onChange(value);
+                                }}
+                              >
+                                <InputOTPGroup className="mt-5 flex w-full gap-1">
+                                  {Array.from({ length: 6 }).map((_, i) => (
+                                    <InputOTPSlot
+                                      key={i}
+                                      index={i}
+                                      className="h-11 grow border-b border-gray-500 text-center text-xl shadow-none focus:border-blue-500 focus:ring-0"
+                                    />
+                                  ))}
+                                </InputOTPGroup>
+                              </InputOTP>
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <Button
+                        type="submit"
+                        disabled={
+                          otpForm.watch("otpCode")?.length !== 6 ||
+                          isVerifyingOtp
+                        }
+                        className="mt-5 w-full rounded-md bg-[#fb641b] py-2 font-semibold text-white transition-colors duration-200 hover:bg-[#e65a12]"
                       >
-                        Change
-                      </span>
+                        {isVerifyingOtp ? "Verifying..." : "Verify"}
+                      </Button>
+
+                      {verifyError && (
+                        <p className="mt-2 text-center text-sm text-red-600">
+                          {verifyError}
+                        </p>
+                      )}
+                    </div>
+
+                    <p className="mt-2 text-sm">
+                      Not received your code?{" "}
+                      {showResend ? (
+                        <span className="font-semibold text-[#fb641b]">
+                          {resendCooldown}s
+                        </span>
+                      ) : (
+                        <span
+                          onClick={handleResend}
+                          className="cursor-pointer font-semibold text-[#fb641b] transition-colors hover:text-[#e65a12]"
+                        >
+                          Resend code
+                        </span>
+                      )}
                     </p>
-                  </div>
-
-                  <div className="mt-6 w-full px-8">
-                    <InputOTP
-                      maxLength={6}
-                      pattern={REGEXP_ONLY_DIGITS_AND_CHARS}
-                      className="w-full gap-0"
-                    >
-                      <InputOTPGroup className="mt-5 flex w-full gap-1">
-                        {Array.from({ length: 6 }).map((_, i) => (
-                          <InputOTPSlot
-                            key={i}
-                            index={i}
-                            className="h-11 grow border-b border-gray-500 text-center text-xl shadow-none focus:border-blue-500 focus:ring-0"
-                          />
-                        ))}
-                      </InputOTPGroup>
-                    </InputOTP>
-                    <Button
-                      type="button"
-                      onClick={() => {
-                        console.log("Verify button clicked");
-                        // Add your OTP verification logic here
-                      }}
-                      className="mt-5 w-full rounded-md bg-[#fb641b] py-2 font-semibold text-white transition-colors duration-200 hover:bg-[#e65a12]"
-                    >
-                      Verify
-                    </Button>
-                  </div>
-
-                  <p className="mt-2 text-sm">
-                    Not received your code?{" "}
-                    {showResend ? (
-                      <span className="font-semibold text-[#fb641b]">
-                        {resendCooldown}s
-                      </span>
-                    ) : (
-                      <span
-                        onClick={handleResend}
-                        className="cursor-pointer font-semibold text-[#fb641b] transition-colors hover:text-[#e65a12]"
-                      >
-                        Resend code
-                      </span>
-                    )}
-                  </p>
-                </div>
+                  </form>
+                </Form>
               </div>
             </div>
           </>
         </ResizablePanel>
       </ResizablePanelGroup>
+      <DialogClose asChild>
+        <button ref={dialogCloseRef} className="hidden" />
+      </DialogClose>
     </DialogContent>
   );
 };

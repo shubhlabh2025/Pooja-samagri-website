@@ -70,7 +70,7 @@ const ReviewSection = () => {
       <div className="pt-4">
         <button
           type="submit"
-          className="inline-flex items-center rounded bg-orange-500 px-5 py-2 text-white hover:bg-orange-600 transition"
+          className="inline-flex items-center rounded 0 px-5 py-2 text-white hover:bg-orange-600 transition"
         >
           Continue →
         </button>

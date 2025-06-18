@@ -1,13 +1,14 @@
-import type { BillDetailProps, CartItem } from "@/interfaces/cart";
+import type { BillDetailProps } from "@/interfaces/cart";
 import guartIcon from "@/assets/guardIcon.svg";
+import type { CartItem } from "@/features/cart/cartAPI.type";
 
 const BillDetails = ({ cartData }: BillDetailProps) => {
   const ItemsTotal = cartData.reduce((acc: number, item: CartItem) => {
-    return acc + item.mrp * item.quantity;
+    return acc + item.variant.mrp * item.quantity;
   }, 0);
 
   const discount = cartData.reduce((acc: number, item: CartItem) => {
-    return acc + (item.mrp - item.price) * item.quantity;
+    return acc + (item.variant.mrp - item.variant.price) * item.quantity;
   }, 0);
 
   const deliveryCharges: number = 0;

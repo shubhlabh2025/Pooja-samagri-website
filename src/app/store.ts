@@ -5,17 +5,22 @@ import { productAPI } from "@/features/product/productAPI";
 import { configurationAPI } from "@/features/configuration/configurationAPI";
 import configurationReducer from "@/features/configuration/configurationSlice";
 import locationReducer from "@/features/address/addressSlice"
-import { addressAPI } from "@/features/address/AddresssAPI";
+import { addressAPI } from "@/features/address/AddresssAPI";import { authAPI } from "@/features/auth/authAPI";
+import authReducer from "@/features/auth/authSlice";
+import { cartAPI } from "@/features/cart/cartAPI";
 
 export const store = configureStore({
   reducer: {
+    auth: authReducer,
+    configuration: configurationReducer,
     [categoryAPI.reducerPath]: categoryAPI.reducer,
     [subCategoryAPI.reducerPath]: subCategoryAPI.reducer,
     [productAPI.reducerPath]: productAPI.reducer,
     [addressAPI.reducerPath]: addressAPI.reducer,
-    configuration: configurationReducer,
     [configurationAPI.reducerPath]: configurationAPI.reducer,
     location: locationReducer,
+    [authAPI.reducerPath]: authAPI.reducer,
+    [cartAPI.reducerPath]: cartAPI.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
@@ -24,6 +29,8 @@ export const store = configureStore({
       productAPI.middleware,
       addressAPI.middleware,
       configurationAPI.middleware,
+      authAPI.middleware,
+      cartAPI.middleware,
     ),
 });
 

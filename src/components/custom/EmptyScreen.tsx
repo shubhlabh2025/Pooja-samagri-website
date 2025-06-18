@@ -18,7 +18,7 @@ const EmptyScreen: React.FC<EmptyScreenProps> = ({
   showBackArrow = true,
 }) => {
   return (
-    <div className="flex flex-1 flex-col items-center justify-center items-center px-4 bg-white text-center relative">
+    <div className="relative flex flex-1 flex-col items-center justify-center bg-white px-4 text-center">
       {showBackArrow && (
         <button
           onClick={() => window.history.back()}
@@ -28,14 +28,14 @@ const EmptyScreen: React.FC<EmptyScreenProps> = ({
         </button>
       )}
 
-      <img src={imageSrc} alt="Error" className="w-40 h-40 mb-6" />
+      <img src={imageSrc} alt="Error" className="mb-6 h-40 w-40" />
 
       <h2 className="text-xl font-semibold text-orange-500">{title}</h2>
-      <p className="text-gray-500 mb-6">{subtitle}</p>
+      <p className="mb-6 text-gray-500">{subtitle}</p>
 
       <button
         onClick={onButtonClick}
-        className="bg-orange-500 text-white px-6 py-2 rounded-full font-medium shadow"
+        className="0 rounded-full px-6 py-2 font-medium text-white shadow"
       >
         {buttonText}
       </button>

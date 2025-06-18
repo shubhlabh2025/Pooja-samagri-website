@@ -2,7 +2,7 @@ import ErrorImage from "../../assets/alert.png";
 
 const ErrorScreen = () => {
   return (
-    <div className="relative z-100 flex h-full flex-1 flex-col items-center justify-center bg-orange-50 px-4">
+    <div className="relative z-100 flex h-full flex-1 flex-col items-center justify-center  px-4">
       {/* Back Arrow */}
 
       {/* Image */}
