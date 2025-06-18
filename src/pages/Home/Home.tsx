@@ -11,15 +11,12 @@ import { useNavigate } from "react-router";
 import AboutSection from "@/components/custom/AboutSection";
 import { useAppSelector } from "@/app/hooks";
 import { selectConfiguration } from "@/features/configuration/configurationSlice";
-import { getUserLocation } from "@/utils/LocationDetector";
-import { useEffect, useState } from "react";
+
+// import { getUserLocation } from "@/utils/LocationDetector";
+// import { useEffect } from "react";
 
 const Home = () => {
   const navigate = useNavigate();
-  const [userLocation, setUserLocation] = useState<{
-    latitude: number;
-    longitude: number;
-  } | null>(null);
 
   const {
     data: topFiveCategory = {
@@ -36,21 +33,21 @@ const Home = () => {
   const config = useAppSelector(selectConfiguration);
   console.log(config.data);
   console.log(config.data?.data.ad_banners);
-  useEffect(() => {
-    const getLocation = async () => {
-      try {
-        const location = await getUserLocation();
-        setUserLocation(location);
-        console.log("User location:", userLocation);
-        // You can also store it in Redux or use it for API calls here
-      } catch (error) {
-        console.error("Failed to get location:", error);
-        // Handle location error (maybe set a default location)
-      }
-    };
 
-    getLocation();
-  }, []);
+  // useEffect(() => {
+  //   const getLocation = async () => {
+  //     try {
+  //       const location = await getUserLocation();
+  //       console.log("User location:", location);
+  //       // You can also store it in Redux or use it for API calls here
+  //     } catch (error) {
+  //       console.error("Failed to get location:", error);
+  //       // Handle location error (maybe set a default location)
+  //     }
+  //   };
+
+  //   getLocation();
+  // }, []);
 
   if (topFiveCategoryLoading) return <HomeSkeleteon />;
   if (topFiveCategoryError) return <ErrorScreen />;

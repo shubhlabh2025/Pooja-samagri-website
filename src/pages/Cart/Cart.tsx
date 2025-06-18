@@ -20,6 +20,9 @@ import ConfirmationDialog from "@/components/dialog/ConfirmationDialog";
 import AddMoreItems from "./AddMoreItems";
 import EmptyScreen from "@/components/custom/EmptyScreen";
 import EmptyCartIcon from "../../assets/emptyCart.svg";
+import AddressBottomSheet from "@/components/bottomsheet/AddressBottomSheet";
+import { Drawer, DrawerTrigger } from "@/components/ui/drawer";
+import type { UserAddressPayload } from "@/features/address/addressAPI.type";
 
 const Cart = () => {
   const [cartData, setCartData] = useState<FetchState<CartItem[]>>({
@@ -59,6 +62,31 @@ const Cart = () => {
   }, []);
   const navigate = useNavigate();
 
+  const staticAddresses: UserAddressPayload[] = [
+    {
+      id: "1",
+      user_id: "user_001",
+      phone_number: "+911234567890",
+      name: "Jyoti",
+      addressLine1: "Room No 13 Om Ganeshwar Welfare Society",
+      addressLine2: "Near Sai Mandir, Powai",
+      landmark: "Opposite Lake View",
+      city: "Mumbai",
+      state: "Maharashtra",
+      pincode: "400076",
+    },
+    {
+      id: "2",
+      user_id: "user_002",
+      phone_number: "+919876543210",
+      name: "Raj",
+      addressLine1: "Flat 402, Maple Heights",
+      addressLine2: "Sector 21, Gurugram",
+      city: "Gurgaon",
+      state: "Haryana",
+      pincode: "122016",
+    },
+  ];
   //  return <CartPageSkeleton/>
 
   return (
@@ -126,7 +154,7 @@ const Cart = () => {
               subtitle={"Fill it up with all things good!"}
               buttonText={"Browse Products"}
               onButtonClick={function (): void {
-                navigate("/")
+                navigate("/");
               }}
             />
           )}
@@ -156,9 +184,14 @@ const Cart = () => {
         {/* Sticky bottom "Place Order" button only if success */}
         {isSuccess && (
           <div className="shadow-cart-card sticky bottom-0 z-10 rounded-tl-lg rounded-tr-lg bg-white px-4 py-4">
-            <Button className="w-full cursor-pointer bg-[#ff5200] py-5.5 text-lg leading-5.5 font-normal -tracking-[0.45px] text-[#ffffffeb] transition duration-100 ease-in hover:scale-[0.95] hover:bg-[#ff5200] hover:shadow-none">
-              Place Order
-            </Button>
+            <Drawer>
+              <DrawerTrigger asChild>
+                <Button className="w-full cursor-pointer bg-[#ff5200] py-5.5 text-lg leading-5.5 font-normal -tracking-[0.45px] text-[#ffffffeb] transition duration-100 ease-in hover:scale-[0.95] hover:bg-[#ff5200] hover:shadow-none">
+                  Select Address
+                </Button>
+              </DrawerTrigger>
+              <AddressBottomSheet addresses={staticAddresses} />
+            </Drawer>
           </div>
         )}
       </div>

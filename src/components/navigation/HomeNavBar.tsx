@@ -5,8 +5,10 @@ import { useState } from "react";
 import { MapPin, Menu, ShoppingCart, User } from "lucide-react";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import LoginDialog from "../dialog/LoginDialog";
+import { useNavigate } from "react-router";
 
 const HomeNavBar = () => {
+  const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const handleLoginClick = () => {
@@ -55,7 +57,10 @@ const HomeNavBar = () => {
           <TextWithIcons
             icon={<MapPin size={18} />}
             text="Update Location"
-            onClick={() => {}}
+            onClick={() => {
+              console.log("clicked");
+              navigate("/address");
+            }}
           />
         </div>
 
@@ -68,7 +73,17 @@ const HomeNavBar = () => {
               onClick={handleLoginClick}
             />
             <TextWithIcons icon={<ShoppingCart size={18} />} text="Cart" />
-            <TextWithIcons icon={<MapPin size={18} />} text="Update Location" />
+            <div
+              onClick={() => {
+                console.log("clicked");
+                navigate("/address");
+              }}
+            >
+              <TextWithIcons
+                icon={<MapPin size={18} />}
+                text="Update Location"
+              />
+            </div>
           </div>
         )}
       </div>

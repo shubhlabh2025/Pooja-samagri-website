@@ -12,12 +12,20 @@ import MainLayoutWithCart from "./components/layout/MainLayoutWithCart.tsx";
 import Home from "./pages/Home/Home.tsx";
 import { HomeSkeleteon } from "./components/custom/skeletons/HomeSkeleton.tsx";
 import ErrorScreen from "./components/error/ErrorScreen.tsx";
-import { selectConfiguration, setData } from "./features/configuration/configurationSlice.ts";
+import {
+  selectConfiguration,
+  setData,
+} from "./features/configuration/configurationSlice.ts";
 import { useAppDispatch, useAppSelector } from "./app/hooks.ts";
 import { useEffect } from "react";
 import { useGetAppConfigurationsQuery } from "./features/configuration/configurationAPI.ts";
 
+import { useGeolocation } from "./hooks/location.ts";
+import Address from "./pages/Address/Address.tsx";
+
 function App() {
+
+  useGeolocation()
   const dispatch = useAppDispatch();
   const configState = useAppSelector(selectConfiguration);
 
@@ -40,12 +48,16 @@ function App() {
   }
 
   // Show error only if both store and query are empty/failing
-  if ((!configState.data && isQueryError) || (!configState.data && !queryData)) {
+  if (
+    (!configState.data && isQueryError) ||
+    (!configState.data && !queryData)
+  ) {
     return <ErrorScreen />;
   }
 
   // If config is available in store, render app
   if (configState.data) {
+    console.log("render")
     return (
       <BrowserRouter>
         <Routes>
@@ -93,6 +105,8 @@ function App() {
             }
           />
           <Route path="/search" element={<SearchScreen />} />
+          <Route path="/address" element={<Address />} />
+
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
