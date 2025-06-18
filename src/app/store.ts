@@ -4,8 +4,9 @@ import { subCategoryAPI } from "@/features/sub-category/subCategoryAPI";
 import { productAPI } from "@/features/product/productAPI";
 import { configurationAPI } from "@/features/configuration/configurationAPI";
 import configurationReducer from "@/features/configuration/configurationSlice";
-import locationReducer from "@/features/address/addressSlice"
-import { addressAPI } from "@/features/address/AddresssAPI";import { authAPI } from "@/features/auth/authAPI";
+import locationReducer from "@/features/address/addressSlice";
+import { addressAPI } from "@/features/address/AddresssAPI";
+import { authAPI } from "@/features/auth/authAPI";
 import authReducer from "@/features/auth/authSlice";
 import { cartAPI } from "@/features/cart/cartAPI";
 
