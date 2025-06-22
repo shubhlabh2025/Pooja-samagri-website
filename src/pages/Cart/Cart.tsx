@@ -12,7 +12,6 @@ import SomethingWentWrong from "@/components/error/SomethingWentWrong";
 import ReviewOrder from "./ReviewOrder";
 import BillDetails from "./BillDetails";
 import Coupons from "./Coupons";
-import { Button } from "@/components/ui/button";
 import ConfirmationDialog from "@/components/dialog/ConfirmationDialog";
 import AddMoreItems from "./AddMoreItems";
 import EmptyScreen from "@/components/custom/EmptyScreen";
@@ -21,6 +20,9 @@ import AddressBottomSheet from "@/components/bottomsheet/AddressBottomSheet";
 import { Drawer, DrawerTrigger } from "@/components/ui/drawer";
 import { useGetCartItemsQuery } from "@/features/cart/cartAPI";
 import { useGetUserAddressListQuery } from "@/features/address/AddresssAPI";
+import { useGetCouponsQuery } from "@/features/coupon/couponAPI";
+import type { CartItem } from "@/features/cart/cartAPI.type";
+import type { Coupon } from "@/features/coupon/couponAPI.type";
 
 const Cart = () => {
   const {
@@ -28,6 +30,33 @@ const Cart = () => {
     isLoading,
     isError,
   } = useGetCartItemsQuery();
+
+  const {
+    data: couponsData = { data: [] },
+    isError: isCouponsError,
+    isLoading: isCouponsLoading,
+  } = useGetCouponsQuery();
+
+  console.log("Coupons Data:", isCouponsError, isCouponsLoading);
+
+  const [selectedCoupon, setSelectedCoupon] = useState<Coupon | null>(null);
+
+  const { itemsTotal, discount } = cartData.data.reduce(
+    (acc, item: CartItem) => {
+      const { mrp, price } = item.variant;
+      const quantity = item.quantity;
+
+      acc.itemsTotal += mrp * quantity;
+      acc.discount += (mrp - price) * quantity;
+
+      return acc;
+    },
+    { itemsTotal: 0, discount: 0 },
+  );
+
+  if(selectedCoupon && itemsTotal-discount < selectedCoupon.min_order_value) {
+    setSelectedCoupon(null);
+  }
 
   const [showClearCartDialog, setShowClearCartDialog] = useState(false);
 
@@ -37,32 +66,9 @@ const Cart = () => {
     data: addressData = { data: [] },
   } = useGetUserAddressListQuery();
 
-  // const staticAddresses: UserAddressPayload[] = [
-  //   {
-  //     id: "1",
-  //     user_id: "user_001",
-  //     phone_number: "+911234567890",
-  //     name: "Jyoti",
-  //     address_line1: "Room No 13 Om Ganeshwar Welfare Society",
-  //     address_line2: "Near Sai Mandir, Powai",
-  //     landmark: "Opposite Lake View",
-  //     city: "Mumbai",
-  //     state: "Maharashtra",
-  //     pincode: "400076",
-  //   },
-  //   {
-  //     id: "2",
-  //     user_id: "user_002",
-  //     phone_number: "+919876543210",
-  //     name: "Raj",
-  //     address_line1: "Flat 402, Maple Heights",
-  //     address_line2: "Sector 21, Gurugram",
-  //     city: "Gurgaon",
-  //     state: "Haryana",
-  //     pincode: "122016",
-  //   },
-  // ];
-  //  return <CartPageSkeleton/>
+  const handleCouponChange = (coupon: Coupon | null) => {
+    setSelectedCoupon(coupon);
+  };
 
   if (isLoading) {
     return <CommonLoader />;
@@ -94,8 +100,7 @@ const Cart = () => {
           console.log("Cart cleared");
         }}
       />
-      <div className="flex h-screen flex-col bg-[#f0f0f5]">
-        {/* Sticky top bar */}
+      <div className="flex h-full max-h-full flex-1 flex-col overflow-scroll bg-[#f0f0f5]">
         <div className="sticky top-0 z-10 flex items-center justify-between bg-white px-2 py-3">
           <div className="flex items-center gap-2">
             <ChevronLeft
@@ -113,8 +118,6 @@ const Cart = () => {
                 <EllipsisVertical size={20} />
               </DropdownMenuTrigger>
               <DropdownMenuContent className="fixed top-0 -right-1 p-0">
-                {/* <AlertDialog>
-                <AlertDialogTrigger asChild> */}
                 <DropdownMenuItem
                   onSelect={() => {
                     setTimeout(() => {
@@ -127,14 +130,11 @@ const Cart = () => {
                   <p className="whitespace-nowrap">Clear Cart</p>
                   <Trash size={20} className="" />
                 </DropdownMenuItem>
-                {/* </AlertDialogTrigger> */}
-                {/* </AlertDialog> */}
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
         </div>
 
-        {/* Scrollable main content */}
         <div className="hide-scrollbar flex-1 overflow-y-auto bg-[#f0f0f5] p-4">
           <div className="flex flex-col justify-between gap-4 sm:flex-row">
             <div className="flex flex-6 flex-col gap-3">
@@ -145,22 +145,24 @@ const Cart = () => {
                 <ReviewOrder cartData={cartData.data} />
                 <AddMoreItems />
               </div>
-              <Coupons />
+              <Coupons
+                couponsData={couponsData.data}
+                itemsTotal={itemsTotal}
+                handleCouponChange={handleCouponChange}
+                selectedCoupon={selectedCoupon}
+                discount={discount}
+              />
             </div>
             <div className="flex flex-4 flex-col gap-3">
-              <BillDetails cartData={cartData.data} />
+              <BillDetails itemsTotal={itemsTotal} discount={discount} selectedCoupon={selectedCoupon} />
             </div>
           </div>
         </div>
 
-        {/* Sticky bottom "Place Order" button only if success */}
-
         <div className="shadow-cart-card sticky bottom-0 z-10 rounded-tl-lg rounded-tr-lg bg-white px-4 py-4">
           <Drawer>
-            <DrawerTrigger asChild>
-              <Button className="w-full cursor-pointer bg-[#ff5200] py-5.5 text-lg leading-5.5 font-normal -tracking-[0.45px] text-[#ffffffeb] transition duration-100 ease-in hover:scale-[0.95] hover:bg-[#ff5200] hover:shadow-none">
-                Select Address
-              </Button>
+            <DrawerTrigger className="w-full cursor-pointer rounded-lg bg-[#ff5200] py-2.5 text-lg leading-5.5 font-normal -tracking-[0.45px] text-[#ffffffeb] transition duration-100 ease-in hover:scale-[0.95] hover:bg-[#ff5200] hover:shadow-none">
+              Select Address
             </DrawerTrigger>
             <AddressBottomSheet addresses={addressData.data || []} />
           </Drawer>

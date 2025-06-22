@@ -25,6 +25,21 @@
   }
 }
 
+@keyframes couponAppear {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 @theme {
   --font-roboto: "Edu NSW ACT Hand Pre", sans-serif;
   --shadow-variant-card: 0 4px 8px 0 rgba(2, 6, 12, 0.08);
@@ -48,6 +63,7 @@
   );
   --animate-spinner-leaf-fade: spinner-leaf-fade 1500ms linear infinite;
   --animate-indicator-progress: indicator-progress 3s linear;
+  --animate-coupon-appear: couponAppear 500ms ease-in-out;
 }
 
 html,

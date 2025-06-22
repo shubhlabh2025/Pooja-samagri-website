@@ -95,6 +95,15 @@ export const axiosBaseQueryWithReauth: BaseQueryFn<
       } else {
         await mutex.waitForUnlock();
         try {
+          const headers = {
+            ...args.headers,
+            ...(localStorage.getItem("accessToken")
+              ? {
+                  Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+                }
+              : undefined),
+          };
+
           const retryResult = await axiosInstance({
             url: args.url,
             method: args.method,

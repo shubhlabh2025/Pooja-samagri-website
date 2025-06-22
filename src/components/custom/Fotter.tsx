@@ -1,45 +1,97 @@
-import logo from "../../assets/logo.webp"
+import mastercart from "@/assets/mastercard.svg";
+import playstore from "@/assets/playStore.png";
+import appstore from "@/assets/appleStore.svg";
+import instagram from "@/assets/instagram.svg";
+import facebook from "@/assets/facebook.svg";
+import linkedin from "@/assets/linkdin.svg";
+import twitter from "@/assets/twitter.svg";
+import youtube from "@/assets/youtube.svg";
+import logo from "@/assets/ganesh.svg";
+import paytm from "@/assets/paytm.svg";
+import rupay from "@/assets/rupay.svg";
+import visa from "@/assets/visa.svg";
+import upi from "@/assets/upi.svg";
 
 const Footer = () => {
   return (
-    <footer className="bg-[#1d1d1d] text-white py-12">
-      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
-        {/* Logo & Copy */}
-        <div className="text-center md:text-left space-y-4">
-          <img src={logo} alt="Pilgrimaide Logo" className="mx-auto md:mx-0 w-36" />
-          <p>ShubhLabh @ 2025, All Rights Reserved</p>
-        </div>
-
-        {/* Address */}
-        <div className="text-center md:text-left space-y-2 text-sm leading-relaxed">
-          <p className="font-medium">Gmoyd Online Services Private Ltd.</p>
-          <p>
-            Shreeji vraj bhoomi complex, Phase 7,<br />
-            Brahmand, Thane, 400607
+    <footer className="relative flex w-full flex-col bg-black px-8 pt-8 pb-6">
+      <div className="flex flex-col items-center justify-between gap-8 sm:flex-row sm:items-end">
+        <div className="gap4 flex flex-col gap-4">
+          <p className="text-center text-[13px] leading-[19.5px] text-white sm:text-left">
+            Follow us on
           </p>
-          <p>(+91) 9619 899 406</p>
-          <p>orders@shubhLabh.com</p>
+          <div className="flex gap-4">
+            <a className="cursor-pointer">
+              <img src={youtube} alt="YouTube" className="h-[23px]" />
+            </a>
+            <a className="cursor-pointer">
+              <img src={facebook} alt="Facebook" className="h-[23px]" />
+            </a>
+            <a className="cursor-pointer">
+              <img src={instagram} alt="Instagram" className="h-[23px]" />
+            </a>
+            <a className="cursor-pointer">
+              <img src={linkedin} alt="LinkedIn" className="h-[23px]" />
+            </a>
+            <a className="cursor-pointer">
+              <img src={twitter} alt="Twitter" className="h-[23px]" />
+            </a>
+          </div>
         </div>
-
-        {/* Navigation Links */}
-        <div className="text-center md:text-left space-y-2 text-sm">
-          <p>About</p>
-          <p>Blog</p>
-          <p>Temples</p>
-          <p>Pilgrimages</p>
-          <p>Terms & Conditions</p>
-          <p>Privacy Policy</p>
-          <p>Contact</p>
-        </div>
-
-        {/* Social Links */}
-        <div className="text-center md:text-left space-y-2 text-sm">
-          <p>Facebook</p>
-          <p>Linkedin</p>
-          <p>Instagram</p>
-          <p>YouTube</p>
+        <div className="flex gap-5">
+          <a className="cursor-pointer">
+            <img src={appstore} alt="App Store" className="h-10.5" />
+          </a>
+          <a className="cursor-pointer">
+            <img src={playstore} alt="Play Store" className="h-10.5" />
+          </a>
         </div>
       </div>
+      <div className="mt-6 mb-4 border-t border-[#333]"></div>
+      <div className="flex flex-col items-center gap-3 sm:gap-5 sm:flex-row sm:items-end">
+        <a className="cursor-pointer text-[13px] leading-[16.5px] text-white">
+          Terms of Service
+        </a>
+        <a className="cursor-pointer text-[13px] leading-[16.5px] text-white">
+          Privacy Policy
+        </a>
+        <a className="cursor-pointer text-[13px] leading-[16.5px] text-white">
+          Parent's Guide
+        </a>
+        <a className="cursor-pointer text-center text-[13px] leading-[16.5px] text-white sm:text-left">
+          Safe and Fair Play Policy
+        </a>
+        <a className="cursor-pointer text-[13px] leading-[16.5px] text-white">
+          Manage Cookies
+        </a>
+      </div>
+      <div className="mt-8 flex items-end justify-between">
+        <div className="flex flex-col">
+          <p className="text-sm leading-[21px] text-[#666666]">
+            Shreeji vraj bhoomi complex
+          </p>
+          <p className="text-sm leading-[21px] text-[#666666]">Phase 7</p>
+          <p className="text-sm leading-[21px] text-[#666666]">Thane 400607</p>
+          <p className="text-sm leading-[21px] text-[#666666]">India</p>
+        </div>
+        <div>
+          <img src={logo} alt="ShubhLabh Logo" className="h-21 bg-white" />
+        </div>
+      </div>
+      <div className="mt-6 mb-4 border-t border-[#333]"></div>
+      <div className="flex flex-col items-center justify-between gap-4 sm:flex-row sm:items-center">
+        <div className="flex flex-wrap items-center justify-center gap-4 sm:justify-start">
+          <img src={visa} alt="Visa" className="h-[20px]" />
+          <img src={mastercart} alt="MasterCard" className="h-[20px]" />
+          <img src={rupay} alt="RuPay" className="h-[45px]" />
+          <img src={upi} alt="UPI" className="h-[27px]" />
+          <img src={paytm} alt="Paytm" className="h-[45px]" />
+        </div>
+        <p className="text-center text-xs tracking-wide text-[#ffffffb3] sm:text-left">
+          © 2025 ShubhLabh. All rights reserved.
+        </p>
+      </div>
+      <div className="absolute bottom-[-70px] left-0 h-[70px] w-full bg-black" />
     </footer>
   );
 };

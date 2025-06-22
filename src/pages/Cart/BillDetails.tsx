@@ -1,23 +1,38 @@
 import type { BillDetailProps } from "@/interfaces/cart";
 import guartIcon from "@/assets/guardIcon.svg";
-import type { CartItem } from "@/features/cart/cartAPI.type";
 
-const BillDetails = ({ cartData }: BillDetailProps) => {
-  const ItemsTotal = cartData.reduce((acc: number, item: CartItem) => {
-    return acc + item.variant.mrp * item.quantity;
-  }, 0);
-
-  const discount = cartData.reduce((acc: number, item: CartItem) => {
-    return acc + (item.variant.mrp - item.variant.price) * item.quantity;
-  }, 0);
-
+const BillDetails = ({
+  itemsTotal,
+  discount,
+  selectedCoupon,
+}: BillDetailProps) => {
   const deliveryCharges: number = 0;
-  const promoCodeDiscount: number = 120;
   const gstCharges: number = 19;
+  let promoCodeDiscount = 0;
+
+  if (selectedCoupon) {
+    if (selectedCoupon.discount_type === "percentage") {
+      promoCodeDiscount =
+        ((itemsTotal - discount) * selectedCoupon.discount_value) / 100;
+    } else if (selectedCoupon.discount_type === "fixed") {
+      promoCodeDiscount = selectedCoupon.discount_value;
+    }
+
+    if (
+      selectedCoupon.max_discount_value &&
+      promoCodeDiscount > selectedCoupon.max_discount_value
+    ) {
+      promoCodeDiscount = selectedCoupon.max_discount_value;
+    }
+  }
+
+  if (promoCodeDiscount > itemsTotal - discount) {
+    promoCodeDiscount = itemsTotal - discount;
+  }
 
   const totalAmount =
-    ItemsTotal - discount - promoCodeDiscount + deliveryCharges + gstCharges;
-
+    itemsTotal - discount - promoCodeDiscount + deliveryCharges + gstCharges;
+    
   return (
     <div className="flex flex-col gap-3">
       <p className="ml-1 text-[16px] font-semibold -tracking-[0.4px] whitespace-nowrap">
@@ -33,7 +48,7 @@ const BillDetails = ({ cartData }: BillDetailProps) => {
             {new Intl.NumberFormat("en-IN", {
               minimumFractionDigits: 2,
               maximumFractionDigits: 2,
-            }).format(ItemsTotal)}
+            }).format(itemsTotal)}
           </p>
         </div>
 
@@ -50,18 +65,20 @@ const BillDetails = ({ cartData }: BillDetailProps) => {
           </p>
         </div>
 
-        <div className="flex items-center justify-between">
-          <p className="line-clamp-1 text-sm leading-4.5 font-extralight -tracking-[0.35px] text-[#02060c99]">
-            Promo Code Discount
-          </p>
-          <p className="text-sm leading-4.5 font-normal -tracking-[0.35px] whitespace-nowrap text-[#1ba672]">
-            - ₹
-            {new Intl.NumberFormat("en-IN", {
-              minimumFractionDigits: 2,
-              maximumFractionDigits: 2,
-            }).format(promoCodeDiscount)}
-          </p>
-        </div>
+        {selectedCoupon && (
+          <div className="flex items-center justify-between">
+            <p className="line-clamp-1 text-sm leading-4.5 font-extralight -tracking-[0.35px] text-[#02060c99]">
+              Promo Code Discount
+            </p>
+            <p className="text-sm leading-4.5 font-normal -tracking-[0.35px] whitespace-nowrap text-[#1ba672]">
+              - ₹
+              {new Intl.NumberFormat("en-IN", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              }).format(promoCodeDiscount)}
+            </p>
+          </div>
+        )}
 
         <div className="my-2 border-t border-dashed border-[#02060c26]" />
 
