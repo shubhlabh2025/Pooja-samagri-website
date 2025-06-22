@@ -32,7 +32,7 @@ const Home = () => {
 
   const [
     requestAccessToken,
-    { isLoading: isLoadingRefreshToken, isError: isErrorRefreshToken },
+    { isLoading: isLoadingRefreshToken },
   ] = useRefreshTokenMutation();
 
   useEffect(() => {
@@ -59,7 +59,7 @@ const Home = () => {
   if (topFiveCategoryError) return <ErrorScreen />;
 
   if (isLoadingRefreshToken) return <HomeSkeleteon />;
-  if (isErrorRefreshToken) return <ErrorScreen />;
+  // if (isErrorRefreshToken) return <ErrorScreen />;
 
   return (
     <div className="relative overflow-auto">

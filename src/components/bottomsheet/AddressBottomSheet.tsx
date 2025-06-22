@@ -46,9 +46,8 @@ const AddressBottomSheet = ({
                   {address.name}
                 </p>
                 <p className="max-w-[220px] truncate text-sm leading-tight text-gray-600">
-                  {address.addressLine1}
+                  {address.address_line1}
                 </p>
-                <p className="mt-1 text-xs text-gray-500">16 mins</p>
               </div>
             </div>
             <ChevronRight className="text-gray-400" />

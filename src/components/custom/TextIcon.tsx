@@ -1,4 +1,5 @@
-import React from 'react';
+import React from "react";
+
 
 interface LoginMenuProps {
   icon?: React.ReactNode;
@@ -7,20 +8,25 @@ interface LoginMenuProps {
   onClick?: () => void;
 }
 
-const TextWithIcons: React.FC<LoginMenuProps> = ({ icon, image, text, onClick }) => {
+const TextWithIcons: React.FC<LoginMenuProps> = ({
+  icon,
+  image,
+  text,
+  onClick,
+}) => {
   return (
     <div
-      className="flex items-center text-sm cursor-pointer px-2 py-1 space-x-2 whitespace-nowrap"
+      className="flex cursor-pointer items-center space-x-2 px-2 py-1 text-sm whitespace-nowrap"
       onClick={onClick}
     >
       {image ? (
         <img
           src={image}
           alt="User"
-          className="w-5 h-5 rounded-full object-cover flex-shrink-0"
+          className="h-5 w-5 flex-shrink-0 rounded-full object-cover"
         />
       ) : (
-        <span className="text-lg flex-shrink-0">{icon}</span>
+        <span className="flex-shrink-0 text-lg">{icon}</span>
       )}
       <span className="truncate">{text}</span>
     </div>

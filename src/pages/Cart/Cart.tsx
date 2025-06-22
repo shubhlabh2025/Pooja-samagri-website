@@ -19,8 +19,8 @@ import EmptyScreen from "@/components/custom/EmptyScreen";
 import EmptyCartIcon from "../../assets/emptyCart.svg";
 import AddressBottomSheet from "@/components/bottomsheet/AddressBottomSheet";
 import { Drawer, DrawerTrigger } from "@/components/ui/drawer";
-import type { UserAddressPayload } from "@/features/address/addressAPI.type";
 import { useGetCartItemsQuery } from "@/features/cart/cartAPI";
+import { useGetUserAddressListQuery } from "@/features/address/AddresssAPI";
 
 const Cart = () => {
   const {
@@ -33,31 +33,35 @@ const Cart = () => {
 
   const navigate = useNavigate();
 
-  const staticAddresses: UserAddressPayload[] = [
-    {
-      id: "1",
-      user_id: "user_001",
-      phone_number: "+911234567890",
-      name: "Jyoti",
-      addressLine1: "Room No 13 Om Ganeshwar Welfare Society",
-      addressLine2: "Near Sai Mandir, Powai",
-      landmark: "Opposite Lake View",
-      city: "Mumbai",
-      state: "Maharashtra",
-      pincode: "400076",
-    },
-    {
-      id: "2",
-      user_id: "user_002",
-      phone_number: "+919876543210",
-      name: "Raj",
-      addressLine1: "Flat 402, Maple Heights",
-      addressLine2: "Sector 21, Gurugram",
-      city: "Gurgaon",
-      state: "Haryana",
-      pincode: "122016",
-    },
-  ];
+    const {
+    data: addressData = { data: [] },
+  } = useGetUserAddressListQuery();
+
+  // const staticAddresses: UserAddressPayload[] = [
+  //   {
+  //     id: "1",
+  //     user_id: "user_001",
+  //     phone_number: "+911234567890",
+  //     name: "Jyoti",
+  //     address_line1: "Room No 13 Om Ganeshwar Welfare Society",
+  //     address_line2: "Near Sai Mandir, Powai",
+  //     landmark: "Opposite Lake View",
+  //     city: "Mumbai",
+  //     state: "Maharashtra",
+  //     pincode: "400076",
+  //   },
+  //   {
+  //     id: "2",
+  //     user_id: "user_002",
+  //     phone_number: "+919876543210",
+  //     name: "Raj",
+  //     address_line1: "Flat 402, Maple Heights",
+  //     address_line2: "Sector 21, Gurugram",
+  //     city: "Gurgaon",
+  //     state: "Haryana",
+  //     pincode: "122016",
+  //   },
+  // ];
   //  return <CartPageSkeleton/>
 
   if (isLoading) {
@@ -158,7 +162,7 @@ const Cart = () => {
                 Select Address
               </Button>
             </DrawerTrigger>
-            <AddressBottomSheet addresses={staticAddresses} />
+            <AddressBottomSheet addresses={addressData.data || []} />
           </Drawer>
         </div>
       </div>

@@ -22,6 +22,7 @@ import { useGetAppConfigurationsQuery } from "./features/configuration/configura
 
 import { useGeolocation } from "./hooks/location.ts";
 import Address from "./pages/Address/Address.tsx";
+import UserProfilePage from "./pages/Profile/UserProfile.tsx";
 
 function App() {
 
@@ -106,6 +107,7 @@ function App() {
           />
           <Route path="/search" element={<SearchScreen />} />
           <Route path="/address" element={<Address />} />
+          <Route path="/profile" element={<UserProfilePage />} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>

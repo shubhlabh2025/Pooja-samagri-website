@@ -58,15 +58,40 @@ export interface CurrentAddressResponse {
   data: AddressData;
 }
 
+export interface UserAddressResponse {
+  success: boolean;
+  message: string;
+  data: UserAddressPayload;
+}
+
+export interface UserAddressListResponse {
+  success: boolean;
+  message: string;
+  data: UserAddressPayload[];
+}
+
 export interface UserAddressPayload {
   id: string;
-  user_id: string;
   phone_number: string;
   name: string;
-  addressLine1?: string;
-  addressLine2?: string;
+  user_id: string
+  address_line1?: string;
+  address_line2?: string;
   landmark?: string;
   city?: string;
   state?: string;
+  pincode?: string;
+}
+
+
+
+export interface CreateUserAddressPayload {
+  phone_number: string;
+  name: string;
+  address_line1?: string;
+  address_line2?: string;
+  landmark?: string;
+  state?: string;
+  city?: string;
   pincode?: string;
 }

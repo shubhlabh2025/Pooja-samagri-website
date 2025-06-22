@@ -12,10 +12,17 @@ import {
 import { env } from "@/env/env";
 import DetailAddressComponent from "./DetailAddressComponent";
 import type { CoordinateProps } from "@/interfaces/coordinateprops";
-import { useGetCurrentAddressQuery } from "@/features/address/AddresssAPI";
+import {
+  useAddUserAddressMutation,
+  useGetCurrentAddressQuery,
+} from "@/features/address/AddresssAPI";
 import { Drawer } from "@/components/ui/drawer";
 import AddressDetailBottomSheet from "@/components/bottomsheet/AddressDetailBottomSheet";
 import type { CompleteAddressProps } from "@/interfaces/completeAddressProps";
+import type {
+  AddressComponent,
+  CreateUserAddressPayload,
+} from "@/features/address/addressAPI.type";
 type Poi = { key: string; location: google.maps.LatLngLiteral };
 
 export interface AdressChangeProps {
@@ -40,14 +47,46 @@ const AddressPage = ({ onChange, lat, lng }: AddressPageProps) => {
     isLoading: addressLoading,
     isError: addressError,
   } = useGetCurrentAddressQuery({ lat, lng });
+
+  const [addUserAddress] = useAddUserAddressMutation();
+
   const [selectedAddress, setSelectedAddress] = useState("Mumbai");
   const [showDrawer, setShowDrawer] = useState(false);
 
-  const handleAddressSave = (data: CompleteAddressProps) => {
-    const { addressLine1, addressLine2, landmark, name, phone_number } = data;
+  const extractAddressFields = (components: AddressComponent[]) => {
+    const getComponent = (type: string) =>
+      components.find((c) => c.types.includes(type))?.long_name || "";
 
-    console.log(addressLine1 + addressLine2 + landmark + name + phone_number);
-    setShowDrawer(false);
+    return {
+      city: getComponent("locality"),
+      state: getComponent("administrative_area_level_1"),
+      pincode: getComponent("postal_code"),
+    };
+  };
+
+  const handleAddressSave = async (data: CompleteAddressProps) => {
+    const { address_line1, address_line2, landmark, name, phone_number } = data;
+
+    const { city, state, pincode } = extractAddressFields(
+      addressData.data.components,
+    );
+    const fullPayload: CreateUserAddressPayload = {
+      phone_number,
+      name,
+      address_line1,
+      address_line2,
+      landmark,
+      city,
+      state,
+      pincode,
+    };
+
+    // Strip out id and user_id before sending to backend
+
+    await addUserAddress(fullPayload);
+     navigate("/")
+    // post to backend
+   // setShowDrawer(false);
   };
 
   useEffect(() => {

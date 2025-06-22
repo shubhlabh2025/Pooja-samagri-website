@@ -1,35 +1,54 @@
 import {
-  DrawerClose,
   DrawerContent,
   DrawerFooter,
   DrawerHeader,
   DrawerTitle,
+  DrawerClose,
 } from "@/components/ui/drawer";
-import { useState } from "react";
 import { X } from "lucide-react";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import type { CompleteAddressProps } from "@/interfaces/completeAddressProps";
+import { useRef } from "react";
 
+const addressSchema = z.object({
+  address_line1: z.string().min(1, "Address Line 1 is required"),
+  address_line2: z.string().optional(),
+  landmark: z.string().optional(),
+  name: z.string().min(1, "Receiver's name is required"),
+  phone_number: z
+    .string()
+    .regex(/^\d{10}$/, "Enter a valid 10-digit mobile number"),
+});
 
+type AddressFormData = z.infer<typeof addressSchema>;
 
 const AddressDetailBottomSheet = ({
   onSave,
 }: {
   onSave: (data: CompleteAddressProps) => void;
 }) => {
-  const [addressLine1, setAddressLine1] = useState("");
-  const [addressLine2, setAddressLine2] = useState("");
-  const [landmark, setLandmark] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [name, setName] = useState("");
+  const closeRef = useRef<HTMLButtonElement>(null);
 
-  const handleSubmit = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<AddressFormData>({
+    resolver: zodResolver(addressSchema),
+  });
+
+  const onSubmit = (data: AddressFormData) => {
     onSave({
-      addressLine1,
-      addressLine2,
-      landmark,
-      phone_number: phoneNumber,
-      name,
+      ...data,
+      address_line2: data.address_line2 ?? "",
+      landmark: data.landmark ?? "",
+      phone_number: `+91${data.phone_number}`,
     });
+
+    // ✅ Programmatically close the drawer after successful validation
+    closeRef.current?.click();
   };
 
   return (
@@ -48,50 +67,75 @@ const AddressDetailBottomSheet = ({
         </DrawerTitle>
       </DrawerHeader>
 
-      <div className="flex flex-col gap-4">
-        <input
-          value={addressLine1}
-          onChange={(e) => setAddressLine1(e.target.value)}
-          placeholder="HOUSE / FLAT / FLOOR NO."
-          className="border-b border-gray-300 bg-transparent p-2 text-sm outline-none"
-        />
-        <input
-          value={addressLine2}
-          onChange={(e) => setAddressLine2(e.target.value)}
-          placeholder="APARTMENT / ROAD / AREA (OPTIONAL)"
-          className="border-b border-gray-300 bg-transparent p-2 text-sm outline-none"
-        />
-        <input
-          value={landmark}
-          onChange={(e) => setLandmark(e.target.value)}
-          placeholder="LANDMARK, ADDITIONAL INFO, ETC. (OPTIONAL)"
-          className="border-b border-gray-300 bg-transparent p-2 text-sm outline-none"
-        />
-        <input
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Receiver's Name"
-          className="border-b border-gray-300 bg-transparent p-2 text-sm outline-none"
-        />
-        <input
-          value={phoneNumber}
-          type="number"
-          onChange={(e) => setPhoneNumber(e.target.value)}
-          placeholder="Receiver's Number"
-          className="border-b border-gray-300 bg-transparent p-2 text-sm outline-none"
-        />
-      </div>
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+        <div>
+          <input
+            {...register("address_line1")}
+            placeholder="HOUSE / FLAT / FLOOR NO."
+            className="w-full border-b border-gray-300 bg-transparent p-2 text-sm outline-none"
+          />
+          {errors.address_line1 && (
+            <p className="mt-1 text-xs text-red-500">
+              {errors.address_line1.message}
+            </p>
+          )}
+        </div>
 
-      <DrawerFooter className="fixed bottom-4 left-0 w-full px-4">
-        <DrawerClose asChild>
+        <div>
+          <input
+            {...register("address_line2")}
+            placeholder="APARTMENT / ROAD / AREA"
+            className="w-full border-b border-gray-300 bg-transparent p-2 text-sm outline-none"
+          />
+        </div>
+
+        <div>
+          <input
+            {...register("landmark")}
+            placeholder="LANDMARK, ADDITIONAL INFO, ETC. (OPTIONAL)"
+            className="w-full border-b border-gray-300 bg-transparent p-2 text-sm outline-none"
+          />
+        </div>
+
+        <div>
+          <input
+            {...register("name")}
+            placeholder="Receiver's Name"
+            className="w-full border-b border-gray-300 bg-transparent p-2 text-sm outline-none"
+          />
+          {errors.name && (
+            <p className="mt-1 text-xs text-red-500">{errors.name.message}</p>
+          )}
+        </div>
+
+        <div>
+          <input
+            {...register("phone_number")}
+            type="tel"
+            placeholder="Receiver's Number"
+            className="w-full border-b border-gray-300 bg-transparent p-2 text-sm outline-none"
+          />
+          {errors.phone_number && (
+            <p className="mt-1 text-xs text-red-500">
+              {errors.phone_number.message}
+            </p>
+          )}
+        </div>
+
+        <DrawerFooter className="fixed bottom-4 left-0 w-full px-4">
           <button
-            onClick={handleSubmit}
-            className="w-full rounded-lg bg-[#f4a28c] py-3 text-sm font-bold tracking-wide text-white"
+            type="submit"
+            className="w-full rounded-lg bg-[#ff5200] py-3 text-sm font-bold tracking-wide text-white"
           >
             SAVE AND PROCEED
           </button>
-        </DrawerClose>
-      </DrawerFooter>
+
+          {/* Hidden close trigger */}
+          <DrawerClose asChild>
+            <button type="button" ref={closeRef} className="hidden" />
+          </DrawerClose>
+        </DrawerFooter>
+      </form>
     </DrawerContent>
   );
 };
