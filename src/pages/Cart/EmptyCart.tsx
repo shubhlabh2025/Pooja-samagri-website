@@ -1,24 +1,41 @@
 import emptyCartImage from "@/assets/emptyCart.svg";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { ChevronLeft } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 
 const EmptyCart = () => {
+  const navigate = useNavigate();
+
   return (
-    <div className="flex h-full flex-col items-center justify-center px-4 text-center">
-      <img
-        src={emptyCartImage}
-        alt="Empty Cart"
-        className="mb-6 w-32 md:w-48"
-      />
-      <p className="mb-1 text-lg font-semibold text-gray-800">
-        Your cart is getting lonely
-      </p>
-      <p className="mb-6 text-sm text-gray-600">
-        Fill it up with all things good!
-      </p>
-      <Link to="/">
-        <Button variant="outline">Browse Products</Button>
-      </Link>
+    <div className="flex flex-col h-full">
+      <div className="sticky top-0 z-10 flex items-center justify-between bg-white px-2 py-3 border-b border-e-black">
+        <div className="flex items-center gap-2">
+          <ChevronLeft
+            size={20}
+            className="cursor-pointer"
+            onClick={() => navigate(-1)}
+          />
+          <p className="line-clamp-1 text-lg leading-[21px] font-semibold -tracking-[0.4px] text-[#02060cbf]">
+            Your Cart
+          </p>
+        </div>
+      </div>
+      <div className="flex flex-1 flex-col items-center justify-center px-4 text-center">
+        <img
+          src={emptyCartImage}
+          alt="Empty Cart"
+          className="mb-6 w-32 md:w-48"
+        />
+        <p className="mb-1 text-lg font-semibold text-gray-800">
+          Your cart is getting lonely
+        </p>
+        <p className="mb-6 text-sm text-gray-600">
+          Fill it up with all things good!
+        </p>
+        <Link to="/">
+          <Button variant="outline">Browse Products</Button>
+        </Link>
+      </div>
     </div>
   );
 };

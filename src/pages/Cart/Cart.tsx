@@ -14,15 +14,17 @@ import BillDetails from "./BillDetails";
 import Coupons from "./Coupons";
 import ConfirmationDialog from "@/components/dialog/ConfirmationDialog";
 import AddMoreItems from "./AddMoreItems";
-import EmptyScreen from "@/components/custom/EmptyScreen";
-import EmptyCartIcon from "../../assets/emptyCart.svg";
 import AddressBottomSheet from "@/components/bottomsheet/AddressBottomSheet";
 import { Drawer, DrawerTrigger } from "@/components/ui/drawer";
-import { useGetCartItemsQuery } from "@/features/cart/cartAPI";
+import {
+  useClearCartMutation,
+  useGetCartItemsQuery,
+} from "@/features/cart/cartAPI";
 import { useGetUserAddressListQuery } from "@/features/address/AddresssAPI";
 import { useGetCouponsQuery } from "@/features/coupon/couponAPI";
 import type { CartItem } from "@/features/cart/cartAPI.type";
 import type { Coupon } from "@/features/coupon/couponAPI.type";
+import EmptyCart from "./EmptyCart";
 
 const Cart = () => {
   const {
@@ -37,7 +39,12 @@ const Cart = () => {
     isLoading: isCouponsLoading,
   } = useGetCouponsQuery();
 
+  const [clearCart, { isLoading: clearCartLoading, isError: clearCartError }] =
+    useClearCartMutation();
+
   console.log("Coupons Data:", isCouponsError, isCouponsLoading);
+  console.log("clearCartLoading:", clearCartLoading);
+  console.log("clearCartError:", clearCartError);
 
   const [selectedCoupon, setSelectedCoupon] = useState<Coupon | null>(null);
 
@@ -54,7 +61,10 @@ const Cart = () => {
     { itemsTotal: 0, discount: 0 },
   );
 
-  if(selectedCoupon && itemsTotal-discount < selectedCoupon.min_order_value) {
+  if (
+    selectedCoupon &&
+    itemsTotal - discount < selectedCoupon.min_order_value
+  ) {
     setSelectedCoupon(null);
   }
 
@@ -62,9 +72,7 @@ const Cart = () => {
 
   const navigate = useNavigate();
 
-    const {
-    data: addressData = { data: [] },
-  } = useGetUserAddressListQuery();
+  const { data: addressData = { data: [] } } = useGetUserAddressListQuery();
 
   const handleCouponChange = (coupon: Coupon | null) => {
     setSelectedCoupon(coupon);
@@ -76,14 +84,10 @@ const Cart = () => {
   if (isError) {
     return <SomethingWentWrong />;
   }
+
+  console.log("Cart Data:", cartData.data);
   if (cartData.data.length === 0) {
-    <EmptyScreen
-      imageSrc={EmptyCartIcon}
-      title="Your cart is empty"
-      subtitle="Add items to your cart to view them here."
-      buttonText="Start Shopping"
-      onButtonClick={() => navigate(-1)}
-    />;
+    return <EmptyCart />;
   }
 
   return (
@@ -95,8 +99,8 @@ const Cart = () => {
         bodyText="Would you like to remove all items from your cart?"
         confirmationButtonText="Clear cart"
         cancelButtonText="Cancel"
-        onConfirm={() => {
-          // setCartData({ status: "empty" });
+        onConfirm={async () => {
+          await clearCart();
           console.log("Cart cleared");
         }}
       />
@@ -154,7 +158,11 @@ const Cart = () => {
               />
             </div>
             <div className="flex flex-4 flex-col gap-3">
-              <BillDetails itemsTotal={itemsTotal} discount={discount} selectedCoupon={selectedCoupon} />
+              <BillDetails
+                itemsTotal={itemsTotal}
+                discount={discount}
+                selectedCoupon={selectedCoupon}
+              />
             </div>
           </div>
         </div>

@@ -11,8 +11,10 @@ import paytm from "@/assets/paytm.svg";
 import rupay from "@/assets/rupay.svg";
 import visa from "@/assets/visa.svg";
 import upi from "@/assets/upi.svg";
+import { useGetCartItemsQuery } from "@/features/cart/cartAPI";
 
 const Footer = () => {
+  const { data: cartRespnse = { data: [] } } = useGetCartItemsQuery();
   return (
     <footer className="relative flex w-full flex-col bg-black px-8 pt-8 pb-6">
       <div className="flex flex-col items-center justify-between gap-8 sm:flex-row sm:items-end">
@@ -48,7 +50,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="mt-6 mb-4 border-t border-[#333]"></div>
-      <div className="flex flex-col items-center gap-3 sm:gap-5 sm:flex-row sm:items-end">
+      <div className="flex flex-col items-center gap-3 sm:flex-row sm:items-end sm:gap-5">
         <a className="cursor-pointer text-[13px] leading-[16.5px] text-white">
           Terms of Service
         </a>
@@ -91,7 +93,9 @@ const Footer = () => {
           © 2025 ShubhLabh. All rights reserved.
         </p>
       </div>
-      <div className="absolute bottom-[-70px] left-0 h-[70px] w-full bg-black" />
+      {cartRespnse.data.length > 0 && (
+        <div className="absolute bottom-[-70px] left-0 h-[70px] w-full bg-black" />
+      )}
     </footer>
   );
 };
