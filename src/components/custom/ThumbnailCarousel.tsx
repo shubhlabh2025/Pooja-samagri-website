@@ -31,8 +31,17 @@ const ThumbnailCarousel: React.FC<ThumbnailCarouselProps> = ({
 
   // Auto-scroll to show selected image if it's not visible
   useEffect(() => {
-    if (selectedImageIndex < startIndex || selectedImageIndex >= startIndex + visibleCount) {
-      const newStartIndex = Math.max(0, Math.min(selectedImageIndex - Math.floor(visibleCount / 2), images.length - visibleCount));
+    if (
+      selectedImageIndex < startIndex ||
+      selectedImageIndex >= startIndex + visibleCount
+    ) {
+      const newStartIndex = Math.max(
+        0,
+        Math.min(
+          selectedImageIndex - Math.floor(visibleCount / 2),
+          images.length - visibleCount,
+        ),
+      );
       setStartIndex(newStartIndex);
     }
   }, [selectedImageIndex, startIndex, visibleCount, images.length]);
@@ -59,10 +68,7 @@ const ThumbnailCarousel: React.FC<ThumbnailCarouselProps> = ({
     return null;
   }
 
-  const visibleThumbnails = images.slice(
-    startIndex,
-    startIndex + visibleCount,
-  );
+  const visibleThumbnails = images.slice(startIndex, startIndex + visibleCount);
 
   // Don't show carousel if only one image
   if (images.length === 1) {
@@ -75,7 +81,7 @@ const ThumbnailCarousel: React.FC<ThumbnailCarouselProps> = ({
       {startIndex > 0 && (
         <button
           onClick={showPrev}
-          className="mr-2 rounded-full bg-gray-200 p-1 hover:bg-gray-300 transition-colors"
+          className="mr-2 rounded-full bg-gray-200 p-1 transition-colors hover:bg-gray-300"
           aria-label="Previous images"
         >
           <ChevronLeft size={20} />
@@ -94,7 +100,9 @@ const ThumbnailCarousel: React.FC<ThumbnailCarouselProps> = ({
               alt={`Product thumbnail ${actualIndex + 1}`}
               onClick={() => handleImageClick(index)}
               className={`h-20 w-20 cursor-pointer rounded-md border-2 object-cover transition-all duration-200 hover:opacity-80 ${
-                isSelected ? "border-black shadow-md" : "border-gray-300 hover:border-gray-400"
+                isSelected
+                  ? "border-black shadow-md"
+                  : "border-gray-300 hover:border-gray-400"
               }`}
               loading="lazy"
             />
@@ -106,7 +114,7 @@ const ThumbnailCarousel: React.FC<ThumbnailCarouselProps> = ({
       {startIndex + visibleCount < images.length && (
         <button
           onClick={showNext}
-          className="ml-2 rounded-full bg-gray-200 p-1 hover:bg-gray-300 transition-colors"
+          className="ml-2 rounded-full bg-gray-200 p-1 transition-colors hover:bg-gray-300"
           aria-label="Next images"
         >
           <ChevronRight size={20} />

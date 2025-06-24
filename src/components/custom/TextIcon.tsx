@@ -1,6 +1,5 @@
 import React from "react";
 
-
 interface LoginMenuProps {
   icon?: React.ReactNode;
   image?: string;

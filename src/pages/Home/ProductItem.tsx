@@ -29,7 +29,10 @@ const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
 
   return (
     <div className="shadow-product-card flex flex-col gap-1.5 rounded-[12px] p-2">
-      <div className="relative flex aspect-square h-35 items-center justify-around rounded-[12px] border cursor-pointer border-[#f2f3f3]" onClick={handleNavigate}>
+      <div
+        className="relative flex aspect-square h-35 cursor-pointer items-center justify-around rounded-[12px] border border-[#f2f3f3]"
+        onClick={handleNavigate}
+      >
         {discountPercentage > 0 && (
           <div className="absolute top-0 left-0 z-10 flex h-8 w-7.5 items-center rounded-tl-[12px] bg-[url(/src/assets/offer_tag.png)] [background-size:100%_100%] bg-no-repeat">
             <div className="text-center text-[10px] leading-[13px] font-semibold tracking-[-0.25px] text-white">

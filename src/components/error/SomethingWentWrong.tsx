@@ -1,7 +1,5 @@
 const SomethingWentWrong = () => {
-  return (
-    <div>SomethingWentWrong</div>
-  )
-}
+  return <div>SomethingWentWrong</div>;
+};
 
-export default SomethingWentWrong
+export default SomethingWentWrong;

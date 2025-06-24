@@ -46,5 +46,3 @@ export interface getCartItemByIdResponse {
   message: string;
   data: CartItem;
 }
-
-

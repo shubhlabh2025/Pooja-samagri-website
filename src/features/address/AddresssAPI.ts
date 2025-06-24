@@ -41,29 +41,30 @@ export const addressAPI = createApi({
       }),
     }),
 
+    addUserAddress: builder.mutation<
+      UserAddressResponse,
+      CreateUserAddressPayload
+    >({
+      query: (body) => ({
+        url: "/api/address/user",
+        method: "POST",
+        data: body,
+      }),
 
+      // async onQueryStarted(_body, { dispatch, queryFulfilled }) {
+      //   try {
+      //     const { data: response } = await queryFulfilled;
 
-        addUserAddress: builder.mutation<UserAddressResponse, CreateUserAddressPayload>({
-          query: (body) => ({
-            url: "/api/address/user",
-            method: "POST",
-            data: body,
-          }),
-    
-          // async onQueryStarted(_body, { dispatch, queryFulfilled }) {
-          //   try {
-          //     const { data: response } = await queryFulfilled;
-    
-          //     dispatch(
-          //       cartAPI.util.updateQueryData("getCartItems", undefined, (draft) => {
-          //         draft.data.push(response.data);
-          //       }),
-          //     );
-          //   } catch {
-          //     // Handle error if needed
-          //   }
-          // },
-        }),
+      //     dispatch(
+      //       cartAPI.util.updateQueryData("getCartItems", undefined, (draft) => {
+      //         draft.data.push(response.data);
+      //       }),
+      //     );
+      //   } catch {
+      //     // Handle error if needed
+      //   }
+      // },
+    }),
   }),
 });
 

@@ -11,7 +11,11 @@ export const productAPI = createApi({
   reducerPath: "productAPI",
   baseQuery: axiosBaseQuery(),
   endpoints: (builder) => ({
-    getProducts: builder.infiniteQuery<ProductResponse, GetProductsParams, ProductPageParam>({
+    getProducts: builder.infiniteQuery<
+      ProductResponse,
+      GetProductsParams,
+      ProductPageParam
+    >({
       infiniteQueryOptions: {
         initialPageParam: 1,
         getNextPageParam: (lastPage, _allPages, lastPageParam) => {
@@ -37,12 +41,12 @@ export const productAPI = createApi({
         },
       }),
     }),
-    getProductById:builder.query<SingleProductResponse, string>({
-          query: (id: string) => ({
-            url: `/api/products/${id}`,
-            method: "GET",
-          }),
-        })
+    getProductById: builder.query<SingleProductResponse, string>({
+      query: (id: string) => ({
+        url: `/api/products/${id}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 

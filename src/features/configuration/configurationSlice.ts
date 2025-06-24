@@ -38,4 +38,3 @@ export default configurationSlice.reducer;
 export const selectConfiguration = (state: {
   configuration: ConfigurationState;
 }) => state.configuration;
-

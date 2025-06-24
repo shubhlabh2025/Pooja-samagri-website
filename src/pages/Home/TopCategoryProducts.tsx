@@ -57,7 +57,7 @@ const TopCategoryProducts = ({ category }: TopCategoryProductsProps) => {
           <ChevronRight color="#ff5200" size={18} />
         </div>
       </div>
-      <div className="hide-scrollbar flex max-w-full overflow-hidden overflow-x-auto px-3 py-5 gap-7.5">
+      <div className="hide-scrollbar flex max-w-full gap-7.5 overflow-hidden overflow-x-auto px-3 py-5">
         {ProductData.pages[0].data.map((product) => (
           <ProductItem key={product.id} product={product} />
         ))}

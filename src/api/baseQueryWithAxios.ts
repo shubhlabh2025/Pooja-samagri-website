@@ -5,7 +5,8 @@ import axiosInstance from "./axiosConfig";
 export const axiosBaseQuery =
   (
     { baseUrl }: { baseUrl?: string } = { baseUrl: "" },
-  ): BaseQueryFn<{
+  ): BaseQueryFn<
+    {
       url: string;
       method: AxiosRequestConfig["method"];
       data?: AxiosRequestConfig["data"];
@@ -35,5 +36,5 @@ export const axiosBaseQuery =
       };
     }
   };
-  
+
 export default axiosBaseQuery;

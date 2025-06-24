@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import  NotFoundImage  from "../../assets/noresults.png";
+import NotFoundImage from "../../assets/noresults.png";
 const NotFound = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="relative z-100 flex flex-1 h-full flex-col items-center justify-center  px-4">
+    <div className="relative z-100 flex h-full flex-1 flex-col items-center justify-center px-4">
       {/* Back Arrow */}
 
       {/* Image */}
@@ -23,7 +23,7 @@ const NotFound = () => {
       {/* Button */}
       <button
         onClick={() => navigate("/")}
-        className="rounded-full 0 px-6 py-2 font-semibold text-white transition hover:bg-orange-600"
+        className="0 rounded-full px-6 py-2 font-semibold text-white transition hover:bg-orange-600"
       >
         Go to Home
       </button>

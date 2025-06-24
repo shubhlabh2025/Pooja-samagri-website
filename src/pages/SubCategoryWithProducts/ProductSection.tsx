@@ -4,7 +4,7 @@ import { useRef, useCallback } from "react";
 import { Loader } from "lucide-react";
 import { SubCategoriesWithProductSkeleton } from "@/components/custom/skeletons/SubCategoriesWithProductSkeleton";
 import EmptyScreen from "@/components/custom/EmptyScreen";
-import NoProductFoundIcon from "../../assets/no_products.png"
+import NoProductFoundIcon from "../../assets/no_products.png";
 
 import { useNavigate } from "react-router";
 

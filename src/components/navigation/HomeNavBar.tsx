@@ -22,7 +22,7 @@ const HomeNavBar = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearchFocused, setIsSearchFocused] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
+  // const [isScrolled, setIsScrolled] = useState(false);
   const [showSearchResults, setShowSearchResults] = useState(false);
   const { isAuthenticated } = useAppSelector((state) => state.auth);
   const searchRef = useRef<HTMLDivElement>(null);
@@ -45,15 +45,15 @@ const HomeNavBar = () => {
   // Get first page results for search dropdown
   const searchResults = searchData?.pages?.[0]?.data || [];
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-      console.log(isScrolled)
-    };
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     setIsScrolled(window.scrollY > 10);
+  //     console.log(isScrolled)
+  //   };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  //   window.addEventListener("scroll", handleScroll);
+  //   return () => window.removeEventListener("scroll", handleScroll);
+  // }, []);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {

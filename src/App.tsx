@@ -25,8 +25,7 @@ import Address from "./pages/Address/Address.tsx";
 import UserProfilePage from "./pages/Profile/UserProfile.tsx";
 
 function App() {
-
-  useGeolocation()
+  useGeolocation();
   const dispatch = useAppDispatch();
   const configState = useAppSelector(selectConfiguration);
 
@@ -58,7 +57,7 @@ function App() {
 
   // If config is available in store, render app
   if (configState.data) {
-    console.log("render")
+    console.log("render");
     return (
       <BrowserRouter>
         <Routes>

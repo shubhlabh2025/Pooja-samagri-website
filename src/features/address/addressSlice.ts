@@ -1,5 +1,5 @@
 // store/slices/locationSlice.ts
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 interface LocationState {
   lat: number | null;
@@ -14,14 +14,17 @@ const initialState: LocationState = {
   lng: null,
   loading: false,
   error: null,
-  timestamp: null
+  timestamp: null,
 };
 
 const locationSlice = createSlice({
-  name: 'location',
+  name: "location",
   initialState,
   reducers: {
-    setLocation: (state, action: PayloadAction<{ lat: number; lng: number }>) => {
+    setLocation: (
+      state,
+      action: PayloadAction<{ lat: number; lng: number }>,
+    ) => {
       state.lat = action.payload.lat;
       state.lng = action.payload.lng;
       state.error = null;
@@ -39,9 +42,14 @@ const locationSlice = createSlice({
       state.lng = null;
       state.error = null;
       state.timestamp = null;
-    }
-  }
+    },
+  },
 });
 
-export const { setLocation, setLocationLoading, setLocationError, clearLocation } = locationSlice.actions;
+export const {
+  setLocation,
+  setLocationLoading,
+  setLocationError,
+  clearLocation,
+} = locationSlice.actions;
 export default locationSlice.reducer;

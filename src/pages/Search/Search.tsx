@@ -1,12 +1,7 @@
 const SearchScreen = () => {
-
-
   return (
     <>
-      <div>
-        Search
-      </div>
-  
+      <div>Search</div>
     </>
   );
 };

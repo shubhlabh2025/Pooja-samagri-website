@@ -3,9 +3,7 @@ import { ChevronUp, X } from "lucide-react";
 import { Button } from "../ui/button";
 import { Link } from "react-router";
 import ReviewOrder from "@/pages/Cart/ReviewOrder";
-import {
-  useGetCartItemsQuery,
-} from "@/features/cart/cartAPI";
+import { useGetCartItemsQuery } from "@/features/cart/cartAPI";
 
 const CartSummaryBanner = () => {
   const {

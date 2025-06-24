@@ -30,10 +30,8 @@ const Home = () => {
   const { isAuthenticated } = useAppSelector((state) => state.auth);
   console.log("Is Authenticated:", isAuthenticated);
 
-  const [
-    requestAccessToken,
-    { isLoading: isLoadingRefreshToken },
-  ] = useRefreshTokenMutation();
+  const [requestAccessToken, { isLoading: isLoadingRefreshToken }] =
+    useRefreshTokenMutation();
 
   useEffect(() => {
     const handleRefreshToken = async () => {

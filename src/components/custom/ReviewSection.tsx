@@ -27,7 +27,7 @@ const ReviewSection = () => {
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
-          className="mt-1 w-full rounded border border-gray-300 px-3 py-2 text-sm focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500"
+          className="mt-1 w-full rounded border border-gray-300 px-3 py-2 text-sm focus:border-orange-500 focus:ring-1 focus:ring-orange-500 focus:outline-none"
         />
       </div>
 
@@ -40,9 +40,11 @@ const ReviewSection = () => {
           onChange={(e) => setReview(e.target.value)}
           rows={4}
           required
-          className="mt-1 w-full rounded border border-gray-300 px-3 py-2 text-sm focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500"
+          className="mt-1 w-full rounded border border-gray-300 px-3 py-2 text-sm focus:border-orange-500 focus:ring-1 focus:ring-orange-500 focus:outline-none"
         />
-        <p className="text-sm text-red-500 mt-1">Note: HTML is not translated!</p>
+        <p className="mt-1 text-sm text-red-500">
+          Note: HTML is not translated!
+        </p>
       </div>
 
       <div>
@@ -70,7 +72,7 @@ const ReviewSection = () => {
       <div className="pt-4">
         <button
           type="submit"
-          className="inline-flex items-center rounded 0 px-5 py-2 text-white hover:bg-orange-600 transition"
+          className="0 inline-flex items-center rounded px-5 py-2 text-white transition hover:bg-orange-600"
         >
           Continue →
         </button>

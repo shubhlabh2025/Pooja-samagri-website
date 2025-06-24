@@ -1,14 +1,18 @@
 // hooks/useGeolocation.ts
-import { useEffect } from 'react';
-import { useAppDispatch } from '../app/hooks';
-import { setLocation, setLocationError, setLocationLoading } from '../features/address/addressSlice';
+import { useEffect } from "react";
+import { useAppDispatch } from "../app/hooks";
+import {
+  setLocation,
+  setLocationError,
+  setLocationLoading,
+} from "../features/address/addressSlice";
 
 export const useGeolocation = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (!navigator.geolocation) {
-      dispatch(setLocationError('Geolocation is not supported'));
+      dispatch(setLocationError("Geolocation is not supported"));
       return;
     }
 
@@ -16,10 +20,12 @@ export const useGeolocation = () => {
 
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        dispatch(setLocation({
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        }));
+        dispatch(
+          setLocation({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          }),
+        );
         dispatch(setLocationLoading(false));
       },
       (error) => {
@@ -29,8 +35,8 @@ export const useGeolocation = () => {
       {
         enableHighAccuracy: true,
         timeout: 10000,
-        maximumAge: 300000 // Cache for 5 minutes
-      }
+        maximumAge: 300000, // Cache for 5 minutes
+      },
     );
   }, [dispatch]);
 };

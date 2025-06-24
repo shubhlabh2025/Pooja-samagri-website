@@ -70,11 +70,8 @@ const SubCategoriesWithProductScreen = () => {
   }
 
   return (
-    <div className="flex h-full gap-1.5 overflow-hidden  pt-1">
-
-
-      
-      <ul className="hide-scrollbar py-6 flex h-full max-h-full max-w-[250px] flex-8 flex-col items-center gap-6 overflow-y-auto rounded-tr-lg">
+    <div className="flex h-full gap-1.5 overflow-hidden pt-1">
+      <ul className="hide-scrollbar flex h-full max-h-full max-w-[250px] flex-8 flex-col items-center gap-6 overflow-y-auto rounded-tr-lg py-6">
         <SubCategorySideBar
           selectedCategoryId={selectedCategoryId}
           categoryData={categoryData.data}
@@ -82,7 +79,7 @@ const SubCategoriesWithProductScreen = () => {
           handleUpdateCategory={handleUpdateCategory}
         />
       </ul>
-      <div className="flex flex-30 flex-col rounded-tl-lg ">
+      <div className="flex flex-30 flex-col rounded-tl-lg">
         <ProductSection
           productData={allProducts}
           totalProuducts={totalProducts}

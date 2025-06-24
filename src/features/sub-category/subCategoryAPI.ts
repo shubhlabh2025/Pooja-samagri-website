@@ -6,7 +6,10 @@ export const subCategoryAPI = createApi({
   reducerPath: "subCategoryAPI",
   baseQuery: axiosBaseQuery(),
   endpoints: (builder) => ({
-    getSubCategories: builder.query<SubCategoryResponse, { parent_ids: string }>({
+    getSubCategories: builder.query<
+      SubCategoryResponse,
+      { parent_ids: string }
+    >({
       query: ({ parent_ids }) => ({
         url: "/api/sub-categories",
         method: "GET",

@@ -1,6 +1,4 @@
 const OverflowMenu: React.FC = () => {
-  return (
-    <div className="text-2xl cursor-pointer">⋮</div>
-  );
+  return <div className="cursor-pointer text-2xl">⋮</div>;
 };
 export default OverflowMenu;

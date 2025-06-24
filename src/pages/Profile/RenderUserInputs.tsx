@@ -32,7 +32,6 @@ export const RenderUserInputs: React.FC<RenderUserInputsProps> = ({
               defaultValue="Active"
               className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none"
             />
-        
           </div>
         </div>
         <div className="flex-1">

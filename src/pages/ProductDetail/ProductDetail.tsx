@@ -142,7 +142,7 @@ const ProductDetailsScreen: React.FC = () => {
 
   return (
     <>
-      <div className="relative flex flex-col gap-10 overflow-auto  p-10 md:grid md:grid-cols-2">
+      <div className="relative flex flex-col gap-10 overflow-auto p-10 md:grid md:grid-cols-2">
         <button
           onClick={() => navigate(-1)}
           className="absolute top-4 left-4 z-10 mr-2 flex items-center gap-1 rounded-full bg-gray-200 p-1 hover:bg-gray-300"

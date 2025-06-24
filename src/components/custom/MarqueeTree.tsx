@@ -18,10 +18,10 @@ const MarqueeText: React.FC<MarqueeTextProps> = ({
 
   return (
     <div
-      className="relative w-full overflow-hidden  whitespace-nowrap"
+      className="relative w-full overflow-hidden whitespace-nowrap"
       style={rootStyles}
     >
-      <div className="pl-[100%] animate-marquee-scroll inline-block will-change-transform">
+      <div className="animate-marquee-scroll inline-block pl-[100%] will-change-transform">
         {text}
       </div>
     </div>

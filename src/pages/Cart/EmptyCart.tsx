@@ -7,8 +7,8 @@ const EmptyCart = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="flex flex-col h-full">
-      <div className="sticky top-0 z-10 flex items-center justify-between bg-white px-2 py-3 border-b border-e-black">
+    <div className="flex h-full flex-col">
+      <div className="sticky top-0 z-10 flex items-center justify-between border-b border-e-black bg-white px-2 py-3">
         <div className="flex items-center gap-2">
           <ChevronLeft
             size={20}

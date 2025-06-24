@@ -32,7 +32,7 @@ const BillDetails = ({
 
   const totalAmount =
     itemsTotal - discount - promoCodeDiscount + deliveryCharges + gstCharges;
-    
+
   return (
     <div className="flex flex-col gap-3">
       <p className="ml-1 text-[16px] font-semibold -tracking-[0.4px] whitespace-nowrap">

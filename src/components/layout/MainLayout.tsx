@@ -3,8 +3,6 @@ import MarqueeText from "../custom/MarqueeTree";
 import HomeNavBar from "../navigation/HomeNavBar";
 
 const MainLayout = ({ children }: { children: ReactNode }) => (
-
-  
   <div className="flex h-full min-h-screen flex-col">
     <MarqueeText
       text="🚀 Welcome to the React TS Marquee Component Demo!"

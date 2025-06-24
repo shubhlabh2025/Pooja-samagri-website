@@ -74,7 +74,7 @@ export interface UserAddressPayload {
   id: string;
   phone_number: string;
   name: string;
-  user_id: string
+  user_id: string;
   address_line1?: string;
   address_line2?: string;
   landmark?: string;
@@ -82,8 +82,6 @@ export interface UserAddressPayload {
   state?: string;
   pincode?: string;
 }
-
-
 
 export interface CreateUserAddressPayload {
   phone_number: string;

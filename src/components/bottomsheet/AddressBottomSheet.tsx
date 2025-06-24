@@ -12,7 +12,6 @@ import { useNavigate } from "react-router";
 const AddressBottomSheet = ({
   addresses = [],
 }: TriggerAddressBottomSheetProps) => {
-
   const navigate = useNavigate();
   return (
     <DrawerContent className="flex flex-col px-3 pt-4 pb-20">
@@ -56,13 +55,14 @@ const AddressBottomSheet = ({
       </div>
 
       <DrawerFooter className="fixed bottom-4 left-0 mt-auto w-full p-0 px-3">
-          <button className="w-full rounded-xl bg-[#ff5200] py-3 text-sm font-semibold text-white transition-transform hover:scale-[0.98]"
-          onClick={()=>{
-            navigate("/address")
+        <button
+          className="w-full rounded-xl bg-[#ff5200] py-3 text-sm font-semibold text-white transition-transform hover:scale-[0.98]"
+          onClick={() => {
+            navigate("/address");
           }}
-          >
-            Add Address
-          </button>
+        >
+          Add Address
+        </button>
       </DrawerFooter>
     </DrawerContent>
   );

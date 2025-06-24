@@ -36,12 +36,10 @@ export interface ProductResponse {
   meta: ProductMeta;
 }
 
-
 export interface SingleProductResponse {
   data: Product;
   meta: ProductMeta;
 }
-
 
 export interface GetProductsParams {
   page?: number;

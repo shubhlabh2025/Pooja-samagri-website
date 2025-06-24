@@ -2,9 +2,7 @@ import AddToCartCounter from "@/components/custom/button/AddToCartCounter";
 import type { CartItem } from "@/features/cart/cartAPI.type";
 import type { ReviewOrderProps } from "@/interfaces/cart";
 
-const ReviewOrder = ({
-  cartData,
-}: ReviewOrderProps) => {
+const ReviewOrder = ({ cartData }: ReviewOrderProps) => {
   return (
     <div className="shadow-cart-card mb-1 flex w-full flex-col gap-4 rounded-lg bg-white p-4">
       {cartData.map((item: CartItem) => (

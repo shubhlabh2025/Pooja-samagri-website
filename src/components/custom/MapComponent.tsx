@@ -16,12 +16,11 @@ export const MapComponent = ({
   }
 
   // Encode the location for URL safety
-  const encodedLocation = encodeURIComponent(location);
 
   const mapUrl = `https://www.google.com/maps/embed/v1/place?key=${apiKey}&center=`;
 
   return (
-    <div className="w-full h-full">
+    <div className="h-full w-full">
       <iframe
         src={mapUrl}
         width="100%"
