@@ -7,6 +7,9 @@ import EmptyScreen from "@/components/custom/EmptyScreen";
 import NoProductFoundIcon from "../../assets/no_products.png";
 
 import { useNavigate } from "react-router";
+import BannerCarousel from "@/components/custom/BannerCarousel";
+import { useAppSelector } from "@/app/hooks";
+import { selectConfiguration } from "@/features/configuration/configurationSlice";
 
 const ProductSection = ({
   productData,
@@ -16,6 +19,7 @@ const ProductSection = ({
   isLoadingMore = false,
 }: ProductSectionProps) => {
   const observerRef = useRef<IntersectionObserver | null>(null);
+  const config = useAppSelector(selectConfiguration);
 
   const navigate = useNavigate();
   const loadingRef = useCallback(
@@ -61,6 +65,12 @@ const ProductSection = ({
 
   return (
     <>
+      <div>
+        <BannerCarousel
+          adBanner={config.data?.data.ad_banners || []}
+          type="CATEGORY"
+        />
+      </div>
       <div className="mb-3.5 line-clamp-1 min-h-[34px] w-full overflow-hidden px-3 pt-4 text-sm leading-4.5 font-normal tracking-[-0.35px] break-words text-[#02060cbf]">
         <span className="font-bold">{totalProuducts} items</span> found
       </div>

@@ -12,9 +12,14 @@ import rupay from "@/assets/rupay.svg";
 import visa from "@/assets/visa.svg";
 import upi from "@/assets/upi.svg";
 import { useGetCartItemsQuery } from "@/features/cart/cartAPI";
+import { useAppSelector } from "@/app/hooks";
 
 const Footer = () => {
-  const { data: cartRespnse = { data: [] } } = useGetCartItemsQuery();
+  const { isAuthenticated } = useAppSelector((state) => state.auth);
+
+  const { data: cartRespnse = { data: [] } } = useGetCartItemsQuery(undefined, {
+    skip: !isAuthenticated,
+  });
   return (
     <footer className="relative flex w-full flex-col bg-black px-8 pt-8 pb-6">
       <div className="flex flex-col items-center justify-between gap-8 sm:flex-row sm:items-end">

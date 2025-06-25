@@ -79,6 +79,8 @@ const AddressPage = ({ onChange, lat, lng }: AddressPageProps) => {
       city,
       state,
       pincode,
+      lat,
+      lng,
     };
 
     // Strip out id and user_id before sending to backend

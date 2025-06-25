@@ -62,7 +62,10 @@ const Home = () => {
   return (
     <div className="relative overflow-auto">
       <CategoryList />
-      <BannerCarousel adBanner={config.data?.data.ad_banners || []} />
+      <BannerCarousel
+        adBanner={config.data?.data.ad_banners || []}
+        type="HOME"
+      />
       {topFiveCategory.data.length > 0 && (
         <div className="flex flex-col gap-8 pt-8">
           {topFiveCategory.data.map((category) => (

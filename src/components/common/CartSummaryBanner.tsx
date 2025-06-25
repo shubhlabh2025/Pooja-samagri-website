@@ -4,26 +4,23 @@ import { Button } from "../ui/button";
 import { Link } from "react-router";
 import ReviewOrder from "@/pages/Cart/ReviewOrder";
 import { useGetCartItemsQuery } from "@/features/cart/cartAPI";
+import { useAppSelector } from "@/app/hooks";
 
 const CartSummaryBanner = () => {
+  const { isAuthenticated } = useAppSelector((state) => state.auth);
+
   const {
     data: cartData = { data: [] },
     isError,
     isLoading,
-  } = useGetCartItemsQuery();
+  } = useGetCartItemsQuery(undefined, {
+    skip: !isAuthenticated,
+  });
 
   const [isExpanded, setIsExpanded] = useState(false);
 
-  if (isError) {
-    return <div>Error loading cart data</div>;
-  }
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (cartData.data.length === 0) {
-    return <div></div>;
+  if (isError || isLoading || cartData.data.length === 0 || !isAuthenticated) {
+    return null;
   }
 
   return (

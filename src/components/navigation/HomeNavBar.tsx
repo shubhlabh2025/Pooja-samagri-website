@@ -22,7 +22,6 @@ const HomeNavBar = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearchFocused, setIsSearchFocused] = useState(false);
-  // const [isScrolled, setIsScrolled] = useState(false);
   const [showSearchResults, setShowSearchResults] = useState(false);
   const { isAuthenticated } = useAppSelector((state) => state.auth);
   const searchRef = useRef<HTMLDivElement>(null);
@@ -44,16 +43,6 @@ const HomeNavBar = () => {
 
   // Get first page results for search dropdown
   const searchResults = searchData?.pages?.[0]?.data || [];
-
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     setIsScrolled(window.scrollY > 10);
-  //     console.log(isScrolled)
-  //   };
-
-  //   window.addEventListener("scroll", handleScroll);
-  //   return () => window.removeEventListener("scroll", handleScroll);
-  // }, []);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -148,7 +137,7 @@ const HomeNavBar = () => {
     <>
       <header
         className={clsx(
-          "fixed top-0 right-0 left-0 z-40 transition-all duration-300",
+          "transition-all duration-300",
           "border-b border-gray-200/50 bg-white/95 shadow-lg backdrop-blur-md",
         )}
       >
@@ -235,20 +224,6 @@ const HomeNavBar = () => {
                             </Link>
                           </li>
                         ))}
-                        {/* {searchResults.length > 5 && (
-                          <li>
-                            <button
-                              onClick={() => {
-                                handleSearch(new Event("submit") as any);
-                              }}
-                              className="w-full rounded-md p-2 text-center text-sm text-yellow-600 hover:bg-gray-50"
-                            >
-                              View all{" "}
-                              {searchData?.pages?.[0]?.meta?.total || "more"}{" "}
-                              results
-                            </button>
-                          </li>
-                        )} */}
                       </ul>
                     ) : (
                       <div className="p-4 text-center text-sm text-gray-500">
@@ -319,12 +294,6 @@ const HomeNavBar = () => {
                   onFocus={handleSearchFocus}
                   className="flex-1 border-none bg-transparent px-4 py-2.5 text-gray-900 placeholder-gray-500 focus:ring-0 focus:outline-none"
                 />
-                {/* <button
-                  type="submit"
-                  className="mr-2 rounded-full bg-gradient-to-r from-yellow-400 to-orange-500 px-4 py-2 text-sm font-medium text-white transition-all duration-200 hover:from-yellow-500 hover:to-orange-600"
-                >
-                  Go
-                </button> */}
               </div>
 
               {/* Mobile Search Results Dropdown */}
@@ -374,7 +343,6 @@ const HomeNavBar = () => {
       </header>
 
       {/* Spacer to prevent content from being hidden behind fixed navbar */}
-      <div className="h-16 sm:h-16" />
 
       {/* Mobile Sidebar */}
       <div

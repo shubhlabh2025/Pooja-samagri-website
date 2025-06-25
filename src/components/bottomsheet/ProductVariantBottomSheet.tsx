@@ -10,11 +10,16 @@ import { Separator } from "@/components/ui/separator";
 import AddToCartCounter from "../custom/button/AddToCartCounter";
 import { DialogDescription } from "@radix-ui/react-dialog";
 import { useGetCartItemsQuery } from "@/features/cart/cartAPI";
+import { useAppSelector } from "@/app/hooks";
 
 const ProductVariantBottomSheet = ({
   productVariants,
 }: ProductVaraintBottomSheetProps) => {
-  const { data: cartData = { data: [] } } = useGetCartItemsQuery();
+  const { isAuthenticated } = useAppSelector((state) => state.auth);
+
+  const { data: cartData = { data: [] } } = useGetCartItemsQuery(undefined, {
+    skip: !isAuthenticated,
+  });
 
   const productId = productVariants[0].product_id;
   const valueOfProductInCart = cartData.data.reduce((acc, item) => {

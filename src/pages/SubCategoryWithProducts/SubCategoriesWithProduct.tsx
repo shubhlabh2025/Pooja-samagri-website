@@ -8,6 +8,7 @@ import ProductSection from "./ProductSection";
 import { SubCategoriesWithProductSkeleton } from "@/components/custom/skeletons/SubCategoriesWithProductSkeleton";
 import ErrorScreen from "@/components/error/ErrorScreen";
 
+
 const SubCategoriesWithProductScreen = () => {
   const { categoryId = "" } = useParams<{ categoryId: string }>();
 
@@ -70,6 +71,7 @@ const SubCategoriesWithProductScreen = () => {
   }
 
   return (
+    
     <div className="flex h-full gap-1.5 overflow-hidden pt-1">
       <ul className="hide-scrollbar flex h-full max-h-full max-w-[250px] flex-8 flex-col items-center gap-6 overflow-y-auto rounded-tr-lg py-6">
         <SubCategorySideBar

@@ -7,13 +7,19 @@ import {
   useGetCartItemsQuery,
   useUpdateCartItemMutation,
 } from "@/features/cart/cartAPI";
+import { useAppSelector } from "@/app/hooks";
+import { Dialog, DialogTrigger } from "@/components/ui/dialog";
+import LoginDialog from "@/components/dialog/LoginDialog";
 
 const TriggerProductVariantBottomSheet = ({
   product,
 }: TriggerProductVariantBottomSheetProps) => {
   const [open, setOpen] = useState(false);
+  const { isAuthenticated } = useAppSelector((state) => state.auth);
 
-  const { data: cartData = { data: [] } } = useGetCartItemsQuery();
+  const { data: cartData = { data: [] } } = useGetCartItemsQuery(undefined, {
+    skip: !isAuthenticated,
+  });
   const [updateCartItem] = useUpdateCartItemMutation();
 
   const handleDecreaseProductQuantity = async (productId: string) => {
@@ -88,6 +94,22 @@ const TriggerProductVariantBottomSheet = ({
       </p>
     </DrawerTrigger>
   );
+
+  if (!isAuthenticated) {
+    return (
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button
+            variant={"outline"}
+            className="shadow-button-shadow h-fit w-full rounded-[8px] border border-[#02060c26] p-0 py-1.5 text-sm leading-[18px] font-semibold -tracking-[0.35px] text-[#ff5200] transition-all duration-150 ease-in-out hover:border-transparent hover:bg-[#02060c26] hover:text-[#ff5200]"
+          >
+            Add
+          </Button>
+        </DialogTrigger>
+        <LoginDialog />
+      </Dialog>
+    );
+  }
 
   return (
     <Drawer open={open} onOpenChange={setOpen}>

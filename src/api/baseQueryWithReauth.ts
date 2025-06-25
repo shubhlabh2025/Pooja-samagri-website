@@ -74,6 +74,7 @@ export const axiosBaseQueryWithReauth: BaseQueryFn<
             return { data: retryResult.data };
           } else {
             api.dispatch(logout());
+
             return {
               error: {
                 status: 401,

@@ -25,13 +25,18 @@ import { useGetCouponsQuery } from "@/features/coupon/couponAPI";
 import type { CartItem } from "@/features/cart/cartAPI.type";
 import type { Coupon } from "@/features/coupon/couponAPI.type";
 import EmptyCart from "./EmptyCart";
+import { useAppSelector } from "@/app/hooks";
 
 const Cart = () => {
+  const { isAuthenticated } = useAppSelector((state) => state.auth);
+
   const {
     data: cartData = { data: [] },
     isLoading,
     isError,
-  } = useGetCartItemsQuery();
+  } = useGetCartItemsQuery(undefined, {
+    skip: !isAuthenticated,
+  });
 
   const {
     data: couponsData = { data: [] },
@@ -85,7 +90,7 @@ const Cart = () => {
     return <SomethingWentWrong />;
   }
 
-  console.log("Cart Data:", cartData.data);
+  // console.log("Cart Data:", cartData.data);
   if (cartData.data.length === 0) {
     return <EmptyCart />;
   }

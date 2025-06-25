@@ -11,10 +11,12 @@ import type { AdBanner } from "@/interfaces/ad-banner";
 
 interface AdBannerCarouselProps {
   adBanner: AdBanner[];
+  type: "HOME" | "CATEGORY";
 }
 
 const BannerCarousel: React.FC<AdBannerCarouselProps> = ({
   adBanner,
+  type,
 }: AdBannerCarouselProps) => {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
@@ -42,21 +44,18 @@ const BannerCarousel: React.FC<AdBannerCarouselProps> = ({
         setApi={setApi}
       >
         <CarouselContent className="rounded-none">
-          {adBanner.map((banner, index) => (
-            <CarouselItem key={index} className="rounded-none">
-              <div className="">
-                <img
-                  src={banner.image}
-                  className="flex max-h-[300px] min-h-[175px] w-full items-center justify-center"
-                ></img>
-                {/* <Card>
-                  <CardContent className="flex aspect-square max-h-[300px] items-center justify-center p-6">
-                    <span className="text-4xl font-semibold">{index + 1}</span>
-                  </CardContent>
-                </Card> */}
-              </div>
-            </CarouselItem>
-          ))}
+          {adBanner
+            .filter((banner) => banner.type === type)
+            .map((banner, index) => (
+              <CarouselItem key={index} className="rounded-none">
+                <div className="">
+                  <img
+                    src={banner.image}
+                    className="flex max-h-[300px] min-h-[175px] w-full items-center justify-center"
+                  ></img>
+                </div>
+              </CarouselItem>
+            ))}
         </CarouselContent>
       </Carousel>
       {count > 0 && (
