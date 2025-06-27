@@ -87,14 +87,7 @@ function App() {
             }
           />
 
-          <Route
-            path="/categories"
-            element={
-              <MainLayout>
-                <CategoriesScreen />
-              </MainLayout>
-            }
-          />
+          <Route path="/categories" element={<CategoriesScreen />} />
 
           <Route
             path="/products/:productId"

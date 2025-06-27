@@ -105,7 +105,7 @@ const AddressPage = ({ onChange, lat, lng }: AddressPageProps) => {
 
   return (
     <div className="flex h-full w-full flex-col bg-white">
-      <div className="flex h-16 w-full items-center border-b border-gray-200 px-4">
+      <div className="flex w-full items-center border-b border-gray-200 px-4 py-3">
         <ChevronLeft
           className="mr-3 cursor-pointer"
           onClick={() => navigate(-1)}
@@ -113,7 +113,6 @@ const AddressPage = ({ onChange, lat, lng }: AddressPageProps) => {
       </div>
       <APIProvider apiKey={env.MAPS_KEY}>
         <Map
-          style={{ width: "100vw", height: "100vh" }}
           defaultCenter={{
             lat: lat || 31.61404351178462,
             lng: lng || 74.88916441294835,

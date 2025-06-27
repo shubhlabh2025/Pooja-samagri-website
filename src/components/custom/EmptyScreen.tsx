@@ -35,7 +35,7 @@ const EmptyScreen: React.FC<EmptyScreenProps> = ({
 
       <button
         onClick={onButtonClick}
-        className="0 rounded-full px-6 py-2 font-medium text-white shadow"
+        className="0 rounded-full bg-orange-500 px-6 py-2 font-medium text-white shadow"
       >
         {buttonText}
       </button>

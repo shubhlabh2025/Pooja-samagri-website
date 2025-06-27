@@ -54,6 +54,7 @@ const ProductSection = ({
       <EmptyScreen
         imageSrc={NoProductFoundIcon}
         title={"No Products Found"}
+        showBackArrow={true}
         subtitle={""}
         buttonText={"Browse other Products"}
         onButtonClick={function (): void {

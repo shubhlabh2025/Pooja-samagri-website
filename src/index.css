@@ -43,6 +43,7 @@
 @theme {
   --font-roboto: "Edu NSW ACT Hand Pre", sans-serif;
   --shadow-variant-card: 0 4px 8px 0 rgba(2, 6, 12, 0.08);
+  --shadow-subcategory-screen: rgba(0, 0, 0, 0.24) 0px 5px 8px;
   --shadow-cart-card:
     0 8px 16px rgba(27, 30, 36, 0.06), 0 0 8px rgba(27, 30, 36, 0.04);
   --shadow-top-lg: 0 -8px 12px rgba(0, 0, 0, 0.15);
@@ -125,13 +126,7 @@ html::-webkit-scrollbar,
 body::-webkit-scrollbar {
   display: none;
 }
-@layer utilities {
-  @media (min-width: 510px) and (max-width: 680px) {
-    .xs3col\:grid-cols-3 {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-  }
-}
+
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);

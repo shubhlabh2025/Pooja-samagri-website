@@ -33,3 +33,20 @@ export interface GetCategoriesParams {
 export interface GetCategoryByIdResponse {
   data: Category;
 }
+
+export interface GetCategoryParams {
+  page?: number;
+  limit?: number;
+  q?: string;
+  brand_name?: string;
+  price_min?: number;
+  price_max?: number;
+  category_id?: string;
+}
+
+export type ProductPageParam = number;
+
+export interface InfiniteProductResponse {
+  pages: CategoryResponse[];
+  pageParams: ProductPageParam[];
+}
