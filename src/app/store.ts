@@ -10,6 +10,9 @@ import { authAPI } from "@/features/auth/authAPI";
 import authReducer from "@/features/auth/authSlice";
 import { cartAPI } from "@/features/cart/cartAPI";
 import { couponAPI } from "@/features/coupon/couponAPI";
+import { userAPI } from "@/features/user/userApi";
+import { mapsAPI } from "@/features/maps/MapsApi";
+import { orderAPI } from "@/features/orders/orderAPI";
 
 export const store = configureStore({
   reducer: {
@@ -24,6 +27,9 @@ export const store = configureStore({
     [authAPI.reducerPath]: authAPI.reducer,
     [cartAPI.reducerPath]: cartAPI.reducer,
     [couponAPI.reducerPath]: couponAPI.reducer,
+    [userAPI.reducerPath]: userAPI.reducer,
+    [mapsAPI.reducerPath]: mapsAPI.reducer,
+    [orderAPI.reducerPath]:orderAPI.reducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
@@ -35,6 +41,9 @@ export const store = configureStore({
       authAPI.middleware,
       cartAPI.middleware,
       couponAPI.middleware,
+      userAPI.middleware,
+      mapsAPI.middleware,
+      orderAPI.middleware
     ),
 });
 
