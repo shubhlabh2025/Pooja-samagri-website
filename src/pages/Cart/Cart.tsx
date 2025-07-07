@@ -14,29 +14,38 @@ import BillDetails from "./BillDetails";
 import Coupons from "./Coupons";
 import ConfirmationDialog from "@/components/dialog/ConfirmationDialog";
 import AddMoreItems from "./AddMoreItems";
-import AddressBottomSheet from "@/components/bottomsheet/AddressBottomSheet";
+// import AddressBottomSheet from "@/components/bottomsheet/AddressBottomSheet";
 import { Drawer, DrawerTrigger } from "@/components/ui/drawer";
 import {
   useClearCartMutation,
   useGetCartItemsQuery,
+  useRemoveCartItemMutation,
 } from "@/features/cart/cartAPI";
-import { useGetUserAddressListQuery } from "@/features/address/AddresssAPI";
+// import { useGetUserAddressListQuery } from "@/features/address/AddresssAPI";
 import { useGetCouponsQuery } from "@/features/coupon/couponAPI";
 import type { CartItem } from "@/features/cart/cartAPI.type";
 import type { Coupon } from "@/features/coupon/couponAPI.type";
 import EmptyCart from "./EmptyCart";
-import { useAppSelector } from "@/app/hooks";
+import CurrentlyUnavailable from "./CurrentlyUnavailable";
+// import { useAppSelector } from "@/app/hooks";
 
 const Cart = () => {
-  const { isAuthenticated } = useAppSelector((state) => state.auth);
+  // const { isAuthenticated } = useAppSelector((state) => state.auth);
 
   const {
     data: cartData = { data: [] },
     isLoading,
     isError,
   } = useGetCartItemsQuery(undefined, {
-    skip: !isAuthenticated,
+    // skip: !isAuthenticated,
   });
+
+  const soldOutItems = cartData.data.filter(
+    (item: CartItem) => item.variant.out_of_stock,
+  );
+  const availableItems = cartData.data.filter(
+    (item: CartItem) => !item.variant.out_of_stock,
+  );
 
   const {
     data: couponsData = { data: [] },
@@ -46,6 +55,10 @@ const Cart = () => {
 
   const [clearCart, { isLoading: clearCartLoading, isError: clearCartError }] =
     useClearCartMutation();
+  const [
+    removeCartItem,
+    // { isLoading: removeCartItemLoading, isError: removeCartItemError },
+  ] = useRemoveCartItemMutation();
 
   console.log("Coupons Data:", isCouponsError, isCouponsLoading);
   console.log("clearCartLoading:", clearCartLoading);
@@ -53,7 +66,7 @@ const Cart = () => {
 
   const [selectedCoupon, setSelectedCoupon] = useState<Coupon | null>(null);
 
-  const { itemsTotal, discount } = cartData.data.reduce(
+  const { itemsTotal, discount } = availableItems.reduce(
     (acc, item: CartItem) => {
       const { mrp, price } = item.variant;
       const quantity = item.quantity;
@@ -77,10 +90,14 @@ const Cart = () => {
 
   const navigate = useNavigate();
 
-  const { data: addressData = { data: [] } } = useGetUserAddressListQuery();
+  // const { data: addressData = { data: [] } } = useGetUserAddressListQuery();
 
   const handleCouponChange = (coupon: Coupon | null) => {
     setSelectedCoupon(coupon);
+  };
+
+  const handleRemoveItem = async (productVariantId: string) => {
+    await removeCartItem(productVariantId);
   };
 
   if (isLoading) {
@@ -106,7 +123,6 @@ const Cart = () => {
         cancelButtonText="Cancel"
         onConfirm={async () => {
           await clearCart();
-          console.log("Cart cleared");
         }}
       />
       <div className="flex h-full max-h-full flex-1 flex-col overflow-scroll bg-[#f0f0f5]">
@@ -151,7 +167,13 @@ const Cart = () => {
                 <p className="ml-1 text-[16px] font-semibold -tracking-[0.4px]">
                   Rewiew Your Order
                 </p>
-                <ReviewOrder cartData={cartData.data} />
+                <ReviewOrder cartData={availableItems} />
+                {soldOutItems.length > 0 && (
+                  <CurrentlyUnavailable
+                    cartData={soldOutItems}
+                    handleRemoveItem={handleRemoveItem}
+                  />
+                )}
                 <AddMoreItems />
               </div>
               <Coupons
@@ -177,7 +199,7 @@ const Cart = () => {
             <DrawerTrigger className="w-full cursor-pointer rounded-lg bg-[#ff5200] py-2.5 text-lg leading-5.5 font-normal -tracking-[0.45px] text-[#ffffffeb] transition duration-100 ease-in hover:scale-[0.95] hover:bg-[#ff5200] hover:shadow-none">
               Select Address
             </DrawerTrigger>
-            <AddressBottomSheet addresses={addressData.data || []} />
+            {/* <AddressBottomSheet addresses={addressData.data || []} /> */}
           </Drawer>
         </div>
       </div>

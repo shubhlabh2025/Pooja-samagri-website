@@ -10,3 +10,8 @@ export interface BillDetailProps {
   discount: number;
   selectedCoupon: Coupon | null;
 }
+
+export interface CurrentlyUnavailableProps {
+  cartData: CartItem[];
+  handleRemoveItem: (productVariantId: string) => void;
+}

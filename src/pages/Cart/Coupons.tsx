@@ -4,6 +4,7 @@ import type { CouponsProps } from "@/interfaces/coupons";
 import percentageIcon from "@/assets/percentoff.svg";
 import flatIcon from "@/assets/flatoff.svg";
 import { useState } from "react";
+// import type { Coupon } from "@/features/coupon/couponAPI.type";
 
 const Coupons = ({
   couponsData,
@@ -14,6 +15,10 @@ const Coupons = ({
 }: CouponsProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const totalAmount = itemsTotal - discount;
+
+  const filterCoupons = couponsData.filter(
+    (coupon) => !selectedCoupon || coupon.id != selectedCoupon.id,
+  );
 
   return (
     <div className="shadow-cart-card mb-1 flex w-full flex-col gap-4 rounded-lg bg-white p-4">
@@ -72,54 +77,57 @@ const Coupons = ({
               : "max-h-0 scale-95 opacity-0"
           } flex flex-col gap-3 rounded-lg bg-[#f0f0f5]`}
         >
-          {couponsData
-            .filter(
-              (coupon) => !selectedCoupon || coupon.id != selectedCoupon.id,
-            )
-            .map((coupon) => (
-              <div
-                key={coupon.id}
-                className="flex flex-col gap-4 rounded-lg bg-white p-4"
-              >
-                <div className="flex flex-col gap-3">
-                  <div className="flex justify-between">
-                    <div className="flex items-center gap-2">
-                      <img
-                        src={
-                          coupon.discount_type == "percentage"
-                            ? percentageIcon
-                            : flatIcon
-                        }
-                        alt="Coupon"
-                        className={`aspect-square w-[23px] rounded-[8px] bg-[#FF5200] p-[3px]`}
-                      />
-                      <p className="text-lg leading-5.5 font-normal tracking-[-0.45px] text-[#02060cbf]">
-                        {coupon.offer_code}
-                      </p>
-                    </div>
-                    <div className="flex items-center">
-                      <button
-                        disabled={totalAmount < coupon.min_order_value}
-                        className={`cursor-pointer text-sm leading-4.5 font-semibold tracking-[-0.35px] ${totalAmount >= coupon.min_order_value ? "text-[#FF5200]" : "text-[#e2e2e7]"} `}
-                        onClick={() => handleCouponChange(coupon)}
-                      >
-                        APPLY
-                      </button>
-                    </div>
-                  </div>
-                  {totalAmount < coupon.min_order_value && (
-                    <p className="line-clamp-2 text-sm leading-4.5 font-normal tracking-[-0.35px] text-[#fa3c5a]">
-                      Add items worth ₹{coupon.min_order_value} or more to avail
-                      this offer.
+          {filterCoupons.length === 0 && (
+            <div className="flex flex-col items-center justify-center">
+              <p className="text-sm leading-4.5 font-normal tracking-[-0.35px] text-[#02060c73]">
+                No{selectedCoupon ? " more " : " "}coupons available.
+              </p>
+            </div>
+          )}
+          {filterCoupons.map((coupon) => (
+            <div
+              key={coupon.id}
+              className="flex flex-col gap-4 rounded-lg bg-white p-4"
+            >
+              <div className="flex flex-col gap-3">
+                <div className="flex justify-between">
+                  <div className="flex items-center gap-2">
+                    <img
+                      src={
+                        coupon.discount_type == "percentage"
+                          ? percentageIcon
+                          : flatIcon
+                      }
+                      alt="Coupon"
+                      className={`aspect-square w-[23px] rounded-[8px] bg-[#FF5200] p-[3px]`}
+                    />
+                    <p className="text-lg leading-5.5 font-normal tracking-[-0.45px] text-[#02060cbf]">
+                      {coupon.offer_code}
                     </p>
-                  )}
+                  </div>
+                  <div className="flex items-center">
+                    <button
+                      disabled={totalAmount < coupon.min_order_value}
+                      className={`cursor-pointer text-sm leading-4.5 font-semibold tracking-[-0.35px] ${totalAmount >= coupon.min_order_value ? "text-[#FF5200]" : "text-[#e2e2e7]"} `}
+                      onClick={() => handleCouponChange(coupon)}
+                    >
+                      APPLY
+                    </button>
+                  </div>
                 </div>
-                <div className="border-t border-dashed border-[rgba(2,6,12,0.15)]"></div>
-                <p className="text-sm leading-4.5 font-normal tracking-[0.35px] text-[#02060ceb]">
-                  {coupon.description}
-                </p>
+                {totalAmount < coupon.min_order_value && (
+                  <p className="line-clamp-2 text-sm leading-4.5 font-normal tracking-[-0.35px] text-[#fa3c5a]">
+                    Add items worth ₹{coupon.min_order_value} or more to avail
+                    this offer.
+                  </p>
+                )}
               </div>
-            ))}
+              <div className="border-t border-dashed border-[rgba(2,6,12,0.15)]"></div>
+              <p className="text-sm leading-4.5 font-normal tracking-[0.35px] text-[#02060ceb]">
+                {coupon.description}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </div>

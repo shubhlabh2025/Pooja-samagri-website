@@ -15,7 +15,6 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import {
-  ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
@@ -140,7 +139,7 @@ const LoginDialog = () => {
             </div>
           </div>
         </ResizablePanel>
-        <ResizableHandle />
+        {/* <ResizableHandle />  */}
         <ResizablePanel defaultSize={55}>
           <>
             <div className="relative h-full overflow-hidden pb-5">
