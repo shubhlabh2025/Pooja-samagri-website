@@ -1,21 +1,19 @@
 import { useAppSelector } from "@/app/hooks";
-import type { Prediction } from "@/features/address/addressAPI.type";
-import { useGetAddressSuggestionsQuery } from "@/features/address/AddresssAPI";
+import type { Geometry } from "@/features/maps/MapAPi.type";
+import { useGetMapSearchResultsQuery } from "@/features/maps/MapsApi";
 import type { CoordinateProps } from "@/interfaces/coordinateprops";
 import { ChevronLeft, MapPin, Navigation } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 
 export interface AddressChangeProps {
-  onChange: () => void;
+  onChange: (lat: number, lng: number) => void;
 }
 interface SearchAddressPageProps extends AddressChangeProps, CoordinateProps {}
 
-const SearchAddressPage = ({
-  onChange,
-  setLat,
-  setLng,
-}: SearchAddressPageProps) => {
+const SearchAddressPage = ({ onChange }: SearchAddressPageProps) => {
   const [search, setSearch] = useState("");
+  const navigate = useNavigate();
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const location = useAppSelector((state) => state.location);
 
@@ -28,36 +26,39 @@ const SearchAddressPage = ({
     return () => clearTimeout(handler);
   }, [search]);
 
-  const { data, isLoading, isError } = useGetAddressSuggestionsQuery(
+  const { data, isLoading, isError } = useGetMapSearchResultsQuery(
     debouncedSearch,
     {
       skip: debouncedSearch.length < 3,
     },
   );
 
-  const handlePredictionClick = (prediction: Prediction) => {
-    const placeLat = prediction.lat;
-    const placeLng = prediction.lng;
+  const handlePredictionClick = (prediction: Geometry) => {
+    const placeLat = prediction.location.lat;
+    const placeLng = prediction.location.lng;
 
-    setLat(placeLat);
-    setLng(placeLng);
-    onChange(); // Switch back to map view
+    onChange(placeLat, placeLng); // Switch back to map view
   };
 
   const handleCurrentLocationClick = () => {
     const placeLat = location.lat;
     const placeLng = location.lng;
 
-    setLat(placeLat || 24.54354);
-    setLng(placeLng || 22.44543);
-    onChange(); // Switch back to map view
+    // setLat(placeLat || 24.54354);
+    // setLng(placeLng || 22.44543);
+    onChange(placeLat || 24.54354, placeLng || 22.44543); // Switch back to map view
   };
 
   return (
     <div className="flex h-full w-full flex-col bg-white">
       {/* Header */}
       <div className="flex h-16 w-full items-center border-b border-gray-200 px-4">
-        <ChevronLeft className="mr-3 cursor-pointer" onClick={onChange} />
+        <ChevronLeft
+          className="mr-3 cursor-pointer"
+          onClick={() => {
+            navigate(-1);
+          }}
+        />
         <input
           value={search}
           onChange={(e) => setSearch(e.target.value)}
@@ -93,19 +94,19 @@ const SearchAddressPage = ({
             {isLoading && <p className="text-gray-500">Loading...</p>}
             {isError && <p className="text-red-500">Something went wrong</p>}
             {!isLoading &&
-              data?.data?.predictions?.map((prediction, index) => (
+              data?.data.map((prediction, index) => (
                 <div
                   key={index}
                   className="flex items-start border-b border-gray-100 py-4"
-                  onClick={() => handlePredictionClick(prediction)}
+                  onClick={() => handlePredictionClick(prediction.geometry)}
                 >
                   <MapPin className="mt-1 mr-3 h-5 w-5 flex-shrink-0 text-gray-700" />
                   <div>
                     <p className="font-semibold text-gray-900">
-                      {prediction.structured_formatting.main_text}
+                      {prediction.name}
                     </p>
                     <p className="text-sm text-gray-500">
-                      {prediction.structured_formatting.secondary_text}
+                      {prediction.formatted_address}
                     </p>
                   </div>
                 </div>

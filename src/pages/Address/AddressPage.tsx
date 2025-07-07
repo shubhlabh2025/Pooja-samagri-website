@@ -14,15 +14,16 @@ import DetailAddressComponent from "./DetailAddressComponent";
 import type { CoordinateProps } from "@/interfaces/coordinateprops";
 import {
   useAddUserAddressMutation,
-  useGetCurrentAddressQuery,
 } from "@/features/address/AddresssAPI";
 import { Drawer } from "@/components/ui/drawer";
 import AddressDetailBottomSheet from "@/components/bottomsheet/AddressDetailBottomSheet";
 import type { CompleteAddressProps } from "@/interfaces/completeAddressProps";
 import type {
-  AddressComponent,
+  
   CreateUserAddressPayload,
 } from "@/features/address/addressAPI.type";
+import { useGetAddressFromLatLngQuery } from "@/features/maps/MapsApi";
+import type { AddressComponent } from "@/features/maps/MapAPi.type";
 type Poi = { key: string; location: google.maps.LatLngLiteral };
 
 export interface AdressChangeProps {
@@ -39,14 +40,20 @@ const AddressPage = ({ onChange, lat, lng }: AddressPageProps) => {
       success: false,
       message: "",
       data: {
-        success: false,
-        address: "",
-        components: [],
+        formatted_address: "",
+        address_components: [],
+        geometry: {
+          location:{
+            lat:31.61404351178462,
+            lng:74.88916441294835
+          }
+        }
       },
+
     },
     isLoading: addressLoading,
     isError: addressError,
-  } = useGetCurrentAddressQuery({ lat, lng });
+  } = useGetAddressFromLatLngQuery({ lat , lng });
 
   const [addUserAddress] = useAddUserAddressMutation();
 
@@ -68,7 +75,7 @@ const AddressPage = ({ onChange, lat, lng }: AddressPageProps) => {
     const { address_line1, address_line2, landmark, name, phone_number } = data;
 
     const { city, state, pincode } = extractAddressFields(
-      addressData.data.components,
+      addressData.data.address_components,
     );
     const fullPayload: CreateUserAddressPayload = {
       phone_number,
@@ -86,14 +93,14 @@ const AddressPage = ({ onChange, lat, lng }: AddressPageProps) => {
     // Strip out id and user_id before sending to backend
 
     await addUserAddress(fullPayload);
-    navigate("/");
+   // navigate("/");
     // post to backend
-    // setShowDrawer(false);
+     setShowDrawer(false);
   };
 
   useEffect(() => {
-    if (addressData?.data?.address && !addressLoading) {
-      setSelectedAddress(addressData.data.address);
+    if (addressData?.data?.formatted_address && !addressLoading) {
+      setSelectedAddress(addressData.data.formatted_address);
     }
   }, [addressData, addressLoading]);
 

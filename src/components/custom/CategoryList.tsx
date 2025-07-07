@@ -2,27 +2,14 @@ import { useGetCategoriesQuery } from "@/features/category/categoryAPI";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { useNavigate } from "react-router";
 import { ChevronRight } from "lucide-react";
-import EmptyScreen from "./EmptyScreen";
-import NoProductFoundIcon from "../../assets/no_products.png";
+
 const CategoryList = () => {
   const navigate = useNavigate();
   const { data, isLoading, isError } = useGetCategoriesQuery({});
 
   if (isLoading) return <div>Loading categories...</div>;
   if (isError) return <div>Error loading categories.</div>;
-  if (!data || data.data.length === 0)
-    return (
-      <EmptyScreen
-        imageSrc={NoProductFoundIcon}
-        title={"No Category Found"}
-        showBackArrow={true}
-        subtitle={""}
-        buttonText={"Browse other Things"}
-        onButtonClick={function (): void {
-          navigate("/");
-        }}
-      />
-    );
+  if (!data || data.data.length === 0) return <div></div>;
 
   return (
     <>

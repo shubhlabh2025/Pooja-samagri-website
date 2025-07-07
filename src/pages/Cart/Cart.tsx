@@ -26,6 +26,8 @@ import type { CartItem } from "@/features/cart/cartAPI.type";
 import type { Coupon } from "@/features/coupon/couponAPI.type";
 import EmptyCart from "./EmptyCart";
 import { useAppSelector } from "@/app/hooks";
+import { useCreateOrderMutation } from "@/features/orders/orderAPI";
+import type { CreateOrders } from "@/features/orders/orderAPI.type";
 
 const Cart = () => {
   const { isAuthenticated } = useAppSelector((state) => state.auth);
@@ -37,6 +39,11 @@ const Cart = () => {
   } = useGetCartItemsQuery(undefined, {
     skip: !isAuthenticated,
   });
+
+  const [
+    createOrder,
+    // { isLoading: orderPlacingLoading, isError: orderPlacingError },
+  ] = useCreateOrderMutation();
 
   const {
     data: couponsData = { data: [] },
@@ -94,6 +101,42 @@ const Cart = () => {
   if (cartData.data.length === 0) {
     return <EmptyCart />;
   }
+
+  const placeOrder = async (addressId: string) => {
+    if (!cartData || !cartData.data) return;
+
+    const validItems = cartData.data.filter(
+      (item) => !item.variant.out_of_stock,
+    );
+
+    const orderItems = validItems.map(({ quantity, product_variant_id }) => ({
+      quantity,
+      product_variant_id,
+    }));
+
+    const orderPayload: CreateOrders = {
+      items: orderItems,
+      address_id: addressId,
+    };
+
+    try {
+      const result = await createOrder(orderPayload).unwrap();
+
+      if (result.success) {
+        // Navigate to success page
+        navigate("/payment-page", { state: { orderData: result.data } });
+      } else {
+        // Navigate to failure page
+        navigate("/order-failure", { state: { message: result.message } });
+      }
+    } catch (error) {
+      console.error("Order creation failed:", error);
+      // Navigate to failure page
+      navigate("/order-failure", {
+        state: { message: "Order creation failed" },
+      });
+    }
+  };
 
   return (
     <>

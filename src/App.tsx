@@ -23,6 +23,9 @@ import { useGetAppConfigurationsQuery } from "./features/configuration/configura
 import { useGeolocation } from "./hooks/location.ts";
 import Address from "./pages/Address/Address.tsx";
 import UserProfilePage from "./pages/Profile/UserProfile.tsx";
+import OrderSuccess from "./pages/Order/OrderSuccess.tsx";
+import OrderFailure from "./pages/Order/OrderFailure.tsx";
+import PaymentPage from "./pages/Order/PaymentPage.tsx";
 
 function App() {
   useGeolocation();
@@ -100,6 +103,9 @@ function App() {
           <Route path="/search" element={<SearchScreen />} />
           <Route path="/address" element={<Address />} />
           <Route path="/profile" element={<UserProfilePage />} />
+          <Route path="/payment-page" element={<PaymentPage />} />
+          <Route path="/order-success" element={<OrderSuccess />} />
+          <Route path="/order-failure" element={<OrderFailure />} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>

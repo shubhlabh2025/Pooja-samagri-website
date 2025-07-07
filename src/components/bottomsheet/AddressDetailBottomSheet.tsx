@@ -45,6 +45,7 @@ const AddressDetailBottomSheet = ({
       address_line2: data.address_line2 ?? "",
       landmark: data.landmark ?? "",
       phone_number: `+91${data.phone_number}`,
+     
     });
 
     // ✅ Programmatically close the drawer after successful validation
@@ -112,7 +113,7 @@ const AddressDetailBottomSheet = ({
           <input
             {...register("phone_number")}
             type="tel"
-            placeholder="Receiver's Number"
+            placeholder="Receiver's Number e.g 9876543210"
             className="w-full border-b border-gray-300 bg-transparent p-2 text-sm outline-none"
           />
           {errors.phone_number && (
