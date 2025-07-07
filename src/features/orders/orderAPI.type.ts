@@ -1,4 +1,4 @@
-interface OrderData {
+export interface OrderData {
   amount: number;
   amount_due: number;
   amount_paid: number;

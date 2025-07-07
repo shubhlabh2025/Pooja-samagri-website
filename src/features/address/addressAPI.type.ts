@@ -23,6 +23,7 @@ export interface UserAddressPayload {
   pincode: string;
   lat: number;
   lng: number;
+  is_default: boolean;
 }
 
 export interface CreateUserAddressPayload {

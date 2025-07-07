@@ -1,5 +1,6 @@
 import { useVerifyPaymentMutation } from "@/features/orders/orderAPI";
 import type {
+  OrderData,
   OrderResponse,
   RazorpayPaymentResponse,
 } from "@/features/orders/orderAPI.type";
@@ -14,8 +15,9 @@ const PaymentPage = () => {
     useVerifyPaymentMutation();
 
   // Extract orderData from navigation state
-  const orderData = location.state?.orderData as OrderResponse;
-  const orderId = orderData?.data.id;
+  const orderData = location.state?.orderData as OrderData;
+  console.log("Order data:", orderData);
+  const orderId = orderData?.id;
 
   useEffect(() => {
     // Check if orderData exists, if not redirect to error page
@@ -80,6 +82,12 @@ const PaymentPage = () => {
       modal: {
         ondismiss: handlePaymentFailure,
         fullpage: true,
+      },
+      prefill: {
+        //We recommend using the prefill parameter to auto-fill customer's contact information especially their phone number
+        name: "Gaurav Kumar", //your customer's name
+        email: "gaurav.kumar@example.com",
+        contact: "9000090000", //Provide the customer's phone number for better conversion rates
       },
       theme: {
         color: "#ff5200",

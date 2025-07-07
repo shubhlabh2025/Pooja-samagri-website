@@ -14,14 +14,14 @@ import BillDetails from "./BillDetails";
 import Coupons from "./Coupons";
 import ConfirmationDialog from "@/components/dialog/ConfirmationDialog";
 import AddMoreItems from "./AddMoreItems";
-// import AddressBottomSheet from "@/components/bottomsheet/AddressBottomSheet";
+import AddressBottomSheet from "@/components/bottomsheet/AddressBottomSheet";
 import { Drawer, DrawerTrigger } from "@/components/ui/drawer";
 import {
   useClearCartMutation,
   useGetCartItemsQuery,
   useRemoveCartItemMutation,
 } from "@/features/cart/cartAPI";
-// import { useGetUserAddressListQuery } from "@/features/address/AddresssAPI";
+import { useGetUserAddressListQuery } from "@/features/address/AddresssAPI";
 import { useGetCouponsQuery } from "@/features/coupon/couponAPI";
 import type { CartItem } from "@/features/cart/cartAPI.type";
 import type { Coupon } from "@/features/coupon/couponAPI.type";
@@ -30,6 +30,9 @@ import CurrentlyUnavailable from "./CurrentlyUnavailable";
 // import { useAppSelector } from "@/app/hooks";
 import { useCreateOrderMutation } from "@/features/orders/orderAPI";
 import type { CreateOrders } from "@/features/orders/orderAPI.type";
+import AddressCard from "./AddressCard";
+import type { UserAddressPayload } from "@/features/address/addressAPI.type";
+import { Button } from "@/components/ui/button";
 
 const Cart = () => {
   // const { isAuthenticated } = useAppSelector((state) => state.auth);
@@ -46,6 +49,13 @@ const Cart = () => {
     createOrder,
     // { isLoading: orderPlacingLoading, isError: orderPlacingError },
   ] = useCreateOrderMutation();
+
+  const {
+    data: addressData = { data: [] },
+    // isLoading: addressDataLoading,
+    // isError: addressDataError,
+  } = useGetUserAddressListQuery();
+  const defaultAddress = addressData.data.find((address) => address.is_default);
 
   const soldOutItems = cartData.data.filter(
     (item: CartItem) => item.variant.out_of_stock,
@@ -72,6 +82,9 @@ const Cart = () => {
   console.log("clearCartError:", clearCartError);
 
   const [selectedCoupon, setSelectedCoupon] = useState<Coupon | null>(null);
+  const [selectedAddress, setSelectedAddress] =
+    useState<UserAddressPayload | null>(null);
+  const [isAddressDrawerOpen, setIsAddressDrawerOpen] = useState(false);
 
   const { itemsTotal, discount } = availableItems.reduce(
     (acc, item: CartItem) => {
@@ -97,14 +110,16 @@ const Cart = () => {
 
   const navigate = useNavigate();
 
-  // const { data: addressData = { data: [] } } = useGetUserAddressListQuery();
-
   const handleCouponChange = (coupon: Coupon | null) => {
     setSelectedCoupon(coupon);
   };
 
   const handleRemoveItem = async (productVariantId: string) => {
     await removeCartItem(productVariantId);
+  };
+
+  const handleAdressDrawerOpen = () => {
+    setIsAddressDrawerOpen(true);
   };
 
   if (isLoading) {
@@ -119,8 +134,11 @@ const Cart = () => {
     return <EmptyCart />;
   }
 
-  const placeOrder = async (addressId: string) => {
+  const placeOrder = async () => {
     if (!cartData || !cartData.data) return;
+    if (!selectedAddress && !defaultAddress) {
+      return handleAdressDrawerOpen();
+    }
 
     const validItems = cartData.data.filter(
       (item) => !item.variant.out_of_stock,
@@ -133,11 +151,12 @@ const Cart = () => {
 
     const orderPayload: CreateOrders = {
       items: orderItems,
-      address_id: addressId,
+      address_id: `${selectedAddress ? selectedAddress.id : defaultAddress?.id}`,
     };
 
     try {
       const result = await createOrder(orderPayload).unwrap();
+      console.log("Order creation result:", result);
 
       if (result.success) {
         // Navigate to success page
@@ -226,6 +245,10 @@ const Cart = () => {
                 selectedCoupon={selectedCoupon}
                 discount={discount}
               />
+              <AddressCard
+                selectedAddress={selectedAddress || defaultAddress}
+                handleAdressDrawerOpen={handleAdressDrawerOpen}
+              />
             </div>
             <div className="flex flex-4 flex-col gap-3">
               <BillDetails
@@ -237,15 +260,31 @@ const Cart = () => {
           </div>
         </div>
 
-        <div className="shadow-cart-card sticky bottom-0 z-10 rounded-tl-lg rounded-tr-lg bg-white px-4 py-4">
-          <Drawer>
-            <DrawerTrigger className="w-full cursor-pointer rounded-lg bg-[#ff5200] py-2.5 text-lg leading-5.5 font-normal -tracking-[0.45px] text-[#ffffffeb] transition duration-100 ease-in hover:scale-[0.95] hover:bg-[#ff5200] hover:shadow-none">
+        <div className="shadow-cart-card bottom-0 z-10 rounded-tl-lg rounded-tr-lg bg-white px-4 py-4">
+          {selectedAddress || defaultAddress ? (
+            <button
+              className="focus:ring-opacity-75 w-full cursor-pointer rounded-lg bg-[#ff5200] py-2.5 text-lg leading-5 font-normal text-white transition duration-150 ease-in-out hover:scale-[0.98] hover:bg-[#ff5200] focus:outline-none"
+              onClick={placeOrder}
+            >
+              Pay{" "}
+              {`₹ ${new Intl.NumberFormat("en-IN", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              }).format(itemsTotal - discount)}`}
+            </button>
+          ) : (
+            <Button
+              className="w-full cursor-pointer rounded-lg bg-[#ff5200] py-2.5 text-lg leading-5.5 font-normal -tracking-[0.45px] text-[#ffffffeb] transition duration-100 ease-in hover:scale-[0.95] hover:bg-[#ff5200] hover:shadow-none"
+              onClick={handleAdressDrawerOpen}
+            >
               Select Address
-            </DrawerTrigger>
-            {/* <AddressBottomSheet addresses={addressData.data || []} /> */}
-          </Drawer>
+            </Button>
+          )}
         </div>
       </div>
+      <Drawer open={isAddressDrawerOpen} onOpenChange={setIsAddressDrawerOpen}>
+        <AddressBottomSheet addresses={addressData.data || []} />
+      </Drawer>
     </>
   );
 };
