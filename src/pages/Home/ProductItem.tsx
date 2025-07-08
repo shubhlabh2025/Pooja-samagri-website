@@ -41,7 +41,7 @@ const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
           </div>
         )}
         <img
-          src={defaultProductVariant.image[0]}
+          src={defaultProductVariant.images[0]}
           alt={defaultProductVariant.name}
           className="h-full w-full rounded-[12px]"
         />

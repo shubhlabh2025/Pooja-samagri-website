@@ -15,7 +15,7 @@ import Coupons from "./Coupons";
 import ConfirmationDialog from "@/components/dialog/ConfirmationDialog";
 import AddMoreItems from "./AddMoreItems";
 import AddressBottomSheet from "@/components/bottomsheet/AddressBottomSheet";
-import { Drawer, DrawerTrigger } from "@/components/ui/drawer";
+import { Drawer } from "@/components/ui/drawer";
 import {
   useClearCartMutation,
   useGetCartItemsQuery,
@@ -33,16 +33,19 @@ import type { CreateOrders } from "@/features/orders/orderAPI.type";
 import AddressCard from "./AddressCard";
 import type { UserAddressPayload } from "@/features/address/addressAPI.type";
 import { Button } from "@/components/ui/button";
+import { useAppSelector } from "@/app/hooks";
 
 const Cart = () => {
-  // const { isAuthenticated } = useAppSelector((state) => state.auth);
+  const { isAuthenticated } = useAppSelector((state) => state.auth);
+  console.log("isAuthenticated cart");
 
+  console.log(isAuthenticated);
   const {
     data: cartData = { data: [] },
     isLoading,
     isError,
   } = useGetCartItemsQuery(undefined, {
-    // skip: !isAuthenticated,
+    skip: !isAuthenticated,
   });
 
   const [
@@ -54,7 +57,9 @@ const Cart = () => {
     data: addressData = { data: [] },
     // isLoading: addressDataLoading,
     // isError: addressDataError,
-  } = useGetUserAddressListQuery();
+  } = useGetUserAddressListQuery(undefined, {
+    skip: !isAuthenticated,
+  });
   const defaultAddress = addressData.data.find((address) => address.is_default);
 
   const soldOutItems = cartData.data.filter(
@@ -68,7 +73,9 @@ const Cart = () => {
     data: couponsData = { data: [] },
     isError: isCouponsError,
     isLoading: isCouponsLoading,
-  } = useGetCouponsQuery();
+  } = useGetCouponsQuery(undefined, {
+    skip: !isAuthenticated,
+  });
 
   const [clearCart, { isLoading: clearCartLoading, isError: clearCartError }] =
     useClearCartMutation();
@@ -114,6 +121,10 @@ const Cart = () => {
     setSelectedCoupon(coupon);
   };
 
+  const handleAddressChange = (address: UserAddressPayload) => {
+    setSelectedAddress(address);
+    setIsAddressDrawerOpen(false);
+  };
   const handleRemoveItem = async (productVariantId: string) => {
     await removeCartItem(productVariantId);
   };
@@ -135,6 +146,8 @@ const Cart = () => {
   }
 
   const placeOrder = async () => {
+    console.log("Paymeny placeOrder");
+
     if (!cartData || !cartData.data) return;
     if (!selectedAddress && !defaultAddress) {
       return handleAdressDrawerOpen();
@@ -159,17 +172,22 @@ const Cart = () => {
       console.log("Order creation result:", result);
 
       if (result.success) {
+        console.log("Paymeny NAVIGATION");
         // Navigate to success page
-        navigate("/payment-page", { state: { orderData: result.data } });
+        navigate("payment-page", {
+          replace: true,
+          state: { orderData: result.data },
+        });
       } else {
         // Navigate to failure page
-        navigate("/order-failure", { state: { message: result.message } });
+        //  navigate("/order-failure", { state: { message: result.message } });
       }
     } catch (error) {
       console.error("Order creation failed:", error);
       // Navigate to failure page
-      navigate("/order-failure", {
+      navigate("../order-failure", {
         state: { message: "Order creation failed" },
+        replace: true,
       });
     }
   };
@@ -283,7 +301,10 @@ const Cart = () => {
         </div>
       </div>
       <Drawer open={isAddressDrawerOpen} onOpenChange={setIsAddressDrawerOpen}>
-        <AddressBottomSheet addresses={addressData.data || []} />
+        <AddressBottomSheet
+          addresses={addressData.data || []}
+          handleAddressChange={handleAddressChange}
+        />
       </Drawer>
     </>
   );

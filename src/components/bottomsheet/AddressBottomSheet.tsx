@@ -11,6 +11,7 @@ import { useNavigate } from "react-router";
 
 const AddressBottomSheet = ({
   addresses = [],
+  handleAddressChange,
 }: TriggerAddressBottomSheetProps) => {
   const navigate = useNavigate();
   return (
@@ -34,6 +35,9 @@ const AddressBottomSheet = ({
         {addresses.map((address) => (
           <div
             key={address.id}
+            onClick={() => {
+              handleAddressChange(address);
+            }}
             className="flex items-center justify-between rounded-xl border border-[#E9E9EB] bg-white px-3 py-3 shadow-sm"
           >
             <div className="flex items-start gap-3">

@@ -5,10 +5,14 @@ interface AuthState {
   isAuthenticated: boolean;
 }
 
-const initialState: AuthState = {
-  accessToken: null,
-  isAuthenticated: false,
+const getInitialAuthState = (): AuthState => {
+  const accessToken = localStorage.getItem("accessToken");
+  return {
+    accessToken: accessToken,
+    isAuthenticated: !!accessToken, // Set isAuthenticated to true if accessToken exists
+  };
 };
+const initialState: AuthState = getInitialAuthState();
 
 const authSlice = createSlice({
   name: "auth",
@@ -23,6 +27,7 @@ const authSlice = createSlice({
       state.isAuthenticated = true;
     },
     logout: (state) => {
+      localStorage.removeItem("accessToken");
       state.accessToken = null;
       state.isAuthenticated = false;
     },

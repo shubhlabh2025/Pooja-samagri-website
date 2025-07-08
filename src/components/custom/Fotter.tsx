@@ -6,7 +6,7 @@ import facebook from "@/assets/facebook.svg";
 import linkedin from "@/assets/linkdin.svg";
 import twitter from "@/assets/twitter.svg";
 import youtube from "@/assets/youtube.svg";
-import logo from "@/assets/ganesh.svg";
+import logo from "@/assets/FooterIcon.png";
 import paytm from "@/assets/paytm.svg";
 import rupay from "@/assets/rupay.svg";
 import visa from "@/assets/visa.svg";
@@ -31,10 +31,16 @@ const Footer = () => {
             <a className="cursor-pointer">
               <img src={youtube} alt="YouTube" className="h-[23px]" />
             </a>
-            <a className="cursor-pointer">
+            <a
+              className="cursor-pointer"
+              href="https://www.facebook.com/profile.php?id=61576353127026&ref=_ig_profile_ac"
+            >
               <img src={facebook} alt="Facebook" className="h-[23px]" />
             </a>
-            <a className="cursor-pointer">
+            <a
+              className="cursor-pointer"
+              href="https://www.instagram.com/shubhlabhindia/"
+            >
               <img src={instagram} alt="Instagram" className="h-[23px]" />
             </a>
             <a className="cursor-pointer">
@@ -81,8 +87,8 @@ const Footer = () => {
           <p className="text-sm leading-[21px] text-[#666666]">Thane 400607</p>
           <p className="text-sm leading-[21px] text-[#666666]">India</p>
         </div>
-        <div>
-          <img src={logo} alt="ShubhLabh Logo" className="h-21 bg-white" />
+        <div className="flex h-21 items-center justify-center overflow-hidden rounded-md">
+          <img src={logo} alt="ShubhLabh Logo" className="h-32 w-32" />
         </div>
       </div>
       <div className="mt-6 mb-4 border-t border-[#333]"></div>

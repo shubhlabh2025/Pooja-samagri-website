@@ -7,7 +7,11 @@ import { useState } from "react";
 import { z } from "zod";
 import type { AddressComponent } from "./UserProfile";
 import SearchAddressPage from "../Address/SearchAddressPage";
-import { useUpdateUserAddressMutation } from "@/features/address/AddresssAPI";
+import {
+  useDeleteAddressMutation,
+  useUpdateUserAddressMutation,
+} from "@/features/address/AddresssAPI";
+import { Pencil, Trash } from "lucide-react";
 
 interface AddressCardProps {
   data: UserAddressPayload;
@@ -30,6 +34,7 @@ const addressValidationSchema = z.object({
   pincode: z.string().optional(),
   lat: z.number().min(-90).max(90).optional(),
   lng: z.number().min(-180).max(180).optional(),
+  is_default: z.boolean().optional(),
 });
 
 type AddressFormData = z.infer<typeof addressValidationSchema>;
@@ -77,6 +82,7 @@ const AddressCard = ({ data }: AddressCardProps) => {
   } = useGetAddressFromLatLngQuery({ lat: useLat, lng: useLng });
 
   const [updateAddress] = useUpdateUserAddressMutation();
+  const [deleteAddress] = useDeleteAddressMutation();
 
   const extracted = extractAddressFields(
     addressSearchData.data.address_components,
@@ -85,6 +91,7 @@ const AddressCard = ({ data }: AddressCardProps) => {
   const [editAddress, setEditAddress] = useState<UpdateUserAddressPayload>({
     name: data.name,
     phone_number: data.phone_number,
+    is_default: data.is_default || false,
   });
 
   const validateForm = () => {
@@ -133,9 +140,13 @@ const AddressCard = ({ data }: AddressCardProps) => {
     }
   };
 
+  const handleDelete = async () => {
+    await deleteAddress(data.id);
+  };
+
   const handleFieldChange = (
     field: keyof UpdateUserAddressPayload,
-    value: string,
+    value: string | boolean,
   ) => {
     setEditAddress({
       ...editAddress,
@@ -176,12 +187,23 @@ const AddressCard = ({ data }: AddressCardProps) => {
         <p className="text-sm font-medium">
           {extracted.city}, {extracted.state} - {extracted.pincode}
         </p>
-        <button
-          onClick={() => setExpandedId(data.id)}
-          className="text-sm text-blue-500 hover:underline"
-        >
-          {expandedId === data.id ? "Collapse" : "Edit"}
-        </button>
+        <div className="flex items-center space-x-4">
+          {" "}
+          {/* Use a flex container for buttons */}
+          <button
+            onClick={() => setExpandedId(data.id)}
+            className="text-sm text-blue-500 hover:underline"
+          >
+            {expandedId === data.id ? "Collapse" : <Pencil size={22} />}
+          </button>
+          <button
+            onClick={handleDelete}
+            className="text-red-500 hover:text-red-700" // Tailwind classes for red color
+            aria-label="Delete item" // Good for accessibility
+          >
+            <Trash size={20} /> {/* The delete icon */}
+          </button>
+        </div>
       </div>
 
       {expandedId === data.id && (
@@ -311,6 +333,24 @@ const AddressCard = ({ data }: AddressCardProps) => {
             placeholder="Pincode"
             readOnly
           />
+
+          {/* Default Address Checkbox */}
+          <div className="col-span-3 flex items-center gap-2">
+            <input
+              type="checkbox"
+              id={`default-${data.id}`}
+              className="h-4 w-4 rounded border-gray-300 text-orange-500 focus:ring-orange-500"
+              checked={editAddress?.is_default || false}
+              onChange={(e) => handleFieldChange("is_default", e.target.checked)}
+              disabled={!isEditing}
+            />
+            <label 
+              htmlFor={`default-${data.id}`} 
+              className="text-sm text-gray-700"
+            >
+              Mark this address as default
+            </label>
+          </div>
 
           {/* Action buttons */}
           <div className="col-span-3 mt-2 flex gap-2">

@@ -37,6 +37,7 @@ export interface CreateUserAddressPayload {
   pincode: string;
   lat: number;
   lng: number;
+  is_default: boolean;
 }
 
 export interface UpdateUserAddressPayload {
@@ -50,4 +51,5 @@ export interface UpdateUserAddressPayload {
   pincode?: string;
   lat?: number;
   lng?: number;
+  is_default?: boolean;
 }

@@ -60,7 +60,6 @@ function App() {
 
   // If config is available in store, render app
   if (configState.data) {
-    console.log("render");
     return (
       <BrowserRouter>
         <Routes>
@@ -73,14 +72,13 @@ function App() {
               </MainLayout>
             }
           />
-          <Route
-            path="/cart"
-            element={
-              // <MainLayout>
-              <Cart />
-              // </MainLayout>
-            }
-          />
+          <Route path="cart">
+            <Route index element={<Cart />} />
+
+            <Route path="payment-page" element={<PaymentPage />} />
+            <Route path="order-success" element={<OrderSuccess />} />
+            <Route path="order-failure" element={<OrderFailure />} />
+          </Route>
           <Route
             path="/categories/:categoryId"
             element={
@@ -103,9 +101,6 @@ function App() {
           <Route path="/search" element={<SearchScreen />} />
           <Route path="/address" element={<Address />} />
           <Route path="/profile" element={<UserProfilePage />} />
-          <Route path="/payment-page" element={<PaymentPage />} />
-          <Route path="/order-success" element={<OrderSuccess />} />
-          <Route path="/order-failure" element={<OrderFailure />} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>

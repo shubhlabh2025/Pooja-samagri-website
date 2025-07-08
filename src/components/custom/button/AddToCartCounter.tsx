@@ -6,8 +6,7 @@ import {
   useUpdateCartItemMutation,
 } from "@/features/cart/cartAPI";
 // import { useAppSelector } from "@/app/hooks";
-import { Dialog, DialogTrigger } from "@/components/ui/dialog";
-import LoginDialog from "@/components/dialog/LoginDialog";
+
 
 const AddToCartCounter = ({ productVariant }: AddToCartCounterProps) => {
   // const { isAuthenticated } = useAppSelector((state) => state.auth);

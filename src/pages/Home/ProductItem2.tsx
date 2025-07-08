@@ -39,7 +39,7 @@ const ProductItem2: React.FC<ProductItemProps> = ({ item }) => {
             </div>
           )}
           <img
-            src={item.product_variants[defaultVariantIndex].image[0]}
+            src={item.product_variants[defaultVariantIndex].images[0]}
             alt={item.product_variants[defaultVariantIndex].name}
             className="aspect-square h-full rounded-lg"
           />

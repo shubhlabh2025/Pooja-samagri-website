@@ -10,6 +10,7 @@ export interface TriggerProductVariantBottomSheetProps {
 
 export interface TriggerAddressBottomSheetProps {
   addresses: UserAddressPayload[];
+  handleAddressChange: (address: UserAddressPayload) => void;
 }
 
 export interface AddToCartCounterProps {

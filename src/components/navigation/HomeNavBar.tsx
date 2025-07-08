@@ -210,7 +210,7 @@ const HomeNavBar = () => {
                               className="flex items-center space-x-3 rounded-md p-2 transition hover:bg-gray-100"
                             >
                               <img
-                                src={item.product_variants[0].image[0]}
+                                src={item.product_variants[0].images[0]}
                                 alt={item.product_variants[0].name}
                                 className="h-10 w-10 rounded-md object-contain"
                                 onError={(e) => {
@@ -316,7 +316,7 @@ const HomeNavBar = () => {
                             className="flex items-center space-x-3 rounded-md p-2 transition hover:bg-gray-100"
                           >
                             <img
-                              src={item.product_variants[0].image[0]}
+                              src={item.product_variants[0].images[0]}
                               alt={item.product_variants[0].name}
                               className="h-10 w-10 rounded-md object-contain"
                               onError={(e) => {

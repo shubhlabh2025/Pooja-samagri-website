@@ -44,7 +44,7 @@ const ProductVariantBottomSheet = ({
             >
               <div className="flex basis-[40%] items-center gap-1">
                 <img
-                  src={variant.image[0]}
+                  src={variant.images[0]}
                   alt={variant.name}
                   className="aspect-square w-16 rounded-[12px]"
                 />

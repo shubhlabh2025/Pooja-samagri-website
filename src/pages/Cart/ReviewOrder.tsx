@@ -12,7 +12,7 @@ const ReviewOrder = ({ cartData }: ReviewOrderProps) => {
         >
           <div className="flex gap-3">
             <img
-              src={item.variant.image[0]}
+              src={item.variant.images[0]}
               alt="Product"
               className="aspect-square w-[50px] rounded-lg"
             />

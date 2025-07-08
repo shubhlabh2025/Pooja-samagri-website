@@ -87,6 +87,31 @@ export const addressAPI = createApi({
         }
       },
     }),
+
+    deleteAddress: builder.mutation<UserAddressResponse, string>({
+      query: (addressId) => ({
+        url: `/api/addresses/${addressId}`,
+        method: "DELETE",
+      }),
+
+      async onQueryStarted(addressId, { dispatch, queryFulfilled }) {
+        try {
+          await queryFulfilled;
+
+          dispatch(
+            addressAPI.util.updateQueryData(
+              "getUserAddressList",
+              undefined,
+              (draft) => {
+                draft.data = draft.data.filter((item) => item.id !== addressId);
+              },
+            ),
+          );
+        } catch {
+          // Handle error if needed
+        }
+      },
+    }),
   }),
 });
 
@@ -94,4 +119,5 @@ export const {
   useGetUserAddressListQuery,
   useAddUserAddressMutation,
   useUpdateUserAddressMutation,
+  useDeleteAddressMutation
 } = addressAPI;

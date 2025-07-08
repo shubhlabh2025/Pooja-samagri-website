@@ -12,16 +12,11 @@ import {
 import { env } from "@/env/env";
 import DetailAddressComponent from "./DetailAddressComponent";
 import type { CoordinateProps } from "@/interfaces/coordinateprops";
-import {
-  useAddUserAddressMutation,
-} from "@/features/address/AddresssAPI";
+import { useAddUserAddressMutation } from "@/features/address/AddresssAPI";
 import { Drawer } from "@/components/ui/drawer";
 import AddressDetailBottomSheet from "@/components/bottomsheet/AddressDetailBottomSheet";
 import type { CompleteAddressProps } from "@/interfaces/completeAddressProps";
-import type {
-  
-  CreateUserAddressPayload,
-} from "@/features/address/addressAPI.type";
+import type { CreateUserAddressPayload } from "@/features/address/addressAPI.type";
 import { useGetAddressFromLatLngQuery } from "@/features/maps/MapsApi";
 import type { AddressComponent } from "@/features/maps/MapAPi.type";
 type Poi = { key: string; location: google.maps.LatLngLiteral };
@@ -43,17 +38,16 @@ const AddressPage = ({ onChange, lat, lng }: AddressPageProps) => {
         formatted_address: "",
         address_components: [],
         geometry: {
-          location:{
-            lat:31.61404351178462,
-            lng:74.88916441294835
-          }
-        }
+          location: {
+            lat: 31.61404351178462,
+            lng: 74.88916441294835,
+          },
+        },
       },
-
     },
     isLoading: addressLoading,
     isError: addressError,
-  } = useGetAddressFromLatLngQuery({ lat , lng });
+  } = useGetAddressFromLatLngQuery({ lat, lng });
 
   const [addUserAddress] = useAddUserAddressMutation();
 
@@ -88,14 +82,16 @@ const AddressPage = ({ onChange, lat, lng }: AddressPageProps) => {
       pincode,
       lat,
       lng,
+      is_default: false,
     };
 
     // Strip out id and user_id before sending to backend
 
     await addUserAddress(fullPayload);
-   // navigate("/");
+    // navigate("/");
     // post to backend
-     setShowDrawer(false);
+    setShowDrawer(false);
+    navigate(-1);
   };
 
   useEffect(() => {

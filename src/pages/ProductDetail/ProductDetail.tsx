@@ -154,8 +154,8 @@ const ProductDetailsScreen: React.FC = () => {
         <div className="mt-4 flex flex-col items-center justify-center md:order-1">
           <img
             src={
-              selectedVariant.image?.[selectedImageIndex] ||
-              selectedVariant.image?.[0] ||
+              selectedVariant.images?.[selectedImageIndex] ||
+              selectedVariant.images?.[0] ||
               "https://via.placeholder.com/400x400?text=No+Image"
             }
             alt={selectedVariant.name || "Product Image"}
@@ -164,7 +164,7 @@ const ProductDetailsScreen: React.FC = () => {
 
           {/* Small Thumbnails */}
           <ThumbnailCarousel
-            images={selectedVariant.image || []}
+            images={selectedVariant.images || []}
             selectedImageIndex={selectedImageIndex}
             onImageSelect={handleImageSelect}
           />

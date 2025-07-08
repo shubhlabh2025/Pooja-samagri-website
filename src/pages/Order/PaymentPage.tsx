@@ -1,7 +1,6 @@
 import { useVerifyPaymentMutation } from "@/features/orders/orderAPI";
 import type {
   OrderData,
-  OrderResponse,
   RazorpayPaymentResponse,
 } from "@/features/orders/orderAPI.type";
 import { useEffect } from "react";
@@ -15,22 +14,19 @@ const PaymentPage = () => {
     useVerifyPaymentMutation();
 
   // Extract orderData from navigation state
-  const orderData = location.state?.orderData as OrderData;
+  const orderData: OrderData = location.state.orderData;
   console.log("Order data:", orderData);
-  const orderId = orderData?.id;
+  const orderId = orderData.id;
 
   useEffect(() => {
     // Check if orderData exists, if not redirect to error page
-    if (!orderData || !orderId) {
-      navigate("/order-failure", {
-        state: { error: "Order data not found" },
-      });
-      return;
-    }
 
     // Show initial animation for 2 seconds then start payment
+    // setTimeout(() => {
+    //   handlePaymentFailure();
+    // }, 3000);
     initiatePayment();
-  }, [orderData, orderId]);
+  }, []);
 
   const handlePaymentSuccess = async (response: RazorpayPaymentResponse) => {
     console.log("Payment response:", response);
@@ -41,32 +37,29 @@ const PaymentPage = () => {
         const verificationResult = await verifyPayment(response).unwrap();
 
         if (verificationResult.success) {
-          navigate("/order-success", {
-            state: { paymentResponse: response },
-          });
+          window.location.replace("/");
+
+          navigate("/", { replace: true });
         } else {
           // Show failure animation
-          navigate("/order-failure", {
-            state: { error: "Payment ID not received" },
-          });
+          navigate("../order-failure", { replace: true });
         }
       } catch (error) {
         console.error("Payment verification failed:", error);
         // Show failure animation
-        navigate("/order-failure", {
-          state: { error: "Payment ID not received" },
-        });
+        navigate("../order-failure", { replace: true });
       }
     } else {
       // Show failure animation
-      navigate("/order-failure", {
-        state: { error: "Payment ID not received" },
-      });
+      //   navigate("/", { replace: true });
+      //   navigate("/order-failure");
     }
   };
 
   const handlePaymentFailure = () => {
-    navigate("/order-failure");
+    window.location.replace("/");
+
+    navigate("/", { replace: true });
   };
 
   const initiatePayment = () => {
@@ -81,7 +74,6 @@ const PaymentPage = () => {
       handler: handlePaymentSuccess,
       modal: {
         ondismiss: handlePaymentFailure,
-        fullpage: true,
       },
       prefill: {
         //We recommend using the prefill parameter to auto-fill customer's contact information especially their phone number

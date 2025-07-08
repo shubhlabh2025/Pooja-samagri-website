@@ -24,7 +24,7 @@ export const orderAPI = createApi({
       RazorpayPaymentResponse
     >({
       query: (body) => ({
-        url: `/api/orders/verify-payment`,
+        url: `/api/orders/payment-verification`,
         method: "POST",
         data: body,
       }),

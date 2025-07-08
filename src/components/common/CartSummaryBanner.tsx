@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { ChevronUp, X } from "lucide-react";
 import { Button } from "../ui/button";
-import { Link } from "react-router";
+import {  useNavigate } from "react-router";
 import ReviewOrder from "@/pages/Cart/ReviewOrder";
 import { useGetCartItemsQuery } from "@/features/cart/cartAPI";
 import { useAppSelector } from "@/app/hooks";
 
 const CartSummaryBanner = () => {
   const { isAuthenticated } = useAppSelector((state) => state.auth);
-
+  const navigate = useNavigate();
   const {
     data: cartData = { data: [] },
     isError,
@@ -85,7 +85,7 @@ const CartSummaryBanner = () => {
                   {/* Always render the last item */}
                   <img
                     src={
-                      cartData.data[cartData.data.length - 1].variant.image[0]
+                      cartData.data[cartData.data.length - 1].variant.images[0]
                     }
                     alt="Last Cart Item"
                     className={`h-9.5 min-h-9.5 w-9.5 min-w-9.5 rounded-[8px] border border-[#02060c26] bg-white ${
@@ -121,13 +121,16 @@ const CartSummaryBanner = () => {
               </p>
             </div>
           </div>
-          <Link to="/cart">
-            <Button className="h-[38px] rounded-[12px] border-none bg-[#1aa672] px-[13px] py-[9px] text-[16px] leading-[21px] font-semibold -tracking-[0.4px] text-white transition duration-100 ease-in hover:scale-[0.95] hover:bg-[#1aa672]">
-              <p className="w-full text-center text-[16px] leading-[21px] font-semibold -tracking-[0.4px] text-white">
-                Go to Cart
-              </p>
-            </Button>
-          </Link>
+          <Button
+            className="h-[38px] rounded-[12px] border-none bg-[#1aa672] px-[13px] py-[9px] text-[16px] leading-[21px] font-semibold -tracking-[0.4px] text-white transition duration-100 ease-in hover:scale-[0.95] hover:bg-[#1aa672]"
+            onClick={() => {
+              navigate("/cart");
+            }}
+          >
+            <p className="w-full text-center text-[16px] leading-[21px] font-semibold -tracking-[0.4px] text-white">
+              Go to Cart
+            </p>
+          </Button>
         </div>
       </div>
     </div>

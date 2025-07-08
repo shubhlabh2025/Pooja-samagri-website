@@ -6,7 +6,7 @@ export interface ProductVariant {
   description: string;
   mrp: number;
   price: number;
-  image: string[];
+  images: string[];
   brand_name: string;
   out_of_stock: boolean;
   default_variant: boolean;

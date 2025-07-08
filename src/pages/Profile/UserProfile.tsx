@@ -1,5 +1,13 @@
 import React, { useState, type JSX } from "react";
-import { User, MapPin, ShoppingBag, Info, Shield, Phone } from "lucide-react";
+import {
+  User,
+  MapPin,
+  ShoppingBag,
+  Info,
+  Shield,
+  Phone,
+  Power,
+} from "lucide-react";
 
 import { AboutUsText } from "../../utils/constants";
 
@@ -7,6 +15,9 @@ import { RenderHtmlText } from "./RenderHtmlText";
 import { RenderUserInputs } from "./RenderUserInputs";
 import RenderNavBar from "./RenderNabar";
 import UserAddress from "./UserAddress";
+import { useLogoutMutation } from "@/features/auth/authAPI";
+import ConfirmationDialog from "@/components/dialog/ConfirmationDialog";
+import { useNavigate } from "react-router";
 
 type Tab = "profile" | "address" | "orders" | "about" | "policies" | "support";
 
@@ -28,6 +39,9 @@ const tabIcons: Record<Tab, JSX.Element> = {
 
 const UserProfilePage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<Tab>("profile");
+  const [logout] = useLogoutMutation();
+  const [showLogoutDialog, setshowLogoutDialog] = useState(false);
+  const navigate = useNavigate();
 
   // Add state for search page visibility and current editing address
 
@@ -59,146 +73,13 @@ const UserProfilePage: React.FC = () => {
       })}
     </aside>
   );
-  // const renderAddressList = () => {
-  //   return (
-  //     <div className="space-y-4">
-  //       {addressData.data.map((addr) => {
 
-  //         const extractedAddress = extractAddressFields(
-  //           addressSearchData.data.address_components,
-  //         );
-
-  //         return (
-  //           <div
-  //             key={addr.id}
-  //             className="rounded-lg border bg-white p-4 shadow-sm"
-  //           >
-  //             <div className="mb-2 flex items-center justify-between">
-  //               <p className="text-sm font-medium">
-  //                 {extractedAddress.city}, {extractedAddress.state} -{" "}
-  //                 {extractedAddress.pincode}
-  //               </p>
-  //               <button
-  //                 onClick={() => handleExpand(addr.id)}
-  //                 className="text-sm text-blue-500 hover:underline"
-  //               >
-  //                 {expandedId === addr.id ? "Collapse" : "Edit"}
-  //               </button>
-  //             </div>
-
-  //             {expandedId === addr.id && (
-  //               <div className="mt-2 grid grid-cols-3 gap-3">
-  //                 {/* Address search field */}
-  //                 <div className="relative col-span-3">
-  //                   <input
-  //                     type="text"
-  //                     className="w-full cursor-pointer rounded border bg-gray-50 p-2 pr-16 text-sm hover:bg-gray-100"
-  //                     value={
-  //                       addressSearchData?.data?.formatted_address ||
-  //                       "Click to search address"
-  //                     }
-  //                     placeholder="Click to search and select address"
-  //                     readOnly
-  //                   />
-  //                   <button
-  //                     type="button"
-  //                     className="absolute top-1/2 right-2 -translate-y-1/2 rounded bg-orange-500 px-3 py-1 text-xs text-white hover:bg-orange-600"
-  //                     onClick={() => handleFormattedAddressClick(addr.id)}
-  //                   >
-  //                     Edit
-  //                   </button>
-  //                 </div>
-
-  //                 {/* Editable fields */}
-  //                 <input
-  //                   type="text"
-  //                   className="col-span-3 rounded border p-2 text-sm"
-  //                   value={
-  //                     addressFormData[addr.id]?.addressLine1 ??
-  //                     addr.address_line1 ??
-  //                     ""
-  //                   }
-  //                   onChange={(e) =>
-  //                     handleFieldChange(addr.id, "addressLine1", e.target.value)
-  //                   }
-  //                   placeholder="Address Line 1"
-  //                 />
-  //                 <input
-  //                   type="text"
-  //                   className="col-span-3 rounded border p-2 text-sm"
-  //                   value={
-  //                     addressFormData[addr.id]?.addressLine2 ??
-  //                     addr.address_line2 ??
-  //                     ""
-  //                   }
-  //                   onChange={(e) =>
-  //                     handleFieldChange(addr.id, "addressLine2", e.target.value)
-  //                   }
-  //                   placeholder="Address Line 2"
-  //                 />
-  //                 <input
-  //                   type="text"
-  //                   className="col-span-1 rounded border p-2 text-sm"
-  //                   value={extractedAddress.city}
-  //                   onChange={(e) =>
-  //                     handleFieldChange(addr.id, "city", e.target.value)
-  //                   }
-  //                   placeholder="City"
-  //                   readOnly
-  //                 />
-  //                 <input
-  //                   type="text"
-  //                   className="col-span-1 rounded border p-2 text-sm"
-  //                   value={extractedAddress.state}
-  //                   onChange={(e) =>
-  //                     handleFieldChange(addr.id, "state", e.target.value)
-  //                   }
-  //                   placeholder="State"
-  //                   readOnly
-  //                 />
-  //                 <input
-  //                   type="text"
-  //                   className="col-span-1 rounded border p-2 text-sm"
-  //                   value={extractedAddress.pincode}
-  //                   onChange={(e) =>
-  //                     handleFieldChange(addr.id, "pincode", e.target.value)
-  //                   }
-  //                   placeholder="Pincode"
-  //                 />
-
-  //                 {/* Action buttons */}
-  //                 <div className="col-span-3 mt-2 flex gap-2">
-  //                   <button
-  //                     className="rounded bg-orange-500 px-4 py-2 text-sm text-white hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-50"
-  //                     onClick={() => handleSaveAddress(addr.id)}
-  //                     disabled={isUpdating}
-  //                   >
-  //                     {isUpdating ? "Saving..." : "Save Changes"}
-  //                   </button>
-  //                   <button
-  //                     className="rounded bg-gray-300 px-4 py-2 text-sm text-gray-700 hover:bg-gray-400"
-  //                     onClick={() => {
-  //                       setAddressFormData((prev) => {
-  //                         const newData = { ...prev };
-  //                         delete newData[addr.id];
-  //                         return newData;
-  //                       });
-  //                       setExpandedId(null);
-  //                     }}
-  //                     disabled={isUpdating}
-  //                   >
-  //                     Cancel
-  //                   </button>
-  //                 </div>
-  //               </div>
-  //             )}
-  //           </div>
-  //         );
-  //       })}
-  //     </div>
-  //   );
-  // };
-
+  const handleLogout = () => {
+    setshowLogoutDialog(true);
+  };
+  const handleAddAddress = () => {
+    navigate("/address");
+  };
   return (
     <div className="flex flex-col bg-gray-50">
       <RenderNavBar />
@@ -209,7 +90,34 @@ const UserProfilePage: React.FC = () => {
           <div className="hide-scrollbar mx-auto max-h-full overflow-y-auto rounded-lg bg-white p-6 shadow">
             {activeTab === "profile" && (
               <>
-                <h1 className="mb-1 text-xl font-semibold">User Information</h1>
+                <ConfirmationDialog
+                  open={showLogoutDialog}
+                  onOpenChange={setshowLogoutDialog}
+                  headingText="Logout?"
+                  bodyText="Re you sure you want to logout?"
+                  confirmationButtonText="Yes"
+                  cancelButtonText="Cancel"
+                  onConfirm={async () => {
+                    await logout();
+                    navigate("/", { replace: true });
+                  }}
+                />
+                <div className="flex flex-row justify-between">
+                  <h1 className="mb-1 text-xl font-semibold">
+                    User Information
+                  </h1>
+                  <div className="flex justify-end pt-2">
+                    <button
+                      onClick={handleLogout}
+                      className="rounded-md bg-red-500 px-3 py-2 text-sm font-semibold text-white hover:bg-[#e64800]"
+                    >
+                      <div className="flex flex-row items-center">
+                        <Power className="mr-2 text-white" />
+                        Logout
+                      </div>
+                    </button>
+                  </div>
+                </div>
                 <p className="mb-6 text-sm text-gray-600">
                   Enter the required information below to register. You can
                   change it anytime you want.
@@ -220,9 +128,34 @@ const UserProfilePage: React.FC = () => {
 
             {activeTab === "address" && (
               <>
-                <h2 className="mb-6 text-xl font-semibold">
+                <div className="flex flex-row justify-between">
+                  <h1 className="mb-1 text-xl font-semibold">
+                    Address Management
+                  </h1>
+                  <div className="flex justify-end pt-2">
+                    <button
+                      onClick={handleAddAddress}
+                      className="rounded-md bg-red-500 px-3 py-2 text-sm font-semibold text-white hover:bg-[#e64800]"
+                    >
+                      <div className="flex flex-row items-center">
+                        Add Address
+                      </div>
+                    </button>
+                  </div>
+                </div>
+                {/* <h2 className="mb-6 text-xl font-semibold">
                   Address Management
                 </h2>
+                <div className="flex justify-end pt-2">
+                  <button
+                    onClick={handleLogout}
+                    className="rounded-md bg-red-500 px-3 py-2 text-sm font-semibold text-white hover:bg-[#e64800]"
+                  >
+                    <div className="flex flex-row items-center">
+                      Add Address
+                    </div>
+                  </button>
+                </div> */}
                 <h3 className="mb-4 text-lg font-medium">Saved Addresses</h3>
                 {<UserAddress />}
               </>
