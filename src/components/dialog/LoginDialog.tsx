@@ -14,10 +14,7 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
-import {
-  ResizablePanel,
-  ResizablePanelGroup,
-} from "@/components/ui/resizable";
+import { ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Separator } from "@radix-ui/react-separator";
@@ -25,7 +22,7 @@ import { REGEXP_ONLY_DIGITS_AND_CHARS } from "input-otp";
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import loginModalImage from "@/assets/loginModalBackground.png";
+import loginModalImage from "@/assets/loginModal.jpg";
 import {
   useRequestOtpMutation,
   useVerifyOtpMutation,
@@ -116,7 +113,7 @@ const LoginDialog = () => {
 
   return (
     <DialogContent
-      className="m-0 border-0 p-0 sm:max-w-[700px]"
+      className="m-0 border-0 p-0 sm:max-w-[750px]"
       aria-describedby={undefined}
     >
       <DialogTitle asChild>
@@ -127,16 +124,11 @@ const LoginDialog = () => {
           defaultSize={45}
           className="hidden rounded-l-lg p-0 sm:block"
         >
-          <div className="flex flex-col bg-[#2874f0] px-8 py-10">
-            <span className="text-2xl font-medium text-[#dbdbdb]">LOGIN</span>
-            <p className="mt-4">
-              <span className="font-normal text-[#dbdbdb]">
-                Get access to your Orders, Wishlist and Recommendations
-              </span>
-            </p>
-            <div className="w-full pt-15">
-              <img className="w-full" src={loginModalImage} alt="" />
+          <div className="flex flex-col ">
+            <div className="w-full">
+              <img className="w-full h-[325px] aspect-square relative" src={loginModalImage} alt="" />
             </div>
+            <span className="px-5 pt-5 text-2xl font-medium absolute text-white">LOGIN</span>
           </div>
         </ResizablePanel>
         {/* <ResizableHandle />  */}

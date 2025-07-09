@@ -24,7 +24,7 @@ export interface Product {
   product_variants: ProductVariant[];
 }
 
-export interface ProductMeta {
+export interface Meta {
   totalItems: number;
   totalPages: number;
   currentPage: number;
@@ -33,12 +33,12 @@ export interface ProductMeta {
 
 export interface ProductResponse {
   data: Product[];
-  meta: ProductMeta;
+  meta: Meta;
 }
 
 export interface SingleProductResponse {
   data: Product;
-  meta: ProductMeta;
+  meta: Meta;
 }
 
 export interface GetProductsParams {

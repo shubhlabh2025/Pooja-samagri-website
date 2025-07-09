@@ -26,6 +26,8 @@ import UserProfilePage from "./pages/Profile/UserProfile.tsx";
 import OrderSuccess from "./pages/Order/OrderSuccess.tsx";
 import OrderFailure from "./pages/Order/OrderFailure.tsx";
 import PaymentPage from "./pages/Order/PaymentPage.tsx";
+import Orders from "./pages/Orders/Orders.tsx";
+import OrderDetail from "./pages/Orders/OrderDetail/OrderDetail.tsx";
 
 function App() {
   useGeolocation();
@@ -72,9 +74,12 @@ function App() {
               </MainLayout>
             }
           />
+          <Route path="/orders">
+            <Route index element={<Orders />} />
+            <Route path=":orderId" element={<OrderDetail />} />
+          </Route>
           <Route path="cart">
             <Route index element={<Cart />} />
-
             <Route path="payment-page" element={<PaymentPage />} />
             <Route path="order-success" element={<OrderSuccess />} />
             <Route path="order-failure" element={<OrderFailure />} />

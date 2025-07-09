@@ -28,34 +28,36 @@ const Footer = () => {
             Follow us on
           </p>
           <div className="flex gap-4">
-            <a className="cursor-pointer">
+            <a className="cursor-pointer" target="_blank">
               <img src={youtube} alt="YouTube" className="h-[23px]" />
             </a>
             <a
               className="cursor-pointer"
+              target="_blank"
               href="https://www.facebook.com/profile.php?id=61576353127026&ref=_ig_profile_ac"
             >
               <img src={facebook} alt="Facebook" className="h-[23px]" />
             </a>
             <a
               className="cursor-pointer"
+              target="_blank"
               href="https://www.instagram.com/shubhlabhindia/"
             >
               <img src={instagram} alt="Instagram" className="h-[23px]" />
             </a>
-            <a className="cursor-pointer">
+            <a className="cursor-pointer" target="_blank">
               <img src={linkedin} alt="LinkedIn" className="h-[23px]" />
             </a>
-            <a className="cursor-pointer">
+            <a className="cursor-pointer" target="_blank">
               <img src={twitter} alt="Twitter" className="h-[23px]" />
             </a>
           </div>
         </div>
         <div className="flex gap-5">
-          <a className="cursor-pointer">
+          <a className="cursor-pointer" target="_blank">
             <img src={appstore} alt="App Store" className="h-10.5" />
           </a>
-          <a className="cursor-pointer">
+          <a className="cursor-pointer" target="_blank">
             <img src={playstore} alt="Play Store" className="h-10.5" />
           </a>
         </div>
@@ -87,8 +89,8 @@ const Footer = () => {
           <p className="text-sm leading-[21px] text-[#666666]">Thane 400607</p>
           <p className="text-sm leading-[21px] text-[#666666]">India</p>
         </div>
-        <div className="flex h-21 items-center justify-center overflow-hidden rounded-md">
-          <img src={logo} alt="ShubhLabh Logo" className="h-32 w-32" />
+        <div className="flex items-center justify-center overflow-hidden rounded-md">
+          <img src={logo} alt="ShubhLabh Logo" className="h-21 aspect-square" />
         </div>
       </div>
       <div className="mt-6 mb-4 border-t border-[#333]"></div>

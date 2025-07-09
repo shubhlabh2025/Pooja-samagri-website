@@ -70,11 +70,11 @@ const ProductItem2: React.FC<ProductItemProps> = ({ item }) => {
             </p>
             <div className="flex gap-1">
               <p className="text-sm leading-4.5 font-semibold tracking-[-0.35px] text-[#02060cbf]">
-                ₹{item.product_variants[defaultVariantIndex].mrp}
+                ₹{item.product_variants[defaultVariantIndex].price}
               </p>
               {discountPercentage > 0 && (
                 <p className="text-[13px] leading-[17px] font-extralight tracking-[-0.33px] text-[#02060c4d] line-through">
-                  ₹{item.product_variants[defaultVariantIndex].price}
+                  ₹{item.product_variants[defaultVariantIndex].mrp}
                 </p>
               )}
             </div>
