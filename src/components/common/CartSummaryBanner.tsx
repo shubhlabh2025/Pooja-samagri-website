@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { ChevronUp, X } from "lucide-react";
 import { Button } from "../ui/button";
-import {  useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import ReviewOrder from "@/pages/Cart/ReviewOrder";
 import { useGetCartItemsQuery } from "@/features/cart/cartAPI";
 import { useAppSelector } from "@/app/hooks";
+import type { CartItem } from "@/features/cart/cartAPI.type";
 
 const CartSummaryBanner = () => {
   const { isAuthenticated } = useAppSelector((state) => state.auth);
@@ -16,10 +17,12 @@ const CartSummaryBanner = () => {
   } = useGetCartItemsQuery(undefined, {
     skip: !isAuthenticated,
   });
-
+  const availableItems = cartData.data.filter(
+    (item: CartItem) => !item.variant.out_of_stock,
+  );
   const [isExpanded, setIsExpanded] = useState(false);
 
-  if (isError || isLoading || cartData.data.length === 0 || !isAuthenticated) {
+  if (isError || isLoading || availableItems.length === 0 || !isAuthenticated) {
     return null;
   }
 
@@ -98,7 +101,7 @@ const CartSummaryBanner = () => {
             <div className="flex flex-col justify-center">
               <div className="flex h-fit gap-1">
                 <p className="text-sm leading-4.5 font-semibold -tracking-[0.35px] text-[#02060cbf]">
-                  {cartData.data.length} Items
+                  {availableItems.length} Items
                 </p>
                 <ChevronUp
                   height={18}
@@ -112,6 +115,7 @@ const CartSummaryBanner = () => {
                 ₹
                 {cartData.data
                   .reduce((acc, item) => {
+                    if (item.variant.out_of_stock) return acc;
                     const moneySaved =
                       (item.variant.mrp - item.variant.price) * item.quantity;
                     return acc + moneySaved;

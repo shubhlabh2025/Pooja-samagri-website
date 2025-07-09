@@ -21,8 +21,15 @@ export interface OrderResponse {
   data: OrderData;
 }
 
+export interface OrderCharges {
+  type: "delivery";
+  name: string;
+  amount: number;
+}
+
 export interface CreateOrders {
   items: OrderItems[];
+  charges: OrderCharges[];
   address_id: string;
 }
 
@@ -128,6 +135,11 @@ export interface OrderCoupon {
   createdAt: string;
 }
 
+export interface OrderCharge {
+  name: string;
+  amount: number;
+}
+
 export interface AllOrderDetail {
   id: string;
   status:
@@ -156,9 +168,10 @@ export interface AllOrderDetail {
     currency: "INR";
     method: "card" | "netbanking" | "upi" | "wallet" | "cod" | null;
   };
+  order_charges: OrderCharge[];
   order_address: OrderAddress;
   order_histories: OrderHistory[];
-  order_coupons: OrderCoupon | [];
+  order_coupons: OrderCoupon[] | [];
 }
 
 export interface getOrdersResponse {

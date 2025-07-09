@@ -185,7 +185,7 @@ const AddressCard = ({ data }: AddressCardProps) => {
     <div key={data.id} className="rounded-lg border bg-white p-4 shadow-sm">
       <div className="mb-2 flex items-center justify-between">
         <p className="text-sm font-medium">
-          {extracted.city}, {extracted.state} - {extracted.pincode}
+          {data.name ?? data.phone_number}, {extracted.state} , {extracted.pincode}
         </p>
         <div className="flex items-center space-x-4">
           {" "}

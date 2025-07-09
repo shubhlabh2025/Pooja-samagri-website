@@ -7,7 +7,6 @@ import {
 } from "@/features/cart/cartAPI";
 // import { useAppSelector } from "@/app/hooks";
 
-
 const AddToCartCounter = ({ productVariant }: AddToCartCounterProps) => {
   // const { isAuthenticated } = useAppSelector((state) => state.auth);
 
@@ -26,7 +25,8 @@ const AddToCartCounter = ({ productVariant }: AddToCartCounterProps) => {
   let quantity = 0;
 
   const cartItem = cartData.data.find(
-    (item) => item.product_variant_id === productVariant.id,
+    (item) =>
+      item.product_variant_id === productVariant.id 
   );
   quantity = cartItem ? cartItem.quantity : 0;
 

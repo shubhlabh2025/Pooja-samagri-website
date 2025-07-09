@@ -8,8 +8,7 @@ const UserAddress = () => {
     <div className="space-y-4">
       {addressData.data.map((addr) => (
         <>
-        <AddressCard data={addr}/>
-        
+          <AddressCard data={addr} />
         </>
       ))}
     </div>

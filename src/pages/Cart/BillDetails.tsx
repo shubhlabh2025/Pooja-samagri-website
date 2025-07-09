@@ -1,14 +1,18 @@
 import type { BillDetailProps } from "@/interfaces/cart";
 import guartIcon from "@/assets/guardIcon.svg";
+import { useAppSelector } from "@/app/hooks";
+import { selectConfiguration } from "@/features/configuration/configurationSlice";
 
 const BillDetails = ({
   itemsTotal,
   discount,
   selectedCoupon,
 }: BillDetailProps) => {
-  const deliveryCharges: number = 0;
-  const gstCharges: number = 19;
+  const gstCharges: number = 0;
   let promoCodeDiscount = 0;
+
+  const configState = useAppSelector(selectConfiguration);
+  const deliveryCharges: number = configState.data?.data.delivery_charge ?? 0;
 
   if (selectedCoupon) {
     if (selectedCoupon.discount_type === "percentage") {
@@ -92,11 +96,11 @@ const BillDetails = ({
             </p>
           ) : (
             <p className="line-clamp-1 text-sm leading-4.5 font-normal -tracking-[0.35px] whitespace-nowrap text-[#02060cbf]">
-              - ₹
+              ₹
               {new Intl.NumberFormat("en-IN", {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,
-              }).format(discount)}
+              }).format(deliveryCharges)}
             </p>
           )}
         </div>

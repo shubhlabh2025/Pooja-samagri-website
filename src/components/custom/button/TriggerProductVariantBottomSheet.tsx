@@ -38,7 +38,9 @@ const TriggerProductVariantBottomSheet = ({
   let variantsInCartCount = 0;
 
   totalProductsInCart = product.product_variants.reduce((acc, variant) => {
-    const item = cartData.data.find((ci) => ci.variant.id === variant.id);
+    const item = cartData.data.find(
+      (ci) => ci.variant.id === variant.id && !ci.variant.out_of_stock,
+    );
     if (item) {
       variantsInCartCount++;
       return acc + item.quantity;

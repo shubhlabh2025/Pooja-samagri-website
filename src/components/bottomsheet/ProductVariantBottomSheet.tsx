@@ -40,7 +40,9 @@ const ProductVariantBottomSheet = ({
           {productVariants.map((variant) => (
             <div
               key={variant.id}
-              className="shadow-variant-card flex justify-between gap-3 rounded-[12px] p-2"
+              className={`shadow-variant-card flex justify-between gap-3 rounded-[12px] p-2 ${
+                variant.out_of_stock === true ? "opacity-50" : ""
+              }`}
             >
               <div className="flex basis-[40%] items-center gap-1">
                 <img
@@ -67,7 +69,13 @@ const ProductVariantBottomSheet = ({
                   )}
                 </div>
                 <div className="flex min-w-19">
-                  <AddToCartCounter productVariant={variant} />
+                  {variant.out_of_stock === true ? (
+                    <div className="shadow-button-shadow h-fit w-full rounded-[8px] border border-[#02060c26] p-0 py-1.5 text-center text-sm leading-[18px] font-semibold -tracking-[0.35px] text-[#ff5200]">
+                      Sold Out
+                    </div>
+                  ) : (
+                    <AddToCartCounter productVariant={variant} />
+                  )}
                 </div>
               </div>
             </div>

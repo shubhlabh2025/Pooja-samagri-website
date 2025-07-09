@@ -48,6 +48,7 @@ export const RenderUserInputs = () => {
 
   const [isOtpVisible, setIsOtpVisible] = useState(false);
   const [email, setEmail] = useState("");
+  const [isEmailEditable, setIsEmailEditable] = useState(false);
 
   const otpForm = useForm({
     resolver: zodResolver(otpSchema),
@@ -80,6 +81,12 @@ export const RenderUserInputs = () => {
       setValue("last_name", last_name);
       setValue("gender", gender || "male");
       setEmail(userEmail);
+      if (userData?.data?.email) {
+        setEmail(userData.data.email);
+        setIsEmailEditable(false); // default: not editable if email exists
+      } else {
+        setIsEmailEditable(true); // editable if no email
+      }
     }
   }, [userData, setValue]);
   const [requestOtp] = useVerifyEmailMutation();
@@ -175,18 +182,32 @@ export const RenderUserInputs = () => {
         <div className="relative">
           <input
             type="email"
-            value={userData?.data.email}
+            value={email}
+            disabled={!isEmailEditable}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full rounded-md border border-gray-300 px-3 py-2 pr-28 text-sm outline-none"
+            className={`w-full rounded-md border border-gray-300 px-3 py-2 pr-28 text-sm outline-none ${
+              !isEmailEditable ? "cursor-not-allowed bg-gray-100" : ""
+            }`}
           />
-
-          <button
-            type="button"
-            onClick={sendOTP}
-            className="absolute top-1/2 right-2 -translate-y-1/2 rounded bg-[#ff5200] px-3 py-1.5 text-xs font-medium text-white hover:bg-[#e64800]"
-          >
-            Verify
-          </button>
+          {!userData?.data?.email || isEmailEditable ? (
+            <button
+              type="button"
+              onClick={sendOTP}
+              className="absolute top-1/2 right-2 -translate-y-1/2 rounded bg-[#ff5200] px-3 py-1.5 text-xs font-medium text-white hover:bg-[#e64800]"
+            >
+              Verify
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={() => {
+                setIsEmailEditable(true);
+              }}
+              className="absolute top-1/2 right-2 -translate-y-1/2 rounded bg-[#ff5200] px-3 py-1.5 text-xs font-medium text-white hover:bg-[#e64800]"
+            >
+              Edit
+            </button>
+          )}
         </div>
       ) : (
         <p className="rounded-md border bg-gray-100 px-3 py-2 text-sm font-medium text-gray-700">

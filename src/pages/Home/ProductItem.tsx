@@ -27,8 +27,17 @@ const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
     navigate(`/products/${product.id}`);
   };
 
+  const isOutOfStock =
+    product.product_variants.length === 1
+      ? product.product_variants[0].out_of_stock
+      : product.product_variants.every((variant) => variant.out_of_stock);
+
   return (
-    <div className="shadow-product-card flex flex-col gap-1.5 rounded-[12px] p-2">
+    <div
+      className={`shadow-product-card flex flex-col gap-1.5 rounded-[12px] p-2 ${
+        isOutOfStock ? "opacity-50" : ""
+      }`}
+    >
       <div
         className="relative flex aspect-square h-35 cursor-pointer items-center justify-around rounded-[12px] border border-[#f2f3f3]"
         onClick={handleNavigate}
@@ -46,7 +55,6 @@ const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
           className="h-full w-full rounded-[12px]"
         />
       </div>
-
       <div className="flex flex-col gap-2">
         <div
           className="flex cursor-pointer flex-col gap-1.5"
@@ -74,7 +82,11 @@ const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
             )}
           </div>
         </div>
-        {product.product_variants.length > 1 ? (
+        {isOutOfStock ? (
+          <div className="shadow-button-shadow h-fit w-full rounded-[8px] border border-[#02060c26] p-0 py-1.5 text-center text-sm leading-[18px] font-semibold -tracking-[0.35px] text-[#ff5200]">
+            Sold Out
+          </div>
+        ) : product.product_variants.length > 1 ? (
           <TriggerProductVariantBottomSheet product={product} />
         ) : (
           <AddToCartCounter productVariant={defaultProductVariant} />

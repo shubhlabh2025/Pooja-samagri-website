@@ -19,14 +19,12 @@ import { Drawer } from "@/components/ui/drawer";
 import {
   useClearCartMutation,
   useGetCartItemsQuery,
-  useRemoveCartItemMutation,
 } from "@/features/cart/cartAPI";
 import { useGetUserAddressListQuery } from "@/features/address/AddresssAPI";
 import { useGetCouponsQuery } from "@/features/coupon/couponAPI";
 import type { CartItem } from "@/features/cart/cartAPI.type";
 import type { Coupon } from "@/features/coupon/couponAPI.type";
 import EmptyCart from "./EmptyCart";
-import CurrentlyUnavailable from "./CurrentlyUnavailable";
 // import { useAppSelector } from "@/app/hooks";
 import { useCreateOrderMutation } from "@/features/orders/orderAPI";
 import type { CreateOrders } from "@/features/orders/orderAPI.type";
@@ -34,9 +32,14 @@ import AddressCard from "./AddressCard";
 import type { UserAddressPayload } from "@/features/address/addressAPI.type";
 import { Button } from "@/components/ui/button";
 import { useAppSelector } from "@/app/hooks";
+import { selectConfiguration } from "@/features/configuration/configurationSlice";
 
 const Cart = () => {
   const { isAuthenticated } = useAppSelector((state) => state.auth);
+  const configState = useAppSelector(selectConfiguration);
+
+  const deliveryCharge = configState.data?.data.delivery_charge ?? 0;
+
   console.log("isAuthenticated cart");
 
   console.log(isAuthenticated);
@@ -62,13 +65,6 @@ const Cart = () => {
   });
   const defaultAddress = addressData.data.find((address) => address.is_default);
 
-  const soldOutItems = cartData.data.filter(
-    (item: CartItem) => item.variant.out_of_stock,
-  );
-  const availableItems = cartData.data.filter(
-    (item: CartItem) => !item.variant.out_of_stock,
-  );
-
   const {
     data: couponsData = { data: [] },
     isError: isCouponsError,
@@ -79,10 +75,6 @@ const Cart = () => {
 
   const [clearCart, { isLoading: clearCartLoading, isError: clearCartError }] =
     useClearCartMutation();
-  const [
-    removeCartItem,
-    // { isLoading: removeCartItemLoading, isError: removeCartItemError },
-  ] = useRemoveCartItemMutation();
 
   console.log("Coupons Data:", isCouponsError, isCouponsLoading);
   console.log("clearCartLoading:", clearCartLoading);
@@ -93,18 +85,20 @@ const Cart = () => {
     useState<UserAddressPayload | null>(null);
   const [isAddressDrawerOpen, setIsAddressDrawerOpen] = useState(false);
 
-  const { itemsTotal, discount } = availableItems.reduce(
-    (acc, item: CartItem) => {
-      const { mrp, price } = item.variant;
-      const quantity = item.quantity;
+  const { itemsTotal, discount } = cartData.data
+    .filter((item) => !item.variant.out_of_stock)
+    .reduce(
+      (acc, item: CartItem) => {
+        const { mrp, price } = item.variant;
+        const quantity = item.quantity;
 
-      acc.itemsTotal += mrp * quantity;
-      acc.discount += (mrp - price) * quantity;
+        acc.itemsTotal += mrp * quantity;
+        acc.discount += (mrp - price) * quantity;
 
-      return acc;
-    },
-    { itemsTotal: 0, discount: 0 },
-  );
+        return acc;
+      },
+      { itemsTotal: 0, discount: 0 },
+    );
 
   if (
     selectedCoupon &&
@@ -124,9 +118,6 @@ const Cart = () => {
   const handleAddressChange = (address: UserAddressPayload) => {
     setSelectedAddress(address);
     setIsAddressDrawerOpen(false);
-  };
-  const handleRemoveItem = async (productVariantId: string) => {
-    await removeCartItem(productVariantId);
   };
 
   const handleAdressDrawerOpen = () => {
@@ -164,6 +155,13 @@ const Cart = () => {
 
     const orderPayload: CreateOrders = {
       items: orderItems,
+      charges: [
+        {
+          type: "delivery",
+          name: "Delivery Charges",
+          amount: deliveryCharge,
+        },
+      ],
       address_id: `${selectedAddress ? selectedAddress.id : defaultAddress?.id}`,
     };
 
@@ -247,13 +245,9 @@ const Cart = () => {
                 <p className="ml-1 text-[16px] font-semibold -tracking-[0.4px]">
                   Rewiew Your Order
                 </p>
-                <ReviewOrder cartData={availableItems} />
-                {soldOutItems.length > 0 && (
-                  <CurrentlyUnavailable
-                    cartData={soldOutItems}
-                    handleRemoveItem={handleRemoveItem}
-                  />
-                )}
+
+                <ReviewOrder cartData={cartData.data} />
+
                 <AddMoreItems />
               </div>
               <Coupons
@@ -288,7 +282,7 @@ const Cart = () => {
               {`₹ ${new Intl.NumberFormat("en-IN", {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,
-              }).format(itemsTotal - discount)}`}
+              }).format(itemsTotal - discount + deliveryCharge)}`}
             </button>
           ) : (
             <Button

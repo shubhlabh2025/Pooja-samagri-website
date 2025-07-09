@@ -1,15 +1,7 @@
 import React, { useState, type JSX } from "react";
-import {
-  User,
-  MapPin,
-  ShoppingBag,
-  Info,
-  Shield,
-  Phone,
-  Power,
-} from "lucide-react";
+import { User, MapPin, Info, Shield, Phone, Power } from "lucide-react";
 
-import { AboutUsText } from "../../utils/constants";
+import { AboutUsText, PoliciesText, SupportText } from "../../utils/constants";
 
 import { RenderHtmlText } from "./RenderHtmlText";
 import { RenderUserInputs } from "./RenderUserInputs";
@@ -19,7 +11,7 @@ import { useLogoutMutation } from "@/features/auth/authAPI";
 import ConfirmationDialog from "@/components/dialog/ConfirmationDialog";
 import { useNavigate } from "react-router";
 
-type Tab = "profile" | "address" | "orders" | "about" | "policies" | "support";
+type Tab = "profile" | "address" | "about" | "policies" | "support";
 
 // Add interface for address component
 export interface AddressComponent {
@@ -31,7 +23,6 @@ export interface AddressComponent {
 const tabIcons: Record<Tab, JSX.Element> = {
   profile: <User size={20} />,
   address: <MapPin size={20} />,
-  orders: <ShoppingBag size={20} />,
   about: <Info size={20} />,
   policies: <Shield size={20} />,
   support: <Phone size={20} />,
@@ -112,8 +103,8 @@ const UserProfilePage: React.FC = () => {
                       className="rounded-md bg-red-500 px-3 py-2 text-sm font-semibold text-white hover:bg-[#e64800]"
                     >
                       <div className="flex flex-row items-center">
-                        <Power className="mr-2 text-white" />
-                        Logout
+                        <Power className="text-white" size={18} />
+                        <span className="ml-2 hidden sm:inline">Logout</span>
                       </div>
                     </button>
                   </div>
@@ -143,29 +134,12 @@ const UserProfilePage: React.FC = () => {
                     </button>
                   </div>
                 </div>
-                {/* <h2 className="mb-6 text-xl font-semibold">
-                  Address Management
-                </h2>
-                <div className="flex justify-end pt-2">
-                  <button
-                    onClick={handleLogout}
-                    className="rounded-md bg-red-500 px-3 py-2 text-sm font-semibold text-white hover:bg-[#e64800]"
-                  >
-                    <div className="flex flex-row items-center">
-                      Add Address
-                    </div>
-                  </button>
-                </div> */}
+
                 <h3 className="mb-4 text-lg font-medium">Saved Addresses</h3>
                 {<UserAddress />}
               </>
             )}
 
-            {activeTab === "orders" && (
-              <>
-                <h2 className="mb-6 text-xl font-semibold">My Orders</h2>
-              </>
-            )}
             {activeTab === "about" && (
               <>
                 <h2 className="mb-6 text-xl font-semibold">About Us</h2>
@@ -174,14 +148,14 @@ const UserProfilePage: React.FC = () => {
             )}
             {activeTab === "policies" && (
               <>
-                <h2 className="mb-6 text-xl font-semibold">Policies</h2>
-                {RenderHtmlText(AboutUsText)}
+                <h2 className="mb-6 text-xl font-semibold">Terms & Policies</h2>
+                {RenderHtmlText(PoliciesText)}
               </>
             )}
             {activeTab === "support" && (
               <>
                 <h2 className="mb-6 text-xl font-semibold">Customer Support</h2>
-                {RenderHtmlText(AboutUsText)}
+                {RenderHtmlText(SupportText)}
               </>
             )}
           </div>

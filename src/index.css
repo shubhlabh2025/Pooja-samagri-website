@@ -6,6 +6,9 @@ body,
 #root {
   height: 100%;
   font-family: "Outfit", sans-serif;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  overflow-y: scroll;
 }
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
@@ -18,7 +21,7 @@ body,
   --shadow-top-lg: 0 -8px 12px rgba(0, 0, 0, 0.15);
   --shadow-button-shadow: 0 4px 8px 0 rgba(27, 30, 36, 0.08);
   --shadow-product-card: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  --shadow-sold-out-button: 0 3px 8px 0 rgba(27, 30, 36, .08);
+  --shadow-sold-out-button: 0 3px 8px 0 rgba(27, 30, 36, 0.08);
   --bg-selected-subcategory: linear-gradient(
     rgb(222, 53, 143) 0%,
     rgb(158, 30, 98) 100%

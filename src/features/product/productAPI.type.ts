@@ -1,3 +1,5 @@
+import type { Categories } from "@/interfaces/categories";
+
 export interface ProductVariant {
   id: string;
   product_id: string;
@@ -12,6 +14,7 @@ export interface ProductVariant {
   default_variant: boolean;
   min_quantity: number;
   max_quantity: number;
+  categories: Categories[];
   total_available_quantity: number;
   createdAt: string;
   updatedAt: string;
@@ -48,7 +51,7 @@ export interface GetProductsParams {
   brand_name?: string;
   price_min?: number;
   price_max?: number;
-  category_id?: string;
+  category_id?: string | null;
 }
 
 export type ProductPageParam = number;

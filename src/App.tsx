@@ -23,9 +23,9 @@ import { useGetAppConfigurationsQuery } from "./features/configuration/configura
 import { useGeolocation } from "./hooks/location.ts";
 import Address from "./pages/Address/Address.tsx";
 import UserProfilePage from "./pages/Profile/UserProfile.tsx";
-import OrderSuccess from "./pages/Order/OrderSuccess.tsx";
-import OrderFailure from "./pages/Order/OrderFailure.tsx";
-import PaymentPage from "./pages/Order/PaymentPage.tsx";
+import OrderSuccess from "./pages/Payment/OrderSuccess.tsx";
+import OrderFailure from "./pages/Payment/OrderFailure.tsx";
+import PaymentPage from "./pages/Payment/PaymentPage.tsx";
 import Orders from "./pages/Orders/Orders.tsx";
 import OrderDetail from "./pages/Orders/OrderDetail/OrderDetail.tsx";
 
@@ -98,9 +98,7 @@ function App() {
           <Route
             path="/products/:productId"
             element={
-              <MainLayout>
                 <ProductDetailsScreen />
-              </MainLayout>
             }
           />
           <Route path="/search" element={<SearchScreen />} />
