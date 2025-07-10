@@ -9,7 +9,7 @@ import RenderNavBar from "./RenderNabar";
 import UserAddress from "./UserAddress";
 import { useLogoutMutation } from "@/features/auth/authAPI";
 import ConfirmationDialog from "@/components/dialog/ConfirmationDialog";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 
 type Tab = "profile" | "address" | "about" | "policies" | "support";
 
@@ -29,7 +29,9 @@ const tabIcons: Record<Tab, JSX.Element> = {
 };
 
 const UserProfilePage: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<Tab>("profile");
+  const location = useLocation();
+  const state = location.state as { tab?: Tab } | undefined;
+  const [activeTab, setActiveTab] = useState<Tab>(state?.tab ?? "profile");
   const [logout] = useLogoutMutation();
   const [showLogoutDialog, setshowLogoutDialog] = useState(false);
   const navigate = useNavigate();

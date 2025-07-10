@@ -13,8 +13,10 @@ import visa from "@/assets/visa.svg";
 import upi from "@/assets/upi.svg";
 import { useGetCartItemsQuery } from "@/features/cart/cartAPI";
 import { useAppSelector } from "@/app/hooks";
+import { useNavigate } from "react-router";
 
 const Footer = () => {
+  const navigate = useNavigate();
   const { isAuthenticated } = useAppSelector((state) => state.auth);
 
   const { data: cartRespnse = { data: [] } } = useGetCartItemsQuery(undefined, {
@@ -64,18 +66,21 @@ const Footer = () => {
       </div>
       <div className="mt-6 mb-4 border-t border-[#333]"></div>
       <div className="flex flex-col items-center gap-3 sm:flex-row sm:items-end sm:gap-5">
-        <a className="cursor-pointer text-[13px] leading-[16.5px] text-white">
+        <p
+          className="cursor-pointer text-[13px] leading-[16.5px] text-white"
+          onClick={() => {
+            navigate("/profile", { state: { tab: "policies" } });
+          }}
+        >
           Terms of Service
+        </p>
+        <a className="cursor-pointer text-[13px] leading-[16.5px] text-white">
+          About Us
         </a>
         <a className="cursor-pointer text-[13px] leading-[16.5px] text-white">
-          Privacy Policy
+          FAQ
         </a>
-        <a className="cursor-pointer text-[13px] leading-[16.5px] text-white">
-          Parent's Guide
-        </a>
-        <a className="cursor-pointer text-center text-[13px] leading-[16.5px] text-white sm:text-left">
-          Safe and Fair Play Policy
-        </a>
+
         <a className="cursor-pointer text-[13px] leading-[16.5px] text-white">
           Manage Cookies
         </a>
@@ -83,14 +88,18 @@ const Footer = () => {
       <div className="mt-8 flex items-end justify-between">
         <div className="flex flex-col">
           <p className="text-sm leading-[21px] text-[#666666]">
-            Shreeji vraj bhoomi complex
+            Star Mena Mehta Residency, Gurudwara Ln,{" "}
           </p>
-          <p className="text-sm leading-[21px] text-[#666666]">Phase 7</p>
-          <p className="text-sm leading-[21px] text-[#666666]">Thane 400607</p>
+          <p className="text-sm leading-[21px] text-[#666666]">
+            Kumar Basti, Ameerpet
+          </p>
+          <p className="text-sm leading-[21px] text-[#666666]">
+            Hyderabad,Telangana 500016
+          </p>
           <p className="text-sm leading-[21px] text-[#666666]">India</p>
         </div>
         <div className="flex items-center justify-center overflow-hidden rounded-md">
-          <img src={logo} alt="ShubhLabh Logo" className="h-21 aspect-square" />
+          <img src={logo} alt="ShubhLabh Logo" className="aspect-square h-21" />
         </div>
       </div>
       <div className="mt-6 mb-4 border-t border-[#333]"></div>

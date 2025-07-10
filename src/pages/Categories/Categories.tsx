@@ -1,4 +1,4 @@
-import { SubCategoriesWithProductSkeleton } from "@/components/custom/skeletons/SubCategoriesWithProductSkeleton";
+import { SubCategoriesWithProductSkeleton } from "@/components/skeletons/SubCategoriesWithProductSkeleton";
 import ErrorScreen from "@/components/error/ErrorScreen";
 import { useGetCategoriesQuery } from "@/features/category/categoryAPI";
 import { ChevronLeft } from "lucide-react";

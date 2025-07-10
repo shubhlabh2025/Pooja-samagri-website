@@ -15,7 +15,7 @@ import type { CoordinateProps } from "@/interfaces/coordinateprops";
 import { useAddUserAddressMutation } from "@/features/address/AddresssAPI";
 import { Drawer } from "@/components/ui/drawer";
 import AddressDetailBottomSheet from "@/components/bottomsheet/AddressDetailBottomSheet";
-import type { CompleteAddressProps } from "@/interfaces/completeAddressProps";
+import type { CompleteAddressProps } from "@/interfaces/complete-address-props";
 import type { CreateUserAddressPayload } from "@/features/address/addressAPI.type";
 import { useGetAddressFromLatLngQuery } from "@/features/maps/MapsApi";
 import type { AddressComponent } from "@/features/maps/MapAPi.type";

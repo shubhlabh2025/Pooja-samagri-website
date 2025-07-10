@@ -9,7 +9,7 @@ import { X } from "lucide-react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import type { CompleteAddressProps } from "@/interfaces/completeAddressProps";
+import type { CompleteAddressProps } from "@/interfaces/complete-address-props";
 import { useRef } from "react";
 
 const addressSchema = z.object({
@@ -45,7 +45,6 @@ const AddressDetailBottomSheet = ({
       address_line2: data.address_line2 ?? "",
       landmark: data.landmark ?? "",
       phone_number: `+91${data.phone_number}`,
-     
     });
 
     // ✅ Programmatically close the drawer after successful validation

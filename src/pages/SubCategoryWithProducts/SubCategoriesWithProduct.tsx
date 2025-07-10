@@ -5,7 +5,7 @@ import SubCategorySideBar from "./SubCategorySideBar";
 import { useGetCategoryByIdQuery } from "@/features/category/categoryAPI";
 import { useState } from "react";
 import ProductSection from "./ProductSection";
-import { SubCategoriesWithProductSkeleton } from "@/components/custom/skeletons/SubCategoriesWithProductSkeleton";
+import { SubCategoriesWithProductSkeleton } from "@/components/skeletons/SubCategoriesWithProductSkeleton";
 import ErrorScreen from "@/components/error/ErrorScreen";
 
 const SubCategoriesWithProductScreen = () => {

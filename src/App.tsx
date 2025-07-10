@@ -10,7 +10,7 @@ import CategoriesScreen from "./pages/Categories/Categories.tsx";
 import ChatIcon from "./components/custom/ChatIcon.tsx";
 import MainLayoutWithCart from "./components/layout/MainLayoutWithCart.tsx";
 import Home from "./pages/Home/Home.tsx";
-import { HomeSkeleteon } from "./components/custom/skeletons/HomeSkeleton.tsx";
+import { HomeSkeleteon } from "./components/skeletons/HomeSkeleton.tsx";
 import ErrorScreen from "./components/error/ErrorScreen.tsx";
 import {
   selectConfiguration,
@@ -19,15 +19,14 @@ import {
 import { useAppDispatch, useAppSelector } from "./app/hooks.ts";
 import { useEffect } from "react";
 import { useGetAppConfigurationsQuery } from "./features/configuration/configurationAPI.ts";
-
 import { useGeolocation } from "./hooks/location.ts";
 import Address from "./pages/Address/Address.tsx";
 import UserProfilePage from "./pages/Profile/UserProfile.tsx";
-import OrderSuccess from "./pages/Payment/OrderSuccess.tsx";
-import OrderFailure from "./pages/Payment/OrderFailure.tsx";
 import PaymentPage from "./pages/Payment/PaymentPage.tsx";
 import Orders from "./pages/Orders/Orders.tsx";
 import OrderDetail from "./pages/Orders/OrderDetail/OrderDetail.tsx";
+import PaymentSuccess from "./pages/Payment/PaymentSuccess.tsx";
+import PaymentFailure from "./pages/Payment/PaymentFailure.tsx";
 
 function App() {
   useGeolocation();
@@ -81,8 +80,8 @@ function App() {
           <Route path="cart">
             <Route index element={<Cart />} />
             <Route path="payment-page" element={<PaymentPage />} />
-            <Route path="order-success" element={<OrderSuccess />} />
-            <Route path="order-failure" element={<OrderFailure />} />
+            <Route path="order-success" element={<PaymentSuccess />} />
+            <Route path="order-failure" element={<PaymentFailure />} />
           </Route>
           <Route
             path="/categories/:categoryId"
@@ -97,9 +96,7 @@ function App() {
 
           <Route
             path="/products/:productId"
-            element={
-                <ProductDetailsScreen />
-            }
+            element={<ProductDetailsScreen />}
           />
           <Route path="/search" element={<SearchScreen />} />
           <Route path="/address" element={<Address />} />

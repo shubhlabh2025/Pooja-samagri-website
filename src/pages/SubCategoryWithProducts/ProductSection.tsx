@@ -2,7 +2,7 @@ import type { ProductSectionProps } from "@/interfaces/product-section";
 import ProductItem2 from "../Home/ProductItem2";
 import { useRef, useCallback } from "react";
 import { Loader } from "lucide-react";
-import { SubCategoriesWithProductSkeleton } from "@/components/custom/skeletons/SubCategoriesWithProductSkeleton";
+import { SubCategoriesWithProductSkeleton } from "@/components/skeletons/SubCategoriesWithProductSkeleton";
 import EmptyScreen from "@/components/custom/EmptyScreen";
 import NoProductFoundIcon from "../../assets/no_products.png";
 

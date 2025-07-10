@@ -22,7 +22,7 @@ const OrderDetail = () => {
   if (!orderDetails.data) {
     return (
       <div className="flex h-full w-full items-center justify-center">
-        <p className="text-lg text-gray-600">Order not found</p>
+        <p className="text-lg text-gray-600">Order Details Not Found</p>
       </div>
     );
   }

@@ -2,7 +2,7 @@ import BannerCarousel from "@/components/custom/BannerCarousel";
 import CategoryList from "@/components/custom/CategoryList";
 import Footer from "@/components/custom/Fotter";
 import CartSummaryBanner from "@/components/common/CartSummaryBanner";
-import { HomeSkeleteon } from "@/components/custom/skeletons/HomeSkeleton";
+import { HomeSkeleteon } from "@/components/skeletons/HomeSkeleton";
 import ErrorScreen from "@/components/error/ErrorScreen";
 import { useGetCategoriesQuery } from "@/features/category/categoryAPI";
 import TopCategoryProducts from "./TopCategoryProducts";

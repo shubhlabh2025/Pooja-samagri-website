@@ -1,6 +1,7 @@
 import CartSummaryBanner from "@/components/common/CartSummaryBanner";
+import SimpleNavBar from "@/components/common/SimpleNavBar";
 import ProductDetailsCartButton from "@/components/custom/button/ProductDetailsCartButton";
-import { ProductDetailsSkeleton } from "@/components/custom/skeletons/ProductDetailSkelton";
+import { ProductDetailsSkeleton } from "@/components/skeletons/ProductDetailSkelton";
 import ErrorScreen from "@/components/error/ErrorScreen";
 import {
   useGetProductByIdQuery,
@@ -10,7 +11,7 @@ import type {
   Product,
   ProductVariant,
 } from "@/features/product/productAPI.type";
-import { Star, Truck, Shield, RotateCcw, ChevronLeft } from "lucide-react";
+import { Star, Truck, Shield, RotateCcw } from "lucide-react";
 import { useState, useEffect, useMemo } from "react";
 import { useNavigate, useParams } from "react-router";
 
@@ -93,12 +94,7 @@ const ProductDetailsScreen: React.FC = () => {
   return (
     <div className="relative min-h-screen overflow-auto bg-gradient-to-br to-white">
       {/* Header */}
-      <button
-        onClick={() => navigate(-1)}
-        className="absolute top-4 left-4 z-10 mr-2 flex items-center gap-1 rounded-full bg-gray-200 p-1 hover:bg-gray-300"
-      >
-        <ChevronLeft size={20} />
-      </button>
+      <SimpleNavBar navBarText="Product Details" />
 
       <div className="max-w-9xl mx-auto px-4 py-8">
         <div className="grid items-start gap-12 lg:grid-cols-2">

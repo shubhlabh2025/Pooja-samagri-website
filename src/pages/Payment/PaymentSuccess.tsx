@@ -1,25 +1,25 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
 
-const OrderFailure = () => {
+const PaymentSuccess = () => {
   const navigate = useNavigate();
   useEffect(() => {
     setTimeout(() => {
-      navigate("/", { replace: true });
+      navigate("/");
     }, 3000);
   }, []);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-red-50 to-red-100">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-green-50 to-green-100">
       <div className="text-center">
         <div className="relative mb-8">
-          {/* Failure X Animation */}
+          {/* Success Checkmark Animation */}
           <div className="relative mx-auto h-32 w-32">
-            <div className="absolute inset-0 animate-pulse rounded-full bg-red-500"></div>
-            <div className="absolute inset-2 rounded-full bg-red-400"></div>
+            <div className="absolute inset-0 animate-bounce rounded-full bg-green-500"></div>
+            <div className="absolute inset-2 rounded-full bg-green-400"></div>
             <div className="absolute inset-4 flex items-center justify-center rounded-full bg-white">
               <svg
-                className="h-16 w-16 animate-bounce text-red-500"
+                className="h-16 w-16 animate-pulse text-green-500"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -28,7 +28,7 @@ const OrderFailure = () => {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth={3}
-                  d="M6 18L18 6M6 6l12 12"
+                  d="M5 13l4 4L19 7"
                 />
               </svg>
             </div>
@@ -36,20 +36,22 @@ const OrderFailure = () => {
         </div>
 
         <div className="animate-fadeIn">
-          <h1 className="mb-4 text-4xl font-bold text-red-800">
-            Payment Failed!
+          <h1 className="mb-4 text-4xl font-bold text-green-800">
+            Payment Successful!
           </h1>
-          <p className="mb-6 text-xl text-red-700">Something went wrong</p>
+          <p className="mb-6 text-xl text-green-700">
+            Thank you for your order
+          </p>
           <p className="mb-8 text-gray-600">
-            Your payment could not be processed. Please try again later.
+            Your order has been confirmed and will be processed shortly.
           </p>
 
           <div className="mx-auto mt-8 max-w-md rounded-lg bg-white p-4 shadow-lg">
             <h3 className="mb-2 text-lg font-semibold text-gray-800">
-              What happened?
+              Order Details
             </h3>
             <p className="text-sm text-gray-600">
-              The payment verification failed or was cancelled.
+              You will receive a confirmation email shortly.
             </p>
             <p className="mt-2 text-sm text-gray-600">
               Redirecting to home in 5 seconds...
@@ -61,4 +63,4 @@ const OrderFailure = () => {
   );
 };
 
-export default OrderFailure;
+export default PaymentSuccess;
