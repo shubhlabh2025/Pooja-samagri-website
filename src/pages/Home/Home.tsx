@@ -60,7 +60,7 @@ const Home = () => {
   // if (isErrorRefreshToken) return <ErrorScreen />;
 
   return (
-    <div className="relative overflow-auto">
+    <div className="hide-scrollbar overflow-auto">
       <CategoryList />
       <BannerCarousel
         adBanner={config.data?.data.ad_banners || []}
