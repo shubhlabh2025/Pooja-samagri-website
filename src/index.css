@@ -229,3 +229,77 @@ body::-webkit-scrollbar {
 @utility animate-marquee-scroll {
   animation: marquee-scroll var(--marquee-duration) linear var(--marquee-repeat);
 }
+
+.my-toast {
+  background-color: #ffffff;
+  color: #1f2937; /* Dark gray for primary text */
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb; /* Subtle gray border */
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  font-family: inherit; /* Inherits font from your app for consistency */
+}
+
+/* 2. Toast Content Elements
+   ------------------------------------------------------------------------
+   Styles for the text, icons, and buttons inside the toast.
+*/
+.my-toast-title {
+  font-weight: 600;
+  font-size: 15px;
+  margin: 0;
+}
+
+.my-toast-description {
+  font-size: 14px;
+  color: #4b5563; /* Lighter gray for the description text */
+  margin: 0;
+}
+
+.my-toast-icon svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0; /* Prevents the icon from shrinking */
+  margin-right: 12px;
+}
+
+
+/* 3. Type-Specific Styles
+   ------------------------------------------------------------------------
+   This is where we apply the colored accent bar and icon color for each
+   toast type (Success, Error, Info, Warning).
+*/
+
+/* --- SUCCESS --- */
+.my-toast-success {
+  border-left: 5px solid #22c55e; /* Green accent */
+}
+.my-toast-success .my-toast-icon svg {
+  color: #22c55e;
+}
+
+/* --- ERROR --- */
+.my-toast-error {
+  border-left: 5px solid #ef4444; /* Red accent */
+}
+.my-toast-error .my-toast-icon svg {
+  color: #ef4444;
+}
+
+/* --- INFO --- */
+.my-toast-info {
+  border-left: 5px solid #3b82f6; /* Blue accent */
+}
+.my-toast-info .my-toast-icon svg {
+  color: #3b82f6;
+}
+
+/* --- WARNING --- */
+.my-toast-warning {
+  border-left: 5px solid #f97316; /* Orange/Amber accent */
+}
+.my-toast-warning .my-toast-icon svg {
+  color: #f97316;
+}

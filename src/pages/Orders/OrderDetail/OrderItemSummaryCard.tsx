@@ -39,7 +39,7 @@ const OrderItemSummaryCard = ({ orderDetails }: OrderDetailMainCardProps) => {
             <div className="flex flex-col text-right">
               <div className="flex items-end gap-2">
                 <p className="text-[12px] text-slate-600 line-through">
-                  ₹{item.mrp.toLocaleString("en-IN")}
+                  ₹{(item.quantity * item.mrp).toLocaleString("en-IN")}
                 </p>
                 <p className="text-sm font-semibold text-slate-900">
                   ₹{(item.quantity * item.price).toLocaleString("en-IN")}

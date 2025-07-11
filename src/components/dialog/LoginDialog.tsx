@@ -28,14 +28,13 @@ import {
   useVerifyOtpMutation,
 } from "@/features/auth/authAPI";
 import { DialogClose } from "@radix-ui/react-dialog";
+import { toast } from "sonner";
 
 const LoginDialog = () => {
   const [isOtpScreen, setIsOtpScreen] = useState(false);
   const [showResend, setShowResend] = useState(false);
   const [mobileValue, setMobileValue] = useState("");
   const [resendCooldown, setResendCooldown] = useState(30);
-  const [requestError, setRequestError] = useState<string | null>(null);
-  const [verifyError, setVerifyError] = useState<string | null>(null);
   const dialogCloseRef = useRef<HTMLButtonElement>(null);
 
   const [requestOtp, { isLoading: isRequestingOtp }] = useRequestOtpMutation();
@@ -73,7 +72,6 @@ const LoginDialog = () => {
   });
 
   const handleResend = async () => {
-    setRequestError(null);
     try {
       const result = await requestOtp({
         phone_number: `+91${mobileValue}`,
@@ -82,13 +80,10 @@ const LoginDialog = () => {
         setShowResend(true);
         setResendCooldown(30);
       } else {
-        setRequestError(
-          result.message || "Failed to send OTP. Please try again.",
-        );
+        toast.error("Failed to send OTP. Please try again after sometime.");
       }
-    } catch (error) {
-      console.error("Failed to resend OTP:", error);
-      setRequestError("Failed to send OTP. Please try again after sometime.");
+    } catch {
+      toast.error("Failed to send OTP. Please try again after sometime.");
     }
   };
 
@@ -100,7 +95,7 @@ const LoginDialog = () => {
         setResendCooldown((prev) => {
           if (prev <= 1) {
             clearInterval(interval);
-            setShowResend(false); // switch back to clickable resend
+            setShowResend(false);
             return 30;
           }
           return prev - 1;
@@ -124,11 +119,17 @@ const LoginDialog = () => {
           defaultSize={45}
           className="hidden rounded-l-lg p-0 sm:block"
         >
-          <div className="flex flex-col ">
+          <div className="flex flex-col">
             <div className="w-full">
-              <img className="w-full h-[325px] aspect-square relative" src={loginModalImage} alt="" />
+              <img
+                className="relative aspect-square h-[325px] w-full"
+                src={loginModalImage}
+                alt=""
+              />
             </div>
-            <span className="px-5 pt-5 text-2xl font-medium absolute text-white">LOGIN</span>
+            <span className="absolute px-5 pt-5 text-2xl font-medium text-white">
+              LOGIN
+            </span>
           </div>
         </ResizablePanel>
         {/* <ResizableHandle />  */}
@@ -145,7 +146,6 @@ const LoginDialog = () => {
                   <form
                     onSubmit={form.handleSubmit(async (data) => {
                       setMobileValue(data.mobileNumber);
-                      setRequestError(null);
                       try {
                         await requestOtp({
                           phone_number: `+91${data.mobileNumber}`,
@@ -154,8 +154,9 @@ const LoginDialog = () => {
                         setIsOtpScreen(true);
                         setShowResend(true);
                         setResendCooldown(30);
+                        toast.success("OTP sent successfully! ");
                       } catch {
-                        setRequestError(
+                        toast.error(
                           "Failed to send OTP. Please try again after sometime.",
                         );
                       }
@@ -184,9 +185,6 @@ const LoginDialog = () => {
                                   onChange={(e) => {
                                     field.onChange(e);
                                     setMobileValue(e.target.value);
-                                    if (requestError) {
-                                      setRequestError(null);
-                                    }
                                   }}
                                   className="flex-1 rounded-none border-none p-0 shadow-none selection:bg-blue-200 selection:text-blue-900 focus:ring-0 focus:outline-none focus-visible:ring-0 focus-visible:outline-none"
                                 />
@@ -198,11 +196,6 @@ const LoginDialog = () => {
                         </FormItem>
                       )}
                     />
-                    {requestError && (
-                      <p className="mt-2 text-sm text-red-600">
-                        {requestError}
-                      </p>
-                    )}
                     <div className="flex h-full flex-col justify-between pb-5">
                       <Button
                         type="submit"
@@ -236,15 +229,15 @@ const LoginDialog = () => {
                 <Form {...otpForm}>
                   <form
                     onSubmit={otpForm.handleSubmit(async (data) => {
-                      setVerifyError(null);
                       try {
                         await verifyOtp({
                           phone_number: `+91${mobileValue}`,
                           otp_code: data.otpCode,
                         }).unwrap();
                         dialogCloseRef.current?.click();
+                        toast.success("OTP verified successfully!");
                       } catch {
-                        setVerifyError("Invalid OTP. Please try again.");
+                        toast.error("Invalid OTP. Please try again.");
                       }
                     })}
                     className="flex h-full flex-col items-center px-5 pt-12"
@@ -256,7 +249,6 @@ const LoginDialog = () => {
                         <span
                           onClick={() => {
                             setIsOtpScreen(false);
-                            setVerifyError(null);
                           }}
                           className="cursor-pointer text-sm text-blue-600 underline"
                         >
@@ -307,12 +299,6 @@ const LoginDialog = () => {
                       >
                         {isVerifyingOtp ? "Verifying..." : "Verify"}
                       </Button>
-
-                      {verifyError && (
-                        <p className="mt-2 text-center text-sm text-red-600">
-                          {verifyError}
-                        </p>
-                      )}
                     </div>
 
                     <p className="mt-2 text-sm">
