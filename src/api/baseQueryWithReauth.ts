@@ -1,8 +1,9 @@
 import { type BaseQueryFn } from "@reduxjs/toolkit/query";
-import { AxiosError, type AxiosRequestConfig } from "axios";
+import axios, { AxiosError, type AxiosRequestConfig } from "axios";
 import { Mutex } from "async-mutex";
 import axiosInstance from "./axiosConfig";
 import { setCredentials, logout } from "@/features/auth/authSlice";
+import { toast } from "sonner";
 
 const mutex = new Mutex();
 
@@ -74,7 +75,7 @@ export const axiosBaseQueryWithReauth: BaseQueryFn<
             return { data: retryResult.data };
           } else {
             api.dispatch(logout());
-
+            toast.error("Session expired. Please login again.");
             return {
               error: {
                 status: 401,
@@ -84,6 +85,7 @@ export const axiosBaseQueryWithReauth: BaseQueryFn<
           }
         } catch {
           api.dispatch(logout());
+          toast.error("Session expired. Please login again.");
           return {
             error: {
               status: 401,
@@ -126,6 +128,21 @@ export const axiosBaseQueryWithReauth: BaseQueryFn<
       }
     }
 
+    if (axios.isAxiosError(axiosError)) {
+      const errorData = axiosError.response?.data;
+      if (errorData && typeof errorData.message === "string") {
+        toast.error(errorData.message);
+      }
+
+      return {
+        error: {
+          status: err.response?.status,
+          data: err.response?.data || err.message,
+        },
+      };
+    }
+
+    toast.error("An unexpected error occurred");
     return {
       error: {
         status: err.response?.status,

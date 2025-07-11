@@ -1,6 +1,8 @@
 import type { BaseQueryFn } from "@reduxjs/toolkit/query";
 import type { AxiosRequestConfig, AxiosError } from "axios";
 import axiosInstance from "./axiosConfig";
+import axios from "axios";
+import { toast } from "sonner";
 
 export const axiosBaseQuery =
   (
@@ -28,10 +30,25 @@ export const axiosBaseQuery =
       return { data: result.data };
     } catch (axiosError) {
       const err = axiosError as AxiosError;
+      if (axios.isAxiosError(axiosError)) {
+        const errorData = axiosError.response?.data;
+        if (errorData && typeof errorData.message === "string") {
+          toast.error(errorData.message);
+        }
+
+        return {
+          error: {
+            status: err.response?.status,
+            data: err.response?.data || err.message,
+          },
+        };
+      }
+
+      toast.error("An unexpected error occurred");
       return {
         error: {
-          status: err.response?.status,
-          data: err.response?.data || err.message,
+          status: 500,
+          data: "An unexpected error occurred",
         },
       };
     }

@@ -9,8 +9,6 @@ import type {
   UpdateCartItemRequest,
   UpdateCartItemResponse,
 } from "./cartAPI.type";
-import { AxiosError } from "axios";
-import { toast } from "sonner";
 
 export const cartAPI = createApi({
   reducerPath: "cartAPI",
@@ -104,10 +102,8 @@ export const cartAPI = createApi({
               }
             }),
           );
-        } catch (error: unknown) {
-          let errorMessage =
-            error.error.data.message || "Failed to update cart item";
-          toast.error(errorMessage);
+        } catch {
+          // handle error
         }
       },
     }),
