@@ -6,26 +6,21 @@ import OrderDetailMainCard from "./OrderDetailMainCard";
 import OrderItemSummaryCard from "./OrderItemSummaryCard";
 import DelhiveryDetailCard from "./DelhiveryDetailCard";
 import PaymentSummaryCard from "./PaymentSummaryCard";
+import OrderDetailSkeleton from "@/components/skeletons/OrderDetailSkeleton";
+import ErrorScreen from "@/components/error/ErrorScreen";
 
 const OrderDetail = () => {
   const { orderId } = useParams<{ orderId: string }>();
   const {
     data: orderDetails = { data: null },
-    // isError,
-    // isLoading,
+    isError,
+    isLoading,
+    isFetching,
   } = useGetOrderByIdQuery(orderId!);
 
   console.log("orderDetails", orderDetails);
 
   const navigate = useNavigate();
-
-  if (!orderDetails.data) {
-    return (
-      <div className="flex h-full w-full items-center justify-center">
-        <p className="text-lg text-gray-600">Order Details Not Found</p>
-      </div>
-    );
-  }
 
   return (
     <div className="flex h-full w-full flex-col bg-[#f0f0f5]">
@@ -39,16 +34,24 @@ const OrderDetail = () => {
           Order Details
         </p>
       </div>
-      <div className="hide-scrollbar flex h-full max-h-full w-full flex-1 flex-col gap-4 overflow-scroll px-4 py-6 sm:flex-row sm:px-8">
-        <div className="flex w-full flex-col gap-4 sm:flex-7">
-          <OrderDetailMainCard orderDetails={orderDetails.data} />
-          <OrderItemSummaryCard orderDetails={orderDetails.data} />
+      {isLoading || isFetching ? (
+        <OrderDetailSkeleton />
+      ) : isError || orderDetails.data == null ? (
+        <ErrorScreen />
+      ) : (
+        <div className="hide-scrollbar flex h-full max-h-full w-full flex-1 flex-col gap-4 overflow-scroll px-4 py-6 sm:flex-row sm:px-8">
+          <div className="flex w-full flex-col gap-4 sm:flex-7">
+            <OrderDetailMainCard orderDetails={orderDetails.data} />
+            <OrderItemSummaryCard orderDetails={orderDetails.data} />
+          </div>
+          <div className="flex w-full flex-col gap-4 sm:flex-5">
+            <DelhiveryDetailCard
+              orderAddress={orderDetails.data.order_address}
+            />
+            <PaymentSummaryCard orderDetails={orderDetails.data} />
+          </div>
         </div>
-        <div className="flex w-full flex-col gap-4 sm:flex-5">
-          <DelhiveryDetailCard orderAddress={orderDetails.data.order_address} />
-          <PaymentSummaryCard orderDetails={orderDetails.data} />
-        </div>
-      </div>
+      )}
       <CartSummaryBanner />
     </div>
   );

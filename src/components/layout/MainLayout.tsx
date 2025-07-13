@@ -10,7 +10,7 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
   return (
     <div className="flex h-full min-h-screen flex-col">
       <ScrollVelocity
-        texts={[config.data?.data.announcement_text ?? ""]}
+        texts={[config.data?.data.announcement_text ? config.data?.data.announcement_text : "Welcome to Pooja Samagari!"]}
         velocity={-120}
         parallaxClassName="py-0.5 shadow-lg"
         scrollerClassName="py-0.5"
