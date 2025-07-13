@@ -27,6 +27,7 @@ import Orders from "./pages/Orders/Orders.tsx";
 import OrderDetail from "./pages/Orders/OrderDetail/OrderDetail.tsx";
 import PaymentSuccess from "./pages/Payment/PaymentSuccess.tsx";
 import PaymentFailure from "./pages/Payment/PaymentFailure.tsx";
+import { useGetUserDetailsQuery } from "./features/user/userApi.ts";
 
 function App() {
   useGeolocation();
@@ -38,6 +39,7 @@ function App() {
     data: queryData,
     isError: isQueryError,
   } = useGetAppConfigurationsQuery();
+  useGetUserDetailsQuery();
 
   // Load configuration into store only once
   useEffect(() => {

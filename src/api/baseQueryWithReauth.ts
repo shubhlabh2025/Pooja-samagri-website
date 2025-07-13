@@ -87,8 +87,11 @@ export const axiosBaseQueryWithReauth: BaseQueryFn<
             };
           }
         } catch {
+          if (localStorage.getItem("accessToken")) {
+            toast.error("Session expired. Please login again.");
+          }
           api.dispatch(logout());
-          toast.error("Session expired. Please login again.");
+
           return {
             error: {
               status: 401,

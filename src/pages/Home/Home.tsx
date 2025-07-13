@@ -7,15 +7,10 @@ import ErrorScreen from "@/components/error/ErrorScreen";
 import { useGetCategoriesQuery } from "@/features/category/categoryAPI";
 import TopCategoryProducts from "./TopCategoryProducts";
 import AboutSection from "@/components/custom/AboutSection";
-import { useAppDispatch, useAppSelector } from "@/app/hooks";
+import { useAppSelector } from "@/app/hooks";
 import { selectConfiguration } from "@/features/configuration/configurationSlice";
-import { useEffect } from "react";
-import { useRefreshTokenMutation } from "@/features/auth/authAPI";
-import { setCredentials } from "@/features/auth/authSlice";
 
 const Home = () => {
-  const dispatch = useAppDispatch();
-
   const {
     data: topFiveCategory = {
       data: [],
@@ -30,34 +25,12 @@ const Home = () => {
   const { isAuthenticated } = useAppSelector((state) => state.auth);
   console.log("Is Authenticated:", isAuthenticated);
 
-  const [requestAccessToken, { isLoading: isLoadingRefreshToken }] =
-    useRefreshTokenMutation();
-
-  useEffect(() => {
-    const handleRefreshToken = async () => {
-      if (isAuthenticated) return;
-
-      try {
-        const res = await requestAccessToken().unwrap();
-        dispatch(setCredentials({ access_token: res.data.access_token }));
-      } catch (error) {
-        console.error("Error refreshing token:", error);
-      }
-    };
-
-    handleRefreshToken();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   const config = useAppSelector(selectConfiguration);
   console.log(config.data);
   console.log(config.data?.data.ad_banners);
 
   if (topFiveCategoryLoading) return <HomeSkeleteon />;
   if (topFiveCategoryError) return <ErrorScreen />;
-
-  if (isLoadingRefreshToken) return <HomeSkeleteon />;
-  // if (isErrorRefreshToken) return <ErrorScreen />;
 
   return (
     <div className="hide-scrollbar \\ overflow-auto">
