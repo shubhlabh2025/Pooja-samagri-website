@@ -3,7 +3,6 @@ import playstore from "@/assets/playStore.png";
 import appstore from "@/assets/appleStore.svg";
 import instagram from "@/assets/instagram.svg";
 import facebook from "@/assets/facebook.svg";
-import linkedin from "@/assets/linkdin.svg";
 import twitter from "@/assets/twitter.svg";
 import youtube from "@/assets/youtube.svg";
 import logo from "@/assets/FooterIcon.png";
@@ -30,7 +29,11 @@ const Footer = () => {
             Follow us on
           </p>
           <div className="flex gap-4">
-            <a className="cursor-pointer" target="_blank">
+            <a
+              className="cursor-pointer"
+              target="_blank"
+              href="https://youtube.com/@shubhlabhpoojasamagri?si=I_aIGlYx9pk6UrJb"
+            >
               <img src={youtube} alt="YouTube" className="h-[23px]" />
             </a>
             <a
@@ -47,10 +50,11 @@ const Footer = () => {
             >
               <img src={instagram} alt="Instagram" className="h-[23px]" />
             </a>
-            <a className="cursor-pointer" target="_blank">
-              <img src={linkedin} alt="LinkedIn" className="h-[23px]" />
-            </a>
-            <a className="cursor-pointer" target="_blank">
+            <a
+              className="cursor-pointer"
+              target="_blank"
+              href="https://x.com/Shubhlabhindia"
+            >
               <img src={twitter} alt="Twitter" className="h-[23px]" />
             </a>
           </div>

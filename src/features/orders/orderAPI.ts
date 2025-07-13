@@ -106,6 +106,15 @@ export const orderAPI = createApi({
         { type: "OrdersList", id: "LIST" },
       ],
     }),
+
+    downloadInvoice: builder.mutation<Blob, string>({
+      query: (id: string) => ({
+        url: `/api/orders/${id}/invoice`,
+        method: "GET",
+        responseType: "blob",
+      }),
+    }),
+
   }),
 });
 
@@ -115,4 +124,5 @@ export const {
   useVerifyPaymentMutation,
   useGetOrdersInfiniteQuery,
   useCancelOrderMutation,
+  useDownloadInvoiceMutation,
 } = orderAPI;

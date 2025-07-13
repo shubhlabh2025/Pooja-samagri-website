@@ -18,8 +18,6 @@ const OrderDetail = () => {
     isFetching,
   } = useGetOrderByIdQuery(orderId!);
 
-  console.log("orderDetails", orderDetails);
-
   const navigate = useNavigate();
 
   return (

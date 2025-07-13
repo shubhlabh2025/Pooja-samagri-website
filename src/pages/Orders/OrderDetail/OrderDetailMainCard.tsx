@@ -2,6 +2,9 @@ import CancelOrderDialog from "@/components/dialog/CancelOrderDialog";
 import NeedHelpInfoDialog from "@/components/dialog/NeedHelpInfoDialog";
 import { AlertDialog, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import {
+  useDownloadInvoiceMutation,
+} from "@/features/orders/orderAPI";
 import type { OrderDetailMainCardProps } from "@/interfaces/order-page-props";
 import { BadgeCheck, BadgeX, Download, LifeBuoy } from "lucide-react";
 import { useState } from "react";
@@ -39,8 +42,27 @@ const OrderDetailMainCard = ({ orderDetails }: OrderDetailMainCardProps) => {
     refunded: "Refunded",
   };
 
+  const [downloadInvoice] = useDownloadInvoiceMutation();
+
   const handleCloseCancelDialog = () => {
     setCancelDialog(false);
+  };
+
+  const handleDownloadInvoice = async () => {
+    try {
+      const response = await downloadInvoice(orderDetails.id).unwrap();
+      const blob = new Blob([response], { type: "application/pdf" });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `invoice_${orderDetails.order_number + 1000}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(url);
+    } catch {
+      // Handle error if needed
+    }
   };
 
   return (
@@ -145,7 +167,10 @@ const OrderDetailMainCard = ({ orderDetails }: OrderDetailMainCardProps) => {
 
       <div className="flex gap-3 px-4 py-3">
         {orderDetails.status === "delivered" && (
-          <Button className="flex flex-1 items-center justify-center gap-2 rounded-md border border-blue-600 bg-white px-4 py-2 text-sm font-medium text-blue-700 shadow-sm transition duration-150 ease-in-out hover:scale-[0.95] hover:bg-blue-50">
+          <Button
+            onClick={handleDownloadInvoice}
+            className="flex flex-1 items-center justify-center gap-2 rounded-md border border-blue-600 bg-white px-4 py-2 text-sm font-medium text-blue-700 shadow-sm transition duration-150 ease-in-out hover:scale-[0.95] hover:bg-blue-50"
+          >
             <Download size={16} />
             <span className="truncate">Invoice</span>
           </Button>
