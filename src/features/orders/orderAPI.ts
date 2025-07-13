@@ -107,12 +107,29 @@ export const orderAPI = createApi({
       ],
     }),
 
-    downloadInvoice: builder.mutation<{ data: Blob }, string>({
+    downloadInvoice: builder.mutation<Blob, string>({
       query: (id: string) => ({
         url: `/api/orders/${id}/invoice`,
         method: "GET",
         responseType: "blob",
       }),
+
+      async onQueryStarted(id, { queryFulfilled }) {
+        try {
+          const blob = await queryFulfilled;
+
+          const url = URL.createObjectURL(blob.data);
+          const link = document.createElement("a");
+          link.href = url;
+          link.download = `invoice_${id}.pdf`;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          URL.revokeObjectURL(url);
+        } catch (error) {
+          console.error("Invoice download failed", error);
+        }
+      },
     }),
   }),
 });

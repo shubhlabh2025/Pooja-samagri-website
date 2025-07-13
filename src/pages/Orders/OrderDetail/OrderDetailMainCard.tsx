@@ -2,9 +2,7 @@ import CancelOrderDialog from "@/components/dialog/CancelOrderDialog";
 import NeedHelpInfoDialog from "@/components/dialog/NeedHelpInfoDialog";
 import { AlertDialog, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import {
-  useDownloadInvoiceMutation,
-} from "@/features/orders/orderAPI";
+import { useDownloadInvoiceMutation } from "@/features/orders/orderAPI";
 import type { OrderDetailMainCardProps } from "@/interfaces/order-page-props";
 import { BadgeCheck, BadgeX, Download, LifeBuoy } from "lucide-react";
 import { useState } from "react";
@@ -49,20 +47,7 @@ const OrderDetailMainCard = ({ orderDetails }: OrderDetailMainCardProps) => {
   };
 
   const handleDownloadInvoice = async () => {
-    try {
-      const response = await downloadInvoice(orderDetails.id).unwrap();
-      const blob = new Blob([response.data], { type: "application/pdf" });
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `invoice_${orderDetails.order_number + 1000}.pdf`;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      window.URL.revokeObjectURL(url);
-    } catch {
-      // Handle error if needed
-    }
+    downloadInvoice(orderDetails.id); // no need to unwrap or await
   };
 
   return (

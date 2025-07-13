@@ -14,6 +14,7 @@ export const axiosBaseQueryWithReauth: BaseQueryFn<
     data?: AxiosRequestConfig["data"];
     params?: AxiosRequestConfig["params"];
     headers?: AxiosRequestConfig["headers"];
+    responseType?: AxiosRequestConfig["responseType"];
   },
   unknown,
   {
@@ -38,6 +39,7 @@ export const axiosBaseQueryWithReauth: BaseQueryFn<
       data: args.data,
       params: args.params,
       headers,
+      responseType: args.responseType,
     });
 
     return { data: result.data };
@@ -70,6 +72,7 @@ export const axiosBaseQueryWithReauth: BaseQueryFn<
               data: args.data,
               params: args.params,
               headers: headers,
+              responseType: args.responseType,
             });
 
             return { data: retryResult.data };
@@ -113,6 +116,7 @@ export const axiosBaseQueryWithReauth: BaseQueryFn<
             data: args.data,
             params: args.params,
             headers,
+            responseType: args.responseType,
           });
 
           return { data: retryResult.data };
