@@ -13,8 +13,7 @@ export interface UserDetails {
   email: string;
 }
 
-
 export interface UpdateEmail {
-    email:string,
-    otp_code?:string
+  email: string;
+  otp_code?: string;
 }

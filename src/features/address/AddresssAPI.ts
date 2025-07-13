@@ -119,5 +119,5 @@ export const {
   useGetUserAddressListQuery,
   useAddUserAddressMutation,
   useUpdateUserAddressMutation,
-  useDeleteAddressMutation
+  useDeleteAddressMutation,
 } = addressAPI;

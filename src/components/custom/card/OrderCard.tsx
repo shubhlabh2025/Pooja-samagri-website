@@ -47,7 +47,7 @@ const OrderCard = ({ order }: { order: OrderDetail }) => {
         </div>
         <div className="mt-1 w-1/2 text-right sm:mt-0 sm:w-auto sm:text-left">
           {order.delivered_at && (
-            <div className="flex items-center gap-1 justify-end">
+            <div className="flex items-center justify-end gap-1">
               <CheckCircle className="h-4 w-4 text-green-600" />
               <p className="text-sm text-gray-600">
                 Delivered on{" "}
@@ -62,8 +62,8 @@ const OrderCard = ({ order }: { order: OrderDetail }) => {
           )}
 
           {!order.delivered_at && order.expected_delivery_date && (
-            <div className="flex items-center gap-2 justify-end">
-              <Truck className="h-4 w-4 text-blue-600"/>
+            <div className="flex items-center justify-end gap-2">
+              <Truck className="h-4 w-4 text-blue-600" />
               <p className="text-sm text-gray-600">
                 Expected by{" "}
                 <span className="font-medium text-gray-800">

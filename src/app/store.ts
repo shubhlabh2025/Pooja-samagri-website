@@ -29,7 +29,7 @@ export const store = configureStore({
     [couponAPI.reducerPath]: couponAPI.reducer,
     [userAPI.reducerPath]: userAPI.reducer,
     [mapsAPI.reducerPath]: mapsAPI.reducer,
-    [orderAPI.reducerPath]:orderAPI.reducer
+    [orderAPI.reducerPath]: orderAPI.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
@@ -43,7 +43,7 @@ export const store = configureStore({
       couponAPI.middleware,
       userAPI.middleware,
       mapsAPI.middleware,
-      orderAPI.middleware
+      orderAPI.middleware,
     ),
 });
 

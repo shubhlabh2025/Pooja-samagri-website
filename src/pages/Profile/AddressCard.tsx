@@ -185,7 +185,8 @@ const AddressCard = ({ data }: AddressCardProps) => {
     <div key={data.id} className="rounded-lg border bg-white p-4 shadow-sm">
       <div className="mb-2 flex items-center justify-between">
         <p className="text-sm font-medium">
-          {data.name ?? data.phone_number}, {extracted.state} , {extracted.pincode}
+          {data.name ?? data.phone_number}, {extracted.state} ,{" "}
+          {extracted.pincode}
         </p>
         <div className="flex items-center space-x-4">
           {" "}
@@ -341,11 +342,13 @@ const AddressCard = ({ data }: AddressCardProps) => {
               id={`default-${data.id}`}
               className="h-4 w-4 rounded border-gray-300 text-orange-500 focus:ring-orange-500"
               checked={editAddress?.is_default || false}
-              onChange={(e) => handleFieldChange("is_default", e.target.checked)}
+              onChange={(e) =>
+                handleFieldChange("is_default", e.target.checked)
+              }
               disabled={!isEditing}
             />
-            <label 
-              htmlFor={`default-${data.id}`} 
+            <label
+              htmlFor={`default-${data.id}`}
               className="text-sm text-gray-700"
             >
               Mark this address as default

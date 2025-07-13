@@ -49,22 +49,16 @@ const Address = () => {
     <div className="flex h-full w-full flex-col bg-white">
       {searchPage ? (
         <SearchAddressPage
-          onChange={(lat,lng) => {
-            setSearchPage(false)
-            setLat(lat)
-            setLng(lng)
-          } }
+          onChange={(lat, lng) => {
+            setSearchPage(false);
+            setLat(lat);
+            setLng(lng);
+          }}
           lat={lat}
           lng={lng}
-          
         />
       ) : (
-        <AddressPage
-          onChange={() => setSearchPage(true)}
-          lat={lat}
-          lng={lng}
-          
-        />
+        <AddressPage onChange={() => setSearchPage(true)} lat={lat} lng={lng} />
       )}
     </div>
   );

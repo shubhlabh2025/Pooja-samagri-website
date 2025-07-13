@@ -12,7 +12,7 @@ const ProductCardInSearchBox = ({ product }: ProductCardInSearchBoxProps) => {
 
   return (
     <li
-      className="flex cursor-pointer py-2 items-center transition hover:bg-gray-100"
+      className="flex cursor-pointer items-center py-2 transition hover:bg-gray-100"
       onClick={() => {
         navigate(`/products/${product.id}`);
       }}

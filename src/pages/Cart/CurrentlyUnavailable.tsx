@@ -2,7 +2,10 @@ import type { CartItem } from "@/features/cart/cartAPI.type";
 import type { CurrentlyUnavailableProps } from "@/interfaces/cart";
 import { Trash2 } from "lucide-react";
 
-const CurrentlyUnavailable = ({ cartData, handleRemoveItem }: CurrentlyUnavailableProps) => {
+const CurrentlyUnavailable = ({
+  cartData,
+  handleRemoveItem,
+}: CurrentlyUnavailableProps) => {
   return (
     <div className="shadow-cart-card mb-1 flex w-full flex-col gap-3 rounded-lg bg-white p-3">
       <div className="flex flex-col gap-3">
