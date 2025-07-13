@@ -57,85 +57,66 @@ export const AboutUsText = `
   SHUBH LABH POOJA SAMAGRI is committed to providing a hassle-free shopping experience... <br/><br/>
 
 `;
+export const PoliciesText = `
 
-export const PoliciesText = `<h1>Terms of Service</h1>
-
+  <h2 style="font-size: 1.25rem; font-weight: 600; margin-top: 1.5rem;">Terms of Service</h2>
   <p>This document governs your relationship with <strong>shubhlabhpoojasamagri.com</strong>.</p>
-
   <p>Access to and use of this Website and the products and services available through this Website (collectively, the “Services”) are subject to the following terms, conditions and notices (the “Terms of Service”).</p>
+  <p>By using the Services, you agree to all Terms of Service, as may be updated by us from time to time. Please check this page regularly for any changes.</p>
+  <p>Access is permitted on a temporary basis, and we reserve the right to withdraw or amend Services without notice. We are not liable if the Website is unavailable at any time or for any period.</p>
+  <p>This Website may link to other websites (“Linked Sites”) not operated by us. We have no control over these sites and accept no responsibility for any loss or damage from their use.</p>
+  <p>Use of Linked Sites is subject to the terms of use/service of those sites.</p>
+  <p>No service from this site should be considered a replacement for health, legal, or financial advice.</p>
+  <p>We do not guarantee any specific outcomes from yagyas/pujas. These are spiritual practices that depend on your faith and compliance with instructions. Payments are not tax deductible.</p>
 
-  <p>By using the Services, you are agreeing to all of the Terms of Service, as may be updated by us from time to time. You should check this page regularly to take notice of any changes we may have made to the Terms of Service.</p>
-
-  <p>Access to this Website is permitted on a temporary basis, and we reserve the right to withdraw or amend the Services without notice. We will not be liable if for any reason this Website is unavailable at any time or for any period. From time to time, we may restrict access to some parts or all of this Website.</p>
-
-  <p>This Website may contain links to other websites (the “Linked Sites”), which are not operated by shubhlabhpoojasamagri.com. We have no control over the Linked Sites and accept no responsibility for them or for any loss or damage that may arise from your use of them.</p>
-
-  <p>Your use of the Linked Sites will be subject to the terms of use and service contained within each such site.</p>
-
-  <p>No service(s) rendered by shubhlabhpoojasamagri.com shall be used as a substitute for health care treatment, programs or advice normally received from doctors, lawyers or financial advisors.</p>
-
-  <p>The shubhlabhpoojasamagri.com does not make any warranties or representations concerning any specific results or effects that you will receive from the yagyas/pujas that the site performs on your behalf. The yagyas/pujas can help to remove negative karma and co-create positive future karma. They work by divine power, however, it is important that you comply with the instructions received, have faith, and continue your prayers. Payments made to shubhlabhpoojasamagri.com are not tax deductible.</p>
-
-  <h2>Prohibitions</h2>
-  <p>You must not misuse this Website. You will not:</p>
+  <h2 style="font-size: 1.25rem; font-weight: 600; margin-top: 1.5rem;">Prohibitions</h2>
+  <p>You must not misuse this Website. You agree not to:</p>
   <ul>
-    <li>Commit or encourage a criminal offense</li>
-    <li>Transmit or distribute a virus, trojan, worm, logic bomb, or any other malicious or harmful material</li>
-    <li>Hack into any aspect of the Service</li>
+    <li>Commit or encourage criminal offenses</li>
+    <li>Transmit/distribute viruses, trojans, worms, or other malicious code</li>
+    <li>Hack into any aspect of the Website</li>
     <li>Corrupt data</li>
     <li>Cause annoyance to other users</li>
-    <li>Infringe upon the rights of any other person</li>
-    <li>Send any unsolicited advertising or promotional material (“spam”)</li>
-    <li>Attempt to affect the performance or functionality of any computer facilities accessed through this Website</li>
+    <li>Violate intellectual property rights</li>
+    <li>Send unsolicited promotions (“spam”)</li>
+    <li>Disrupt the functionality or performance of this Website</li>
   </ul>
-  <p>Breaching this provision would constitute a criminal offense and shubhlabhpoojasamagri.com will report any such breach to the relevant law enforcement authorities and disclose your identity to them.</p>
+  <p>Violating these rules may constitute a criminal offense. We will report breaches and disclose your identity to relevant authorities.</p>
+  <p>We are not responsible for loss caused by denial-of-service attacks, viruses, or harmful material from using or downloading from this site or Linked Sites.</p>
 
-  <p>We will not be liable for any loss or damage caused by a distributed denial-of-service attack, viruses or other technologically harmful material due to your use of this Website or to your downloading of any material posted on it, or on any Linked Site.</p>
+  <h2 style="font-size: 1.25rem; font-weight: 600; margin-top: 1.5rem;">Terms of Sale</h2>
+  <p>By placing an order, you agree to the following:</p>
+  <p>Orders are subject to availability and price confirmation. Dispatch may be delayed due to postal issues or force majeure events.</p>
+  <p>We may refuse any order. If accepted, we’ll notify you via email with order confirmation. The contract forms only after we send the dispatch confirmation.</p>
 
-  <h2>Terms of Sale</h2>
-  <p>By placing an order you are offering to purchase a product subject to the following terms and conditions. All orders are subject to availability and confirmation of the order price.</p>
+  <h3 style="font-weight: 600;">(a) Our Contract</h3>
+  <p>Order acknowledgment email is not a confirmation. Only items listed in the dispatch email are part of the contract.</p>
 
-  <p>Dispatch times may vary and are subject to postal delays or force majeure events, for which we are not responsible.</p>
+  <h3 style="font-weight: 600;">(b) Pricing and Availability</h3>
+  <p>We strive for accuracy, but errors may occur. If we find an issue with your order, we’ll notify you. You can confirm or cancel. If unreachable, the order will be canceled and refunded if already paid.</p>
+  <p>Delivery charges are added where applicable and are shown clearly.</p>
 
-  <p>shubhlabhpoojasamagri.com retains the right to refuse any request made by you. If your order is accepted, we will inform you by email and confirm the identity of the contracting party. This will usually be shubhlabhpoojasamagri.com or, in some cases, a third party.</p>
+  <h3 style="font-weight: 600;">(c) Payment</h3>
+  <p>Payments are authorized at the time of order and treated as a deposit. Charges are applied when your order is dispatched.</p>
 
-  <p>When placing an order you undertake that:</p>
-  <ul>
-    <li>All details you provide are true and accurate</li>
-    <li>You are an authorized user of the credit or debit card used</li>
-    <li>There are sufficient funds to cover the cost</li>
-  </ul>
+  <h2 style="font-size: 1.25rem; font-weight: 600; margin-top: 1.5rem;">Disclaimer of Liability</h2>
+  <p>The content on this Website is provided without warranties. To the fullest extent permitted by law, we disclaim all liability for damages including loss of use, data, profits, reputation, or other indirect losses.</p>
+  <p>This does not affect liability for death/personal injury caused by negligence, fraud, or any legally non-excludable claims.</p>
 
-  <h3>(a) Our Contract</h3>
-  <p>When you place an order, you will receive an acknowledgement e-mail confirming receipt. This does not constitute acceptance. A contract is formed only when we send a dispatch confirmation email. Only those goods listed in that email will be included in the contract.</p>
+  <h2 style="font-size: 1.25rem; font-weight: 600; margin-top: 1.5rem;">Linking to This Website</h2>
+  <p>You may link to our homepage in a legal way that doesn’t harm our reputation. You must not imply endorsement or association where none exists. Links must not originate from unaffiliated websites. Framing is prohibited.</p>
+  <p>We reserve the right to withdraw linking permissions at any time.</p>
 
-  <h3>(b) Pricing and Availability</h3>
-  <p>While we try to ensure accuracy in pricing and descriptions, errors may occur. If we discover an error in your order, we will notify you as soon as possible. You may reconfirm or cancel your order. If we can't contact you, the order will be cancelled. A full refund will be given if payment was already made.</p>
+  <h2 style="font-size: 1.25rem; font-weight: 600; margin-top: 1.5rem;">Trademarks, Images & Copyright</h2>
+  <p>Unless otherwise stated, all third-party names, content, and trademarks on this site are not associated with us. They are used for identification only and do not imply affiliation or endorsement.</p>
 
-  <p>Delivery costs will be charged in addition and are clearly displayed where applicable.</p>
-
-  <h3>(c) Payment</h3>
-  <p>We carry out a standard authorization check upon order. Your card will be debited upon authorization. This payment is treated as a deposit and will be applied against the value of the goods once dispatched.</p>
-
-  <h2>Disclaimer of Liability</h2>
-  <p>The material on this Website is provided without guarantees or warranties as to its accuracy. To the fullest extent permitted by law, shubhlabhpoojasamagri.com disclaims all implied terms and shall not be liable for any damages including (but not limited to) direct, indirect, special, consequential, punitive or incidental damages, or damages for loss of use, profits, data, goodwill, or reputation.</p>
-
-  <p>This does not affect our liability for death or personal injury due to negligence, fraud, or any other liability that cannot be excluded under applicable law.</p>
-
-  <h2>Linking to this Website</h2>
-  <p>You may link to our homepage in a fair and legal manner that does not damage our reputation. You must not suggest any form of association or endorsement where none exists. Linking must not originate from a site not owned by you. Framing is prohibited.</p>
-
-  <p>We reserve the right to withdraw linking permission without notice.</p>
-
-  <h2>Disclaimer as to Ownership of Trademarks, Images, and Copyright</h2>
-  <p>Except where stated, all names, images, third-party trademarks, content, and services featured on this Website are not associated with shubhlabhpoojasamagri.com. Trademarks used are solely to identify products/services and do not imply endorsement or affiliation.</p>
-
-  <h2>Contact Us</h2>
-  <p>For any questions regarding these Terms, please contact us at:</p>
+  <h2 style="font-size: 1.25rem; font-weight: 600; margin-top: 1.5rem;">Contact Us</h2>
+  <p>If you have questions about these Terms, reach out to us:</p>
   <ul>
     <li>📧 Email: <a href="mailto:infoshubhlabhpoojasamagri@gmail.com">infoshubhlabhpoojasamagri@gmail.com</a></li>
     <li>📞 Phone: <a href="tel:+919000057702">+91 9000057702</a></li>
-  </ul>`;
+  </ul>
+`;
 
 export const SupportText = `  
   <p>For any questions regarding these Terms, please contact us at:</p><br/>
