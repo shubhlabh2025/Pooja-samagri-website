@@ -18,6 +18,18 @@ const BillDetails = ({
     if (selectedCoupon.discount_type === "percentage") {
       promoCodeDiscount =
         ((itemsTotal - discount) * selectedCoupon.discount_value) / 100;
+      if (selectedCoupon.max_discount_value) {
+        promoCodeDiscount = Math.min(
+          promoCodeDiscount,
+          selectedCoupon.max_discount_value,
+        );
+      }
+      if (selectedCoupon.min_discount_value) {
+        promoCodeDiscount = Math.max(
+          promoCodeDiscount,
+          selectedCoupon.min_discount_value,
+        );
+      }
     } else if (selectedCoupon.discount_type === "fixed") {
       promoCodeDiscount = selectedCoupon.discount_value;
     }

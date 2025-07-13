@@ -16,7 +16,7 @@ const EmptyOrder = () => {
             onClick={() => navigate(-1)}
           />
           <p className="line-clamp-1 text-lg leading-[21px] font-semibold -tracking-[0.4px] text-[#02060cbf]">
-            Your Cart
+            Your Orders
           </p>
         </div>
       </div>
