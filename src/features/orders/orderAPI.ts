@@ -12,11 +12,12 @@ import type {
   RazorpayPaymentResponse,
   VerifyRazorpayPaymentResponse,
 } from "./orderAPI.type";
+import { cartAPI } from "../cart/cartAPI";
 
 export const orderAPI = createApi({
   reducerPath: "orderAPI",
   baseQuery: axiosBaseQueryWithReauth,
-  tagTypes: ["Order", "OrdersList", "cartItems"],
+  tagTypes: ["Order", "OrdersList"],
   endpoints: (builder) => ({
     getOrders: builder.infiniteQuery<
       getOrdersResponse,
@@ -69,10 +70,15 @@ export const orderAPI = createApi({
         method: "POST",
         data: body,
       }),
-      invalidatesTags: [
-        { type: "OrdersList", id: "LIST" },
-        { type: "cartItems" },
-      ],
+      invalidatesTags: [{ type: "OrdersList", id: "LIST" }],
+      async onQueryStarted(_body, { dispatch, queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          dispatch(cartAPI.util.invalidateTags([{ type: "cartItems" }]));
+        } catch {
+          // Handle error if needed
+        }
+      },
     }),
 
     verifyPayment: builder.mutation<
