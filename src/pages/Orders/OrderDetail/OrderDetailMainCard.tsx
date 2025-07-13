@@ -47,7 +47,7 @@ const OrderDetailMainCard = ({ orderDetails }: OrderDetailMainCardProps) => {
     <div className="rounded-[12px] bg-white">
       <div className="flex justify-between border-b border-[#E9E9EB] px-4 pt-3 pb-2">
         <p className="text-[16px] text-[#02060c73]">
-          Order ID: {orderDetails.order_number + 2025}
+          Order ID: {orderDetails.order_number + 1000}
         </p>
         <p
           className={`${statusColors[orderDetails.status]} rounded-[6px] px-3 py-[1px] text-sm font-medium tracking-[-0.35px]`}

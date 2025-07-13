@@ -16,7 +16,7 @@ import type {
 export const orderAPI = createApi({
   reducerPath: "orderAPI",
   baseQuery: axiosBaseQueryWithReauth,
-  tagTypes: ["Order", "OrdersList"],
+  tagTypes: ["Order", "OrdersList", "cartItems"],
   endpoints: (builder) => ({
     getOrders: builder.infiniteQuery<
       getOrdersResponse,
@@ -69,7 +69,10 @@ export const orderAPI = createApi({
         method: "POST",
         data: body,
       }),
-      invalidatesTags: [{ type: "OrdersList", id: "LIST" }],
+      invalidatesTags: [
+        { type: "OrdersList", id: "LIST" },
+        { type: "cartItems" },
+      ],
     }),
 
     verifyPayment: builder.mutation<

@@ -13,12 +13,14 @@ import type {
 export const cartAPI = createApi({
   reducerPath: "cartAPI",
   baseQuery: axiosBaseQueryWithReauth,
+  tagTypes: ["cartItems"],
   endpoints: (builder) => ({
     getCartItems: builder.query<CartResponse, void>({
       query: () => ({
         url: "/api/cart-items",
         method: "GET",
       }),
+      providesTags: [{ type: "cartItems" }],
     }),
 
     addToCart: builder.mutation<AddToCartResponse, AddToCartRequest>({

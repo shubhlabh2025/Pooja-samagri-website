@@ -224,7 +224,7 @@ const ProductDetailsScreen: React.FC = () => {
             </div>
 
             {/* Quantity & Add to Cart */}
-            <div className="flex items-center gap-4">
+            <div className="flex">
               <ProductDetailsCartButton productVariant={selectedVariant} />
             </div>
 

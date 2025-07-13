@@ -16,3 +16,7 @@ export interface TriggerAddressBottomSheetProps {
 export interface AddToCartCounterProps {
   productVariant: ProductVariant;
 }
+
+export interface TriggerPaymentBottomSheetProps {
+  onSelectPaymentMethod: (method: string) => void;
+}

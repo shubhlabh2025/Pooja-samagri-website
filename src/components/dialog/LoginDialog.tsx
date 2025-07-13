@@ -29,6 +29,7 @@ import {
 } from "@/features/auth/authAPI";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { toast } from "sonner";
+import { useNavigate } from "react-router";
 
 const LoginDialog = () => {
   const [isOtpScreen, setIsOtpScreen] = useState(false);
@@ -36,7 +37,7 @@ const LoginDialog = () => {
   const [mobileValue, setMobileValue] = useState("");
   const [resendCooldown, setResendCooldown] = useState(30);
   const dialogCloseRef = useRef<HTMLButtonElement>(null);
-
+  const navigate = useNavigate();
   const [requestOtp, { isLoading: isRequestingOtp }] = useRequestOtpMutation();
   const [verifyOtp, { isLoading: isVerifyingOtp }] = useVerifyOtpMutation();
 
@@ -236,6 +237,7 @@ const LoginDialog = () => {
                         }).unwrap();
                         dialogCloseRef.current?.click();
                         toast.success("OTP verified successfully!");
+                        navigate("/profile");
                       } catch {
                         toast.error("Invalid OTP. Please try again.");
                       }

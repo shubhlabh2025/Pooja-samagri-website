@@ -5,7 +5,7 @@ const PaymentSuccess = () => {
   const navigate = useNavigate();
   useEffect(() => {
     setTimeout(() => {
-      navigate("/");
+      navigate("/orders", { replace: true });
     }, 3000);
   }, []);
 

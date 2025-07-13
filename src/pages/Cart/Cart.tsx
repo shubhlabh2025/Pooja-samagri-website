@@ -33,16 +33,16 @@ import type { UserAddressPayload } from "@/features/address/addressAPI.type";
 import { Button } from "@/components/ui/button";
 import { useAppSelector } from "@/app/hooks";
 import { selectConfiguration } from "@/features/configuration/configurationSlice";
+import { toast } from "sonner";
+import PaymentBottomSheet from "@/components/bottomsheet/PaymentBottomSheet";
 
 const Cart = () => {
   const { isAuthenticated } = useAppSelector((state) => state.auth);
   const configState = useAppSelector(selectConfiguration);
+  const minOrderValue = configState.data?.data.min_order_amount ?? 0;
 
   const deliveryCharge = configState.data?.data.delivery_charge ?? 0;
 
-  console.log("isAuthenticated cart");
-
-  console.log(isAuthenticated);
   const {
     data: cartData = { data: [] },
     isLoading,
@@ -81,24 +81,53 @@ const Cart = () => {
   console.log("clearCartError:", clearCartError);
 
   const [selectedCoupon, setSelectedCoupon] = useState<Coupon | null>(null);
+  const [openPaymentSheet, isOpenPaymentSheet] = useState<boolean>(false);
+
   const [selectedAddress, setSelectedAddress] =
     useState<UserAddressPayload | null>(null);
   const [isAddressDrawerOpen, setIsAddressDrawerOpen] = useState(false);
 
-  const { itemsTotal, discount } = cartData.data
-    .filter((item) => !item.variant.out_of_stock)
-    .reduce(
-      (acc, item: CartItem) => {
-        const { mrp, price } = item.variant;
-        const quantity = item.quantity;
+  const avaiableItems = cartData.data.filter(
+    (item) => !item.variant.out_of_stock,
+  );
 
-        acc.itemsTotal += mrp * quantity;
-        acc.discount += (mrp - price) * quantity;
+  const { itemsTotal, discount } = avaiableItems.reduce(
+    (acc, item: CartItem) => {
+      const { mrp, price } = item.variant;
+      const quantity = item.quantity;
 
-        return acc;
-      },
-      { itemsTotal: 0, discount: 0 },
-    );
+      acc.itemsTotal += mrp * quantity;
+      acc.discount += (mrp - price) * quantity;
+
+      return acc;
+    },
+    { itemsTotal: 0, discount: 0 },
+  );
+
+  let promoCodeDiscount = 0;
+
+  if (selectedCoupon) {
+    if (selectedCoupon.discount_type === "percentage") {
+      promoCodeDiscount =
+        ((itemsTotal - discount) * selectedCoupon.discount_value) / 100;
+    } else if (selectedCoupon.discount_type === "fixed") {
+      promoCodeDiscount = selectedCoupon.discount_value;
+    }
+
+    if (
+      selectedCoupon.max_discount_value &&
+      promoCodeDiscount > selectedCoupon.max_discount_value
+    ) {
+      promoCodeDiscount = selectedCoupon.max_discount_value;
+    }
+  }
+
+  if (promoCodeDiscount > itemsTotal - discount) {
+    promoCodeDiscount = itemsTotal - discount;
+  }
+
+  const totalAmount =
+    itemsTotal - discount - promoCodeDiscount + deliveryCharge;
 
   if (
     selectedCoupon &&
@@ -136,22 +165,22 @@ const Cart = () => {
     return <EmptyCart />;
   }
 
-  const placeOrder = async () => {
-    console.log("Paymeny placeOrder");
-
+  const placeOrder = async (method: string) => {
     if (!cartData || !cartData.data) return;
     if (!selectedAddress && !defaultAddress) {
       return handleAdressDrawerOpen();
     }
+    if (itemsTotal - discount < minOrderValue) {
+      toast.error(`Minimum order value is ₹${minOrderValue}`);
+      return;
+    }
 
-    const validItems = cartData.data.filter(
-      (item) => !item.variant.out_of_stock,
+    const orderItems = avaiableItems.map(
+      ({ quantity, product_variant_id }) => ({
+        quantity,
+        product_variant_id,
+      }),
     );
-
-    const orderItems = validItems.map(({ quantity, product_variant_id }) => ({
-      quantity,
-      product_variant_id,
-    }));
 
     const orderPayload: CreateOrders = {
       items: orderItems,
@@ -163,6 +192,8 @@ const Cart = () => {
         },
       ],
       address_id: `${selectedAddress ? selectedAddress.id : defaultAddress?.id}`,
+      offer_codes: selectedCoupon ? [selectedCoupon.offer_code] : [],
+      method: method,
     };
 
     try {
@@ -170,15 +201,18 @@ const Cart = () => {
       console.log("Order creation result:", result);
 
       if (result.success) {
-        console.log("Paymeny NAVIGATION");
-        // Navigate to success page
-        navigate("payment-page", {
-          replace: true,
-          state: { orderData: result.data },
-        });
+        if (result.data) {
+          // Navigate to success page
+          navigate("payment-page", {
+            replace: true,
+            state: { orderData: result.data },
+          });
+        } else {
+          navigate("order-success", { replace: true });
+        }
       } else {
         // Navigate to failure page
-        //  navigate("/order-failure", { state: { message: result.message } });
+        navigate("/order-failure", { state: { message: result.message } });
       }
     } catch (error) {
       console.error("Order creation failed:", error);
@@ -277,13 +311,15 @@ const Cart = () => {
           {selectedAddress || defaultAddress ? (
             <button
               className="focus:ring-opacity-75 w-full cursor-pointer rounded-lg bg-[#ff5200] py-2.5 text-lg leading-5 font-normal text-white transition duration-150 ease-in-out hover:scale-[0.98] hover:bg-[#ff5200] focus:outline-none"
-              onClick={placeOrder}
+              onClick={() => {
+                isOpenPaymentSheet(true);
+              }}
             >
               Pay{" "}
               {`₹ ${new Intl.NumberFormat("en-IN", {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,
-              }).format(itemsTotal - discount + deliveryCharge)}`}
+              }).format(totalAmount)}`}
             </button>
           ) : (
             <Button
@@ -299,6 +335,13 @@ const Cart = () => {
         <AddressBottomSheet
           addresses={addressData.data || []}
           handleAddressChange={handleAddressChange}
+        />
+      </Drawer>
+      <Drawer open={openPaymentSheet} onOpenChange={isOpenPaymentSheet}>
+        <PaymentBottomSheet
+          onSelectPaymentMethod={(method) => {
+            placeOrder(method);
+          }}
         />
       </Drawer>
     </>

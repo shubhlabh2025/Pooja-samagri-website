@@ -107,7 +107,7 @@ const BillDetails = ({
 
         <div className="my-2 border-t border-dashed border-[#02060c26]" />
 
-        <div className="flex items-center justify-between">
+        {/* <div className="flex items-center justify-between">
           <p className="line-clamp-1 text-sm leading-4.5 font-extralight -tracking-[0.35px] whitespace-nowrap text-[#02060c99]">
             GST and Charges
           </p>
@@ -124,9 +124,9 @@ const BillDetails = ({
               }).format(gstCharges)}
             </p>
           )}
-        </div>
+        </div> */}
 
-        <div className="my-2 border-t border-dashed border-[#02060c26]" />
+        {/* <div className="my-2 border-t border-dashed border-[#02060c26]" /> */}
 
         <div className="flex items-center justify-between">
           <p className="text-sm leading-4.5 font-semibold -tracking-[0.35px] text-[#02060ceb]">

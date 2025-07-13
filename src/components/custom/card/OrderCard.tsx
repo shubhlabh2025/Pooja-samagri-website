@@ -35,7 +35,7 @@ const OrderCard = ({ order }: { order: OrderDetail }) => {
         <div className="flex w-1/2 flex-row justify-end text-right sm:w-auto sm:text-left">
           <p className="text-sm text-[#02060c73]">
             Order ID:{" "}
-            <span className="font-semibold">{order.order_number + 2025}</span>
+            <span className="font-semibold">{order.order_number + 1000}</span>
           </p>
         </div>
         <div className="mt-1 w-1/2 sm:mt-0 sm:w-auto sm:pr-0">

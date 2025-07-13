@@ -31,6 +31,8 @@ export interface CreateOrders {
   items: OrderItems[];
   charges: OrderCharges[];
   address_id: string;
+  offer_codes: string[];
+  method: string;
 }
 
 interface OrderItems {
