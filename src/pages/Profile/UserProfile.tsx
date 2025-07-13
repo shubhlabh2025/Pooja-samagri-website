@@ -32,7 +32,7 @@ const UserProfilePage: React.FC = () => {
   const location = useLocation();
   const state = location.state as { tab?: Tab } | undefined;
   const [activeTab, setActiveTab] = useState<Tab>(state?.tab ?? "profile");
-  const [logout] = useLogoutMutation();
+  const [logout, { isLoading }] = useLogoutMutation();
   const [showLogoutDialog, setshowLogoutDialog] = useState(false);
   const navigate = useNavigate();
 
@@ -88,12 +88,15 @@ const UserProfilePage: React.FC = () => {
                   onOpenChange={setshowLogoutDialog}
                   headingText="Logout?"
                   bodyText="Re you sure you want to logout?"
-                  confirmationButtonText="Yes"
+                  confirmationButtonText={
+                    isLoading ? "Logging out..." : "Logout"
+                  }
                   cancelButtonText="Cancel"
                   onConfirm={async () => {
                     await logout();
                     navigate("/", { replace: true });
                   }}
+                  isConfirming={isLoading}
                 />
                 <div className="flex flex-row justify-between">
                   <h1 className="mb-1 text-xl font-semibold">

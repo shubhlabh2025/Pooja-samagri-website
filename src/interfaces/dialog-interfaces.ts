@@ -7,5 +7,11 @@ export interface ConfirmationDialogProps {
   cancelButtonText?: string;
   confirmationButtonClassName?: string;
   cancellationButtonClassName?: string;
+  isConfirming: boolean;
   onConfirm: () => void;
+}
+
+export interface CancelOrderDialogProps {
+  orderId: string;
+  handleCloseCancelDialog: () => void;
 }

@@ -4,6 +4,8 @@ import { useGetOrdersInfiniteQuery } from "@/features/orders/orderAPI";
 import EmptyOrder from "./EmptyOrder";
 import OrderPageSkeleton from "@/components/skeletons/OrderPageSkeleton";
 import SimpleNavBar from "@/components/common/SimpleNavBar";
+import { useCallback, useRef } from "react";
+import { Loader } from "lucide-react";
 
 const Orders = () => {
   const {
@@ -16,10 +18,35 @@ const Orders = () => {
     },
     isLoading,
     isError,
-    // fetchNextPage,
+    fetchNextPage,
     isFetchingNextPage,
     isFetching,
   } = useGetOrdersInfiniteQuery({ limit: 30 });
+
+  const observerRef = useRef<IntersectionObserver | null>(null);
+  const loadingRef = useCallback(
+    (node: HTMLDivElement | null) => {
+      if (isFetchingNextPage) return;
+
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+      }
+
+      observerRef.current = new IntersectionObserver(
+        (entries) => {
+          if (entries[0]?.isIntersecting) {
+            fetchNextPage();
+          }
+        },
+        { threshold: 0.1 },
+      );
+
+      if (node) {
+        observerRef.current.observe(node);
+      }
+    },
+    [isFetchingNextPage, fetchNextPage],
+  );
 
   const allOrders = infiniteOrdersData.pages.flatMap((page) => page.data);
 
@@ -49,6 +76,17 @@ const Orders = () => {
         {allOrders.map((order) => (
           <OrderCard key={order.id} order={order} />
         ))}
+        <div ref={loadingRef} className="flex w-full justify-center">
+          {isFetchingNextPage ? (
+            <Loader
+              size={50}
+              color="#ff5200"
+              className="animate-spinner-leaf-fade p-2"
+            />
+          ) : (
+            <div className="" />
+          )}
+        </div>
       </div>
       <CartSummaryBanner />
     </div>

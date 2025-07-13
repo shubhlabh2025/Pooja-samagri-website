@@ -1,10 +1,12 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { axiosBaseQueryWithReauth } from "@/api/baseQueryWithReauth";
 import type {
+  CancelOrderPayload,
   CreateOrders,
   getOrdersParams,
   getOrdersResponse,
   OrderByIdResponse,
+  OrderCancelResponse,
   orderPageParam,
   OrderResponse,
   RazorpayPaymentResponse,
@@ -14,6 +16,7 @@ import type {
 export const orderAPI = createApi({
   reducerPath: "orderAPI",
   baseQuery: axiosBaseQueryWithReauth,
+  tagTypes: ["Order", "OrdersList"],
   endpoints: (builder) => ({
     getOrders: builder.infiniteQuery<
       getOrdersResponse,
@@ -37,6 +40,19 @@ export const orderAPI = createApi({
           limit: queryArg.limit || 30,
         },
       }),
+      providesTags: (result) => {
+        const listTag = { type: "OrdersList" as const, id: "LIST" };
+        if (result?.pages) {
+          const orderTags = result.pages.flatMap((page) =>
+            page.data.map((order) => ({
+              type: "Order" as const,
+              id: order.id,
+            })),
+          );
+          return [...orderTags, listTag];
+        }
+        return [listTag];
+      },
     }),
 
     getOrderById: builder.query<OrderByIdResponse, string>({
@@ -44,6 +60,7 @@ export const orderAPI = createApi({
         url: `api/orders/${id}`,
         method: "GET",
       }),
+      providesTags: (_result, _error, id) => [{ type: "Order", id }],
     }),
 
     createOrder: builder.mutation<OrderResponse, CreateOrders>({
@@ -52,6 +69,7 @@ export const orderAPI = createApi({
         method: "POST",
         data: body,
       }),
+      invalidatesTags: [{ type: "OrdersList", id: "LIST" }],
     }),
 
     verifyPayment: builder.mutation<
@@ -64,6 +82,21 @@ export const orderAPI = createApi({
         data: body,
       }),
     }),
+
+    cancelOrder: builder.mutation<
+      OrderCancelResponse,
+      { id: string; body: CancelOrderPayload }
+    >({
+      query: ({ id, body }) => ({
+        url: `/api/orders/${id}/cancel`,
+        method: "POST",
+        data: body,
+      }),
+      invalidatesTags: (_result, _error, { id }) => [
+        { type: "Order", id },
+        { type: "OrdersList", id: "LIST" },
+      ],
+    }),
   }),
 });
 
@@ -72,4 +105,5 @@ export const {
   useCreateOrderMutation,
   useVerifyPaymentMutation,
   useGetOrdersInfiniteQuery,
+  useCancelOrderMutation,
 } = orderAPI;

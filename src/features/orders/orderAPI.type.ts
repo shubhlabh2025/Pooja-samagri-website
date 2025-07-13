@@ -9,7 +9,7 @@ export interface OrderData {
   currency: string;
   entity: string;
   id: string;
-  notes: string[]; // you can change this to a specific type if your notes array has a defined structure
+  notes: string[];
   offer_id: string | null;
   receipt: string | null;
   status: string;
@@ -185,4 +185,13 @@ export interface OrderByIdResponse {
   success: boolean;
   message: string;
   data: AllOrderDetail;
+}
+
+export interface OrderCancelResponse {
+  success: boolean;
+  message: string;
+}
+
+export interface CancelOrderPayload {
+  reason: string;
 }

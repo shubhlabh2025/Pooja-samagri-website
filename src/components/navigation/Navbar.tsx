@@ -1,19 +1,51 @@
 import { Separator } from "@/components/ui/separator";
 import logo from "@/assets/LOGO1.png";
-import mobileLogo from "@/assets/FooterIcon.png";
 import { useNavigate } from "react-router";
 import { CircleUserRound, Package, Search } from "lucide-react";
 import { Input } from "../ui/input";
 import RotatingText from "../bits/RotatingText";
-import { useState } from "react";
+import { useDeferredValue, useRef, useState, type FocusEvent } from "react";
 import { useAppSelector } from "@/app/hooks";
 import { Dialog, DialogTrigger } from "@radix-ui/react-dialog";
 import LoginDialog from "../dialog/LoginDialog";
+import { useGetProductsInfiniteQuery } from "@/features/product/productAPI";
+import SearchBox from "../common/SearchBox";
+import { AnimatePresence } from "framer-motion";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const { isAuthenticated } = useAppSelector((state) => state.auth);
+  const [query, setQuery] = useState("");
+  const deferredQuery = useDeferredValue(query);
+  const {
+    data: productsData = {
+      pages: [
+        {
+          data: [],
+        },
+      ],
+    },
+    isLoading,
+    isError,
+  } = useGetProductsInfiniteQuery({ q: query, limit: 5 });
+  const products = productsData.pages.flatMap((page) => page.data);
+  console.log("Products:", products);
+  console.log("Query:", query);
+  console.log("Deferred Query:", deferredQuery);
+  console.log("Is Loading:", isLoading);
+  console.log("Is Error:", isError);
+
   const [focused, setFocused] = useState(false);
+  const searchContainerRef = useRef<HTMLDivElement>(null);
+
+  const handleBlur = (event: FocusEvent<HTMLInputElement>) => {
+    if (
+      searchContainerRef.current &&
+      !searchContainerRef.current.contains(event.relatedTarget)
+    ) {
+      setFocused(false);
+    }
+  };
 
   return (
     <>
@@ -27,7 +59,7 @@ const Navbar = () => {
           }}
         />
       </div>
-      <div className="flex py-2 sm:py-0 items-center gap-2 px-2 sm:gap-6 sm:px-6">
+      <div className="flex items-center gap-2 px-2 py-2 sm:gap-6 sm:px-6 sm:py-0">
         <img
           src={logo}
           alt="Logo"
@@ -37,9 +69,12 @@ const Navbar = () => {
           }}
         />
         <Separator orientation="vertical" className="hidden sm:block" />
-        <div className="relative flex flex-1 items-center rounded-[12px] border border-[#0000000a] bg-[#F8F8F8] px-2">
+        <div
+          className="relative flex flex-1 items-center rounded-[12px] border border-[#0000000a] bg-[#F8F8F8] px-2"
+          ref={searchContainerRef}
+        >
           <Search size={18} strokeWidth={2.5} className="" />
-          {!focused && (
+          {!focused && !query && (
             <div className="pointer-events-none absolute left-9 flex items-center gap-1">
               <p className="text-gray-500">Search</p>
               <RotatingText
@@ -56,9 +91,16 @@ const Navbar = () => {
               />
             </div>
           )}
+          <AnimatePresence>
+            {focused && query && (
+              <SearchBox products={products} query={query} />
+            )}
+          </AnimatePresence>
           <Input
             onFocus={() => setFocused(true)}
-            onBlur={() => setFocused(false)}
+            onBlur={handleBlur}
+            onChange={(e) => setQuery(e.target.value)}
+            value={query}
             className="border-none font-light shadow-none selection:bg-blue-200 selection:text-black focus:ring-0 focus:outline-none focus-visible:ring-0 focus-visible:outline-none"
           />
         </div>

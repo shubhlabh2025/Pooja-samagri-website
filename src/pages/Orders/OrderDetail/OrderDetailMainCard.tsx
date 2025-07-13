@@ -1,10 +1,15 @@
+import CancelOrderDialog from "@/components/dialog/CancelOrderDialog";
+import NeedHelpInfoDialog from "@/components/dialog/NeedHelpInfoDialog";
+import { AlertDialog, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import type { OrderDetailMainCardProps } from "@/interfaces/order-page-props";
 import { BadgeCheck, BadgeX, Download, LifeBuoy } from "lucide-react";
+import { useState } from "react";
 
 const OrderDetailMainCard = ({ orderDetails }: OrderDetailMainCardProps) => {
   const firstItemName = orderDetails.order_items[0].product_variant.name;
   const noOfItems = orderDetails.order_items.length;
+  const [cancelDialog, setCancelDialog] = useState(false);
 
   const statusColors = {
     pending: "text-amber-600 bg-amber-100",
@@ -32,6 +37,10 @@ const OrderDetailMainCard = ({ orderDetails }: OrderDetailMainCardProps) => {
     rejected: "Rejected by Seller",
     returned: "Returned",
     refunded: "Refunded",
+  };
+
+  const handleCloseCancelDialog = () => {
+    setCancelDialog(false);
   };
 
   return (
@@ -135,18 +144,33 @@ const OrderDetailMainCard = ({ orderDetails }: OrderDetailMainCardProps) => {
       </div>
 
       <div className="flex gap-3 px-4 py-3">
-        <Button className="flex flex-1 items-center justify-center gap-2 rounded-md border border-green-600 bg-white px-4 py-2 text-sm font-medium text-green-700 shadow-sm duration-100 ease-in hover:scale-[0.95] hover:bg-green-50">
-          <Download size={16} />
-          <span className="truncate">Invoice</span>
-        </Button>
+        {orderDetails.status === "delivered" && (
+          <Button className="flex flex-1 items-center justify-center gap-2 rounded-md border border-blue-600 bg-white px-4 py-2 text-sm font-medium text-blue-700 shadow-sm transition duration-150 ease-in-out hover:scale-[0.95] hover:bg-blue-50">
+            <Download size={16} />
+            <span className="truncate">Invoice</span>
+          </Button>
+        )}
 
-        <Button
-          variant="outline"
-          className="flex flex-1 items-center justify-center gap-2 rounded-md border-white bg-amber-700 px-4 py-2 text-sm font-medium text-white duration-100 ease-in hover:scale-[0.95] hover:bg-amber-600 hover:text-white"
-        >
-          <LifeBuoy size={16} />
-          <span className="truncate">Need Help?</span>
-        </Button>
+        {orderDetails.status === "pending" && (
+          <AlertDialog open={cancelDialog} onOpenChange={setCancelDialog}>
+            <AlertDialogTrigger className="flex flex-1 items-center justify-center gap-2 rounded-md border border-red-600 bg-white px-4 py-2 text-sm font-medium text-red-700 shadow-sm transition duration-150 ease-in-out hover:scale-[0.95] hover:bg-red-50">
+              <BadgeX size={16} />
+              <span className="truncate">Cancel Order</span>
+            </AlertDialogTrigger>
+            <CancelOrderDialog
+              orderId={orderDetails.id}
+              handleCloseCancelDialog={handleCloseCancelDialog}
+            />
+          </AlertDialog>
+        )}
+
+        <AlertDialog>
+          <AlertDialogTrigger className="flex flex-1 items-center justify-center gap-2 rounded-md border border-[#1aa672] bg-[#1aa672] px-4 py-2 text-sm font-medium text-white shadow-sm transition duration-150 ease-in-out hover:scale-[0.95] hover:border-[#168c61] hover:bg-[#168c61]">
+            <LifeBuoy size={16} />
+            <span className="truncate">Need Help?</span>
+          </AlertDialogTrigger>
+          <NeedHelpInfoDialog />
+        </AlertDialog>
       </div>
     </div>
   );

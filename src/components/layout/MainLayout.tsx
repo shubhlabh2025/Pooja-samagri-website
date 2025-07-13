@@ -3,7 +3,7 @@ import ScrollVelocity from "../bits/ScrollVelocity";
 import Navbar from "../navigation/Navbar";
 
 const MainLayout = ({ children }: { children: ReactNode }) => (
-  <div className="flex h-full min-h-screen flex-col">
+  <div className="flex h-full flex-col">
     <ScrollVelocity
       texts={["✨ Simplicity • Speed • Soundness • Pure Sacred Everyday ✨"]}
       velocity={-120}

@@ -10,6 +10,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { Loader2 } from "lucide-react";
 
 const ConfirmationDialog = ({
   open,
@@ -21,7 +22,11 @@ const ConfirmationDialog = ({
   onConfirm,
   confirmationButtonClassName,
   cancellationButtonClassName,
+  isConfirming,
 }: ConfirmationDialogProps) => {
+  console.log("ConfirmationDialog rendered");
+  console.log("isConfirming:", isConfirming);
+  console.log("open:", open);
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
       <AlertDialogContent className="rounded-3xl px-4 pt-6 pb-4">
@@ -37,6 +42,7 @@ const ConfirmationDialog = ({
         </AlertDialogHeader>
         <AlertDialogFooter className="flex flex-row">
           <AlertDialogCancel
+            disabled={isConfirming}
             className={cn(
               "flex h-auto flex-1 items-center justify-center rounded-[12px] border-none bg-[#ffeee5] px-4 py-3 text-sm leading-[20px] font-semibold -tracking-[0.35px] text-[#ff5200] shadow-none transition duration-100 ease-in hover:scale-[0.95] hover:bg-[#ffeee5] hover:text-[#ff5200] hover:shadow-none focus:border-none focus:ring-0 focus-visible:ring-0",
               cancellationButtonClassName,
@@ -46,12 +52,17 @@ const ConfirmationDialog = ({
           </AlertDialogCancel>
 
           <AlertDialogAction
-            onClick={onConfirm}
+            onClick={(event) => {
+              event.preventDefault();
+              onConfirm();
+            }}
+            disabled={isConfirming}
             className={cn(
               "flex h-auto flex-1 items-center justify-center rounded-[12px] border-none bg-[#ff5200] px-4 py-3 text-sm leading-[20px] font-semibold -tracking-[0.35px] text-[#ffffffeb] shadow-none transition duration-100 ease-in hover:scale-[0.95] hover:bg-[#ff5200] hover:shadow-none",
               confirmationButtonClassName,
             )}
           >
+            {isConfirming && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             {confirmationButtonText}
           </AlertDialogAction>
         </AlertDialogFooter>

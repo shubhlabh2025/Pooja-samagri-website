@@ -11,8 +11,9 @@ interface ProductItemProps {
 const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
   const navigate = useNavigate();
 
-  const defaultVariantIndex = product.product_variants.findIndex(
-    (variant) => variant.default_variant,
+  const defaultVariantIndex = Math.max(
+    0,
+    product.product_variants.findIndex((variant) => variant.default_variant),
   );
 
   const defaultProductVariant = product.product_variants[defaultVariantIndex];

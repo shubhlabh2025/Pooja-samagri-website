@@ -197,11 +197,12 @@ const Cart = () => {
         onOpenChange={setShowClearCartDialog}
         headingText="Clear your cart?"
         bodyText="Would you like to remove all items from your cart?"
-        confirmationButtonText="Clear cart"
+        confirmationButtonText={clearCartLoading ? "Clearing..." : "Clear Cart"}
         cancelButtonText="Cancel"
         onConfirm={async () => {
           await clearCart();
         }}
+        isConfirming={clearCartLoading}
       />
       <div className="flex h-full max-h-full flex-1 flex-col overflow-scroll bg-[#f0f0f5]">
         <div className="sticky top-0 z-10 flex items-center justify-between bg-white px-2 py-3">

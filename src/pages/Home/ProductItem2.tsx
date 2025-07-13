@@ -9,8 +9,9 @@ interface ProductItemProps {
 const ProductItem2: React.FC<ProductItemProps> = ({ item }) => {
   const navigate = useNavigate();
 
-  const defaultVariantIndex = item.product_variants.findIndex(
-    (variant) => variant.default_variant,
+  const defaultVariantIndex = Math.max(
+    0,
+    item.product_variants.findIndex((variant) => variant.default_variant),
   );
 
   const discountPercentage = Math.round(

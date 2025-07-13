@@ -69,8 +69,8 @@ const PaymentSummaryCard = ({ orderDetails }: OrderDetailMainCardProps) => {
         <div className="my-2 border-t border-dashed border-[#02060c26]" />
 
         <div className="flex items-center justify-between">
-          {orderDetails.order_charges.map(({ name, amount }) => (
-            <>
+          {orderDetails.order_charges.map(({ name, amount }, idx) => (
+            <div key={idx}>
               <p className="line-clamp-1 text-sm leading-4.5 font-extralight -tracking-[0.35px] text-[#02060c99]">
                 {name}
               </p>
@@ -87,7 +87,7 @@ const PaymentSummaryCard = ({ orderDetails }: OrderDetailMainCardProps) => {
                   }).format(amount)}
                 </p>
               )}
-            </>
+            </div>
           ))}
         </div>
 
