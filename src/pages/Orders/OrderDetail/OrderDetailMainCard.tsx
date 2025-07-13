@@ -51,7 +51,7 @@ const OrderDetailMainCard = ({ orderDetails }: OrderDetailMainCardProps) => {
   const handleDownloadInvoice = async () => {
     try {
       const response = await downloadInvoice(orderDetails.id).unwrap();
-      const blob = new Blob([response], { type: "application/pdf" });
+      const blob = new Blob([response.data], { type: "application/pdf" });
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
