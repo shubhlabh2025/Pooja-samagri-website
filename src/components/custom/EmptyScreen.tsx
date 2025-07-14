@@ -18,7 +18,7 @@ const EmptyScreen: React.FC<EmptyScreenProps> = ({
   showBackArrow = true,
 }) => {
   return (
-    <div className="relative flex flex-1 flex-col items-center justify-center bg-white px-4 text-center">
+    <div className="relative flex flex-1 flex-col items-center justify-center rounded-tl-lg bg-white px-4 text-center">
       {showBackArrow && (
         <button
           onClick={() => window.history.back()}
