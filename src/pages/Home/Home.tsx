@@ -37,7 +37,7 @@ const Home = () => {
       <CategoryList />
       <BannerCarousel
         adBanner={config.data?.data.ad_banners || []}
-        type="HOME"
+        type="home"
       />
       {topFiveCategory.data.length > 0 && (
         <div className="flex flex-col gap-8 pt-8">

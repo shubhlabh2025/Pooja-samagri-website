@@ -2,5 +2,5 @@ export interface AdBanner {
   id: string;
   image: string;
   action: string;
-  type: "HOME" | "CATEGORY";
+  type: "home" | "category";
 }
