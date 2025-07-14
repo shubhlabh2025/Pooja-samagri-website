@@ -82,7 +82,7 @@ const SubCategoriesWithProductScreen = () => {
             onClick={() => navigate(-1)}
             color="#02060cbf"
           />
-          <div className="line-clamp-1 w-full overflow-hidden text-[16px] leading-4.5 font-medium tracking-[-0.35px] break-words text-[#02060cbf]">
+          <div className="line-clamp-1 hidden sm:block overflow-hidden text-[16px] leading-4.5 font-medium tracking-[-0.35px] break-words text-[#02060cbf]">
             {categoryData.data.name}
           </div>
         </div>
