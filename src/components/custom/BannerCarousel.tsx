@@ -11,7 +11,7 @@ import type { AdBanner } from "@/interfaces/ad-banner";
 
 interface AdBannerCarouselProps {
   adBanner: AdBanner[];
-  type: "HOME" | "CATEGORY";
+  type: "home" | "category";
 }
 
 const BannerCarousel: React.FC<AdBannerCarouselProps> = ({

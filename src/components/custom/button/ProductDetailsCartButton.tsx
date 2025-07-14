@@ -26,7 +26,9 @@ const ProductDetailsCartButton = ({
     (item) => item.product_variant_id === productVariant.id,
   );
 
-  const [quantity, setQuantity] = useState(cartItem?.quantity || 0);
+  const [quantity, setQuantity] = useState(
+    cartItem?.quantity && cartItem.quantity >= 1 ? cartItem.quantity : 1,
+  );
 
   const handleIncreaseQuantity = () => {
     if (quantity < productVariant.max_quantity) {
@@ -35,9 +37,7 @@ const ProductDetailsCartButton = ({
   };
 
   const handleDecreaseQuantity = () => {
-    if (quantity > 0) {
-      setQuantity((prev) => prev - 1);
-    }
+    setQuantity((prev) => Math.max(1, prev - 1));
   };
 
   const handleAddToCart = async () => {
@@ -49,9 +49,8 @@ const ProductDetailsCartButton = ({
     const action = diff > 0 ? "increase" : "decrease";
     const absDiff = Math.abs(diff);
 
-    if (!cartItem && quantity > 0) {
+    if (!cartItem && quantity >= 1) {
       await addCartItem({ product_variant_id: productVariant.id });
-      // Now do the rest of the quantity - 1 via increase
       for (let i = 1; i < quantity; i++) {
         await updateCartItem({
           productVariantId: productVariant.id,
@@ -60,14 +59,14 @@ const ProductDetailsCartButton = ({
       }
     }
 
-    for (let i = 0; i < absDiff; i++) {
-      await updateCartItem({
-        productVariantId: productVariant.id,
-        body: { action },
-      });
+    if (cartItem) {
+      for (let i = 0; i < absDiff; i++) {
+        await updateCartItem({
+          productVariantId: productVariant.id,
+          body: { action },
+        });
+      }
     }
-
-    // If no cart item exists and quantity is at least 1
   };
 
   if (!isAuthenticated) {
@@ -86,13 +85,12 @@ const ProductDetailsCartButton = ({
   return (
     <div className="mx-auto w-full max-w-[500px] justify-between">
       <div className="flex w-full flex-row gap-4">
-        {/* Quantity Controls */}
         <div className="flex flex-1 items-center justify-between rounded-[8px] border border-[#02060c26]">
           <Button
             variant="outline"
             className="h-fit rounded-l-[8px] rounded-r-none border-none px-3 py-2 text-orange-500 hover:bg-[#02060c26]"
             onClick={handleDecreaseQuantity}
-            disabled={quantity <= 0}
+            disabled={quantity <= 1}
           >
             -
           </Button>
@@ -109,11 +107,9 @@ const ProductDetailsCartButton = ({
           </Button>
         </div>
 
-        {/* Add to Cart */}
         <button
           onClick={handleAddToCart}
           className="flex flex-[2] items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-orange-500 to-red-500 px-4 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl"
-          disabled={quantity === 0}
         >
           <ShoppingCart size={18} />
           Add to Cart
