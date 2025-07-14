@@ -26,7 +26,7 @@ const ProductItem2: React.FC<ProductItemProps> = ({ item }) => {
   };
 
   return (
-    <div className="h-fit max-w-72 min-w-36 flex-1 items-center border border-[#282c3f0d] p-3">
+    <div className="h-fit max-w-66 min-w-33 flex-1 items-center border border-[#282c3f0d] p-3">
       <div className="flex flex-col gap-5">
         <div
           className="relative flex h-30 cursor-pointer justify-center rounded-lg"
