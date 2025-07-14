@@ -74,7 +74,7 @@ const SubCategoriesWithProductScreen = () => {
   return (
     <div className="flex h-full gap-1.5 overflow-hidden bg-[#f0f0f5] pt-1">
       <div className="shadow-subcategory-screen flex h-full max-h-full max-w-[250px] flex-8 flex-col rounded-tr-lg bg-white">
-        <div className="gap-3 flex min-h-[40px] items-center border-b border-[#282c3f0d] px-3 pt-4 pb-[12px] text-[#02060cbf]">
+        <div className="flex min-h-[40px] items-center gap-3 border-b border-[#282c3f0d] px-3 pt-4 pb-[12px] text-[#02060cbf]">
           <ChevronLeft
             size={20}
             className="cursor-pointer"
@@ -82,8 +82,10 @@ const SubCategoriesWithProductScreen = () => {
             onClick={() => navigate(-1)}
             color="#02060cbf"
           />
-          <div className="line-clamp-1 hidden sm:block overflow-hidden text-[16px] leading-4.5 font-medium tracking-[-0.35px] break-words text-[#02060cbf]">
-            {categoryData.data.name}
+          <div className="hidden w-full flex-1 sm:block">
+            <div className="line-clamp-1 text-[16px] leading-4.5 font-medium tracking-[-0.35px] break-words text-[#02060cbf]">
+              {categoryData.data.name}
+            </div>
           </div>
         </div>
         <ul className="hide-scrollbar flex flex-1 flex-col items-center gap-6 overflow-y-auto py-6">
