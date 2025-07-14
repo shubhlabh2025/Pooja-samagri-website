@@ -5,7 +5,10 @@ import { ChevronRight } from "lucide-react";
 
 const CategoryList = () => {
   const navigate = useNavigate();
-  const { data, isLoading, isError } = useGetCategoriesQuery({});
+  const { data, isLoading, isError } = useGetCategoriesQuery({
+    sort_by: "priority",
+    sort_order: "DESC",
+  });
 
   if (isLoading) return <div>Loading categories...</div>;
   if (isError) return <div>Error loading categories.</div>;
