@@ -69,7 +69,7 @@ const ProductSection = ({
       <div>
         <BannerCarousel
           adBanner={config.data?.data.ad_banners || []}
-          type="CATEGORY"
+          type="category"
         />
       </div>
       <div className="mb-3.5 line-clamp-1 min-h-[34px] w-full overflow-hidden px-3 pt-4 text-sm leading-4.5 font-normal tracking-[-0.35px] break-words text-[#02060cbf]">
