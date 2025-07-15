@@ -53,7 +53,7 @@ const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
         <img
           src={defaultProductVariant.images[0]}
           alt={defaultProductVariant.name}
-          className="h-full w-full rounded-[12px]"
+          className="h-full w-full rounded-[12px] object-contain"
         />
       </div>
       <div className="flex flex-col gap-2">
