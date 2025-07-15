@@ -28,7 +28,7 @@ const ReviewOrder = ({ cartData }: ReviewOrderProps) => {
               key={item.product_variant_id}
               className="flex items-center justify-between gap-3"
             >
-              <div className="flex gap-3">
+              <div className="flex min-w-0 gap-3">
                 <img
                   src={item.variant.images[0]}
                   alt="Product"
@@ -36,10 +36,10 @@ const ReviewOrder = ({ cartData }: ReviewOrderProps) => {
                 />
                 <div className="flex min-w-0 flex-col">
                   <p className="line-clamp-2 max-w-fit text-[13px] leading-[17px] font-medium -tracking-[0.33px] break-words text-ellipsis text-[#02060cbf]">
-                    {item.variant.name}
+                    Parrotgreen POP Face Ammavari Stand
                   </p>
                   <p className="line-clamp-1 max-w-fit text-[12px] leading-[16px] font-normal text-ellipsis whitespace-nowrap text-[#02060c73]">
-                    {item.variant.name}
+                    Parrotgreen POP Face Ammavari Stand
                   </p>
                 </div>
               </div>
