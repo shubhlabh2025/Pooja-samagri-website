@@ -61,7 +61,7 @@ const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
           className="flex cursor-pointer flex-col gap-1.5"
           onClick={handleNavigate}
         >
-          <p className="line-clamp-2 min-h-9 text-sm leading-4.5 font-semibold tracking-[-0.35px] break-words text-[#02060cbf]">
+          <p className="line-clamp-2 min-h-9 max-w-35 text-sm leading-4.5 font-semibold tracking-[-0.35px] break-words text-[#02060cbf]">
             {defaultProductVariant.name}
           </p>
         </div>
