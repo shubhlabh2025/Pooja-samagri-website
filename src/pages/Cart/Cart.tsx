@@ -7,7 +7,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useNavigate } from "react-router";
 import { useState } from "react";
-import CommonLoader from "@/components/loader/CommonLoader";
 import SomethingWentWrong from "@/components/error/SomethingWentWrong";
 import ReviewOrder from "./ReviewOrder";
 import BillDetails from "./BillDetails";
@@ -35,6 +34,7 @@ import { useAppSelector } from "@/app/hooks";
 import { selectConfiguration } from "@/features/configuration/configurationSlice";
 import { toast } from "sonner";
 import PaymentBottomSheet from "@/components/bottomsheet/PaymentBottomSheet";
+import { CartSkeleton } from "@/components/skeletons/CartPageSkeleton";
 
 const Cart = () => {
   const { isAuthenticated } = useAppSelector((state) => state.auth);
@@ -167,7 +167,23 @@ const Cart = () => {
   };
 
   if (isLoading) {
-    return <CommonLoader />;
+    return (
+      <div className="flex h-full max-h-full flex-1 flex-col overflow-scroll bg-[#f0f0f5]">
+        <div className="sticky top-0 z-10 flex items-center justify-between bg-white px-2 py-3">
+          <div className="flex items-center gap-2">
+            <ChevronLeft
+              size={20}
+              className="cursor-pointer"
+              onClick={() => navigate(-1)}
+            />
+            <p className="line-clamp-1 text-lg leading-[21px] font-semibold -tracking-[0.4px] text-[#02060cbf]">
+              Your Cart
+            </p>
+          </div>
+        </div>
+        <CartSkeleton />
+      </div>
+    );
   }
   if (isError) {
     return <SomethingWentWrong />;
