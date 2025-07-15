@@ -32,7 +32,7 @@ const Coupons = ({
         >
           <div className="flex gap-3">
             <div className="flex aspect-square w-[20px] items-center justify-center rounded-sm bg-amber-400 p-[3px]">
-              <img src={priceTagSvg} alt="Icon" />
+              <img loading="lazy" src={priceTagSvg} alt="Icon" />
             </div>
             <p className="text-sm leading-4.5 font-normal -tracking-[0.35px] text-[#02060cbf]">
               Apply Coupon
@@ -92,7 +92,7 @@ const Coupons = ({
               <div className="flex flex-col gap-3">
                 <div className="flex justify-between">
                   <div className="flex items-center gap-2">
-                    <img
+                    <img loading="lazy"
                       src={
                         coupon.discount_type == "percentage"
                           ? percentageIcon

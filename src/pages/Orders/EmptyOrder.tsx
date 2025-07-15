@@ -21,7 +21,7 @@ const EmptyOrder = () => {
         </div>
       </div>
       <div className="flex flex-1 flex-col items-center justify-center px-4 text-center">
-        <img
+        <img loading="lazy"
           src={emptyOrderImage}
           alt="Empty Cart"
           className="mb-6 w-32 md:w-48"

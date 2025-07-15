@@ -17,7 +17,7 @@ const ProductCardInSearchBox = ({ product }: ProductCardInSearchBoxProps) => {
         navigate(`/products/${product.id}`);
       }}
     >
-      <img
+      <img loading="lazy"
         src={defaultProductVariant.images[0]}
         alt={defaultProductVariant.name}
         className="h-10 w-10 rounded-md object-contain"

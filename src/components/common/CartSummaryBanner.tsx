@@ -86,7 +86,7 @@ const CartSummaryBanner = () => {
                     ))}
 
                   {/* Always render the last item */}
-                  <img
+                  <img loading="lazy"
                     src={
                       cartData.data[cartData.data.length - 1].variant.images[0]
                     }

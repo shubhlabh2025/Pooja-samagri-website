@@ -94,7 +94,7 @@ const ThumbnailCarousel: React.FC<ThumbnailCarouselProps> = ({
           const actualIndex = startIndex + index;
           const isSelected = actualIndex === selectedImageIndex;
           return (
-            <img
+            <img loading="lazy"
               key={actualIndex}
               src={src}
               alt={`Product thumbnail ${actualIndex + 1}`}

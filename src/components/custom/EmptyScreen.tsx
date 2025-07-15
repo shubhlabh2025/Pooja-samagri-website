@@ -28,7 +28,7 @@ const EmptyScreen: React.FC<EmptyScreenProps> = ({
         </button>
       )}
 
-      <img src={imageSrc} alt="Error" className="mb-6 h-40 w-40" />
+      <img loading="lazy" src={imageSrc} alt="Error" className="mb-6 h-40 w-40" />
 
       <h2 className="text-xl font-semibold text-orange-500">{title}</h2>
       <p className="mb-6 text-gray-500">{subtitle}</p>

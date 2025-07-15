@@ -20,7 +20,7 @@ const ChatIcon: React.FC = () => {
         className="rounded-full bg-[#1DD042] p-3 shadow-md hover:shadow-lg"
         onClick={openWhatsApp}
       >
-        <img src={WhatsAppIcon} alt="WhatsApp" className="h-8 w-8" />
+        <img loading="lazy" src={WhatsAppIcon} alt="WhatsApp" className="h-8 w-8" />
       </button>
     </div>
   );

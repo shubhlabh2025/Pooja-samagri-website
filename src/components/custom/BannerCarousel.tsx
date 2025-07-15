@@ -50,7 +50,9 @@ const BannerCarousel: React.FC<AdBannerCarouselProps> = ({
               <CarouselItem key={index} className="rounded-none">
                 <div className="">
                   <img
+                    loading="lazy"
                     src={banner.image}
+                    alt="Ad Banner"
                     className="flex max-h-[300px] min-h-[175px] w-full items-center justify-center"
                   ></img>
                 </div>

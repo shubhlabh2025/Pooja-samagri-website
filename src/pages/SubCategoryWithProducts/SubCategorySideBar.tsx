@@ -30,7 +30,7 @@ const SubCategorySideBar = ({
               : "bg-[#f0f0f5]"
           }`}
         >
-          <img
+          <img loading="lazy"
             src={categoryData.image}
             alt={categoryData.name}
             className={`aspect-[100/109] h-fit w-11 min-w-11 origin-bottom rounded-[8px] transition-transform duration-300 ease-out ${
@@ -66,7 +66,7 @@ const SubCategorySideBar = ({
                   : "bg-[#f0f0f5]"
               }`}
             >
-              <img
+              <img loading="lazy"
                 src={subCategory.image}
                 alt={subCategory.name}
                 className={`aspect-[100/109] h-fit w-11 min-w-11 origin-bottom rounded-[8px] transition-transform duration-300 ease-out ${

@@ -7,7 +7,7 @@ const ErrorScreen = () => {
 
       {/* Image */}
       <div className="mb-6 h-40 w-40">
-        <img
+        <img loading="lazy"
           src={ErrorImage}
           alt="No data"
           className="h-full w-full object-contain"
