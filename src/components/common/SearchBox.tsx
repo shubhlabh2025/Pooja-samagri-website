@@ -9,7 +9,7 @@ const SearchBox = ({ products, query }: SearchBoxProps) => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -10 }}
       transition={{ duration: 0.2, ease: "easeInOut" }}
-      className="absolute top-11 left-0 z-11 flex w-full rounded-[12px] bg-[#F8F8F8] px-1 py-2 shadow-lg"
+      className="absolute top-11 left-0 z-11 flex w-full rounded-[12px] bg-[#F8F8F8] px-2  shadow-lg"
     >
       {products.length > 0 ? (
         <ul className="w-full gap-2">
@@ -18,7 +18,7 @@ const SearchBox = ({ products, query }: SearchBoxProps) => {
           ))}
         </ul>
       ) : (
-        <div className="w-full text-center text-gray-500">
+        <div className="w-full text-center text-gray-500 py-3">
           No Result found for "{query}"
         </div>
       )}
