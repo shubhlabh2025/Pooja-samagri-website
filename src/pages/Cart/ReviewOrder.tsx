@@ -36,10 +36,10 @@ const ReviewOrder = ({ cartData }: ReviewOrderProps) => {
                 />
                 <div className="flex min-w-0 flex-col">
                   <p className="line-clamp-2 max-w-fit text-[13px] leading-[17px] font-medium -tracking-[0.33px] break-words text-ellipsis text-[#02060cbf]">
-                    Parrotgreen POP Face Ammavari Stand
+                    {item.variant.name}
                   </p>
                   <p className="line-clamp-1 max-w-fit text-[12px] leading-[16px] font-normal text-ellipsis whitespace-nowrap text-[#02060c73]">
-                    Parrotgreen POP Face Ammavari Stand
+                    {item.variant.name}
                   </p>
                 </div>
               </div>
