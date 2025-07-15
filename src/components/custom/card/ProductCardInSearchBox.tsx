@@ -12,12 +12,13 @@ const ProductCardInSearchBox = ({ product }: ProductCardInSearchBoxProps) => {
 
   return (
     <li
-      className="flex gap-2 cursor-pointer items-center py-2 transition hover:bg-gray-100"
+      className="flex cursor-pointer items-center gap-2 py-2 transition hover:bg-gray-100"
       onClick={() => {
         navigate(`/products/${product.id}`);
       }}
     >
-      <img loading="lazy"
+      <img
+        loading="lazy"
         src={defaultProductVariant.images[0]}
         alt={defaultProductVariant.name}
         className="h-10 w-10 rounded-md object-contain"

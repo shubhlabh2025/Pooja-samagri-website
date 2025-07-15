@@ -50,7 +50,8 @@ const Navbar = () => {
   return (
     <>
       <div className="flex justify-center">
-        <img loading="lazy"
+        <img
+          loading="lazy"
           src={logo}
           alt="Logo"
           className="block h-12 cursor-pointer sm:hidden"
@@ -60,7 +61,8 @@ const Navbar = () => {
         />
       </div>
       <div className="flex items-center gap-2 px-2 py-2 sm:gap-6 sm:px-6 sm:py-0">
-        <img loading="lazy"
+        <img
+          loading="lazy"
           src={logo}
           alt="Logo"
           className="hidden h-18 cursor-pointer py-2 sm:block"

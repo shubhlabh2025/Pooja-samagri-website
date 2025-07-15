@@ -40,7 +40,8 @@ const CategoryList = () => {
               onClick={() => navigate(`/categories/${category.id}`)}
             >
               <div className="rounded-[37.5px] bg-[#fef3f9]">
-                <img loading="lazy"
+                <img
+                  loading="lazy"
                   src={category.image}
                   alt={category.name}
                   className="aspect-square w-[100px] rounded-[37.5px] object-cover"

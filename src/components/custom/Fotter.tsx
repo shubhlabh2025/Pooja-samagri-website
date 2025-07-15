@@ -34,37 +34,67 @@ const Footer = () => {
               target="_blank"
               href="https://youtube.com/@shubhlabhpoojasamagri?si=I_aIGlYx9pk6UrJb"
             >
-              <img loading="lazy" src={youtube} alt="YouTube" className="h-[23px]" />
+              <img
+                loading="lazy"
+                src={youtube}
+                alt="YouTube"
+                className="h-[23px]"
+              />
             </a>
             <a
               className="cursor-pointer"
               target="_blank"
               href="https://www.facebook.com/profile.php?id=61576353127026&ref=_ig_profile_ac"
             >
-              <img loading="lazy" src={facebook} alt="Facebook" className="h-[23px]" />
+              <img
+                loading="lazy"
+                src={facebook}
+                alt="Facebook"
+                className="h-[23px]"
+              />
             </a>
             <a
               className="cursor-pointer"
               target="_blank"
               href="https://www.instagram.com/shubhlabhindia/"
             >
-              <img loading="lazy" src={instagram} alt="Instagram" className="h-[23px]" />
+              <img
+                loading="lazy"
+                src={instagram}
+                alt="Instagram"
+                className="h-[23px]"
+              />
             </a>
             <a
               className="cursor-pointer"
               target="_blank"
               href="https://x.com/Shubhlabhindia"
             >
-              <img loading="lazy" src={twitter} alt="Twitter" className="h-[23px]" />
+              <img
+                loading="lazy"
+                src={twitter}
+                alt="Twitter"
+                className="h-[23px]"
+              />
             </a>
           </div>
         </div>
         <div className="flex gap-5">
           <a className="cursor-pointer" target="_blank">
-            <img loading="lazy" src={appstore} alt="App Store" className="h-10.5" />
+            <img
+              loading="lazy"
+              src={appstore}
+              alt="App Store"
+              className="h-10.5"
+            />
           </a>
           <a className="cursor-pointer" target="_blank">
-            <img loading="lazy" src={playstore} alt="Play Store" className="h-10.5" />
+            <img
+              loading="lazy"
+              src={playstore}
+              alt="Play Store"
+              className="h-10.5"
+            />
           </a>
         </div>
       </div>
@@ -103,14 +133,24 @@ const Footer = () => {
           <p className="text-sm leading-[21px] text-[#666666]">India</p>
         </div>
         <div className="flex items-center justify-center overflow-hidden rounded-md">
-          <img loading="lazy" src={logo} alt="ShubhLabh Logo" className="aspect-square h-21" />
+          <img
+            loading="lazy"
+            src={logo}
+            alt="ShubhLabh Logo"
+            className="aspect-square h-21"
+          />
         </div>
       </div>
       <div className="mt-6 mb-4 border-t border-[#333]"></div>
       <div className="flex flex-col items-center justify-between gap-4 sm:flex-row sm:items-center">
         <div className="flex flex-wrap items-center justify-center gap-4 sm:justify-start">
           <img loading="lazy" src={visa} alt="Visa" className="h-[20px]" />
-          <img loading="lazy" src={mastercart} alt="MasterCard" className="h-[20px]" />
+          <img
+            loading="lazy"
+            src={mastercart}
+            alt="MasterCard"
+            className="h-[20px]"
+          />
           <img loading="lazy" src={rupay} alt="RuPay" className="h-[45px]" />
           <img loading="lazy" src={upi} alt="UPI" className="h-[27px]" />
           <img loading="lazy" src={paytm} alt="Paytm" className="h-[45px]" />

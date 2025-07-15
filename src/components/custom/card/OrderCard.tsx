@@ -99,7 +99,8 @@ const OrderCard = ({ order }: { order: OrderDetail }) => {
                 className="flex items-center justify-center rounded-[4px] border border-[#d4d4d4] p-1"
                 key={index}
               >
-                <img loading="lazy"
+                <img
+                  loading="lazy"
                   src={item.product_variant.images[0]}
                   alt={`Product ${index + 1}`}
                   className="h-9 w-9 rounded-lg object-cover"

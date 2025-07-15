@@ -34,7 +34,8 @@ const ReviewOrder = ({ cartData }: ReviewOrderProps) => {
                 className="flex min-w-0 gap-3"
                 onClick={() => navigate(`/products/${item.variant.product_id}`)}
               >
-                <img loading="lazy"
+                <img
+                  loading="lazy"
                   src={item.variant.images[0]}
                   alt="Product"
                   className="aspect-square w-[50px] rounded-lg"

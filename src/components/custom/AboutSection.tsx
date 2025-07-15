@@ -32,7 +32,8 @@ const AboutSection = () => {
             </p>
           </div>
           <div>
-            <img loading="lazy"
+            <img
+              loading="lazy"
               src={thunder}
               alt="Thunder"
               className="w- aspect-square h-20"
@@ -55,7 +56,8 @@ const AboutSection = () => {
                 <p className="text-2xl leading-6.5 text-[#1f7a57]">
                   Simplicity
                 </p>
-                <img loading="lazy"
+                <img
+                  loading="lazy"
                   src={valuesCard1}
                   alt="Values Card 1"
                   className="h-[50px] max-w-200"
@@ -71,7 +73,8 @@ const AboutSection = () => {
               </p>
               <div className="flex items-end justify-between">
                 <p className="text-2xl leading-6.5 text-[#A54b74]">Speed</p>
-                <img loading="lazy"
+                <img
+                  loading="lazy"
                   src={valuesCard2}
                   alt="Values Card 1"
                   className="h-[50px] max-w-200"
@@ -87,7 +90,8 @@ const AboutSection = () => {
               </p>
               <div className="flex items-end justify-between">
                 <p className="text-2xl leading-6.5 text-[#B74d18]">Soundness</p>
-                <img loading="lazy"
+                <img
+                  loading="lazy"
                   src={valuesCard3}
                   alt="Values Card 1"
                   className="h-[50px] max-w-200"

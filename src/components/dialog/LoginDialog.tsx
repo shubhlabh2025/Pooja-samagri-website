@@ -122,7 +122,8 @@ const LoginDialog = () => {
         >
           <div className="flex flex-col">
             <div className="w-full">
-              <img loading="lazy"
+              <img
+                loading="lazy"
                 className="relative aspect-square h-[325px] w-full"
                 src={loginModalImage}
                 alt=""

@@ -68,7 +68,8 @@ const OrderDetailMainCard = ({ orderDetails }: OrderDetailMainCardProps) => {
           <div className="flex items-center">
             <div className="flex -space-x-4">
               {orderDetails.order_items.slice(0, 3).map((item, index) => (
-                <img loading="lazy"
+                <img
+                  loading="lazy"
                   key={index}
                   src={item.product_variant.images[0]}
                   alt={item.product_variant.name}

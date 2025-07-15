@@ -103,7 +103,8 @@ const ProductDetailsScreen: React.FC = () => {
           <div className="space-y-4">
             <div className="group relative">
               <div className="mt-4 flex flex-col items-center justify-center md:order-1">
-                <img loading="lazy"
+                <img
+                  loading="lazy"
                   src={
                     selectedVariant.images?.[selectedImageIndex] ||
                     selectedVariant.images?.[0] ||
@@ -126,7 +127,8 @@ const ProductDetailsScreen: React.FC = () => {
                       : "hover:scale-105 hover:shadow-md"
                   }`}
                 >
-                  <img loading="lazy"
+                  <img
+                    loading="lazy"
                     src={image}
                     alt={`Thumbnail ${index + 1}`}
                     className="h-full w-full object-cover"

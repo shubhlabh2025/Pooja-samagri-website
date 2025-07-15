@@ -3,7 +3,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 export function CartSkeleton() {
   return (
     <div className="min-h-screen bg-[#f7f7f9] p-4">
-      <div className="mx-auto grid  grid-cols-1 gap-6 lg:grid-cols-3">
+      <div className="mx-auto grid grid-cols-1 gap-6 lg:grid-cols-3">
         {/* Left Section: Review Your Order */}
         <div className="space-y-4 lg:col-span-2">
           <div className="rounded-lg bg-white p-4">

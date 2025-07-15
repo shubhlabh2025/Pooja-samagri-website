@@ -19,7 +19,8 @@ const TextWithIcons: React.FC<LoginMenuProps> = ({
       onClick={onClick}
     >
       {image ? (
-        <img loading="lazy"
+        <img
+          loading="lazy"
           src={image}
           alt="User"
           className="h-5 w-5 flex-shrink-0 rounded-full object-cover"

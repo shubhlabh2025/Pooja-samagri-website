@@ -20,7 +20,8 @@ const OrderItemSummaryCard = ({ orderDetails }: OrderDetailMainCardProps) => {
             className="flex items-center justify-between px-4 py-2 transition-colors duration-200 ease-in-out hover:bg-slate-50"
           >
             <div className="flex items-center gap-4">
-              <img loading="lazy"
+              <img
+                loading="lazy"
                 src={item.product_variant.images[0]}
                 alt={item.product_variant.name}
                 className="h-12 w-12 flex-shrink-0 rounded-md object-cover"

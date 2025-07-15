@@ -92,7 +92,8 @@ const Coupons = ({
               <div className="flex flex-col gap-3">
                 <div className="flex justify-between">
                   <div className="flex items-center gap-2">
-                    <img loading="lazy"
+                    <img
+                      loading="lazy"
                       src={
                         coupon.discount_type == "percentage"
                           ? percentageIcon

@@ -50,7 +50,8 @@ const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
             </div>
           </div>
         )}
-        <img loading="lazy"
+        <img
+          loading="lazy"
           src={defaultProductVariant.images[0]}
           alt={defaultProductVariant.name}
           className="h-full w-full rounded-[12px] object-contain"

@@ -51,7 +51,8 @@ const CategoriesScreen = () => {
             className="group relative overflow-hidden rounded-lg shadow-sm"
             onClick={() => navigate(`/categories/${cat.id}`)}
           >
-            <img loading="lazy"
+            <img
+              loading="lazy"
               src={cat.image}
               alt={cat.name}
               className="h-40 w-full object-cover md:h-60"
