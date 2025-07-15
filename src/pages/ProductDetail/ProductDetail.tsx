@@ -13,7 +13,8 @@ import type {
 } from "@/features/product/productAPI.type";
 import { Star, Truck, Shield, RotateCcw } from "lucide-react";
 import { useState, useEffect, useMemo } from "react";
-import { useNavigate, useParams } from "react-router";
+import { useParams } from "react-router";
+import ProductItem from "../Home/ProductItem";
 
 // Type definitions
 
@@ -27,7 +28,6 @@ const ProductDetailsScreen: React.FC = () => {
   );
 
   const { productId = "" } = useParams<{ productId: string }>();
-  const navigate = useNavigate();
 
   const {
     data: productResponse,
@@ -240,36 +240,7 @@ const ProductDetailsScreen: React.FC = () => {
               ?.flatMap((page) => page.data)
               .filter((product) => product.id !== productData.id)
               .map((product) => (
-                <div
-                  key={product.id}
-                  className="group cursor-pointer"
-                  onClick={() => {
-                    navigate(`/products/${product.id}`);
-                  }}
-                >
-                  <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-all duration-300 hover:scale-105 hover:shadow-xl">
-                    <div className="aspect-square overflow-hidden bg-gradient-to-br from-blue-50 to-orange-50">
-                      <img
-                        src={product.product_variants?.[0].images[0]}
-                        alt={product.product_variants?.[0].name}
-                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                      />
-                    </div>
-                    <div className="space-y-2 p-4">
-                      <h3 className="line-clamp-2 text-sm font-semibold text-gray-900">
-                        {product.product_variants?.[0].brand_name}
-                      </h3>
-                      <div className="flex items-center gap-2">
-                        <span className="font-bold text-gray-900">
-                          ₹{product.product_variants?.[0].price}
-                        </span>
-                        <span className="text-sm text-gray-400 line-through">
-                          ₹{product.product_variants?.[0].mrp}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <ProductItem key={product.id} product={product} />
               ))}
           </div>
         </div>
