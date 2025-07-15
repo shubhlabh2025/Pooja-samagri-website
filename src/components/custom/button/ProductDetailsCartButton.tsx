@@ -80,10 +80,10 @@ const AddToCartCounter = ({ productVariant }: AddToCartCounterProps) => {
       Add to Cart
     </button>
   ) : (
-    <div className="flex h-fit w-full items-center justify-between rounded-[8px] border border-[#02060c26] p-0 lg:mr-8 lg:ml-8">
+    <div className="flex h-fit w-full items-center justify-between rounded-full border border-[#02060c26] p-0 lg:mr-8 lg:ml-8">
       <Button
         variant="outline"
-        className="h-fit cursor-pointer rounded-l-[8px] rounded-r-none border-none px-2 py-1.5 leading-[1.125rem] font-semibold tracking-[-0.35px] text-orange-500 shadow-none transition-colors duration-150 group-hover:bg-inherit hover:bg-[#02060c26] hover:text-orange-500"
+        className="h-fit cursor-pointer rounded-l-full rounded-r-none border-none px-4 py-3 leading-[1.125rem] font-semibold tracking-[-0.35px] text-orange-500 shadow-none transition-colors duration-150 group-hover:bg-inherit hover:bg-[#02060c26] hover:text-orange-500"
         onClick={() => {
           handleDecreaseProductQantity(productVariant.id);
         }}
@@ -92,14 +92,14 @@ const AddToCartCounter = ({ productVariant }: AddToCartCounterProps) => {
       </Button>
 
       <div className="group flex flex-1 justify-center hover:bg-[#02060c26]">
-        <p className="cursor-default px-2 py-1.5 text-sm leading-[1.125rem] font-semibold tracking-[0.35px] text-orange-500 shadow-none">
+        <p className="cursor-default px-3 py-3 text-sm leading-[1.125rem] font-semibold tracking-[0.35px] text-orange-500 shadow-none">
           {quantity}
         </p>
       </div>
 
       <Button
         variant="outline"
-        className="h-fit cursor-pointer rounded-l-none rounded-r-[8px] border-none px-2 py-1.5 leading-[1.125rem] font-semibold tracking-[-0.35px] text-orange-500 transition-colors duration-150 group-hover:bg-inherit hover:bg-[#02060c26] hover:text-orange-500"
+        className="h-fit cursor-pointer rounded-l-none rounded-r-full border-none px-4 py-3 leading-[1.125rem] font-semibold tracking-[-0.35px] text-orange-500 transition-colors duration-150 group-hover:bg-inherit hover:bg-[#02060c26] hover:text-orange-500"
         onClick={() => {
           handleIncreaseProductQantity(productVariant.id);
         }}
