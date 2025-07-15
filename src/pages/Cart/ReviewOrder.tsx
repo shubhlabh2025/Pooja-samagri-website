@@ -34,11 +34,11 @@ const ReviewOrder = ({ cartData }: ReviewOrderProps) => {
                   alt="Product"
                   className="aspect-square w-[50px] rounded-lg"
                 />
-                <div className="w-full min-w-20">
-                  <p className="line-clamp-2 text-[13px] leading-[17px] font-medium -tracking-[0.33px] text-[#02060cbf]">
+                <div className="flex min-w-0 flex-col">
+                  <p className="line-clamp-2 max-w-fit text-[13px] leading-[17px] font-medium -tracking-[0.33px] break-words text-ellipsis text-[#02060cbf]">
                     {item.variant.name}
                   </p>
-                  <p className="text-[12px] leading-[16px] font-normal whitespace-nowrap text-[#02060c73]">
+                  <p className="line-clamp-1 max-w-fit text-[12px] leading-[16px] font-normal text-ellipsis whitespace-nowrap text-[#02060c73]">
                     {item.variant.name}
                   </p>
                 </div>
