@@ -3,8 +3,10 @@ import type { CartItem } from "@/features/cart/cartAPI.type";
 import type { ReviewOrderProps } from "@/interfaces/cart";
 import CurrentlyUnavailable from "./CurrentlyUnavailable";
 import { useRemoveCartItemMutation } from "@/features/cart/cartAPI";
+import { useNavigate } from "react-router";
 
 const ReviewOrder = ({ cartData }: ReviewOrderProps) => {
+  const navigate = useNavigate();
   const [
     removeCartItem,
     // { isLoading: removeCartItemLoading, isError: removeCartItemError },
@@ -26,9 +28,14 @@ const ReviewOrder = ({ cartData }: ReviewOrderProps) => {
           {availableItems.map((item: CartItem) => (
             <div
               key={item.product_variant_id}
-              className="flex items-center justify-between gap-3"
+              className="flex cursor-pointer items-center justify-between gap-3"
             >
-              <div className="flex min-w-0 gap-3">
+              <div
+                className="flex min-w-0 gap-3"
+                onClick={() =>
+                  navigate(`../products/${item.variant.product_id}`)
+                }
+              >
                 <img
                   src={item.variant.images[0]}
                   alt="Product"

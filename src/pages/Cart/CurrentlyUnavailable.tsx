@@ -1,11 +1,14 @@
 import type { CartItem } from "@/features/cart/cartAPI.type";
 import type { CurrentlyUnavailableProps } from "@/interfaces/cart";
 import { Trash2 } from "lucide-react";
+import { useNavigate } from "react-router";
 
 const CurrentlyUnavailable = ({
   cartData,
   handleRemoveItem,
 }: CurrentlyUnavailableProps) => {
+  const navigate = useNavigate();
+
   return (
     <div className="shadow-cart-card mb-1 flex w-full flex-col gap-3 rounded-lg bg-white p-3">
       <div className="flex flex-col gap-3">
@@ -20,7 +23,10 @@ const CurrentlyUnavailable = ({
             key={item.product_variant_id}
             className="flex items-center justify-between gap-3"
           >
-            <div className="flex gap-3">
+            <div
+              className="flex gap-3"
+              onClick={() => navigate(`../products/${item.variant.product_id}`)}
+            >
               <img
                 src={item.variant.images[0]}
                 alt="Product"
