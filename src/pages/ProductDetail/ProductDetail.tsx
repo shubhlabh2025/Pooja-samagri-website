@@ -116,7 +116,7 @@ const ProductDetailsScreen: React.FC = () => {
               </div>
             </div>
 
-            <div className="flex gap-3">
+            <div className="flex gap-3 md:order-2">
               {selectedVariant.images.map((image, index) => (
                 <button
                   key={index}
@@ -136,7 +136,8 @@ const ProductDetailsScreen: React.FC = () => {
                 </button>
               ))}
             </div>
-            <div className="grid grid-cols-3 gap-4">
+
+            <div className="hidden grid-cols-3 gap-4 md:order-4 md:grid">
               <div className="rounded-2xl border border-gray-100 bg-white p-4 text-center shadow-sm">
                 <Truck className="mx-auto mb-2 text-blue-500" size={24} />
                 <p className="text-sm text-gray-600">3 Days Delivery</p>
@@ -152,7 +153,7 @@ const ProductDetailsScreen: React.FC = () => {
             </div>
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y-6 md:order-3">
             {/* Title & Brand */}
             <div className="space-y-2">
               <h1 className="text-xl leading-tight font-bold text-gray-900">
@@ -233,7 +234,21 @@ const ProductDetailsScreen: React.FC = () => {
             {/* Features */}
           </div>
         </div>
-        <div className="mt-16">
+        <div className="grid grid-cols-3 gap-4 md:order-4 pt-8">
+          <div className="rounded-2xl border border-gray-100 bg-white p-4 text-center shadow-sm">
+            <Truck className="mx-auto mb-2 text-blue-500" size={24} />
+            <p className="text-sm text-gray-600">3 Days Delivery</p>
+          </div>
+          <div className="rounded-2xl border border-gray-100 bg-white p-4 text-center shadow-sm">
+            <Shield className="mx-auto mb-2 text-green-500" size={24} />
+            <p className="text-sm text-gray-600">Quality Assured</p>
+          </div>
+          <div className="rounded-2xl border border-gray-100 bg-white p-4 text-center shadow-sm">
+            <RotateCcw className="mx-auto mb-2 text-purple-500" size={24} />
+            <p className="text-sm text-gray-600">Easy Returns</p>
+          </div>
+        </div>
+        <div className="mt-8 md:order-5">
           <h2 className="mb-8 text-3xl font-bold text-gray-900">
             You might also like
           </h2>
