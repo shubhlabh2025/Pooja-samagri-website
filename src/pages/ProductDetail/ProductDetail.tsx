@@ -198,7 +198,7 @@ const ProductDetailsScreen: React.FC = () => {
             </div>
 
             {/* Description */}
-            <div className="rounded-2xl border border-blue-100 bg-gradient-to-r from-blue-50 to-indigo-50 p-6">
+            <div className="hidden rounded-2xl border border-blue-100 bg-gradient-to-r from-blue-50 to-indigo-50 p-6 md:block">
               <p className="leading-relaxed text-gray-700">
                 {selectedVariant.description}
               </p>
@@ -231,10 +231,16 @@ const ProductDetailsScreen: React.FC = () => {
               <ProductDetailsCartButton productVariant={selectedVariant} />
             </div>
 
+            <div className="rounded-2xl border border-blue-100 bg-gradient-to-r from-blue-50 to-indigo-50 p-6 md:hidden">
+              <p className="leading-relaxed text-gray-700">
+                {selectedVariant.description}
+              </p>
+            </div>
+
             {/* Features */}
           </div>
         </div>
-        <div className="grid grid-cols-3 gap-4 md:order-4 pt-8">
+        <div className="grid grid-cols-3 gap-4 pt-8 md:order-4">
           <div className="rounded-2xl border border-gray-100 bg-white p-4 text-center shadow-sm">
             <Truck className="mx-auto mb-2 text-blue-500" size={24} />
             <p className="text-sm text-gray-600">3 Days Delivery</p>
