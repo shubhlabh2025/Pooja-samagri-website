@@ -88,8 +88,8 @@ const ProductDetailsScreen: React.FC = () => {
     return Math.round(((mrp - price) / mrp) * 100);
   };
 
-  if (isLoading) return <ProductDetailsSkeleton />;
-  if (isError || !selectedVariant) return <ErrorScreen />;
+  if (isLoading || !selectedVariant) return <ProductDetailsSkeleton />;
+  if (isError) return <ErrorScreen />;
 
   return (
     <div className="relative min-h-screen overflow-auto bg-gradient-to-br to-white">
@@ -240,7 +240,7 @@ const ProductDetailsScreen: React.FC = () => {
             {/* Features */}
           </div>
         </div>
-        <div className="grid grid-cols-3 gap-4 pt-8 md:order-4">
+        <div className="grid grid-cols-3 gap-4 pt-8 md:order-4 md:hidden">
           <div className="rounded-2xl border border-gray-100 bg-white p-4 text-center shadow-sm">
             <Truck className="mx-auto mb-2 text-blue-500" size={24} />
             <p className="text-sm text-gray-600">3 Days Delivery</p>
