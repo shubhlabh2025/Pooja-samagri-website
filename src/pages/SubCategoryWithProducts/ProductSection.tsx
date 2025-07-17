@@ -75,7 +75,7 @@ const ProductSection = ({
       <div className="mb-3.5 line-clamp-1 min-h-[34px] w-full overflow-hidden px-3 pt-4 text-sm leading-4.5 font-normal tracking-[-0.35px] break-words text-[#02060cbf]">
         <span className="font-bold">{totalProuducts} items</span> found
       </div>
-      <div className="hide-scrollbar flex max-h-full flex-wrap justify-start overflow-y-auto">
+      <div className="flex max-h-full flex-wrap justify-start overflow-y-auto">
         {productData.map((product) => (
           <ProductItem2 key={product.id} item={product} />
         ))}

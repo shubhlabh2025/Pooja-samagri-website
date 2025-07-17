@@ -33,7 +33,7 @@ const Home = () => {
   if (topFiveCategoryError) return <ErrorScreen />;
 
   return (
-    <div className="hide-scrollbar overflow-auto">
+    <div className="overflow-auto">
       <CategoryList />
       <BannerCarousel
         adBanner={config.data?.data.ad_banners || []}

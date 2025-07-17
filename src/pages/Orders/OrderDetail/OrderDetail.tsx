@@ -37,7 +37,7 @@ const OrderDetail = () => {
       ) : isError || orderDetails.data == null ? (
         <ErrorScreen />
       ) : (
-        <div className="hide-scrollbar flex h-full max-h-full w-full flex-1 flex-col gap-4 overflow-scroll px-4 py-6 sm:flex-row sm:px-8">
+        <div className="flex h-full max-h-full w-full flex-1 flex-col gap-4 overflow-scroll px-4 py-6 sm:flex-row sm:px-8">
           <div className="flex w-full flex-col gap-4 sm:flex-7">
             <OrderDetailMainCard orderDetails={orderDetails.data} />
             <OrderItemSummaryCard orderDetails={orderDetails.data} />

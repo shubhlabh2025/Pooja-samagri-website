@@ -13,7 +13,7 @@ const OrderItemSummaryCard = ({ orderDetails }: OrderDetailMainCardProps) => {
           )}
         </p>
       </div>
-      <div className="hide-scrollbar flex flex-col divide-y divide-slate-200 overflow-y-auto rounded-b-[12px] border-x border-b border-slate-200 bg-white">
+      <div className="flex flex-col divide-y divide-slate-200 overflow-y-auto rounded-b-[12px] border-x border-b border-slate-200 bg-white">
         {orderDetails.order_items.map((item, index) => (
           <div
             key={index}

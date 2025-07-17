@@ -20,6 +20,15 @@ const PaymentSummaryCard = ({ orderDetails }: OrderDetailMainCardProps) => {
     <div className="flex flex-col rounded-[12px] bg-white pb-4">
       <div className="flex justify-between border-b border-[#E9E9EB] px-4 pt-3 pb-2">
         <p className="text-[16px] text-[#02060c73]">Payment Details</p>
+        {orderDetails.payment_details.method && (
+          <p className="text-[16px] text-[#02060c73]">
+            Method:{" "}
+            <span className="font-medium text-black">
+              {orderDetails.payment_details.method.charAt(0).toUpperCase() +
+                orderDetails.payment_details.method.slice(1)}
+            </span>
+          </p>
+        )}
       </div>
       <div className="flex w-full flex-col gap-2 bg-white px-4 pt-3">
         <div className="flex items-center justify-between">
@@ -68,9 +77,9 @@ const PaymentSummaryCard = ({ orderDetails }: OrderDetailMainCardProps) => {
         )}
         <div className="my-2 border-t border-dashed border-[#02060c26]" />
 
-        <div className="flex items-center justify-between">
+        <div className="flex w-full items-center justify-between">
           {orderDetails.order_charges.map(({ name, amount }, idx) => (
-            <div key={idx}>
+            <div key={idx} className="flex w-full justify-between">
               <p className="line-clamp-1 text-sm leading-4.5 font-extralight -tracking-[0.35px] text-[#02060c99]">
                 {name}
               </p>
