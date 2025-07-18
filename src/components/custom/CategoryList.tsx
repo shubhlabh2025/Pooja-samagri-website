@@ -18,7 +18,7 @@ const CategoryList = () => {
     <>
       <div className="flex items-center gap-3 px-4 py-5">
         <p className="text-lg leading-4 font-medium break-words whitespace-nowrap text-[#02060cbf]">
-          Top Collections
+          Shop By Category
         </p>
         <div className="h-[1px] flex-1 [background:var(--bg-categroy-line)]"></div>
         <div
