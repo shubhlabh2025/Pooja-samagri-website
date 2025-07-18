@@ -114,11 +114,11 @@ const SubCategoriesWithProductScreen = () => {
           />
         </ul>
       </div>
-      <div className="flex flex-col gap-1 overflow-scroll">
+      <div className="flex w-full flex-col gap-1 overflow-scroll">
         {categoryBanners.length > 0 && (
           <BannerCarousel adBanner={categoryBanners} type="category" />
         )}
-        <div className="shadow-subcategory-screen rounded-tl-lg bg-white">
+        <div className="shadow-subcategory-screen w-full flex-1 rounded-tl-lg bg-white">
           <ProductSection
             productData={allProducts}
             totalProuducts={totalProducts}

@@ -34,7 +34,7 @@ const SubCategorySideBar = ({
             loading="lazy"
             src={categoryData.image}
             alt={categoryData.name}
-            className={`aspect-[100/109] h-fit w-9 origin-bottom rounded-[8px] transition-transform duration-300 ease-out sm:w-11 ${
+            className={`aspect-[100/109] h-fit w-9 min-w-9 origin-bottom rounded-[8px] transition-transform duration-300 ease-out sm:w-11 sm:min-w-11 ${
               isCategorySelected ? "scale-[1.3]" : "scale-100"
             }`}
           />
@@ -71,7 +71,7 @@ const SubCategorySideBar = ({
                 loading="lazy"
                 src={subCategory.image}
                 alt={subCategory.name}
-                className={`aspect-[100/109] h-fit w-9 origin-bottom rounded-[8px] transition-transform duration-300 ease-out sm:w-11 ${
+                className={`aspect-[100/109] h-fit w-9 min-w-9 origin-bottom rounded-[8px] transition-transform duration-300 ease-out sm:w-11 sm:min-w-11 ${
                   isSelected ? "scale-[1.3]" : "scale-100"
                 }`}
               />
