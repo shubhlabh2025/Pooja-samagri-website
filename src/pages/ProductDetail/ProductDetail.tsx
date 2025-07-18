@@ -11,10 +11,11 @@ import type {
   Product,
   ProductVariant,
 } from "@/features/product/productAPI.type";
-import { Star, Truck, Shield, RotateCcw } from "lucide-react";
+import { Star, Truck, Shield, RotateCcw, Share2 } from "lucide-react";
 import { useState, useEffect, useMemo } from "react";
 import { useParams } from "react-router";
 import ProductItem from "../Home/ProductItem";
+import { ShareDrawer } from "@/components/common/ShareDrawer";
 
 // Type definitions
 
@@ -87,9 +88,53 @@ const ProductDetailsScreen: React.FC = () => {
     if (!mrp || !price || mrp <= price) return 0;
     return Math.round(((mrp - price) / mrp) * 100);
   };
+  const [showShareOptions, setShowShareOptions] = useState(false);
 
-  if (isLoading) return <ProductDetailsSkeleton />;
-  if (isError || !selectedVariant) return <ErrorScreen />;
+  const handleShare = () => {
+    setShowShareOptions(true);
+  };
+
+  const handleShareAction = (platform: string) => {
+    const productLink = `https://shubhlabhpoojasamagri.com/products/${productId}`;
+    const encodedLink = encodeURIComponent(productLink);
+    const message = encodeURIComponent("Check out this product!");
+
+    let appUrl = "";
+    let fallbackUrl = "";
+
+    if (platform === "facebook") {
+      appUrl = `fb://facewebmodal/f?href=${productLink}`;
+      fallbackUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedLink}`;
+    } else if (platform === "whatsapp") {
+      appUrl = `whatsapp://send?text=${message}%20${productLink}`;
+      fallbackUrl = `https://wa.me/?text=${message}%20${encodedLink}`;
+    } else if (platform === "gmail") {
+      // Gmail doesn't support custom URL schemes directly, so fallback only
+      fallbackUrl = `https://mail.google.com/mail/?view=cm&fs=1&body=${encodedLink}`;
+    }
+
+    // Try to open the app URL first (on mobile)
+    if (/Mobi|Android/i.test(navigator.userAgent) && appUrl) {
+      const iframe = document.createElement("iframe");
+      iframe.style.display = "none";
+      iframe.src = appUrl;
+      document.body.appendChild(iframe);
+
+      // After a delay, fallback to the web URL
+      setTimeout(() => {
+        window.open(fallbackUrl, "_blank");
+        document.body.removeChild(iframe);
+      }, 1000); // 1s timeout for app open
+    } else {
+      // Desktop fallback
+      window.open(fallbackUrl, "_blank");
+    }
+
+    setShowShareOptions(false);
+  };
+
+  if (isLoading || !selectedVariant) return <ProductDetailsSkeleton />;
+  if (isError) return <ErrorScreen />;
 
   return (
     <div className="relative min-h-screen overflow-auto bg-gradient-to-br to-white">
@@ -116,7 +161,7 @@ const ProductDetailsScreen: React.FC = () => {
               </div>
             </div>
 
-            <div className="flex gap-3">
+            <div className="flex gap-3 md:order-2">
               {selectedVariant.images.map((image, index) => (
                 <button
                   key={index}
@@ -136,7 +181,8 @@ const ProductDetailsScreen: React.FC = () => {
                 </button>
               ))}
             </div>
-            <div className="grid grid-cols-3 gap-4">
+
+            <div className="hidden grid-cols-3 gap-4 md:order-4 md:grid">
               <div className="rounded-2xl border border-gray-100 bg-white p-4 text-center shadow-sm">
                 <Truck className="mx-auto mb-2 text-blue-500" size={24} />
                 <p className="text-sm text-gray-600">3 Days Delivery</p>
@@ -152,12 +198,22 @@ const ProductDetailsScreen: React.FC = () => {
             </div>
           </div>
 
-          <div className="space-y-6">
+          <div className="flex flex-col space-y-6 md:order-3">
             {/* Title & Brand */}
-            <div className="space-y-2">
-              <h1 className="text-xl leading-tight font-bold text-gray-900">
-                {selectedVariant.name}
-              </h1>
+            <div className="flex flex-col space-y-2">
+              <div className="flex justify-between">
+                <h1 className="text-xl leading-tight font-bold text-gray-900">
+                  {selectedVariant.name}
+                </h1>
+                <Share2 onClick={handleShare} />
+                {showShareOptions && (
+                  <ShareDrawer
+                    onClose={() => setShowShareOptions(false)}
+                    onShare={handleShareAction}
+                  />
+                )}
+              </div>
+
               <p className="text-xl font-medium text-gray-600">
                 {selectedVariant.brand_name}
               </p>
@@ -197,7 +253,7 @@ const ProductDetailsScreen: React.FC = () => {
             </div>
 
             {/* Description */}
-            <div className="rounded-2xl border border-blue-100 bg-gradient-to-r from-blue-50 to-indigo-50 p-6">
+            <div className="hidden rounded-2xl border border-blue-100 bg-gradient-to-r from-blue-50 to-indigo-50 p-6 md:block">
               <p className="leading-relaxed text-gray-700">
                 {selectedVariant.description}
               </p>
@@ -230,10 +286,30 @@ const ProductDetailsScreen: React.FC = () => {
               <ProductDetailsCartButton productVariant={selectedVariant} />
             </div>
 
+            <div className="rounded-2xl border border-blue-100 bg-gradient-to-r from-blue-50 to-indigo-50 p-6 md:hidden">
+              <p className="leading-relaxed text-gray-700">
+                {selectedVariant.description}
+              </p>
+            </div>
+
             {/* Features */}
           </div>
         </div>
-        <div className="mt-16">
+        <div className="grid grid-cols-3 gap-4 pt-8 md:order-4 md:hidden">
+          <div className="rounded-2xl border border-gray-100 bg-white p-4 text-center shadow-sm">
+            <Truck className="mx-auto mb-2 text-blue-500" size={24} />
+            <p className="text-sm text-gray-600">3 Days Delivery</p>
+          </div>
+          <div className="rounded-2xl border border-gray-100 bg-white p-4 text-center shadow-sm">
+            <Shield className="mx-auto mb-2 text-green-500" size={24} />
+            <p className="text-sm text-gray-600">Quality Assured</p>
+          </div>
+          <div className="rounded-2xl border border-gray-100 bg-white p-4 text-center shadow-sm">
+            <RotateCcw className="mx-auto mb-2 text-purple-500" size={24} />
+            <p className="text-sm text-gray-600">Easy Returns</p>
+          </div>
+        </div>
+        <div className="mt-8 md:order-5">
           <h2 className="mb-8 text-3xl font-bold text-gray-900">
             You might also like
           </h2>

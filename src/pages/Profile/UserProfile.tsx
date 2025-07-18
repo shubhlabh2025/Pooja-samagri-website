@@ -80,7 +80,7 @@ const UserProfilePage: React.FC = () => {
         {renderSidebar()}
 
         <main className="ml-[10%] h-[calc(100vh-60px)] max-h-full w-full overflow-y-auto p-6 md:ml-0 md:pl-10">
-          <div className="hide-scrollbar mx-auto max-h-full overflow-y-auto rounded-lg bg-white p-6 shadow">
+          <div className="mx-auto max-h-full overflow-y-auto rounded-lg bg-white p-6 shadow">
             {activeTab === "profile" && (
               <>
                 <ConfirmationDialog

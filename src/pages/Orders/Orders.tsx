@@ -72,7 +72,7 @@ const Orders = () => {
     <div className="flex h-full flex-col bg-[#f0f0f5]">
       <SimpleNavBar navBarText="Your Orders" />
 
-      <div className="hide-scrollbar flex h-full max-h-full flex-1 flex-col gap-4 overflow-scroll px-4 py-6 sm:px-8">
+      <div className="flex h-full max-h-full flex-1 flex-col gap-4 overflow-scroll px-4 py-6 sm:px-8">
         {allOrders.map((order) => (
           <OrderCard key={order.id} order={order} />
         ))}

@@ -71,7 +71,7 @@ const Coupons = ({
           </div>
         )}
         <div
-          className={`hide-scrollbar overflow-y-auto transition-all duration-300 ease-in-out ${
+          className={`overflow-y-auto transition-all duration-300 ease-in-out ${
             isExpanded
               ? "mt-4 max-h-80 scale-100 p-3 opacity-100"
               : "max-h-0 scale-95 opacity-0"

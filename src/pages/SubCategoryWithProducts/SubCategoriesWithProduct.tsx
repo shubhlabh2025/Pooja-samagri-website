@@ -92,7 +92,7 @@ const SubCategoriesWithProductScreen = () => {
             </div>
           </div>
         </div>
-        <ul className="hide-scrollbar flex flex-1 flex-col items-center gap-6 overflow-y-auto py-6">
+        <ul className="flex flex-1 flex-col items-center gap-6 overflow-y-auto py-6">
           <SubCategorySideBar
             selectedCategoryId={selectedCategoryId}
             categoryData={categoryData.data}

@@ -302,7 +302,7 @@ const Cart = () => {
           </div>
         </div>
 
-        <div className="hide-scrollbar flex-1 overflow-y-auto bg-[#f0f0f5] p-4">
+        <div className="flex-1 overflow-y-auto bg-[#f0f0f5] p-4">
           <div className="flex flex-col justify-between gap-4 sm:flex-row">
             <div className="flex flex-6 flex-col gap-3">
               <div className="flex flex-col gap-3">

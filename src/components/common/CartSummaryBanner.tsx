@@ -53,7 +53,7 @@ const CartSummaryBanner = () => {
           </div>
 
           {/* Scrollable content */}
-          <div className="hide-scrollbar flex-1 overflow-y-auto px-4 pb-4">
+          <div className="flex-1 overflow-y-auto px-4 pb-4">
             <ReviewOrder cartData={cartData.data} />
           </div>
         </div>
