@@ -1,22 +1,43 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import axiosBaseQuery from "@/api/baseQueryWithAxios";
-import type { SubCategoryResponse } from "./subCategoryAPI.type";
+import type {
+  SubCategoryPageParam,
+  SubCategoryRequestQueryParams,
+  SubCategoryResponse,
+} from "./subCategoryAPI.type";
 
 export const subCategoryAPI = createApi({
   reducerPath: "subCategoryAPI",
   baseQuery: axiosBaseQuery(),
   endpoints: (builder) => ({
-    getSubCategories: builder.query<
+    getSubCategories: builder.infiniteQuery<
       SubCategoryResponse,
-      { parent_ids: string }
+      SubCategoryRequestQueryParams,
+      SubCategoryPageParam
     >({
-      query: ({ parent_ids }) => ({
+      infiniteQueryOptions: {
+        initialPageParam: 1,
+        getNextPageParam: (lastPage, _allPages, lastPageParam) => {
+          if (lastPage.meta.currentPage >= lastPage.meta.totalPages) {
+            return undefined;
+          }
+          return lastPageParam + 1;
+        },
+      },
+      query: ({ queryArg, pageParam }) => ({
         url: "/api/sub-categories",
         method: "GET",
-        params: { parent_ids },
+        params: {
+          page: pageParam,
+          limit: queryArg.limit || 30,
+          parent_ids: queryArg.parent_ids,
+          ...(queryArg.q ? { q: queryArg.q } : {}),
+          ...(queryArg.sort_by ? { sort_by: queryArg.sort_by } : {}),
+          ...(queryArg.sort_order ? { sort_order: queryArg.sort_order } : {}),
+        },
       }),
     }),
   }),
 });
 
-export const { useGetSubCategoriesQuery } = subCategoryAPI;
+export const { useGetSubCategoriesInfiniteQuery } = subCategoryAPI;

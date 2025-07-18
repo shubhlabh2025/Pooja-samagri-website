@@ -34,7 +34,7 @@ const SubCategorySideBar = ({
             loading="lazy"
             src={categoryData.image}
             alt={categoryData.name}
-            className={`aspect-[100/109] h-fit w-11 min-w-11 origin-bottom rounded-[8px] transition-transform duration-300 ease-out ${
+            className={`aspect-[100/109] h-fit w-9 origin-bottom rounded-[8px] transition-transform duration-300 ease-out sm:w-11 ${
               isCategorySelected ? "scale-[1.3]" : "scale-100"
             }`}
           />
@@ -71,7 +71,7 @@ const SubCategorySideBar = ({
                 loading="lazy"
                 src={subCategory.image}
                 alt={subCategory.name}
-                className={`aspect-[100/109] h-fit w-11 min-w-11 origin-bottom rounded-[8px] transition-transform duration-300 ease-out ${
+                className={`aspect-[100/109] h-fit w-9 origin-bottom rounded-[8px] transition-transform duration-300 ease-out sm:w-11 ${
                   isSelected ? "scale-[1.3]" : "scale-100"
                 }`}
               />
@@ -84,7 +84,7 @@ const SubCategorySideBar = ({
               {subCategory.name}
             </div>
             <div
-              className={`absolute top-1/2 left-0 h-[80%] w-1 translate-y-[-50%] rounded-tr-full rounded-br-full bg-[#9e1e62] ${isSelected ? "visible transition-transform duration-300 ease-in" : "invisible transition-none"}`}
+              className={`absolute top-1/2 left-0 h-[80%] w-1 translate-y-[-50%] rounded-tr-full rounded-br-full bg-[#ff5200] ${isSelected ? "visible transition-transform duration-300 ease-in" : "invisible transition-none"}`}
             ></div>
           </li>
         );

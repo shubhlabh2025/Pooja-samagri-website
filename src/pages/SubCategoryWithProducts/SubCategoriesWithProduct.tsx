@@ -1,5 +1,5 @@
 import { useGetProductsInfiniteQuery } from "@/features/product/productAPI";
-import { useGetSubCategoriesQuery } from "@/features/sub-category/subCategoryAPI";
+import { useGetSubCategoriesInfiniteQuery } from "@/features/sub-category/subCategoryAPI";
 import { useNavigate, useParams } from "react-router";
 import SubCategorySideBar from "./SubCategorySideBar";
 import { useGetCategoryByIdQuery } from "@/features/category/categoryAPI";
@@ -34,12 +34,20 @@ const SubCategoriesWithProductScreen = () => {
   const config = useAppSelector(selectConfiguration);
 
   const {
-    data: subCategoryData = {
-      data: [],
+    data: subCategoryInfiniteData = {
+      pages: [{ data: [] }],
     },
     isLoading: subCatLoading,
     isError: subCatError,
-  } = useGetSubCategoriesQuery({ parent_ids: categoryId || "" });
+  } = useGetSubCategoriesInfiniteQuery({
+    parent_ids: categoryId || "",
+    sort_by: "priority",
+    sort_order: "DESC",
+  });
+
+  const subCategoryData = subCategoryInfiniteData.pages.flatMap(
+    (page) => page.data,
+  );
 
   const [selectedCategoryId, setSelectedCategoryId] =
     useState<string>(categoryId);
@@ -75,8 +83,13 @@ const SubCategoriesWithProductScreen = () => {
     return <ErrorScreen />;
   }
 
+  const allBanners = config.data?.data.ad_banners || [];
+  const categoryBanners = allBanners.filter(
+    (banner) => banner.type === "category",
+  );
+
   return (
-    <div className="flex h-full gap-1.5 bg-[#f0f0f5] pt-1">
+    <div className="flex h-full gap-1 bg-[#f0f0f5] pt-1">
       <div className="shadow-subcategory-screen flex h-full max-h-full max-w-[250px] flex-8 flex-col rounded-tr-lg bg-white">
         <div className="flex min-h-[40px] items-center gap-3 border-b border-[#282c3f0d] px-3 pt-4 pb-[12px] text-[#02060cbf]">
           <ChevronLeft
@@ -96,18 +109,16 @@ const SubCategoriesWithProductScreen = () => {
           <SubCategorySideBar
             selectedCategoryId={selectedCategoryId}
             categoryData={categoryData.data}
-            subCategoryData={subCategoryData.data}
+            subCategoryData={subCategoryData}
             handleUpdateCategory={handleUpdateCategory}
           />
         </ul>
       </div>
       <div className="flex flex-col gap-1 overflow-scroll">
-        <BannerCarousel
-          adBanner={config.data?.data.ad_banners || []}
-          type="category"
-        />
-
-        <div className="shadow-subcategory-screen rounded-tl-lg bg-white pr-1">
+        {categoryBanners.length > 0 && (
+          <BannerCarousel adBanner={categoryBanners} type="category" />
+        )}
+        <div className="shadow-subcategory-screen rounded-tl-lg bg-white">
           <ProductSection
             productData={allProducts}
             totalProuducts={totalProducts}
