@@ -7,9 +7,6 @@ import EmptyScreen from "@/components/custom/EmptyScreen";
 import NoProductFoundIcon from "../../assets/no_products.png";
 
 import { useNavigate } from "react-router";
-import BannerCarousel from "@/components/custom/BannerCarousel";
-import { useAppSelector } from "@/app/hooks";
-import { selectConfiguration } from "@/features/configuration/configurationSlice";
 
 const ProductSection = ({
   productData,
@@ -19,7 +16,6 @@ const ProductSection = ({
   isLoadingMore = false,
 }: ProductSectionProps) => {
   const observerRef = useRef<IntersectionObserver | null>(null);
-  const config = useAppSelector(selectConfiguration);
 
   const navigate = useNavigate();
   const loadingRef = useCallback(
@@ -66,16 +62,10 @@ const ProductSection = ({
 
   return (
     <>
-      <div>
-        <BannerCarousel
-          adBanner={config.data?.data.ad_banners || []}
-          type="category"
-        />
-      </div>
-      <div className="mb-3.5 line-clamp-1 min-h-[34px] w-full overflow-hidden px-3 pt-4 text-sm leading-4.5 font-normal tracking-[-0.35px] break-words text-[#02060cbf]">
+      <div className="sticky top-0 z-15 line-clamp-1 min-h-[34px] w-full overflow-hidden rounded-tl-lg border-b border-[#282c3f0d] bg-white px-3 pt-4 pb-3 text-sm font-normal tracking-[-0.35px] break-words text-[#02060cbf]">
         <span className="font-bold">{totalProuducts} items</span> found
       </div>
-      <div className="hide-scrollbar flex max-h-full flex-wrap justify-start overflow-y-auto">
+      <div className="flex flex-wrap justify-start rounded-tl-lg">
         {productData.map((product) => (
           <ProductItem2 key={product.id} item={product} />
         ))}

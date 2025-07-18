@@ -48,12 +48,12 @@ const BannerCarousel: React.FC<AdBannerCarouselProps> = ({
             .filter((banner) => banner.type === type)
             .map((banner, index) => (
               <CarouselItem key={index} className="rounded-none">
-                <div className="">
+                <div className="p-2">
                   <img
                     loading="lazy"
                     src={banner.image}
                     alt="Ad Banner"
-                    className="flex max-h-[300px] min-h-[175px] w-full items-center justify-center"
+                    className="flex max-h-[300px] min-h-[175px] w-full items-center justify-center rounded-lg"
                   ></img>
                 </div>
               </CarouselItem>

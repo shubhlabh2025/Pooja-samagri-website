@@ -8,6 +8,9 @@ import ProductSection from "./ProductSection";
 import { SubCategoriesWithProductSkeleton } from "@/components/skeletons/SubCategoriesWithProductSkeleton";
 import ErrorScreen from "@/components/error/ErrorScreen";
 import { ChevronLeft } from "lucide-react";
+import BannerCarousel from "@/components/custom/BannerCarousel";
+import { useAppSelector } from "@/app/hooks";
+import { selectConfiguration } from "@/features/configuration/configurationSlice";
 
 const SubCategoriesWithProductScreen = () => {
   const { categoryId = "" } = useParams<{ categoryId: string }>();
@@ -28,6 +31,7 @@ const SubCategoriesWithProductScreen = () => {
     isLoading: catLoading,
     isError: catError,
   } = useGetCategoryByIdQuery(categoryId || "");
+  const config = useAppSelector(selectConfiguration);
 
   const {
     data: subCategoryData = {
@@ -72,7 +76,7 @@ const SubCategoriesWithProductScreen = () => {
   }
 
   return (
-    <div className="flex h-full gap-1.5 overflow-hidden bg-[#f0f0f5] pt-1">
+    <div className="flex h-full gap-1.5 bg-[#f0f0f5] pt-1">
       <div className="shadow-subcategory-screen flex h-full max-h-full max-w-[250px] flex-8 flex-col rounded-tr-lg bg-white">
         <div className="flex min-h-[40px] items-center gap-3 border-b border-[#282c3f0d] px-3 pt-4 pb-[12px] text-[#02060cbf]">
           <ChevronLeft
@@ -97,14 +101,21 @@ const SubCategoriesWithProductScreen = () => {
           />
         </ul>
       </div>
-      <div className="shadow-subcategory-screen flex flex-30 flex-col rounded-tl-lg bg-white">
-        <ProductSection
-          productData={allProducts}
-          totalProuducts={totalProducts}
-          onLoadMore={fetchNextPage}
-          isFetching={isFetching}
-          isLoadingMore={isFetchingNextPage}
+      <div className="flex flex-col gap-1 overflow-scroll">
+        <BannerCarousel
+          adBanner={config.data?.data.ad_banners || []}
+          type="category"
         />
+
+        <div className="shadow-subcategory-screen rounded-tl-lg bg-white pr-1">
+          <ProductSection
+            productData={allProducts}
+            totalProuducts={totalProducts}
+            onLoadMore={fetchNextPage}
+            isFetching={isFetching}
+            isLoadingMore={isFetchingNextPage}
+          />
+        </div>
       </div>
     </div>
   );
