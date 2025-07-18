@@ -11,10 +11,13 @@ import type {
   Product,
   ProductVariant,
 } from "@/features/product/productAPI.type";
-import { Star, Truck, Shield, RotateCcw } from "lucide-react";
+import { Star, Truck, Shield, RotateCcw, Share2 } from "lucide-react";
 import { useState, useEffect, useMemo } from "react";
 import { useParams } from "react-router";
 import ProductItem from "../Home/ProductItem";
+import { Facebook } from "lucide-react";
+import WhatsAppIcon from "@/assets/whatsapp_icon.svg";
+import GmailIcon from "@/assets/gmail.svg";
 
 // Type definitions
 
@@ -87,6 +90,112 @@ const ProductDetailsScreen: React.FC = () => {
     if (!mrp || !price || mrp <= price) return 0;
     return Math.round(((mrp - price) / mrp) * 100);
   };
+  const [showShareOptions, setShowShareOptions] = useState(false);
+
+
+  const ShareDrawer = ({ onClose, onShare }) => {
+    return (
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+        <div className="w-[320px] rounded-xl bg-white p-6 shadow-xl">
+          <div className="mb-4 flex items-center justify-between">
+            <h3 className="text-lg font-semibold">Share via</h3>
+            <button
+              onClick={onClose}
+              className="text-gray-500 hover:text-black"
+            >
+              ×
+            </button>
+          </div>
+
+          <div className="flex justify-around">
+            <button
+              onClick={() => onShare("facebook")}
+              className="flex flex-col items-center space-y-2 transition hover:scale-105"
+            >
+              <div className="flex h-14 w-14 items-center justify-center rounded-full border border-gray-300">
+                <Facebook className="text-blue-600" size={24} />
+              </div>
+              <span className="text-sm">Facebook</span>
+            </button>
+
+            <button
+              className="flex flex-col items-center space-y-2 transition hover:scale-105"
+              onClick={() => {
+                onShare("whatsapp");
+              }}
+            >
+              <div className="flex h-14 w-14 items-center justify-center rounded-full border border-gray-300">
+                <img
+                  loading="lazy"
+                  src={WhatsAppIcon}
+                  alt="WhatsApp"
+                  className="h-8 w-8"
+                />
+              </div>
+              <span className="text-sm">WhatsApp</span>
+            </button>
+
+            <button
+              onClick={() => onShare("gmail")}
+              className="flex flex-col items-center space-y-2 transition hover:scale-105"
+            >
+              <div className="flex h-14 w-14 items-center justify-center rounded-full border border-gray-300">
+                <img
+                  loading="lazy"
+                  src={GmailIcon}
+                  alt="Gmail"
+                  className="h-8 w-8"
+                />{" "}
+              </div>
+              <span className="text-sm">Gmail</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  };
+  const handleShare = () => {
+    setShowShareOptions(true);
+  };
+
+  const handleShareAction = (platform: string) => {
+    const productLink = `https://shubhlabhpoojasamagri.com/products/${productId}`;
+    const encodedLink = encodeURIComponent(productLink);
+    const message = encodeURIComponent("Check out this product!");
+
+    let appUrl = "";
+    let fallbackUrl = "";
+
+    if (platform === "facebook") {
+      appUrl = `fb://facewebmodal/f?href=${productLink}`;
+      fallbackUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedLink}`;
+    } else if (platform === "whatsapp") {
+      appUrl = `whatsapp://send?text=${message}%20${productLink}`;
+      fallbackUrl = `https://wa.me/?text=${message}%20${encodedLink}`;
+    } else if (platform === "gmail") {
+      // Gmail doesn't support custom URL schemes directly, so fallback only
+      fallbackUrl = `https://mail.google.com/mail/?view=cm&fs=1&body=${encodedLink}`;
+    }
+
+    // Try to open the app URL first (on mobile)
+    if (/Mobi|Android/i.test(navigator.userAgent) && appUrl) {
+      const iframe = document.createElement("iframe");
+      iframe.style.display = "none";
+      iframe.src = appUrl;
+      document.body.appendChild(iframe);
+
+      // After a delay, fallback to the web URL
+      setTimeout(() => {
+        window.open(fallbackUrl, "_blank");
+        document.body.removeChild(iframe);
+      }, 1000); // 1s timeout for app open
+    } else {
+      // Desktop fallback
+      window.open(fallbackUrl, "_blank");
+    }
+
+    setShowShareOptions(false);
+  };
 
   if (isLoading || !selectedVariant) return <ProductDetailsSkeleton />;
   if (isError) return <ErrorScreen />;
@@ -153,12 +262,22 @@ const ProductDetailsScreen: React.FC = () => {
             </div>
           </div>
 
-          <div className="space-y-6 md:order-3">
+          <div className="flex flex-col space-y-6 md:order-3">
             {/* Title & Brand */}
-            <div className="space-y-2">
-              <h1 className="text-xl leading-tight font-bold text-gray-900">
-                {selectedVariant.name}
-              </h1>
+            <div className="flex flex-col space-y-2">
+              <div className="flex justify-between">
+                <h1 className="text-xl leading-tight font-bold text-gray-900">
+                  {selectedVariant.name}
+                </h1>
+                <Share2 onClick={handleShare} />
+                {showShareOptions && (
+                  <ShareDrawer
+                    onClose={() => setShowShareOptions(false)}
+                    onShare={handleShareAction}
+                  />
+                )}
+              </div>
+
               <p className="text-xl font-medium text-gray-600">
                 {selectedVariant.brand_name}
               </p>
