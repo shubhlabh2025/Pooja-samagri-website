@@ -36,7 +36,7 @@ const ProductVariantBottomSheet = ({
           {productVariants[0].name}
         </DrawerTitle>
         <DialogDescription className="none"></DialogDescription>
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-3 max-h-[350px] overflow-y-scroll">
           {productVariants.map((variant) => (
             <div
               key={variant.id}
