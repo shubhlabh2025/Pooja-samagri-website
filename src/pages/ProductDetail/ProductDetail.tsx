@@ -143,7 +143,7 @@ const ProductDetailsScreen: React.FC = () => {
       <SimpleNavBar navBarText="Product Details" />
 
       {/* Fixed: Added proper width constraints to prevent horizontal overflow */}
-      <div className="mx-auto w-full max-w-7xl px-4 py-8">
+      <div className="mx-auto w-full max-w-full px-4 py-8">
         <div className="grid items-start gap-12 lg:grid-cols-2">
           {/* Product Image */}
           <div className="w-full min-w-0 space-y-4">
@@ -162,7 +162,7 @@ const ProductDetailsScreen: React.FC = () => {
               </div>
             </div>
 
-            <div className="flex gap-3 overflow-x-auto pb-2 md:order-2">
+            <div className="flex gap-3 overflow-x-auto pb-2  pl-2 pt-2 md:order-2">
               {selectedVariant.images.map((image, index) => (
                 <button
                   key={index}
