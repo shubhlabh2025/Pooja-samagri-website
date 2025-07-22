@@ -137,12 +137,14 @@ const ProductDetailsScreen: React.FC = () => {
   if (isError) return <ErrorScreen />;
 
   return (
-    // Fixed: Added proper width constraints and overflow handling
-    <div className="relative min-h-screen w-full max-w-full overflow-x-hidden bg-gradient-to-br to-white">
-      {/* Header */}
-      <SimpleNavBar navBarText="Product Details" />
+    // FIXED: Added proper scrolling container with height constraints
+    <div className="relative h-screen w-full max-w-full overflow-y-auto bg-gradient-to-br to-white">
+      {/* Header - Fixed at top */}
+      <div className="sticky top-0 z-10">
+        <SimpleNavBar navBarText="Product Details" />
+      </div>
 
-      {/* Fixed: Added proper width constraints to prevent horizontal overflow */}
+      {/* Scrollable content */}
       <div className="mx-auto w-full max-w-full px-4 py-8">
         <div className="grid items-start gap-12 lg:grid-cols-2">
           {/* Product Image */}
@@ -162,7 +164,7 @@ const ProductDetailsScreen: React.FC = () => {
               </div>
             </div>
 
-            <div className="flex gap-3 overflow-x-auto pb-2  pl-2 pt-2 md:order-2">
+            <div className="flex gap-3 overflow-x-auto pt-2 pb-2 pl-2 md:order-2">
               {selectedVariant.images.map((image, index) => (
                 <button
                   key={index}
@@ -199,7 +201,7 @@ const ProductDetailsScreen: React.FC = () => {
             </div>
           </div>
 
-          {/* Fixed: Added proper width constraints to the second column */}
+          {/* Product Details */}
           <div className="flex w-full min-w-0 flex-col space-y-6 md:order-3">
             {/* Title & Brand */}
             <div className="flex flex-col space-y-2">
@@ -263,12 +265,11 @@ const ProductDetailsScreen: React.FC = () => {
               </p>
             </div>
 
-            {/* Variant Selection - FIXED: This was the main issue */}
+            {/* Variant Selection */}
             <div className="w-full space-y-3">
               <h3 className="text-lg font-semibold text-gray-900">
                 Select Variant
               </h3>
-              {/* Fixed: Proper horizontal scrolling container with width constraints */}
               <div className="w-full overflow-x-auto">
                 <div className="flex min-w-max gap-3 pb-2">
                   {productData.product_variants.map((variant) => (
@@ -298,8 +299,6 @@ const ProductDetailsScreen: React.FC = () => {
                 {selectedVariant.description}
               </p>
             </div>
-
-            {/* Features */}
           </div>
         </div>
 
@@ -333,8 +332,15 @@ const ProductDetailsScreen: React.FC = () => {
               ))}
           </div>
         </div>
+
+        {/* Bottom spacing for CartSummaryBanner */}
+        <div className="h-20"></div>
       </div>
-      <CartSummaryBanner />
+
+      {/* Fixed Cart Summary Banner */}
+      <div className="fixed right-0 bottom-0 left-0 z-20">
+        <CartSummaryBanner />
+      </div>
     </div>
   );
 };

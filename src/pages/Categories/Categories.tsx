@@ -1,8 +1,8 @@
 import { SubCategoriesWithProductSkeleton } from "@/components/skeletons/SubCategoriesWithProductSkeleton";
 import ErrorScreen from "@/components/error/ErrorScreen";
 import { useGetCategoriesQuery } from "@/features/category/categoryAPI";
-import { ChevronLeft } from "lucide-react";
 import { useNavigate } from "react-router";
+import SimpleNavBar from "@/components/common/SimpleNavBar";
 
 const CategoriesScreen = () => {
   const navigate = useNavigate();
@@ -28,41 +28,42 @@ const CategoriesScreen = () => {
   }
 
   return (
-    <div className="relative flex flex-col space-y-4 p-2">
-      {/* Header with icon and title */}
-
-      {/* Back button on the left */}
-      <div className="flex h-16 w-full flex-row items-center border-b border-gray-200 px-4">
-        <button
-          onClick={() => navigate(-1)}
-          className="mr-2 flex items-center gap-1 rounded-full bg-gray-200 p-1 hover:bg-gray-300"
-        >
-          <ChevronLeft size={20} />
-        </button>
-
-        <span className="text-xl">Categories</span>
+    // FIXED: Added proper scrolling container with height constraints and always visible scrollbar
+    <div
+      className="relative h-screen w-full overflow-y-scroll bg-gray-50"
+      style={{ scrollbarWidth: "auto", msOverflowStyle: "scrollbar" }}
+    >
+      {/* Header - Fixed at top */}
+      <div className="sticky top-0 z-10 bg-white shadow-sm">
+        <SimpleNavBar navBarText={"Categories"} />
       </div>
 
-      {/* Responsive Grid */}
-      <div className="mt-2 grid grid-cols-2 gap-4 sm:grid-cols-2 md:grid-cols-4">
-        {Category.data.map((cat, index) => (
-          <div
-            key={index}
-            className="group relative overflow-hidden rounded-lg shadow-sm"
-            onClick={() => navigate(`/categories/${cat.id}`)}
-          >
-            <img
-              loading="lazy"
-              src={cat.image}
-              alt={cat.name}
-              className="h-40 w-full object-cover md:h-60"
-            />
+      {/* Scrollable content */}
+      <div className="flex flex-col space-y-4 p-4">
+        {/* Responsive Grid */}
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 md:grid-cols-4">
+          {Category.data.map((cat, index) => (
+            <div
+              key={index}
+              className="group relative cursor-pointer overflow-hidden rounded-lg shadow-sm transition-transform duration-200 hover:scale-105"
+              onClick={() => navigate(`/categories/${cat.id}`)}
+            >
+              <img
+                loading="lazy"
+                src={cat.image}
+                alt={cat.name}
+                className="h-40 w-full object-cover md:h-60"
+              />
 
-            <div className="absolute bottom-0 w-full bg-black/70 py-2 text-center text-sm font-semibold text-white">
-              {cat.name}
+              <div className="absolute bottom-0 w-full bg-black/70 py-2 text-center text-sm font-semibold text-white">
+                {cat.name}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+
+        {/* Bottom spacing to ensure last items are visible */}
+        <div className="h-4"></div>
       </div>
     </div>
   );

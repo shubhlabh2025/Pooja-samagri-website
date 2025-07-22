@@ -122,15 +122,15 @@ const Footer = () => {
       <div className="mt-8 flex items-end justify-between">
         <div className="flex flex-col">
           <p className="text-sm leading-[21px] text-[#666666]">
-            Star Mena Mehta Residency, Gurudwara Ln,{" "}
+            H.No 7-1-454 1st Floor,OPP GURUDWARA ,{" "}
           </p>
           <p className="text-sm leading-[21px] text-[#666666]">
-            Kumar Basti, Ameerpet
+            NEAR SATYAM THEATER, AMEERPET
           </p>
           <p className="text-sm leading-[21px] text-[#666666]">
-            Hyderabad,Telangana 500016
+            HYDERABAD, 500016
           </p>
-          <p className="text-sm leading-[21px] text-[#666666]">India</p>
+          <p className="text-sm leading-[21px] text-[#666666]">INDIA</p>
         </div>
         <div className="flex items-center justify-center overflow-hidden rounded-md">
           <img
