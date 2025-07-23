@@ -130,7 +130,9 @@ const Footer = () => {
           <p className="text-sm leading-[21px] text-[#666666]">
             HYDERABAD, 500016
           </p>
-          <p className="text-sm leading-[21px] text-[#666666]">INDIA</p>
+          <p className="text-sm leading-[21px] text-[#666666]">
+            Crafted With ❤️ in Hyderabad, India
+          </p>
         </div>
         <div className="flex items-center justify-center overflow-hidden rounded-md">
           <img

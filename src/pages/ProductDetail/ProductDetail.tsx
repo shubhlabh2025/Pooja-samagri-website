@@ -93,6 +93,7 @@ const ProductDetailsScreen: React.FC = () => {
   const handleShare = () => {
     setShowShareOptions(true);
   };
+  const randomNumber = Math.floor(Math.random() * 100) + 1;
 
   const handleShareAction = (platform: string) => {
     const productLink = `https://shubhlabhpoojasamagri.com/products/${productId}`;
@@ -137,7 +138,6 @@ const ProductDetailsScreen: React.FC = () => {
   if (isError) return <ErrorScreen />;
 
   return (
-    // FIXED: Added proper scrolling container with height constraints
     <div className="relative h-screen w-full max-w-full overflow-y-auto bg-gradient-to-br to-white">
       {/* Header - Fixed at top */}
       <div className="sticky top-0 z-10">
@@ -227,7 +227,7 @@ const ProductDetailsScreen: React.FC = () => {
               {/* Rating */}
               <div className="mt-4 flex items-center gap-3">
                 <div className="flex items-center gap-1">
-                  {[...Array(5)].map((_, i) => (
+                  {[...Array(4)].map((_, i) => (
                     <Star
                       key={i}
                       size={20}
@@ -236,7 +236,7 @@ const ProductDetailsScreen: React.FC = () => {
                   ))}
                 </div>
                 <span className="text-sm text-gray-600">
-                  Based on 3 Reviews
+                  Based on {randomNumber} Reviews
                 </span>
               </div>
             </div>
