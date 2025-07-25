@@ -64,7 +64,7 @@ const PaymentPage = () => {
 
   const initiatePayment = () => {
     const options = {
-      key: "rzp_test_DyZbYSJNtcLwDW",
+      key: "rzp_live_QlYKhrECsIZWRI",
       currency: "INR",
       name: "Shubh Labh",
       description: "Test Transaction",
