@@ -26,6 +26,7 @@ const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
 
   const handleNavigate = () => {
     navigate(`/products/${product.id}`);
+    navigate(0);
   };
 
   const isOutOfStock =

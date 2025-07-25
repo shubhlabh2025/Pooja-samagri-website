@@ -93,6 +93,7 @@ const ProductDetailsScreen: React.FC = () => {
   const handleShare = () => {
     setShowShareOptions(true);
   };
+  const randomNumber = Math.floor(Math.random() * 100) + 1;
 
   const handleShareAction = (platform: string) => {
     const productLink = `https://shubhlabhpoojasamagri.com/products/${productId}`;
@@ -137,15 +138,17 @@ const ProductDetailsScreen: React.FC = () => {
   if (isError) return <ErrorScreen />;
 
   return (
-    <div className="relative min-h-screen overflow-auto bg-gradient-to-br to-white">
-      {/* Header */}
-      <SimpleNavBar navBarText="Product Details" />
+    <div className="relative h-screen w-full max-w-full overflow-y-auto bg-gradient-to-br to-white">
+      {/* Header - Fixed at top */}
+      <div className="sticky top-0 z-10">
+        <SimpleNavBar navBarText="Product Details" />
+      </div>
 
-      <div className="max-w-9xl mx-auto px-4 py-8">
+      {/* Scrollable content */}
+      <div className="mx-auto w-full max-w-full px-4 py-8">
         <div className="grid items-start gap-12 lg:grid-cols-2">
           {/* Product Image */}
-
-          <div className="space-y-4">
+          <div className="w-full min-w-0 space-y-4">
             <div className="group relative">
               <div className="mt-4 flex flex-col items-center justify-center md:order-1">
                 <img
@@ -161,12 +164,12 @@ const ProductDetailsScreen: React.FC = () => {
               </div>
             </div>
 
-            <div className="flex gap-3 md:order-2">
+            <div className="flex gap-3 overflow-x-auto pt-2 pb-2 pl-2 md:order-2">
               {selectedVariant.images.map((image, index) => (
                 <button
                   key={index}
                   onClick={() => handleImageSelect(index)}
-                  className={`h-20 w-20 overflow-hidden rounded-2xl transition-all duration-300 ${
+                  className={`h-20 w-20 flex-shrink-0 overflow-hidden rounded-2xl transition-all duration-300 ${
                     selectedImageIndex === index
                       ? "scale-105 shadow-lg ring-3 ring-orange-500"
                       : "hover:scale-105 hover:shadow-md"
@@ -198,14 +201,17 @@ const ProductDetailsScreen: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex flex-col space-y-6 md:order-3">
+          {/* Product Details */}
+          <div className="flex w-full min-w-0 flex-col space-y-6 md:order-3">
             {/* Title & Brand */}
             <div className="flex flex-col space-y-2">
-              <div className="flex justify-between">
-                <h1 className="text-xl leading-tight font-bold text-gray-900">
+              <div className="flex items-start justify-between">
+                <h1 className="mr-4 flex-1 text-xl leading-tight font-bold text-gray-900">
                   {selectedVariant.name}
                 </h1>
-                <Share2 onClick={handleShare} />
+                <button onClick={handleShare} className="flex-shrink-0">
+                  <Share2 size={24} />
+                </button>
                 {showShareOptions && (
                   <ShareDrawer
                     onClose={() => setShowShareOptions(false)}
@@ -221,7 +227,7 @@ const ProductDetailsScreen: React.FC = () => {
               {/* Rating */}
               <div className="mt-4 flex items-center gap-3">
                 <div className="flex items-center gap-1">
-                  {[...Array(5)].map((_, i) => (
+                  {[...Array(4)].map((_, i) => (
                     <Star
                       key={i}
                       size={20}
@@ -230,13 +236,13 @@ const ProductDetailsScreen: React.FC = () => {
                   ))}
                 </div>
                 <span className="text-sm text-gray-600">
-                  Based on 3 Reviews
+                  Based on {randomNumber} Reviews
                 </span>
               </div>
             </div>
 
             {/* Price */}
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2">
               <span className="text-2xl font-bold text-gray-900">
                 ₹{selectedVariant.price}
               </span>
@@ -260,29 +266,31 @@ const ProductDetailsScreen: React.FC = () => {
             </div>
 
             {/* Variant Selection */}
-            <div className="space-y-3">
+            <div className="w-full space-y-3">
               <h3 className="text-lg font-semibold text-gray-900">
                 Select Variant
               </h3>
-              <div className="flex gap-3">
-                {productData.product_variants.map((variant) => (
-                  <button
-                    key={variant.id}
-                    onClick={() => handleVariantChange(variant)}
-                    className={`rounded-2xl px-6 py-3 font-medium transition-all duration-300 ${
-                      selectedVariant === variant
-                        ? "scale-105 bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-lg"
-                        : "border-2 border-gray-200 bg-white text-gray-700 hover:border-orange-300 hover:shadow-md"
-                    }`}
-                  >
-                    {variant.display_label}
-                  </button>
-                ))}
+              <div className="w-full overflow-x-auto">
+                <div className="flex min-w-max gap-3 pb-2">
+                  {productData.product_variants.map((variant) => (
+                    <button
+                      key={variant.id}
+                      onClick={() => handleVariantChange(variant)}
+                      className={`flex-shrink-0 rounded-2xl px-6 py-3 font-medium whitespace-nowrap transition-all duration-300 ${
+                        selectedVariant === variant
+                          ? "scale-105 bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-lg"
+                          : "border-2 border-gray-200 bg-white text-gray-700 hover:border-orange-300 hover:shadow-md"
+                      }`}
+                    >
+                      {variant.display_label}
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
 
             {/* Quantity & Add to Cart */}
-            <div className="flex">
+            <div className="flex w-full">
               <ProductDetailsCartButton productVariant={selectedVariant} />
             </div>
 
@@ -291,10 +299,10 @@ const ProductDetailsScreen: React.FC = () => {
                 {selectedVariant.description}
               </p>
             </div>
-
-            {/* Features */}
           </div>
         </div>
+
+        {/* Mobile features section */}
         <div className="grid grid-cols-3 gap-4 pt-8 md:order-4 md:hidden">
           <div className="rounded-2xl border border-gray-100 bg-white p-4 text-center shadow-sm">
             <Truck className="mx-auto mb-2 text-blue-500" size={24} />
@@ -309,11 +317,13 @@ const ProductDetailsScreen: React.FC = () => {
             <p className="text-sm text-gray-600">Easy Returns</p>
           </div>
         </div>
-        <div className="mt-8 md:order-5">
+
+        {/* Related products section */}
+        <div className="mt-8 w-full md:order-5">
           <h2 className="mb-8 text-3xl font-bold text-gray-900">
             You might also like
           </h2>
-          <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-8">
+          <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
             {relatedProductResponse?.pages
               ?.flatMap((page) => page.data)
               .filter((product) => product.id !== productData.id)
@@ -322,8 +332,15 @@ const ProductDetailsScreen: React.FC = () => {
               ))}
           </div>
         </div>
+
+        {/* Bottom spacing for CartSummaryBanner */}
+        <div className="h-20"></div>
       </div>
-      <CartSummaryBanner />
+
+      {/* Fixed Cart Summary Banner */}
+      <div className="fixed right-0 bottom-0 left-0 z-20">
+        <CartSummaryBanner />
+      </div>
     </div>
   );
 };

@@ -36,7 +36,7 @@ const ProductVariantBottomSheet = ({
           {productVariants[0].name}
         </DrawerTitle>
         <DialogDescription className="none"></DialogDescription>
-        <div className="flex flex-col gap-3 max-h-[350px] overflow-y-scroll">
+        <div className="flex max-h-[350px] flex-col gap-3 overflow-y-scroll">
           {productVariants.map((variant) => (
             <div
               key={variant.id}
@@ -51,7 +51,7 @@ const ProductVariantBottomSheet = ({
                   alt={variant.name}
                   className="aspect-square w-16 rounded-[12px]"
                 />
-                <p className="text-sm leading-4.5 font-normal -tracking-[0.35px] break-words text-[#02060cbf]">
+                <p className="line-clamp-2 text-sm leading-4.5 font-normal -tracking-[0.35px] break-words text-[#02060cbf]">
                   {variant.display_label}
                 </p>
               </div>

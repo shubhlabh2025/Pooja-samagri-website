@@ -6,13 +6,14 @@ import {
   useUpdateCartItemMutation,
 } from "@/features/cart/cartAPI";
 import { ShoppingCart } from "lucide-react";
-// import { useAppSelector } from "@/app/hooks";
-
+import { Dialog, DialogTrigger } from "@/components/ui/dialog";
+import LoginDialog from "@/components/dialog/LoginDialog";
+import { useAppSelector } from "@/app/hooks";
 const AddToCartCounter = ({ productVariant }: AddToCartCounterProps) => {
-  // const { isAuthenticated } = useAppSelector((state) => state.auth);
+  const { isAuthenticated } = useAppSelector((state) => state.auth);
 
   const { data: cartData = { data: [] } } = useGetCartItemsQuery(undefined, {
-    // skip: !isAuthenticated,
+    skip: !isAuthenticated,
   });
   const [
     updateCartItem,
@@ -53,21 +54,24 @@ const AddToCartCounter = ({ productVariant }: AddToCartCounterProps) => {
     });
   };
 
-  // if (!isAuthenticated) {
-  //   return (
-  //     <Dialog>
-  //       <DialogTrigger asChild>
-  //         <Button
-  //           variant={"outline"}
-  //           className="shadow-button-shadow h-fit w-full rounded-[8px] border border-[#02060c26] p-0 py-1.5 text-sm leading-[18px] font-semibold -tracking-[0.35px] text-[#ff5200] transition-all duration-150 ease-in-out hover:border-transparent hover:bg-[#02060c26] hover:text-[#ff5200]"
-  //         >
-  //           Add
-  //         </Button>
-  //       </DialogTrigger>
-  //       <LoginDialog />
-  //     </Dialog>
-  //   );
-  // }
+  if (!isAuthenticated) {
+    return (
+      <Dialog>
+        <DialogTrigger asChild>
+          <button
+            onClick={() => {
+              handleAddItemToCart(productVariant.id);
+            }}
+            className="flex flex-[2] items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-orange-500 to-red-500 px-4 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl lg:mr-8 lg:ml-8"
+          >
+            <ShoppingCart size={18} />
+            Add to Cart
+          </button>
+        </DialogTrigger>
+        <LoginDialog />
+      </Dialog>
+    );
+  }
 
   return quantity == 0 ? (
     <button
