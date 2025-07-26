@@ -70,7 +70,7 @@ const ProductSection = ({
           <ProductItem2 key={product.id} item={product} />
         ))}
 
-        <div ref={loadingRef} className="flex h-10 w-full justify-center">
+        <div ref={loadingRef} className="flex h-2 w-full justify-center">
           {isLoadingMore && (
             <Loader
               size={50}
