@@ -70,15 +70,13 @@ const ProductSection = ({
           <ProductItem2 key={product.id} item={product} />
         ))}
 
-        <div ref={loadingRef} className="flex w-full justify-center">
-          {isLoadingMore ? (
+        <div ref={loadingRef} className="flex h-10 w-full justify-center">
+          {isLoadingMore && (
             <Loader
               size={50}
               color="#ff5200"
               className="animate-spinner-leaf-fade p-2"
             />
-          ) : (
-            <div className="" />
           )}
         </div>
       </div>
