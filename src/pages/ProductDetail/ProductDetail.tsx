@@ -79,7 +79,8 @@ const ProductDetailsScreen: React.FC = () => {
     setSelectedVariant(variant);
     setSelectedImageIndex(0);
   };
-
+  const [showFullDescription, setShowFullDescription] =
+    useState<boolean>(false);
   const handleImageSelect = (index: number): void => {
     setSelectedImageIndex(index);
   };
@@ -133,6 +134,14 @@ const ProductDetailsScreen: React.FC = () => {
 
     setShowShareOptions(false);
   };
+  const truncatedDescription = useMemo(() => {
+    const description = selectedVariant?.description || "";
+    const words = description.split(" ");
+    // Show approx 30 words (adjust as needed)
+    return words.length > 30 && !showFullDescription
+      ? words.slice(0, 30).join(" ") + "..."
+      : description;
+  }, [selectedVariant?.description, showFullDescription]);
 
   if (isLoading || !selectedVariant) return <ProductDetailsSkeleton />;
   if (isError) return <ErrorScreen />;
@@ -296,8 +305,17 @@ const ProductDetailsScreen: React.FC = () => {
 
             <div className="rounded-2xl border border-blue-100 bg-gradient-to-r from-blue-50 to-indigo-50 p-6 md:hidden">
               <p className="leading-relaxed text-gray-700">
-                {selectedVariant.description}
+                {truncatedDescription}
               </p>
+              {selectedVariant.description &&
+                selectedVariant.description.split(" ").length > 30 && ( // Only show button if description is long
+                  <button
+                    onClick={() => setShowFullDescription(!showFullDescription)}
+                    className="mt-2 text-orange-600 hover:underline"
+                  >
+                    {showFullDescription ? "- Show Less" : "+ Show More"}
+                  </button>
+                )}
             </div>
           </div>
         </div>
