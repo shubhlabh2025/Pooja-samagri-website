@@ -7,7 +7,7 @@ export const AboutUsText = `
   </p>
 <br/>
   <p>
-    Shubh Labh Pooja Samagri was founded by Mr. Raja Rachakonda & Mr. Yesh Bandaru with the vision of seamlessly blending tradition with convenience.
+    Shubh Labh Pooja Samagri was founded by  Mr. Yesh Bandaru & Mr. Raja Rachakonda with the vision of seamlessly blending tradition with convenience.
   </p>
 <br/>
 
