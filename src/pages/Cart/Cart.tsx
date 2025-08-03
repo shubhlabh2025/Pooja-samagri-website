@@ -337,7 +337,14 @@ const Cart = () => {
         </div>
 
         <div className="shadow-cart-card bottom-0 z-10 rounded-tl-lg rounded-tr-lg bg-white px-4 py-4">
-          {selectedAddress || defaultAddress ? (
+          {configState.data?.data.store_status == false ? (
+            <button
+              className="w-full cursor-not-allowed rounded-lg bg-gray-400 py-2.5 text-lg leading-5 font-normal text-white opacity-60"
+              disabled
+            >
+              Store Closed
+            </button>
+          ) : selectedAddress || defaultAddress ? (
             <button
               className="focus:ring-opacity-75 w-full cursor-pointer rounded-lg bg-[#ff5200] py-2.5 text-lg leading-5 font-normal text-white transition duration-150 ease-in-out hover:scale-[0.98] hover:bg-[#ff5200] focus:outline-none"
               onClick={() => {
