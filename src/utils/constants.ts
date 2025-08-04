@@ -58,6 +58,29 @@ export const AboutUsText = `
 
 `;
 export const PoliciesText = `
+<p>Note: This Privacy Policy forms an integral part of the Terms of Use and other policies, disclaimers etc. available on the Website of <a href="https://shubhlabhpoojasamagri.com/">https://shubhlabhpoojasamagri.com/</a> and shall be read in conjunction.</p>
+<p>This privacy statement applies only to information collected by the Website (<a href="https://shubhlabhpoojasamagri.com/">https://shubhlabhpoojasamagri.com/</a>). We value the trust you place in us. That's why we insist upon the highest standards for secure transactions and customer information privacy. Please read the following statement to learn about our information-gathering and dissemination practices.</p>
+<ul>
+    <li>1) Our privacy policy is subject to change at any time without notice.</li>
+    <li>2) By visiting the Website (<a href="https://shubhlabhpoojasamagri.com/">https://shubhlabhpoojasamagri.com/</a>) you agree to be bound by the terms and conditions of this Privacy Policy. If you do not agree, please do not use or access our Website.</li>
+    <li>3) By mere use of the Website (<a href="https://shubhlabhpoojasamagri.com/">https://shubhlabhpoojasamagri.com/</a>), you expressly consent to our use and disclosure of your personal information in accordance with this Privacy Policy. This Privacy Policy is incorporated into and subject to the Terms of Use.</li>
+</ul>
+<h2>Collection of Personally Identifiable Information and other Information:</h2>
+<p>When you use our Website (<a href="https://shubhlabhpoojasamagri.com/">https://shubhlabhpoojasamagri.com/</a>), we collect and store your personal information which is provided by you from time to time. Our primary goal in doing so is to provide you with a safe, efficient, smooth and customized experience. This allows us to provide services and features that most likely meet your needs, and to customize our Website (<a href="https://shubhlabhpoojasamagri.com/">https://shubhlabhpoojasamagri.com/</a>) to make your experience safer and easier. More importantly, while doing so we collect personal information from you that we consider necessary for achieving this purpose.</p>
+<p>If you choose to buy on the Website (<a href="https://shubhlabhpoojasamagri.com/">https://shubhlabhpoojasamagri.com/</a>), we collect information about your buying behavior. We use your personal information to facilitate the services you request. We save your personal information in the file we maintain about you, and other information we obtain from your current and past activities on the Site to: resolve disputes; troubleshoot problems; help promote safe trading; collect fees owed; measure consumer interest in the services provided by us, inform you about online offers, products, services, and updates; customize your experience; detect and protect us against error, fraud and other criminal activity; enforce our User Agreement; and as otherwise described to you at the time of collection.</p>
+<p>We collect personally identifiable information (email address, name, phone number, etc.) from you when you set up an account with us. We may use your contact information to send you offers based on your previous orders and your interests.</p>
+<h2>Communications from the Site:</h2>
+<p>We may occasionally send you information on products, services, special deals, and promotions. Out of respect for your privacy, we present the option not to receive these types of communications.</p>
+<h2>COOKIES:</h2>
+<p>To personalize your shopping experience, we use cookies on this site. A cookie is a small text file that is stored on a user's computer for record-keeping purposes.</p>
+<h2>SECURITY:</h2>
+<p>The security of your personal information is important to us. We do not use any encryption on our forms, as we do not collect credit card numbers, social security numbers or any other sensitive information that can be used in identity theft.</p>
+<h2>CHANGES IN THIS PRIVACY STATEMENT:</h2>
+<p>If we decide to change our privacy policy, we will post those changes to this privacy statement on the homepage and other places we deem appropriate so that you are aware of what information we collect, how we use it, and under what circumstances, if any, we disclose it.</p>
+<p>Team shubhlabhpoojasamagri.com</p>
+`;
+
+export const TermsText = `
 
   <h2 style="font-size: 1.25rem; font-weight: 600; margin-top: 1.5rem;">Terms of Service</h2>
   <p>This document governs your relationship with <strong>shubhlabhpoojasamagri.com</strong>.</p>
