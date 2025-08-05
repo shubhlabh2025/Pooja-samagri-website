@@ -27,7 +27,7 @@ const Navbar = () => {
     },
     isLoading,
     isError,
-  } = useGetProductsInfiniteQuery({ q: query, limit: 5 });
+  } = useGetProductsInfiniteQuery({ q: query, limit: 8 });
   const products = productsData.pages.flatMap((page) => page.data);
   console.log("Products:", products);
   console.log("Query:", query);
