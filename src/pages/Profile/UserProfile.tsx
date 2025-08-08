@@ -1,7 +1,7 @@
 import React, { useState, type JSX } from "react";
 import { User, MapPin, Info, Shield, Phone, Power } from "lucide-react";
 
-import { AboutUsText, PoliciesText, SupportText } from "../../utils/constants";
+import { AboutUsText, PoliciesText, SupportText, TermsText } from "../../utils/constants";
 
 import { RenderHtmlText } from "./RenderHtmlText";
 import { RenderUserInputs } from "./RenderUserInputs";
@@ -11,7 +11,7 @@ import { useLogoutMutation } from "@/features/auth/authAPI";
 import ConfirmationDialog from "@/components/dialog/ConfirmationDialog";
 import { useLocation, useNavigate } from "react-router";
 
-type Tab = "profile" | "address" | "about" | "policies" | "support";
+type Tab = "profile" | "address" | "about" | "policies" | "terms" | "support";
 
 // Add interface for address component
 export interface AddressComponent {
@@ -25,6 +25,7 @@ const tabIcons: Record<Tab, JSX.Element> = {
   address: <MapPin size={20} />,
   about: <Info size={20} />,
   policies: <Shield size={20} />,
+  terms: <Shield size={20} />,
   support: <Phone size={20} />,
 };
 
@@ -153,8 +154,18 @@ const UserProfilePage: React.FC = () => {
             )}
             {activeTab === "policies" && (
               <>
-                <h2 className="mb-6 text-xl font-semibold">Terms & Policies</h2>
+                <h2 className="mb-6 text-xl font-semibold">
+                  Privacy & Policies
+                </h2>
                 {RenderHtmlText(PoliciesText)}
+              </>
+            )}
+            {activeTab === "terms" && (
+              <>
+                <h2 className="mb-6 text-xl font-semibold">
+                  Terms & Conditions
+                </h2>
+                {RenderHtmlText(TermsText)}
               </>
             )}
             {activeTab === "support" && (

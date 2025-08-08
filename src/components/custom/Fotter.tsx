@@ -103,10 +103,18 @@ const Footer = () => {
         <p
           className="cursor-pointer text-[13px] leading-[16.5px] text-white"
           onClick={() => {
-            navigate("/profile", { state: { tab: "policies" } });
+            navigate("/profile", { state: { tab: "terms" } });
           }}
         >
           Terms of Service
+        </p>
+        <p
+          className="cursor-pointer text-[13px] leading-[16.5px] text-white"
+          onClick={() => {
+            navigate("/profile", { state: { tab: "policies" } });
+          }}
+        >
+          Privacy & Policies
         </p>
         <a className="cursor-pointer text-[13px] leading-[16.5px] text-white">
           About Us

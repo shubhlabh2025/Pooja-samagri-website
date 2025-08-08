@@ -9,6 +9,7 @@ import TopCategoryProducts from "./TopCategoryProducts";
 import AboutSection from "@/components/custom/AboutSection";
 import { useAppSelector } from "@/app/hooks";
 import { selectConfiguration } from "@/features/configuration/configurationSlice";
+import { useEffect, useState } from "react";
 
 const Home = () => {
   const {
@@ -22,6 +23,16 @@ const Home = () => {
     sort_by: "priority",
     sort_order: "DESC",
   });
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768); // or whatever your breakpoint is
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const { isAuthenticated } = useAppSelector((state) => state.auth);
   console.log("Is Authenticated:", isAuthenticated);
 
@@ -37,7 +48,7 @@ const Home = () => {
       <CategoryList />
       <BannerCarousel
         adBanner={config.data?.data.ad_banners || []}
-        type="home"
+        type={isMobile ? "mobileHome" : "home"}
       />
       {topFiveCategory.data.length > 0 && (
         <div className="flex flex-col gap-8 pt-8">

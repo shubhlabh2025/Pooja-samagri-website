@@ -3,12 +3,14 @@ import type {
   OrderData,
   RazorpayPaymentResponse,
 } from "@/features/orders/orderAPI.type";
+import { useGetUserDetailsQuery } from "@/features/user/userApi";
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router";
 
 const PaymentPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { data: userData, isLoading: userLoading } = useGetUserDetailsQuery();
 
   const [verifyPayment, { isLoading: isVerifying }] =
     useVerifyPaymentMutation();
@@ -19,14 +21,12 @@ const PaymentPage = () => {
   const orderId = orderData.id;
 
   useEffect(() => {
-    // Check if orderData exists, if not redirect to error page
 
-    // Show initial animation for 2 seconds then start payment
-    // setTimeout(() => {
-    //   handlePaymentFailure();
-    // }, 3000);
-    initiatePayment();
-  }, []);
+
+    if (!userLoading && userData) {
+      initiatePayment();
+    }
+  }, [userLoading, userData, orderData, navigate]);
 
   const handlePaymentSuccess = async (response: RazorpayPaymentResponse) => {
     console.log("Payment response:", response);
@@ -77,9 +77,9 @@ const PaymentPage = () => {
       },
       prefill: {
         //We recommend using the prefill parameter to auto-fill customer's contact information especially their phone number
-        name: "Gaurav Kumar", //your customer's name
-        email: "gaurav.kumar@example.com",
-        contact: "9000090000", //Provide the customer's phone number for better conversion rates
+        name: userData?.data.first_name ?? "", //your customer's name
+        email: userData?.data.email ?? "",
+        contact: userData?.data.phone_number, //Provide the customer's phone number for better conversion rates
       },
       theme: {
         color: "#ff5200",

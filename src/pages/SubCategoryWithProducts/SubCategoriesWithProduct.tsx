@@ -3,7 +3,7 @@ import { useGetSubCategoriesInfiniteQuery } from "@/features/sub-category/subCat
 import { useNavigate, useParams } from "react-router";
 import SubCategorySideBar from "./SubCategorySideBar";
 import { useGetCategoryByIdQuery } from "@/features/category/categoryAPI";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ProductSection from "./ProductSection";
 import { SubCategoriesWithProductSkeleton } from "@/components/skeletons/SubCategoriesWithProductSkeleton";
 import ErrorScreen from "@/components/error/ErrorScreen";
@@ -63,6 +63,15 @@ const SubCategoriesWithProductScreen = () => {
     category_id: selectedCategoryId,
     limit: 30,
   });
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768); // or whatever your breakpoint is
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const allProducts =
     infiniteProductData?.pages.flatMap((page) => page.data) || [];
@@ -116,7 +125,10 @@ const SubCategoriesWithProductScreen = () => {
       </div>
       <div className="flex w-full flex-col gap-1 overflow-scroll">
         {categoryBanners.length > 0 && (
-          <BannerCarousel adBanner={categoryBanners} type="category" />
+          <BannerCarousel
+            adBanner={categoryBanners}
+            type={isMobile ? "mobileCategory" : "category"}
+          />
         )}
         <div className="shadow-subcategory-screen w-full flex-1 rounded-tl-lg bg-white">
           <ProductSection
