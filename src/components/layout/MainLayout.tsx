@@ -8,7 +8,7 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
   const config = useAppSelector(selectConfiguration);
 
   return (
-    <div className="flex h-full min-h-screen flex-col">
+    <div className="flex h-full flex-col">
       <ScrollVelocity
         texts={[
           config.data?.data.store_status == true
