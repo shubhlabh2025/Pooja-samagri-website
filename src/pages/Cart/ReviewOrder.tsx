@@ -45,7 +45,7 @@ const ReviewOrder = ({ cartData }: ReviewOrderProps) => {
                     {item.variant.name}
                   </p>
                   <p className="line-clamp-1 max-w-fit text-[12px] leading-[16px] font-normal text-ellipsis whitespace-nowrap text-[#02060c73]">
-                    {item.variant.name}
+                    {item.variant.display_label}
                   </p>
                 </div>
               </div>

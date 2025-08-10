@@ -34,6 +34,17 @@ const NeedHelpInfoDialog = () => {
             +91 90000-57702
           </p>
         </a>
+        <a
+          href="tel:+919000504566"
+          className="group flex items-center gap-2 rounded-lg transition-colors hover:bg-slate-200"
+        >
+          <div className="rounded-full bg-indigo-100 p-2">
+            <Phone size={20} className="text-indigo-600" />
+          </div>
+          <p className="font-medium text-slate-700 group-hover:text-indigo-600">
+            +91 90005-04566
+          </p>
+        </a>
       </div>
 
       <div className="flex justify-end">

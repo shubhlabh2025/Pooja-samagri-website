@@ -88,8 +88,6 @@ const AddressPage = ({ onChange, lat, lng }: AddressPageProps) => {
     // Strip out id and user_id before sending to backend
 
     await addUserAddress(fullPayload);
-    // navigate("/");
-    // post to backend
     setShowDrawer(false);
     navigate(-1);
   };

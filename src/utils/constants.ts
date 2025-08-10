@@ -138,6 +138,7 @@ export const TermsText = `
   <ul>
     <li>📧 Email: <a href="mailto:infoshubhlabhpoojasamagri@gmail.com">infoshubhlabhpoojasamagri@gmail.com</a></li>
     <li>📞 Phone: <a href="tel:+919000057702">+91 9000057702</a></li>
+    <li>📞 Phone: <a href="tel:+919000504566">+91 9000504566</a></li>
   </ul>
 `;
 
