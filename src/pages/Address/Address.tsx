@@ -39,8 +39,6 @@ const Address = () => {
             setPermissionStatus("denied");
           });
       } else {
-        // Fallback for browsers that don't support the Permissions API.
-        // The call to getCurrentPosition will prompt the user.
         setPermissionStatus("prompt");
         (navigator as Navigator).geolocation.getCurrentPosition(
           (position) => {
@@ -85,8 +83,9 @@ const Address = () => {
           Location Permission Denied
         </h2>
         <p className="mb-4 text-sm text-gray-700">
-          We need your location to show nearby addresses. Please enable location
-          services for this site in your browser settings.
+          We need your location permission to access your addresses. Please
+          enable location. Follow Below steps -
+          {`Please go to Browser Settings -> Site Settings -> Location to allow Location Permission`}
         </p>
         <button
           onClick={() => window.location.reload()}
