@@ -185,13 +185,16 @@ export const RenderUserInputs = () => {
       <label className="mb-1 block text-sm font-medium">Email address</label>
 
       {!isOtpVisible ? (
-        <div className="relative">
+        // On screens sm and larger, this div is 'relative' to position the button inside.
+        // On mobile, it behaves like a normal div.
+        <div className="sm:relative">
           <input
             type="email"
             value={email}
             disabled={!isEmailEditable}
             onChange={(e) => setEmail(e.target.value)}
-            className={`w-full rounded-md border border-gray-300 px-3 py-2 pr-28 text-sm outline-none ${
+            // On mobile, standard padding. On larger screens, add padding for the button.
+            className={`w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none sm:pr-28 ${
               !isEmailEditable ? "cursor-not-allowed bg-gray-100" : ""
             }`}
           />
@@ -199,7 +202,9 @@ export const RenderUserInputs = () => {
             <button
               type="button"
               onClick={sendOTP}
-              className="absolute top-1/2 right-2 -translate-y-1/2 rounded bg-[#ff5200] px-3 py-1.5 text-xs font-medium text-white hover:bg-[#e64800]"
+              // MOBILE: Full width, with margin-top.
+              // DESKTOP (sm:): Positioned absolutely inside the input.
+              className="mt-2 w-full rounded bg-[#ff5200] px-3 py-1.5 text-xs font-medium text-white hover:bg-[#e64800] sm:absolute sm:top-1/2 sm:right-2 sm:mt-0 sm:w-auto sm:-translate-y-1/2"
             >
               Verify
             </button>
@@ -209,7 +214,7 @@ export const RenderUserInputs = () => {
               onClick={() => {
                 setIsEmailEditable(true);
               }}
-              className="absolute top-1/2 right-2 -translate-y-1/2 rounded bg-[#ff5200] px-3 py-1.5 text-xs font-medium text-white hover:bg-[#e64800]"
+              className="mt-2 w-full rounded bg-[#ff5200] px-3 py-1.5 text-xs font-medium text-white hover:bg-[#e64800] sm:absolute sm:top-1/2 sm:right-2 sm:mt-0 sm:w-auto sm:-translate-y-1/2"
             >
               Edit
             </button>
