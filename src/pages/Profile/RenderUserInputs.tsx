@@ -22,6 +22,7 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import { REGEXP_ONLY_DIGITS_AND_CHARS } from "input-otp";
+import { toast } from "sonner";
 
 // 1. User Form Schema
 const userSchema = z.object({
@@ -119,15 +120,20 @@ export const RenderUserInputs = () => {
     }
   };
 
-  const onSubmit = (formData: UserFormData) => {
+  const onSubmit = async (formData: UserFormData) => {
     if (!userData?.data?.id) return;
 
-    updateUserDetails({
+    const respone = await updateUserDetails({
       id: userData.data.id,
       ...formData,
       phone_number: userData.data.phone_number,
       email,
     });
+    if (respone.data?.success == true) {
+      toast.success("Profile updated successfully.");
+    } else {
+      toast.error("Profile failed to update");
+    }
   };
 
   const renderOtpForm = () => (
