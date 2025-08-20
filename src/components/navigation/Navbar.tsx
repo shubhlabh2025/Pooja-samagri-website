@@ -25,15 +25,10 @@ const Navbar = () => {
         },
       ],
     },
-    isLoading,
-    isError,
-  } = useGetProductsInfiniteQuery({ q: query, limit: 8 });
+    // isLoading,
+    // isError,
+  } = useGetProductsInfiniteQuery({ q: deferredQuery, limit: 8 });
   const products = productsData.pages.flatMap((page) => page.data);
-  console.log("Products:", products);
-  console.log("Query:", query);
-  console.log("Deferred Query:", deferredQuery);
-  console.log("Is Loading:", isLoading);
-  console.log("Is Error:", isError);
 
   const [focused, setFocused] = useState(false);
   const searchContainerRef = useRef<HTMLDivElement>(null);
