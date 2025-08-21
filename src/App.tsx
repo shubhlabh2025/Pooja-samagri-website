@@ -41,7 +41,6 @@ function App() {
   } = useGetAppConfigurationsQuery();
   useGetUserDetailsQuery();
 
-  // Load configuration into store only once
   useEffect(() => {
     if (!configState.data && queryData) {
       dispatch(setData(queryData));
