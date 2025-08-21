@@ -27,7 +27,13 @@ const Navbar = () => {
     },
     // isLoading,
     // isError,
-  } = useSearchProductsInfiniteQuery({ q: deferredQuery, limit: 8 });
+  } = useSearchProductsInfiniteQuery(
+    {
+      q: deferredQuery,
+      limit: 8,
+    },
+    { skip: !deferredQuery },
+  );
   const products = productsData.pages.flatMap((page) => page.data);
 
   const [focused, setFocused] = useState(false);
