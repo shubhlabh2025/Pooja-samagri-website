@@ -150,3 +150,120 @@ export const SupportText = `
     <li>📞 Phone: <a href="tel:+919000504566">+91 9000504566</a></li>
 
   </ul>`;
+
+export const AppPoliciesText = `
+<!--
+  Privacy Policy HTML for Google Play listing and in-app page
+  App: ShubhLabhPoojaSamagri
+  Replace placeholders: {EFFECTIVE_DATE}, {SUPPORT_EMAIL}, {SUPPORT_PHONE}
+-->
+<section id="privacy-policy" style="font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #111;">
+  <h1 style="font-size: 1.8rem; margin: 0 0 .5rem;">Privacy Policy – ShubhLabhPoojaSamagri</h1>
+  <p style="margin: 0 0 1rem;">
+    <strong>Effective Date:</strong> <span>21-August-2025</span>
+  </p>
+
+  <p>
+    ShubhLabhPoojaSamagri ("we", "our", "us") values your privacy. This Privacy Policy describes how we collect,
+    use, disclose, and protect information when you use our mobile application and related services (collectively, the "App").
+  </p>
+
+  <h2 style="font-size: 1.25rem; margin-top: 1.25rem;">1) Information We Collect</h2>
+  <ul>
+    <li><strong>Personal Information:</strong> Name, phone number, and email address for account creation, login, and communication.</li>
+    <li><strong>Location Information:</strong> Approximate and/or precise location (with your permission) to deliver orders and show relevant delivery options.</li>
+    <li><strong>Authentication Data:</strong> One-Time Password (OTP) verification performed via Twilio.</li>
+    <li><strong>Payment Information:</strong> Payments are processed securely via Razorpay. We do not store your full card or bank details on our servers.</li>
+    <li><strong>Usage/Device Data:</strong> Basic diagnostics (e.g., app version, device information) for performance, security, and analytics.
+    </li>
+  </ul>
+
+  <h2 style="font-size: 1.25rem; margin-top: 1.25rem;">2) How We Use Your Information</h2>
+  <ul>
+    <li>To register and manage your account, verify identity via OTP, and enable secure login.</li>
+    <li>To process, fulfill, and deliver your orders to the correct address/location.</li>
+    <li>To process payments and prevent fraud/abuse.</li>
+    <li>To communicate about orders, support, offers, and important updates.</li>
+    <li>To comply with legal obligations and enforce our Terms of Use.</li>
+  </ul>
+
+  <h2 style="font-size: 1.25rem; margin-top: 1.25rem;">3) Sharing of Information</h2>
+  <p>We do not sell or rent your personal data. We may share limited information with:</p>
+  <ul>
+    <li><strong>Service Providers:</strong> 
+      <ul>
+        <li>Twilio (OTP delivery/verification).</li>
+        <li>Razorpay (payment processing).</li>
+      </ul>
+    </li>
+    <li><strong>Delivery/Logistics Partners:</strong> To deliver your orders to the correct location.</li>
+    <li><strong>Government/Law Enforcement:</strong> If required to comply with applicable law or valid legal process.</li>
+  </ul>
+
+  <h2 style="font-size: 1.25rem; margin-top: 1.25rem;">4) Third‑Party Policies</h2>
+  <p>
+    Our App integrates third‑party services. Please review their privacy policies:
+  </p>
+  <ul>
+    <li>Twilio: <a href="https://www.twilio.com/legal/privacy" target="_blank" rel="noopener">https://www.twilio.com/legal/privacy</a></li>
+    <li>Razorpay: <a href="https://razorpay.com/privacy/" target="_blank" rel="noopener">https://razorpay.com/privacy/</a></li>
+  </ul>
+
+  <h2 style="font-size: 1.25rem; margin-top: 1.25rem;">5) Permissions & Your Choices</h2>
+  <ul>
+    <li><strong>Location:</strong> You can enable/disable location access in your device settings. Disabling precise location may affect delivery accuracy.</li>
+    <li><strong>Communication:</strong> You can opt out of promotional messages by following the instructions in the message or contacting us.</li>
+  </ul>
+
+  <h2 style="font-size: 1.25rem; margin-top: 1.25rem;">6) Data Security</h2>
+  <p>
+    We implement reasonable technical and organizational measures to protect your data. However, no method of transmission or storage is 100% secure.
+  </p>
+
+  <h2 style="font-size: 1.25rem; margin-top: 1.25rem;">7) Data Retention</h2>
+  <p>
+    We retain personal information only as long as necessary for the purposes described above, unless a longer retention period is required by law.
+  </p>
+
+  <h2 style="font-size: 1.25rem; margin-top: 1.25rem;">8) Your Rights</h2>
+  <ul>
+    <li>Access, update, or correct your information via the App or by contacting us.</li>
+    <li>Request deletion of your account and associated personal data, subject to legal/legitimate interests.</li>
+    <li>Withdraw consent for location or promotional communications at any time (may impact certain features).</li>
+  </ul>
+
+  <h2 style="font-size: 1.25rem; margin-top: 1.25rem;">9) Children’s Privacy</h2>
+  <p>
+    Our services are not directed to children under 13 years. We do not knowingly collect data from children.
+  </p>
+
+  <h2 style="font-size: 1.25rem; margin-top: 1.25rem;">10) Changes to This Policy</h2>
+  <p>
+    We may update this Privacy Policy from time to time. Updated versions will be posted within the App with a revised "Effective Date".
+  </p>
+
+  <h2 style="font-size: 1.25rem; margin-top: 1.25rem;">11) Contact Us</h2>
+  <p>
+    For questions or requests (including data access or deletion), please contact:
+  </p>
+  <ul>
+    <li>Email: <a href="mailto:{infoshubhlabhpoojasamagri@gmail.com"}">{infoshubhlabhpoojasamagri@gmail.com"}</a></li>
+    <li>Phone: <a href="tel:{+919000057702}">{+919000057702}</a></li>
+  </ul>
+
+  <p style="margin-top: 1.5rem; font-size: .9rem; color: #444;">Last updated: <span>{21-August-2025}</span></p>
+</section>
+
+<!-- Optional: Microcopy for Google Play listing short description (not required) -->
+<!-- <p>We collect name, phone, email for login; location for delivery; OTP via Twilio; payments via Razorpay. Data is protected and not sold.</p> -->
+
+<!--
+  ------- Compact (single-span) version -------
+  If you must embed into a single <span>, you can use the minified block below.
+  Replace placeholders first.
+-->
+<!--
+<span>Privacy Policy – ShubhLabhPoojaSamagri. Effective: {21-August-2025}. We collect name, phone, email for login/communication; location for delivery; OTP via Twilio; payments via Razorpay (we do not store full card/bank details). Data used to provide services, process orders, prevent fraud, and comply with law. Shared only with service providers (Twilio, Razorpay), delivery partners, or authorities when required. Control location in device settings; opt out of promos anytime. We use reasonable security; no method is 100% secure. Retained as needed for the purposes above or by law. You may access, update, or request deletion of your data. Not for children under 13. Updates posted in-app. Contact: {infoshubhlabhpoojasamagri@gmail.com"}, {+919000057702}. Twilio privacy: https://www.twilio.com/legal/privacy; Razorpay privacy: https://razorpay.com/privacy/.</span>
+-->
+
+`;

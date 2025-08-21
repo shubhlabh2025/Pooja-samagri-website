@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route } from "react-router";
 import "./index.css";
 import Cart from "./pages/Cart/Cart.tsx";
 import ProductDetailsScreen from "./pages/ProductDetail/ProductDetail.tsx";
-import SearchScreen from "./pages/Search/Search.tsx";
 import SubCategoriesWithProductScreen from "./pages/SubCategoryWithProducts/SubCategoriesWithProduct.tsx";
 import NotFound from "./components/error/NotFound.tsx";
 import MainLayout from "./components/layout/MainLayout.tsx";
@@ -28,6 +27,7 @@ import OrderDetail from "./pages/Orders/OrderDetail/OrderDetail.tsx";
 import PaymentSuccess from "./pages/Payment/PaymentSuccess.tsx";
 import PaymentFailure from "./pages/Payment/PaymentFailure.tsx";
 import { useGetUserDetailsQuery } from "./features/user/userApi.ts";
+import Policies from "./pages/Policies.tsx";
 
 function App() {
   useGeolocation();
@@ -100,9 +100,9 @@ function App() {
             path="/products/:productId"
             element={<ProductDetailsScreen />}
           />
-          <Route path="/search" element={<SearchScreen />} />
           <Route path="/address" element={<Address />} />
           <Route path="/profile" element={<UserProfilePage />} />
+          <Route path="/privacy-policy" element={<Policies />} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>
