@@ -1,4 +1,3 @@
-import React from "react";
 import { RenderHtmlText } from "./Profile/RenderHtmlText";
 import { AppPoliciesText } from "@/utils/constants";
 
