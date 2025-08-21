@@ -41,6 +41,30 @@ export const productAPI = createApi({
         },
       }),
     }),
+    searchProducts: builder.infiniteQuery<
+      ProductResponse,
+      GetProductsParams,
+      ProductPageParam
+    >({
+      infiniteQueryOptions: {
+        initialPageParam: 1,
+        getNextPageParam: (lastPage, _allPages, lastPageParam) => {
+          if (lastPage.meta.currentPage >= lastPage.meta.totalPages) {
+            return undefined;
+          }
+          return lastPageParam + 1;
+        },
+      },
+      query: ({ queryArg, pageParam }) => ({
+        url: "/api/products/search",
+        method: "GET",
+        params: {
+          page: pageParam,
+          limit: queryArg.limit || 30,
+          ...(queryArg.q ? { q: queryArg.q } : {}),
+        },
+      }),
+    }),
     getProductById: builder.query<SingleProductResponse, string>({
       query: (id: string) => ({
         url: `/api/products/${id}`,
@@ -50,5 +74,5 @@ export const productAPI = createApi({
   }),
 });
 
-export const { useGetProductsInfiniteQuery, useGetProductByIdQuery } =
+export const { useGetProductsInfiniteQuery, useGetProductByIdQuery, useSearchProductsInfiniteQuery } =
   productAPI;

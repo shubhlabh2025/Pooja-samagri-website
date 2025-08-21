@@ -8,7 +8,7 @@ import { useDeferredValue, useRef, useState, type FocusEvent } from "react";
 import { useAppSelector } from "@/app/hooks";
 import { Dialog, DialogTrigger } from "@radix-ui/react-dialog";
 import LoginDialog from "../dialog/LoginDialog";
-import { useGetProductsInfiniteQuery } from "@/features/product/productAPI";
+import { useSearchProductsInfiniteQuery } from "@/features/product/productAPI";
 import SearchBox from "../common/SearchBox";
 import { AnimatePresence } from "framer-motion";
 
@@ -27,7 +27,7 @@ const Navbar = () => {
     },
     // isLoading,
     // isError,
-  } = useGetProductsInfiniteQuery({ q: deferredQuery, limit: 8 });
+  } = useSearchProductsInfiniteQuery({ q: deferredQuery, limit: 8 });
   const products = productsData.pages.flatMap((page) => page.data);
 
   const [focused, setFocused] = useState(false);
