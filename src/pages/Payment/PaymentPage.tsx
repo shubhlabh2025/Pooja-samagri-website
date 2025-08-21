@@ -21,8 +21,6 @@ const PaymentPage = () => {
   const orderId = orderData.id;
 
   useEffect(() => {
-
-
     if (!userLoading && userData) {
       initiatePayment();
     }

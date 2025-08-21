@@ -1,7 +1,12 @@
 import React, { useState, type JSX } from "react";
 import { User, MapPin, Info, Shield, Phone, Power } from "lucide-react";
 
-import { AboutUsText, PoliciesText, SupportText, TermsText } from "../../utils/constants";
+import {
+  AboutUsText,
+  PoliciesText,
+  SupportText,
+  TermsText,
+} from "../../utils/constants";
 
 import { RenderHtmlText } from "./RenderHtmlText";
 import { RenderUserInputs } from "./RenderUserInputs";

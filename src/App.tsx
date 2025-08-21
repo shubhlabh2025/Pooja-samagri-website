@@ -28,6 +28,7 @@ import PaymentSuccess from "./pages/Payment/PaymentSuccess.tsx";
 import PaymentFailure from "./pages/Payment/PaymentFailure.tsx";
 import { useGetUserDetailsQuery } from "./features/user/userApi.ts";
 import Policies from "./pages/Policies.tsx";
+import AccountDeletion from "./pages/AccountDeletion.tsx";
 
 function App() {
   useGeolocation();
@@ -102,6 +103,7 @@ function App() {
           <Route path="/address" element={<Address />} />
           <Route path="/profile" element={<UserProfilePage />} />
           <Route path="/privacy-policy" element={<Policies />} />
+          <Route path="/request-account-delete" element={<AccountDeletion />} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>

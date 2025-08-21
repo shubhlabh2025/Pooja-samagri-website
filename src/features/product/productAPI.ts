@@ -74,5 +74,8 @@ export const productAPI = createApi({
   }),
 });
 
-export const { useGetProductsInfiniteQuery, useGetProductByIdQuery, useSearchProductsInfiniteQuery } =
-  productAPI;
+export const {
+  useGetProductsInfiniteQuery,
+  useGetProductByIdQuery,
+  useSearchProductsInfiniteQuery,
+} = productAPI;
