@@ -18,7 +18,7 @@ const TopCategoryProducts = ({ category }: TopCategoryProductsProps) => {
     isError: productError,
   } = useSearchProductsInfiniteQuery({
     category_ids: category.id,
-    limit: 10,
+    limit: 30,
   });
 
   if (productLoading) {
