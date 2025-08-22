@@ -267,3 +267,17 @@ export const AppPoliciesText = `
 -->
 
 `;
+
+export const AccountDeletionText = `
+
+<section id="privacy-policy" style="font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #111;">
+  <h1 style="font-size: 1.8rem; margin: 0 0 .5rem;">Request Account Deletion – ShubhLabhPoojaSamagri</h1>
+  <p style="margin: 0 0 1rem;">
+    <strong>Steps:</strong></br>
+     <span>1. If you would like to delete your account and all associated data, please send an email to <a href="mailto:support@shubhlabhpoojasamagri.com">support@shubhlabhpoojasamagri.com</a> with the subject line "Account Deletion Request".</span></br>
+     <span>2. Once we receive your request, we will verify your identity using your registered phone number or email address and process the deletion within 7 business days.</span></br>
+     <span>3. Deleted data includes: your name, phone number, email address, delivery address, and order history. Certain information may be retained if required by law (e.g., tax invoices).</span>
+  </p>
+</section>  
+
+`;

@@ -3,9 +3,7 @@ import { AppPoliciesText } from "@/utils/constants";
 
 const Policies = () => {
   return (
-    <div className="flex flex-col p-4">
-      {RenderHtmlText(AppPoliciesText)}
-    </div>
+    <div className="flex flex-col p-4">{RenderHtmlText(AppPoliciesText)}</div>
   );
 };
 
