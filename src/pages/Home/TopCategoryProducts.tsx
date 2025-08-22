@@ -1,4 +1,4 @@
-import { useGetProductsInfiniteQuery } from "@/features/product/productAPI";
+import { useSearchProductsInfiniteQuery } from "@/features/product/productAPI";
 import type { TopCategoryProductsProps } from "@/interfaces/home";
 import { ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router";
@@ -16,9 +16,9 @@ const TopCategoryProducts = ({ category }: TopCategoryProductsProps) => {
     },
     isLoading: productLoading,
     isError: productError,
-  } = useGetProductsInfiniteQuery({
-    category_id: category.id,
-    limit: 15,
+  } = useSearchProductsInfiniteQuery({
+    category_ids: category.id,
+    limit: 10,
   });
 
   if (productLoading) {

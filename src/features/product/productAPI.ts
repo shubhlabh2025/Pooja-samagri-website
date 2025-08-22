@@ -5,6 +5,7 @@ import type {
   ProductResponse,
   ProductPageParam,
   SingleProductResponse,
+  searchProductsParams,
 } from "./productAPI.type";
 
 export const productAPI = createApi({
@@ -43,7 +44,7 @@ export const productAPI = createApi({
     }),
     searchProducts: builder.infiniteQuery<
       ProductResponse,
-      GetProductsParams,
+      searchProductsParams,
       ProductPageParam
     >({
       infiniteQueryOptions: {
@@ -62,6 +63,9 @@ export const productAPI = createApi({
           page: pageParam,
           limit: queryArg.limit || 30,
           ...(queryArg.q ? { q: queryArg.q } : {}),
+          ...(queryArg.category_ids
+            ? { category_ids: queryArg.category_ids }
+            : {}),
         },
       }),
     }),
@@ -74,5 +78,8 @@ export const productAPI = createApi({
   }),
 });
 
-export const { useGetProductsInfiniteQuery, useGetProductByIdQuery, useSearchProductsInfiniteQuery } =
-  productAPI;
+export const {
+  useGetProductsInfiniteQuery,
+  useGetProductByIdQuery,
+  useSearchProductsInfiniteQuery,
+} = productAPI;

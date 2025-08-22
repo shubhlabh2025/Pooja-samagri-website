@@ -55,8 +55,9 @@ export interface GetProductsParams {
 }
 
 export interface searchProductsParams {
-  q: string;
+  q?: string;
   limit?: number;
+  category_ids?: string | null;
 }
 
 export type ProductPageParam = number;

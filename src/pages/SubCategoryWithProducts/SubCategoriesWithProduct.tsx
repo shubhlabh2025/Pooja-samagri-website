@@ -1,4 +1,4 @@
-import { useGetProductsInfiniteQuery } from "@/features/product/productAPI";
+import { useSearchProductsInfiniteQuery } from "@/features/product/productAPI";
 import { useGetSubCategoriesInfiniteQuery } from "@/features/sub-category/subCategoryAPI";
 import { useNavigate, useParams } from "react-router";
 import SubCategorySideBar from "./SubCategorySideBar";
@@ -59,8 +59,8 @@ const SubCategoriesWithProductScreen = () => {
     fetchNextPage,
     isFetchingNextPage,
     isFetching,
-  } = useGetProductsInfiniteQuery({
-    category_id: selectedCategoryId,
+  } = useSearchProductsInfiniteQuery({
+    category_ids: selectedCategoryId,
     limit: 30,
   });
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768); // or whatever your breakpoint is

@@ -5,7 +5,7 @@ import { ProductDetailsSkeleton } from "@/components/skeletons/ProductDetailSkel
 import ErrorScreen from "@/components/error/ErrorScreen";
 import {
   useGetProductByIdQuery,
-  useGetProductsInfiniteQuery,
+  useSearchProductsInfiniteQuery,
 } from "@/features/product/productAPI";
 import type {
   Product,
@@ -65,9 +65,9 @@ const ProductDetailsScreen: React.FC = () => {
     }
   }, [productData, productResponse?.data]);
 
-  const { data: relatedProductResponse } = useGetProductsInfiniteQuery(
+  const { data: relatedProductResponse } = useSearchProductsInfiniteQuery(
     {
-      category_id: selectedCategoryId,
+      category_ids: selectedCategoryId,
       limit: 10,
     },
     {
