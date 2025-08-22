@@ -15,7 +15,14 @@ const PaymentBottomSheet = ({
       <DrawerHeader className="mb-3 p-0">
         <DrawerTitle className="text-lg font-semibold text-[#02060C]">
           <div className="flex flex-row justify-between">
-            <span> Choose a Payment Method</span>
+            <div className="flex flex-col">
+              <span> Choose a Payment Method</span>
+              <span className="text-xs text-orange-600">
+                Note - Orders will be delivered within 2 to 24 hours across
+                Hyderabad.
+              </span>
+            </div>
+
             <DrawerClose asChild>
               <X
                 size={24}
