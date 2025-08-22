@@ -68,7 +68,7 @@ const ProductDetailsScreen: React.FC = () => {
   const { data: relatedProductResponse } = useSearchProductsInfiniteQuery(
     {
       category_ids: selectedCategoryId,
-      limit: 30,
+      limit: 20,
     },
     {
       skip: !selectedCategoryId,

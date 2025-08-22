@@ -61,7 +61,7 @@ const SubCategoriesWithProductScreen = () => {
     isFetching,
   } = useSearchProductsInfiniteQuery({
     category_ids: selectedCategoryId,
-    limit: 30,
+    limit: 20,
   });
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768); // or whatever your breakpoint is
   useEffect(() => {
