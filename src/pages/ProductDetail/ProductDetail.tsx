@@ -266,7 +266,9 @@ const ProductDetailsScreen: React.FC = () => {
                 % OFF
               </div>
             </div>
-
+            <span className="text-sm text-orange-600">
+              Note - Orders will be delivered within 2 to 24 hours across Hyderabad.
+            </span>
             {/* Description */}
             <div className="hidden rounded-2xl border border-blue-100 bg-gradient-to-r from-blue-50 to-indigo-50 p-6 md:block">
               <p className="leading-relaxed text-gray-700">
