@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios, { AxiosError } from "axios";
-import { env } from "@/env/env";
+// import { env } from "@/env/env";
 
 // A type alias for the different states the form can be in.
 type FormStatus = 'idle' | 'loading' | 'success' | 'error';
