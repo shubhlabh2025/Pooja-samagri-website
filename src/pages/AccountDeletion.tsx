@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios, { AxiosError } from "axios";
+import { env } from "@/env/env";
 
 // A type alias for the different states the form can be in.
 type FormStatus = 'idle' | 'loading' | 'success' | 'error';
@@ -47,7 +48,7 @@ const AccountDeletion: React.FC = () => {
 
     try {
       // API Call to your backend. The request body is implicitly typed.
-      const response = await axios.post("/api/accounts/delete", {
+      const response = await axios.post(`${env.API_BASE_URL}/api/accounts/delete`, {
         phone_number: mobileNumber,
       });
 
