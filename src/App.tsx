@@ -103,7 +103,7 @@ function App() {
           <Route path="/address" element={<Address />} />
           <Route path="/profile" element={<UserProfilePage />} />
           <Route path="/privacy-policy" element={<Policies />} />
-          <Route path="/request-account-delete" element={<AccountDeletion />} />
+          <Route path="/account-deletion" element={<AccountDeletion />} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>

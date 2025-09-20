@@ -270,14 +270,65 @@ export const AppPoliciesText = `
 
 export const AccountDeletionText = `
 
-<section id="privacy-policy" style="font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #111;">
-  <h1 style="font-size: 1.8rem; margin: 0 0 .5rem;">Request Account Deletion – ShubhLabhPoojaSamagri</h1>
-  <p style="margin: 0 0 1rem;">
-    <strong>Steps:</strong></br>
-     <span>1. If you would like to delete your account and all associated data, please send an email to <a href="mailto:support@shubhlabhpoojasamagri.com">support@shubhlabhpoojasamagri.com</a> with the subject line "Account Deletion Request".</span></br>
-     <span>2. Once we receive your request, we will verify your identity using your registered phone number or email address and process the deletion within 7 business days.</span></br>
-     <span>3. Deleted data includes: your name, phone number, email address, delivery address, and order history. Certain information may be retained if required by law (e.g., tax invoices).</span>
+<section id="account-deletion-form" style="font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #111; max-width: 600px; margin: 2rem auto; padding: 2rem; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9;">
+
+  <h1 style="font-size: 1.8rem; margin: 0 0 1.5rem; text-align: center;">Request Account Deletion</h1>
+
+  <p style="margin: 0 0 2rem; text-align: center; color: #555;">
+    We're sorry to see you go. Please fill out the form below to submit your account deletion request.
   </p>
-</section>  
+
+  <form action="/submit-deletion-request" method="POST">
+    <div style="margin-bottom: 1.5rem;">
+      <label for="mobile" style="display: block; font-weight: 600; margin-bottom: 0.5rem;">Mobile Number:</label>
+      <input 
+        type="tel" 
+        id="mobile" 
+        name="mobile" 
+        placeholder="Enter your registered 10-digit mobile number" 
+        required 
+        style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 1rem;"
+      />
+    </div>
+
+    <div style="margin-bottom: 1.5rem;">
+      <label for="reason" style="display: block; font-weight: 600; margin-bottom: 0.5rem;">Reason for Deletion:</label>
+      <select 
+        id="reason" 
+        name="reason" 
+        required 
+        style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 1rem; background-color: white;"
+      >
+        <option value="" disabled selected>-- Please select a reason --</option>
+        <option value="no_longer_use">I no longer use the service.</option>
+        <option value="privacy_concerns">I have privacy concerns.</option>
+        <option value="app_not_useful">The app is not useful for me.</option>
+        <option value="switching_service">I am switching to another service.</option>
+        <option value="other">Other (please specify in comments).</option>
+      </select>
+    </div>
+
+    <div style="margin-bottom: 2rem;">
+      <label for="comment" style="display: block; font-weight: 600; margin-bottom: 0.5rem;">Optional Comments:</label>
+      <textarea 
+        id="comment" 
+        name="comment" 
+        rows="4" 
+        placeholder="Your feedback is valuable to us..." 
+        style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 1rem; resize: vertical;"
+      ></textarea>
+    </div>
+
+    <div style="text-align: center;">
+      <button 
+        type="submit" 
+        style="background-color: #d9534f; color: white; padding: 14px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 1.1rem; font-weight: 600; width: 100%;"
+      >
+        Submit Deletion Request
+      </button>
+    </div>
+  </form>
+
+</section>
 
 `;
