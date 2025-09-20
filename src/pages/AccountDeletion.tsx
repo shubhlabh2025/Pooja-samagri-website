@@ -48,7 +48,7 @@ const AccountDeletion: React.FC = () => {
 
     try {
       // API Call to your backend. The request body is implicitly typed.
-      const response = await axios.post(`${env.API_BASE_URL}/api/accounts/delete`, {
+      const response = await axios.post(`https://api.shubhlabhpoojasamagri.com/api/accounts/delete`, {
         phone_number: mobileNumber,
       });
 
