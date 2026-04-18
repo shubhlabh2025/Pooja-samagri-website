@@ -30,6 +30,33 @@ export const categoryAPI = createApi({
       }),
     }),
 
+    getInfiniteCategories: builder.infiniteQuery<
+      CategoryResponse,
+      GetCategoriesParams,
+      number
+    >({
+      infiniteQueryOptions: {
+        initialPageParam: 1,
+        getNextPageParam: (lastPage, _allPages, lastPageParam) => {
+          if (lastPage.meta.currentPage >= lastPage.meta.totalPages) {
+            return undefined;
+          }
+          return lastPageParam + 1;
+        },
+      },
+      query: ({ queryArg, pageParam }) => ({
+        url: "/api/categories",
+        method: "GET",
+        params: {
+          page: pageParam,
+          limit: queryArg.limit || 30,
+          ...(queryArg.q ? { q: queryArg.q } : {}),
+          ...(queryArg.sort_by ? { sort_by: queryArg.sort_by } : {}),
+          ...(queryArg.sort_order ? { sort_order: queryArg.sort_order } : {}),
+        },
+      }),
+    }),
+
     getCategoryById: builder.query<GetCategoryByIdResponse, string>({
       query: (id: string) => ({
         url: `/api/categories/${id}`,
@@ -39,4 +66,8 @@ export const categoryAPI = createApi({
   }),
 });
 
-export const { useGetCategoriesQuery, useGetCategoryByIdQuery } = categoryAPI;
+export const {
+  useGetCategoriesQuery,
+  useGetInfiniteCategoriesInfiniteQuery,
+  useGetCategoryByIdQuery,
+} = categoryAPI;

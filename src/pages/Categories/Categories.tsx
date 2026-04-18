@@ -1,40 +1,60 @@
 import { SubCategoriesWithProductSkeleton } from "@/components/skeletons/SubCategoriesWithProductSkeleton";
 import ErrorScreen from "@/components/error/ErrorScreen";
-import { useGetCategoriesQuery } from "@/features/category/categoryAPI";
+import { useGetInfiniteCategoriesInfiniteQuery } from "@/features/category/categoryAPI";
 import { useNavigate } from "react-router";
 import SimpleNavBar from "@/components/common/SimpleNavBar";
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 
 const CategoriesScreen = () => {
   const navigate = useNavigate();
-  const [currentPage, setCurrentPage] = useState(1);
   const categoriesPerPage = 12;
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
+  const loadMoreRef = useRef<HTMLDivElement | null>(null);
 
   const {
     data: categoryResponse = {
-      data: [],
-      meta: {
-        totalItems: 0,
-        totalPages: 0,
-        currentPage: 1,
-        pageSize: categoriesPerPage,
-      },
+      pages: [],
+      pageParams: [],
     },
     isError: CategoryError,
     isLoading: CategoryLoading,
-  } = useGetCategoriesQuery({
-    page: currentPage,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useGetInfiniteCategoriesInfiniteQuery({
     limit: categoriesPerPage,
     sort_by: "priority",
     sort_order: "DESC",
   });
 
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [currentPage]);
+  const categories = categoryResponse.pages.flatMap((page) => page.data);
 
-  const totalPages = categoryResponse.meta.totalPages;
-  const visiblePages = Array.from({ length: totalPages }, (_, index) => index + 1);
+  useEffect(() => {
+    const loadMoreNode = loadMoreRef.current;
+    const scrollRoot = scrollContainerRef.current;
+
+    if (!loadMoreNode || !scrollRoot || !hasNextPage) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        if (entry?.isIntersecting && !isFetchingNextPage) {
+          void fetchNextPage();
+        }
+      },
+      {
+        root: scrollRoot,
+        rootMargin: "200px 0px",
+        threshold: 0.1,
+      },
+    );
+
+    observer.observe(loadMoreNode);
+
+    return () => observer.disconnect();
+  }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
 
   if (CategoryLoading) {
     return <SubCategoriesWithProductSkeleton isSideBarVisible={false} />;
@@ -45,21 +65,18 @@ const CategoriesScreen = () => {
   }
 
   return (
-    // FIXED: Added proper scrolling container with height constraints and always visible scrollbar
     <div
+      ref={scrollContainerRef}
       className="relative h-screen w-full overflow-y-scroll bg-gray-50"
       style={{ scrollbarWidth: "auto", msOverflowStyle: "scrollbar" }}
     >
-      {/* Header - Fixed at top */}
       <div className="sticky top-0 z-10 bg-white shadow-sm">
         <SimpleNavBar navBarText={"Categories"} />
       </div>
 
-      {/* Scrollable content */}
       <div className="flex flex-col space-y-4 p-4">
-        {/* Responsive Grid */}
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 md:grid-cols-4">
-          {categoryResponse.data.map((cat) => (
+          {categories.map((cat) => (
             <div
               key={cat.id}
               className="group relative cursor-pointer overflow-hidden rounded-lg shadow-sm transition-transform duration-200 hover:scale-105"
@@ -79,48 +96,26 @@ const CategoriesScreen = () => {
           ))}
         </div>
 
-        {totalPages > 1 && (
-          <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
-            <button
-              type="button"
-              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-              disabled={currentPage === 1}
-              className="rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
-            >
-              Previous
-            </button>
+        <div ref={loadMoreRef} className="flex justify-center py-2">
+          {isFetchingNextPage && (
+            <div className="text-sm font-medium text-gray-500">
+              Loading more categories...
+            </div>
+          )}
 
-            {visiblePages.map((page) => (
-              <button
-                key={page}
-                type="button"
-                onClick={() => setCurrentPage(page)}
-                className={`rounded-md px-3 py-2 text-sm font-medium transition ${
-                  currentPage === page
-                    ? "bg-orange-500 text-white shadow-sm"
-                    : "border border-gray-300 bg-white text-gray-700 hover:bg-gray-100"
-                }`}
-              >
-                {page}
-              </button>
-            ))}
+          {!hasNextPage && categories.length > 0 && (
+            <div className="text-sm font-medium text-gray-400">
+              You have reached the end.
+            </div>
+          )}
+        </div>
 
-            <button
-              type="button"
-              onClick={() =>
-                setCurrentPage((prev) =>
-                  Math.min(prev + 1, categoryResponse.meta.totalPages),
-                )
-              }
-              disabled={currentPage === categoryResponse.meta.totalPages}
-              className="rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
-            >
-              Next
-            </button>
+        {categories.length === 0 && (
+          <div className="py-8 text-center text-sm font-medium text-gray-500">
+            No categories found.
           </div>
         )}
 
-        {/* Bottom spacing to ensure last items are visible */}
         <div className="h-4"></div>
       </div>
     </div>
