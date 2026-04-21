@@ -13,9 +13,10 @@ import type {
 } from "@/features/product/productAPI.type";
 import { Star, Truck, Shield, RotateCcw, Share2 } from "lucide-react";
 import { useState, useEffect, useMemo } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import ProductItem from "../Home/ProductItem";
 import { ShareDrawer } from "@/components/common/ShareDrawer";
+import { buildProductSlug, extractProductId } from "@/utils/productSlug";
 
 // Type definitions
 
@@ -28,7 +29,9 @@ const ProductDetailsScreen: React.FC = () => {
     null,
   );
 
-  const { productId = "" } = useParams<{ productId: string }>();
+  const { slug = "" } = useParams<{ slug: string }>();
+  const productId = useMemo(() => extractProductId(slug), [slug]);
+  const navigate = useNavigate();
 
   const {
     data: productResponse,
@@ -55,6 +58,11 @@ const ProductDetailsScreen: React.FC = () => {
         productData.product_variants[0];
       setSelectedVariant(defaultVariant);
       setSelectedImageIndex(0);
+
+      const canonicalSlug = buildProductSlug(defaultVariant.name, productData.id);
+      if (productData.id && slug !== canonicalSlug) {
+        navigate(`/products/${canonicalSlug}`, { replace: true });
+      }
     }
 
     // ✅ Set category after product fetch
@@ -97,7 +105,7 @@ const ProductDetailsScreen: React.FC = () => {
   const randomNumber = Math.floor(Math.random() * 100) + 1;
 
   const handleShareAction = (platform: string) => {
-    const productLink = `https://shubhlabhpoojasamagri.com/products/${productId}`;
+    const productLink = `https://shubhlabhpoojasamagri.com/products/${buildProductSlug(selectedVariant?.name, productId)}`;
     const encodedLink = encodeURIComponent(productLink);
     const message = encodeURIComponent("Check out this product!");
 

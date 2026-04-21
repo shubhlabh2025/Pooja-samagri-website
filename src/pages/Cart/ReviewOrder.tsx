@@ -4,6 +4,7 @@ import type { ReviewOrderProps } from "@/interfaces/cart";
 import CurrentlyUnavailable from "./CurrentlyUnavailable";
 import { useRemoveCartItemMutation } from "@/features/cart/cartAPI";
 import { useNavigate } from "react-router";
+import { buildProductPath } from "@/utils/productSlug";
 
 const ReviewOrder = ({ cartData }: ReviewOrderProps) => {
   const navigate = useNavigate();
@@ -32,7 +33,11 @@ const ReviewOrder = ({ cartData }: ReviewOrderProps) => {
             >
               <div
                 className="flex min-w-0 gap-3"
-                onClick={() => navigate(`/products/${item.variant.product_id}`)}
+                onClick={() =>
+                  navigate(
+                    buildProductPath(item.variant.name, item.variant.product_id),
+                  )
+                }
               >
                 <img
                   loading="lazy"

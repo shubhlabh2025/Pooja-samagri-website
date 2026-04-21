@@ -2,6 +2,7 @@ import type { CartItem } from "@/features/cart/cartAPI.type";
 import type { CurrentlyUnavailableProps } from "@/interfaces/cart";
 import { Trash2 } from "lucide-react";
 import { useNavigate } from "react-router";
+import { buildProductPath } from "@/utils/productSlug";
 
 const CurrentlyUnavailable = ({
   cartData,
@@ -25,7 +26,11 @@ const CurrentlyUnavailable = ({
           >
             <div
               className="flex gap-3"
-              onClick={() => navigate(`../products/${item.variant.product_id}`)}
+              onClick={() =>
+                navigate(
+                  `..${buildProductPath(item.variant.name, item.variant.product_id)}`,
+                )
+              }
             >
               <img
                 loading="lazy"

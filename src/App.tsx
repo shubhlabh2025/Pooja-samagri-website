@@ -97,7 +97,7 @@ function App() {
           <Route path="/categories" element={<CategoriesScreen />} />
 
           <Route
-            path="/products/:productId"
+            path="/products/:slug"
             element={<ProductDetailsScreen />}
           />
           <Route path="/address" element={<Address />} />

@@ -1,5 +1,6 @@
 import type { ProductCardInSearchBoxProps } from "@/interfaces/simple-navbar-props";
 import { useNavigate } from "react-router";
+import { buildProductPath } from "@/utils/productSlug";
 
 const ProductCardInSearchBox = ({ product }: ProductCardInSearchBoxProps) => {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ const ProductCardInSearchBox = ({ product }: ProductCardInSearchBoxProps) => {
     <li
       className="flex cursor-pointer items-center gap-2 py-2 transition hover:bg-gray-100"
       onClick={() => {
-        navigate(`/products/${product.id}`);
+        navigate(buildProductPath(defaultProductVariant?.name, product.id));
       }}
     >
       <img

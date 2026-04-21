@@ -3,6 +3,7 @@ import type { Product } from "@/features/product/productAPI.type";
 import TriggerProductVariantBottomSheet from "@/components/custom/button/TriggerProductVariantBottomSheet";
 import AddToCartCounter from "@/components/custom/button/AddToCartCounter";
 import { useNavigate } from "react-router";
+import { buildProductPath } from "@/utils/productSlug";
 
 interface ProductItemProps {
   product: Product;
@@ -25,7 +26,7 @@ const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
   );
 
   const handleNavigate = () => {
-    navigate(`/products/${product.id}`);
+    navigate(buildProductPath(defaultProductVariant?.name, product.id));
     navigate(0);
   };
 
