@@ -54,10 +54,22 @@ const ProductDetailsScreen: React.FC = () => {
   // intercept the browser back button so they go to the homepage instead
   // of exiting the site.
   useEffect(() => {
-    const idx = (window.history.state as { idx?: number } | null)?.idx ?? 0;
-    if (idx !== 0) return;
+    let isDirectLanding = false;
+    try {
+      isDirectLanding =
+        !document.referrer ||
+        new URL(document.referrer).host !== window.location.host;
+    } catch {
+      isDirectLanding = true;
+    }
+    if (!isDirectLanding) return;
 
-    window.history.pushState(window.history.state, "", window.location.href);
+    window.history.pushState(
+      { ...(window.history.state || {}), __ps_home_guard: true },
+      "",
+      window.location.href,
+    );
+
     const onPop = () => {
       navigate("/", { replace: true });
     };
