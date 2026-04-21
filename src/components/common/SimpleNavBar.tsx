@@ -9,7 +9,14 @@ const SimpleNavBar = ({ navBarText }: SimpleNavBarProps) => {
       <ChevronLeft
         size={20}
         className="cursor-pointer"
-        onClick={() => navigate(-1)}
+        onClick={() => {
+          const idx = (window.history.state as { idx?: number } | null)?.idx ?? 0;
+          if (idx === 0) {
+            navigate("/", { replace: true });
+          } else {
+            navigate(-1);
+          }
+        }}
       />
       <p className="line-clamp-1 text-lg leading-[21px] font-semibold -tracking-[0.4px] text-[#02060cbf]">
         {navBarText}

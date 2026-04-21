@@ -50,6 +50,21 @@ const ProductDetailsScreen: React.FC = () => {
     );
   }, [productResponse?.data]);
 
+  // If the user landed directly on this page (e.g. via a shared link),
+  // intercept the browser back button so they go to the homepage instead
+  // of exiting the site.
+  useEffect(() => {
+    const idx = (window.history.state as { idx?: number } | null)?.idx ?? 0;
+    if (idx !== 0) return;
+
+    window.history.pushState(window.history.state, "", window.location.href);
+    const onPop = () => {
+      navigate("/", { replace: true });
+    };
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
+  }, [navigate]);
+
   // Set default variant when product data loads
   useEffect(() => {
     if (productData.product_variants?.length > 0) {
