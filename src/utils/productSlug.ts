@@ -24,3 +24,15 @@ export function extractProductId(slug: string): string {
 export function buildProductPath(name: string | undefined, id: string): string {
   return `/products/${buildProductSlug(name, id)}`;
 }
+
+export function buildCategorySlug(name: string | undefined, id: string): string {
+  return buildProductSlug(name, id);
+}
+
+export function extractCategoryId(slug: string): string {
+  return extractProductId(slug);
+}
+
+export function buildCategoryPath(name: string | undefined, id: string): string {
+  return `/categories/${buildCategorySlug(name, id)}`;
+}

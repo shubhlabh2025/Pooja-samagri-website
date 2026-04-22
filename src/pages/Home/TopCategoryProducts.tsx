@@ -3,6 +3,7 @@ import type { TopCategoryProductsProps } from "@/interfaces/home";
 import { ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router";
 import ProductItem from "./ProductItem";
+import { buildCategoryPath } from "@/utils/productSlug";
 
 const TopCategoryProducts = ({ category }: TopCategoryProductsProps) => {
   const navigate = useNavigate();
@@ -49,7 +50,9 @@ const TopCategoryProducts = ({ category }: TopCategoryProductsProps) => {
         <div className="h-[1px] flex-1 [background:var(--bg-categroy-line)]"></div>
         <div
           className="flex cursor-pointer items-center gap-0.5"
-          onClick={() => navigate(`/categories/${category.id}`)}
+          onClick={() =>
+            navigate(buildCategoryPath(category.name, category.id))
+          }
         >
           <p className="text-[13px] leading-[17px] font-semibold tracking-[-0.33px] whitespace-nowrap text-[#ff5200]">
             See All

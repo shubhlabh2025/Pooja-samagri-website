@@ -10,6 +10,7 @@ import AboutSection from "@/components/custom/AboutSection";
 import { useAppSelector } from "@/app/hooks";
 import { selectConfiguration } from "@/features/configuration/configurationSlice";
 import { useEffect, useState } from "react";
+import SEO from "@/components/common/SEO";
 
 const Home = () => {
   const {
@@ -45,6 +46,11 @@ const Home = () => {
 
   return (
     <div className="overflow-auto">
+      <SEO
+        title="Shubhlabh - Buy Authentic Pooja Samagri & Spiritual Items Online"
+        description="Shop authentic pooja samagri online at Shubhlabh. Agarbatti, idols, diyas, ghee, kumkum, havan samagri and more — fast delivery across Hyderabad."
+        path="/"
+      />
       <CategoryList />
       <BannerCarousel
         adBanner={config.data?.data.ad_banners || []}

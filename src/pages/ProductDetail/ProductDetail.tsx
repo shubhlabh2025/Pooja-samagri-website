@@ -17,6 +17,7 @@ import { useNavigate, useParams } from "react-router";
 import ProductItem from "../Home/ProductItem";
 import { ShareDrawer } from "@/components/common/ShareDrawer";
 import { buildProductSlug, extractProductId } from "@/utils/productSlug";
+import SEO from "@/components/common/SEO";
 
 // Type definitions
 
@@ -54,21 +55,10 @@ const ProductDetailsScreen: React.FC = () => {
   // intercept the browser back button so they go to the homepage instead
   // of exiting the site.
   useEffect(() => {
-    let isDirectLanding = false;
-    try {
-      isDirectLanding =
-        !document.referrer ||
-        new URL(document.referrer).host !== window.location.host;
-    } catch {
-      isDirectLanding = true;
-    }
-    if (!isDirectLanding) return;
+    const idx = (window.history.state as { idx?: number } | null)?.idx;
+    if (idx !== 0) return;
 
-    window.history.pushState(
-      { ...(window.history.state || {}), __ps_home_guard: true },
-      "",
-      window.location.href,
-    );
+    window.history.pushState(window.history.state, "", window.location.href);
 
     const onPop = () => {
       navigate("/", { replace: true });
@@ -181,8 +171,43 @@ const ProductDetailsScreen: React.FC = () => {
   if (isLoading || !selectedVariant) return <ProductDetailsSkeleton />;
   if (isError) return <ErrorScreen />;
 
+  const canonicalPath = `/products/${buildProductSlug(selectedVariant.name, productData.id)}`;
+  const seoTitle = `${selectedVariant.name} — ${selectedVariant.display_label} | Shubhlabh`;
+  const seoDescription = selectedVariant.description?.slice(0, 160) ||
+    `Buy ${selectedVariant.name} online at Shubhlabh. Authentic pooja samagri delivered fast.`;
+  const productJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: selectedVariant.name,
+    description: selectedVariant.description,
+    image: selectedVariant.images,
+    sku: selectedVariant.id,
+    brand: {
+      "@type": "Brand",
+      name: selectedVariant.brand_name,
+    },
+    offers: {
+      "@type": "Offer",
+      url: `https://shubhlabhpoojasamagri.com${canonicalPath}`,
+      priceCurrency: "INR",
+      price: selectedVariant.price,
+      availability: selectedVariant.out_of_stock
+        ? "https://schema.org/OutOfStock"
+        : "https://schema.org/InStock",
+      itemCondition: "https://schema.org/NewCondition",
+    },
+  };
+
   return (
     <div className="relative h-screen w-full max-w-full overflow-y-auto bg-gradient-to-br to-white">
+      <SEO
+        title={seoTitle}
+        description={seoDescription}
+        path={canonicalPath}
+        image={selectedVariant.images?.[0]}
+        type="product"
+        jsonLd={productJsonLd}
+      />
       {/* Header - Fixed at top */}
       <div className="sticky top-0 z-10">
         <SimpleNavBar navBarText="Product Details" />

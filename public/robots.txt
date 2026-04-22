@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Disallow: /cart
+Disallow: /orders
+Disallow: /profile
+Disallow: /address
+Disallow: /payment-page
+Disallow: /order-success
+Disallow: /order-failure
+
+Sitemap: https://shubhlabhpoojasamagri.com/sitemap.xml

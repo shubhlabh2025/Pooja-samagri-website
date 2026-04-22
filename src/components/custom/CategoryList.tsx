@@ -2,6 +2,7 @@ import { useGetCategoriesQuery } from "@/features/category/categoryAPI";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { useNavigate } from "react-router";
 import { ChevronRight } from "lucide-react";
+import { buildCategoryPath } from "@/utils/productSlug";
 
 const CategoryList = () => {
   const navigate = useNavigate();
@@ -37,7 +38,9 @@ const CategoryList = () => {
             <div
               key={category.id}
               className="flex flex-col items-center gap-2"
-              onClick={() => navigate(`/categories/${category.id}`)}
+              onClick={() =>
+                navigate(buildCategoryPath(category.name, category.id))
+              }
             >
               <div className="rounded-[37.5px] bg-[#fef3f9]">
                 <img

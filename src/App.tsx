@@ -86,7 +86,7 @@ function App() {
             <Route path="order-failure" element={<PaymentFailure />} />
           </Route>
           <Route
-            path="/categories/:categoryId"
+            path="/categories/:slug"
             element={
               <MainLayoutWithCart>
                 <SubCategoriesWithProductScreen />

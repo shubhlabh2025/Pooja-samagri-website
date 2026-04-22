@@ -3,7 +3,7 @@ import { useGetSubCategoriesInfiniteQuery } from "@/features/sub-category/subCat
 import { useNavigate, useParams } from "react-router";
 import SubCategorySideBar from "./SubCategorySideBar";
 import { useGetCategoryByIdQuery } from "@/features/category/categoryAPI";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import ProductSection from "./ProductSection";
 import { SubCategoriesWithProductSkeleton } from "@/components/skeletons/SubCategoriesWithProductSkeleton";
 import ErrorScreen from "@/components/error/ErrorScreen";
@@ -11,9 +11,12 @@ import { ChevronLeft } from "lucide-react";
 import BannerCarousel from "@/components/custom/BannerCarousel";
 import { useAppSelector } from "@/app/hooks";
 import { selectConfiguration } from "@/features/configuration/configurationSlice";
+import SEO from "@/components/common/SEO";
+import { buildCategorySlug, extractCategoryId } from "@/utils/productSlug";
 
 const SubCategoriesWithProductScreen = () => {
-  const { categoryId = "" } = useParams<{ categoryId: string }>();
+  const { slug = "" } = useParams<{ slug: string }>();
+  const categoryId = useMemo(() => extractCategoryId(slug), [slug]);
   const navigate = useNavigate();
 
   const {
@@ -73,6 +76,16 @@ const SubCategoriesWithProductScreen = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // Canonical slug redirect — upgrades old UUID-only URLs to the slug form.
+  useEffect(() => {
+    const cat = categoryData.data;
+    if (!cat.id || !cat.name) return;
+    const canonical = buildCategorySlug(cat.name, cat.id);
+    if (slug !== canonical) {
+      navigate(`/categories/${canonical}`, { replace: true });
+    }
+  }, [categoryData.data, slug, navigate]);
+
   const allProducts =
     infiniteProductData?.pages.flatMap((page) => page.data) || [];
   const totalProducts = infiniteProductData?.pages[0]?.meta.totalItems || 0;
@@ -97,8 +110,52 @@ const SubCategoriesWithProductScreen = () => {
     (banner) => banner.type === "category",
   );
 
+  const categoryName = categoryData.data.name;
+  const categoryPath = `/categories/${buildCategorySlug(categoryName, categoryData.data.id)}`;
+  const categoryJsonLd = categoryName
+    ? {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        name: `${categoryName} — Shubhlabh Pooja Samagri`,
+        url: `https://shubhlabhpoojasamagri.com${categoryPath}`,
+        description: `Shop ${categoryName} online at Shubhlabh. Authentic pooja items delivered fast.`,
+        breadcrumb: {
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            {
+              "@type": "ListItem",
+              position: 1,
+              name: "Home",
+              item: "https://shubhlabhpoojasamagri.com/",
+            },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: "Categories",
+              item: "https://shubhlabhpoojasamagri.com/categories",
+            },
+            {
+              "@type": "ListItem",
+              position: 3,
+              name: categoryName,
+              item: `https://shubhlabhpoojasamagri.com${categoryPath}`,
+            },
+          ],
+        },
+      }
+    : undefined;
+
   return (
     <div className="flex h-full gap-1 bg-[#f0f0f5] pt-1">
+      {categoryName && (
+        <SEO
+          title={`${categoryName} — Buy Online at Shubhlabh Pooja Samagri`}
+          description={`Shop ${categoryName} online at Shubhlabh. Authentic pooja samagri and spiritual items delivered across Hyderabad.`}
+          path={categoryPath}
+          image={categoryData.data.image || undefined}
+          jsonLd={categoryJsonLd}
+        />
+      )}
       <div className="shadow-subcategory-screen flex h-full max-h-full max-w-[250px] flex-8 flex-col rounded-tr-lg bg-white">
         <div className="flex min-h-[40px] items-center gap-3 border-b border-[#282c3f0d] px-3 pt-4 pb-[12px] text-[#02060cbf]">
           <ChevronLeft

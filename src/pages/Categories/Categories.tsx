@@ -4,6 +4,7 @@ import { useGetInfiniteCategoriesInfiniteQuery } from "@/features/category/categ
 import { useNavigate } from "react-router";
 import SimpleNavBar from "@/components/common/SimpleNavBar";
 import { useEffect, useRef } from "react";
+import { buildCategoryPath } from "@/utils/productSlug";
 
 const CategoriesScreen = () => {
   const navigate = useNavigate();
@@ -80,7 +81,7 @@ const CategoriesScreen = () => {
             <div
               key={cat.id}
               className="group relative cursor-pointer overflow-hidden rounded-lg shadow-sm transition-transform duration-200 hover:scale-105"
-              onClick={() => navigate(`/categories/${cat.id}`)}
+              onClick={() => navigate(buildCategoryPath(cat.name, cat.id))}
             >
               <img
                 loading="lazy"

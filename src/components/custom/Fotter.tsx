@@ -166,7 +166,7 @@ const Footer = () => {
           <img loading="lazy" src={paytm} alt="Paytm" className="h-[45px]" />
         </div>
         <p className="text-center text-xs tracking-wide text-[#ffffffb3] sm:text-left">
-          © 2025 ShubhLabh. All rights reserved.
+          © 2026 ShubhLabh. All rights reserved.
         </p>
       </div>
       {cartRespnse.data.length > 0 && (
