@@ -1,5 +1,5 @@
 export const env = {
-  //API_BASE_URL: import.meta.env.VITE_API_BASE_URL,
-   API_BASE_URL: "http://0.0.0.0:8000/",
+  API_BASE_URL: import.meta.env.VITE_API_BASE_URL,
+  // API_BASE_URL: "http://0.0.0.0:8000/",
   MAPS_KEY: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
 };
