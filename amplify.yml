@@ -3,14 +3,12 @@ frontend:
   phases:
     preBuild:
       commands:
-        # Chromium system deps for Puppeteer (react-snap).
-        # Amplify build image is Amazon Linux 2 — install once.
-        - yum install -y atk at-spi2-atk cups-libs libdrm libxkbcommon libXcomposite libXdamage libXfixes libXrandr mesa-libgbm alsa-lib pango cairo gtk3 nss || true
-        - npm ci
+        # Prefer `npm ci` (reproducible) when lockfile is present, fall back otherwise.
+        - npm ci || npm install
     build:
       commands:
-        # Generate sitemap FROM your live API, then build, then react-snap prerenders.
-        - npm run sitemap
+        # Generate sitemap from live API (non-fatal if API is unreachable).
+        - npm run sitemap || echo "sitemap step skipped"
         - npm run build
   artifacts:
     baseDirectory: dist
