@@ -9,3 +9,7 @@ Disallow: /order-success
 Disallow: /order-failure
 
 Sitemap: https://shubhlabhpoojasamagri.com/sitemap.xml
+
+# Curated summary for AI assistants (ChatGPT, Claude, Perplexity, etc.)
+# https://llmstxt.org/
+LLM-Content: https://shubhlabhpoojasamagri.com/llms.txt
