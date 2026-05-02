@@ -7,8 +7,10 @@ frontend:
         - npm ci || npm install
     build:
       commands:
-        # Generate sitemap from live API (non-fatal if API is unreachable).
-        - npm run sitemap || echo "sitemap step skipped"
+        # vite.config.ts now generates the sitemap (with dynamic product +
+        # category URLs from the live API) as part of the build.
+        # Look for "[sitemap] total dynamicRoutes: N" in the build log to
+        # confirm dynamic URLs were fetched.
         - npm run build
   artifacts:
     baseDirectory: dist
