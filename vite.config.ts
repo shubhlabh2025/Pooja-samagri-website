@@ -43,41 +43,64 @@ async function fetchJsonSafe<T>(url: string): Promise<T | null> {
   }
 }
 
+// API caps `limit` at 100 per request, so we paginate. Stop early if a page
+// returns fewer than the page size or after a hard safety cap.
+const PAGE_SIZE = 100;
+const MAX_PAGES = 100; // 100 * 100 = 10k items max — plenty.
+
+interface PaginatedResponse<T> {
+  success: boolean;
+  data: T[];
+  meta?: {
+    totalPages?: number;
+    currentPage?: number;
+  };
+}
+
+async function fetchAllPages<T>(
+  baseUrl: string,
+  label: string
+): Promise<T[]> {
+  const all: T[] = [];
+  for (let page = 1; page <= MAX_PAGES; page++) {
+    const sep = baseUrl.includes("?") ? "&" : "?";
+    const url = `${baseUrl}${sep}page=${page}&limit=${PAGE_SIZE}`;
+    const res = await fetchJsonSafe<PaginatedResponse<T>>(url);
+    if (!res?.data) break;
+    all.push(...res.data);
+
+    const totalPages = res.meta?.totalPages ?? 1;
+    if (res.data.length < PAGE_SIZE || page >= totalPages) break;
+  }
+  console.log(`[sitemap] fetched ${all.length} ${label}`);
+  return all;
+}
+
 // Pulls products + categories from the live API. Failures are non-fatal —
-// build still succeeds with static routes only, and the build log will tell
-// you exactly what was added or skipped.
+// build still succeeds with static routes only.
 async function getDynamicRoutes(): Promise<string[]> {
   const routes: string[] = [];
 
-  const cats = await fetchJsonSafe<{
-    data: { id: string; name: string }[];
-  }>(`${API_URL}/api/categories?page=1&limit=500`);
-  if (cats?.data) {
-    for (const c of cats.data) {
-      routes.push(`/categories/${buildSlug(c.name, c.id)}`);
-    }
-    console.log(`[sitemap] +${cats.data.length} category routes`);
+  const categories = await fetchAllPages<{ id: string; name: string }>(
+    `${API_URL}/api/categories`,
+    "categories"
+  );
+  for (const c of categories) {
+    routes.push(`/categories/${buildSlug(c.name, c.id)}`);
   }
 
-  const prods = await fetchJsonSafe<{
-    data: {
-      id: string;
-      product_variants: { name: string; default_variant: boolean }[];
-    }[];
-  }>(`${API_URL}/api/products/search?page=1&limit=5000`);
-  if (prods?.data) {
-    let added = 0;
-    for (const p of prods.data) {
-      const v =
-        p.product_variants.find((x) => x.default_variant) ||
-        p.product_variants[0];
-      if (!v) continue;
-      const slug = buildSlug(v.name, p.id);
-      if (!UUID_RE.test(slug) && slug !== p.id) continue;
-      routes.push(`/products/${slug}`);
-      added++;
-    }
-    console.log(`[sitemap] +${added} product routes`);
+  const products = await fetchAllPages<{
+    id: string;
+    product_variants: { name: string; default_variant: boolean }[];
+  }>(`${API_URL}/api/products/search`, "products");
+  for (const p of products) {
+    const v =
+      p.product_variants.find((x) => x.default_variant) ||
+      p.product_variants[0];
+    if (!v) continue;
+    const slug = buildSlug(v.name, p.id);
+    if (!UUID_RE.test(slug) && slug !== p.id) continue;
+    routes.push(`/products/${slug}`);
   }
 
   return routes;
